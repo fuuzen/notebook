@@ -1,0 +1,83 @@
+site_name: 風船の笔记本
+site_url: https://fuuzen.github.io/notebook
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    ## Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.path
+    - navigation.top
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.prune
+    - navigation.indexes
+    - navigation.footer
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+    - toc.follow
+  font:
+    code: JetBrains Mono
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.betterem
+  - pymdownx.blocks.caption
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.keys
+  - pymdownx.details
+  - attr_list:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+  - pymdownx.tabbed:
+      slugify:
+        !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details:
+  - admonition:
+  - toc:
+      permalink: true
+      slugify:
+        !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+# 懒得搞 navigation 了
+# nav:
+#   - ABOUT: index.md 
+#   - 计算机科学: cs
+#   - 电子信息: ie
+#   - 数学: math
+#   - 思政:
+#     - si-zheng/index.md
+#     - 马原:
+#       - si-zheng/ma-yuan/ke-hou-xi-ti.md
+#       - si-zheng/ma-yuan/ti-gang.md
+
