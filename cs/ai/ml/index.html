@@ -1,0 +1,3069 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/ml/">
+      
+      
+        <link rel="prev" href="../knowledge-presentation-and-resolution/">
+      
+      
+        <link rel="next" href="../rl/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>机器学习 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#概述" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              机器学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#概述" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#机器学习范式" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习范式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="机器学习范式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#监督学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      监督学习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="监督学习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回归问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      回归问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分类问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#聚类问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚类问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无监督学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#机器学习归纳" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习归纳
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="机器学习归纳">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表征模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      表征(模型)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="表征(模型)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      数值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#符号函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基于实例的函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于实例的函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率图解模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图解模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优化搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化/搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化/搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动态编程" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态编程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分而治之" class="md-nav__link">
+    <span class="md-ellipsis">
+      分而治之
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#进化计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      进化计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#评估方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一些经验" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些经验
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#损失函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优化算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#损失函数_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="损失函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mse" class="md-nav__link">
+    <span class="md-ellipsis">
+      MSE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmse" class="md-nav__link">
+    <span class="md-ellipsis">
+      RMSE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mae" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性回归
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#过拟合的处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      过拟合的处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="过拟合的处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交叉验证" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉验证
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#获得更多的训练数据" class="md-nav__link">
+    <span class="md-ellipsis">
+      获得更多的训练数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#降维" class="md-nav__link">
+    <span class="md-ellipsis">
+      降维
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正则化" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集成学习方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      集成学习方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#欠拟合的处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      欠拟合的处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="欠拟合的处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#添加新特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加新特征
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增加模型复杂度" class="md-nav__link">
+    <span class="md-ellipsis">
+      增加模型复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#减小正则化系数" class="md-nav__link">
+    <span class="md-ellipsis">
+      减小正则化系数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#分类问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分类问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑回归
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm" class="md-nav__link">
+    <span class="md-ellipsis">
+      SVM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#聚类问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚类问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="聚类问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K-means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优点缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#决策树模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      决策树模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="决策树模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#伪代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信息增益id3" class="md-nav__link">
+    <span class="md-ellipsis">
+      信息增益(ID3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增益率c45" class="md-nav__link">
+    <span class="md-ellipsis">
+      增益率(C4.5)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基尼系数cart" class="md-nav__link">
+    <span class="md-ellipsis">
+      基尼系数(CART)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#剪枝" class="md-nav__link">
+    <span class="md-ellipsis">
+      剪枝
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#概述" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#机器学习范式" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习范式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="机器学习范式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#监督学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      监督学习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="监督学习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回归问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      回归问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分类问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#聚类问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚类问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无监督学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#机器学习归纳" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习归纳
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="机器学习归纳">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表征模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      表征(模型)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="表征(模型)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      数值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#符号函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基于实例的函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于实例的函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率图解模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图解模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优化搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化/搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化/搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动态编程" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态编程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分而治之" class="md-nav__link">
+    <span class="md-ellipsis">
+      分而治之
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#进化计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      进化计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#评估方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一些经验" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些经验
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#损失函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优化算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      回归
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="回归">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#损失函数_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      损失函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="损失函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mse" class="md-nav__link">
+    <span class="md-ellipsis">
+      MSE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmse" class="md-nav__link">
+    <span class="md-ellipsis">
+      RMSE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mae" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性回归
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#梯度下降_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度下降
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#过拟合的处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      过拟合的处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="过拟合的处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交叉验证" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉验证
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#获得更多的训练数据" class="md-nav__link">
+    <span class="md-ellipsis">
+      获得更多的训练数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#降维" class="md-nav__link">
+    <span class="md-ellipsis">
+      降维
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正则化" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集成学习方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      集成学习方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#欠拟合的处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      欠拟合的处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="欠拟合的处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#添加新特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加新特征
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增加模型复杂度" class="md-nav__link">
+    <span class="md-ellipsis">
+      增加模型复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#减小正则化系数" class="md-nav__link">
+    <span class="md-ellipsis">
+      减小正则化系数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#分类问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分类问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑回归" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑回归
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svm" class="md-nav__link">
+    <span class="md-ellipsis">
+      SVM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#聚类问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚类问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="聚类问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      K-means
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K-means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优点缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#决策树模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      决策树模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="决策树模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#伪代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信息增益id3" class="md-nav__link">
+    <span class="md-ellipsis">
+      信息增益(ID3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增益率c45" class="md-nav__link">
+    <span class="md-ellipsis">
+      增益率(C4.5)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基尼系数cart" class="md-nav__link">
+    <span class="md-ellipsis">
+      基尼系数(CART)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#剪枝" class="md-nav__link">
+    <span class="md-ellipsis">
+      剪枝
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>机器学习</h1>
+
+<h2 id="概述">概述<a class="headerlink" href="#概述" title="Permanent link">&para;</a></h2>
+<h3 id="机器学习范式">机器学习范式<a class="headerlink" href="#机器学习范式" title="Permanent link">&para;</a></h3>
+<ul>
+<li>监督学习（归纳学习）</li>
+<li>给定训练数据 training data</li>
+<li>和期望的输出（标签）desired outputs (with labels)</li>
+<li>半监督学习</li>
+<li>给定训练数据 training data</li>
+<li>和部分期望的输出 some labels</li>
+<li>无监督学习</li>
+<li>仅给定训练数据 training data</li>
+<li>without labels</li>
+<li>强化学习 Reinforce Learning (RL)</li>
+<li>从序列决策中获取奖励 observations and periodic rewards as the agent takes sequential actions;</li>
+</ul>
+<h4 id="监督学习">监督学习<a class="headerlink" href="#监督学习" title="Permanent link">&para;</a></h4>
+<h5 id="回归问题">回归问题<a class="headerlink" href="#回归问题" title="Permanent link">&para;</a></h5>
+<p>给定 <span class="arithmatex">\((x_1,y_1),(x_2, y_2),\cdots,(x_n,y_n)\)</span> ，学习一个函数 <span class="arithmatex">\(f(x)\)</span> 能够根据输入 <span class="arithmatex">\(x\)</span> 预测 <span class="arithmatex">\(y\)</span> ，其中 <span class="arithmatex">\(y\)</span> 为<strong>数值</strong>，即<strong>回归</strong>。</p>
+<h5 id="分类问题">分类问题<a class="headerlink" href="#分类问题" title="Permanent link">&para;</a></h5>
+<p>给定 <span class="arithmatex">\((x_1,y_1),(x_2, y_2),\cdots,(x_n,y_n)\)</span> ，学习一个函数 <span class="arithmatex">\(f(x)\)</span> 能够根据输入 <span class="arithmatex">\(x\)</span> 预测 <span class="arithmatex">\(y\)</span> ，其中 <span class="arithmatex">\(y\)</span> 为<strong>类别</strong>，即<strong>分类</strong>。</p>
+<h5 id="聚类问题">聚类问题<a class="headerlink" href="#聚类问题" title="Permanent link">&para;</a></h5>
+<p>给定 <span class="arithmatex">\(x_1,x_2,\cdots,x_n\)</span>（无标签），<span class="arithmatex">\(x\)</span> 是多维的，每一维对应一个属性，输出 <span class="arithmatex">\(x\)</span> 的隐变量</p>
+<h4 id="无监督学习">无监督学习<a class="headerlink" href="#无监督学习" title="Permanent link">&para;</a></h4>
+<p>独立分量分析（ICA）：一种用于分离混合信号中不同独立源的方法</p>
+<p>e g :</p>
+<ul>
+<li>构建计算集群</li>
+<li>社交网络分析</li>
+<li>天文数据分析</li>
+<li>市场分割</li>
+</ul>
+<h4 id="强化学习">强化学习<a class="headerlink" href="#强化学习" title="Permanent link">&para;</a></h4>
+<p>输入一组包括状态、动作、延迟奖励的序列，输出一个策略</p>
+<p>策略是一个从状态到行动的映射函数，表明每个状态下所采取的行动或行动的分布</p>
+<p>e g ：</p>
+<ul>
+<li>分配问题</li>
+<li>游戏 AI</li>
+<li>机器人走迷宫</li>
+<li>控制平衡问题</li>
+</ul>
+<h3 id="机器学习归纳">机器学习归纳<a class="headerlink" href="#机器学习归纳" title="Permanent link">&para;</a></h3>
+<p>现如今已有数以万计的机器学习算法，每年仍有数百种新方法。万变不离其宗，每种机器学习都由以下三部分组成：</p>
+<ul>
+<li>表征（模型）</li>
+<li>优化 / 搜索</li>
+<li>评估</li>
+</ul>
+<h4 id="表征模型">表征(模型)<a class="headerlink" href="#表征模型" title="Permanent link">&para;</a></h4>
+<h5 id="数值函数">数值函数<a class="headerlink" href="#数值函数" title="Permanent link">&para;</a></h5>
+<p>线性回归</p>
+<p>神经网络</p>
+<p>支持向量机</p>
+<h5 id="符号函数">符号函数<a class="headerlink" href="#符号函数" title="Permanent link">&para;</a></h5>
+<p>决策树</p>
+<p>命题逻辑中的规则</p>
+<p>一阶谓语逻辑中的规则</p>
+<h5 id="基于实例的函数">基于实例的函数<a class="headerlink" href="#基于实例的函数" title="Permanent link">&para;</a></h5>
+<p>最近邻</p>
+<p>基于案例求解</p>
+<h5 id="概率图解模型">概率图解模型<a class="headerlink" href="#概率图解模型" title="Permanent link">&para;</a></h5>
+<p>朴素贝叶斯</p>
+<p>贝叶斯网络</p>
+<p>隐性马尔可夫模型（HMMs）</p>
+<p>概率上下文自由语法（PCFGs）</p>
+<p>马尔可夫网络</p>
+<h4 id="优化搜索">优化/搜索<a class="headerlink" href="#优化搜索" title="Permanent link">&para;</a></h4>
+<h5 id="梯度下降">梯度下降<a class="headerlink" href="#梯度下降" title="Permanent link">&para;</a></h5>
+<p>感知机</p>
+<p>反向传播算法</p>
+<h5 id="动态编程">动态编程<a class="headerlink" href="#动态编程" title="Permanent link">&para;</a></h5>
+<p>HMM 学习</p>
+<p>PCFG 学习</p>
+<h5 id="分而治之">分而治之<a class="headerlink" href="#分而治之" title="Permanent link">&para;</a></h5>
+<p>决策树归纳法</p>
+<p>规则学习</p>
+<h5 id="进化计算">进化计算<a class="headerlink" href="#进化计算" title="Permanent link">&para;</a></h5>
+<p>遗传算法（GA）</p>
+<p>遗传编程（GP）</p>
+<p>神经进化算法</p>
+<h4 id="评估方法">评估方法<a class="headerlink" href="#评估方法" title="Permanent link">&para;</a></h4>
+<p>准确率</p>
+<p>精度和召回率</p>
+<p>均方误差</p>
+<p>先验概率</p>
+<p>后验概率</p>
+<p>成本/效率</p>
+<p>边际效用</p>
+<p>熵</p>
+<p>KL 散度</p>
+<p>......</p>
+<h4 id="一些经验">一些经验<a class="headerlink" href="#一些经验" title="Permanent link">&para;</a></h4>
+<p>机器学习可以被看作是利用直接或间接的经验来逼近一个选定的目标函数。</p>
+<p>函数近似可以看作是在假定的空间（函数的表征）中寻找最适合一组参数。</p>
+<p>不同的学习方法设定不同的假定空间（表征语言）和 / 或 采用不同的搜索技术</p>
+<h2 id="基本方法">基本方法<a class="headerlink" href="#基本方法" title="Permanent link">&para;</a></h2>
+<p>机器学习的开发流程：</p>
+<ol>
+<li>数据搜集</li>
+<li>数据清洗</li>
+<li>特征工程</li>
+<li>数据建模</li>
+</ol>
+<h3 id="模型">模型<a class="headerlink" href="#模型" title="Permanent link">&para;</a></h3>
+<p>机器学习首先要考虑使用什么样的模型，直观理解就是使用什么分布函数拟合数据。</p>
+<p>模型的类别，大致有两种：</p>
+<ul>
+<li>概率模型 (Probabilistic Model)</li>
+<li>决策树、朴素贝叶斯、隐马尔科夫模型、高斯混合模型</li>
+<li>非概率模型 (Non-Probabilistic Model)</li>
+<li>感知机、支持向量机、KNN、AdaBoost、K-means 以及神经网络</li>
+</ul>
+<h3 id="损失函数">损失函数<a class="headerlink" href="#损失函数" title="Permanent link">&para;</a></h3>
+<ul>
+<li>0-1 损失函数 (0-1 Loss Function)
+  $$
+  L(Y,f(X))=\begin{cases}
+  1,Y\ne f(x)\
+  0,Y=f(X)
+  \end{cases}
+  $$</li>
+<li>平方损失函数 (Quadratic Loss Function)
+  $$
+  L(Y,f(X))=(Y-f(X))^2
+  $$</li>
+<li>绝对损失函数 (Absolute Loss Function)
+  $$
+  L(Y,f(X))=|Y-f(X)|
+  $$</li>
+<li>对数损失函数 (Logarithmic Loss Function)
+  $$
+  L(Y,P(Y|X))=-\log P(Y|X)
+  $$</li>
+</ul>
+<p>根据上述损失函数模型，我们可知，损失函数值越小，模型性能越好。给定一个数据集，我们将训练数据集的平均损失称为<strong>经验风险</strong>。</p>
+<p>基于经验风险最小化原则，可构建全局损失函数求解最优化问题：</p>
+<div class="arithmatex">\[
+\min_{f}\frac{1}{N}\sum_{n=1}^{N}L(y_n,f(x_n))
+\]</div>
+<p>当样本数量足够大时，根据大数定理，经验风险会近似于模型的期望风险。此时，经验风险最小化能确保有好的学习性能。</p>
+<p>然而，当样本数量不足时，单单利用经验风险最小化可能会导致 “<strong>过拟合</strong>” 的问题。为此，我们在原有基础上加上用于控制模型复杂度的<strong>正则项</strong> (Regularizer)，得到结构最小化准则。</p>
+<h3 id="优化算法">优化算法<a class="headerlink" href="#优化算法" title="Permanent link">&para;</a></h3>
+<p>定义了损失函数计算 loss 之后，问题就转化为了求 loss 最小化的问题；如何使得 loss 最小化？就需要使用优化算法。</p>
+<p>算法指的是模型学习中的具体计算方法。</p>
+<p>一般来说，基于参数模型构建的统计学习问题都为最优化问题，它们都具有显式的解析解。</p>
+<p>现有的优化方法主要有：</p>
+<ul>
+<li>梯度下降法<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /></li>
+<li>一阶导数为 0 的点，不断下降寻找极小值</li>
+<li>牛顿法</li>
+<li>拟牛顿法</li>
+<li>ADAM</li>
+<li>......</li>
+</ul>
+<h2 id="回归">回归<a class="headerlink" href="#回归" title="Permanent link">&para;</a></h2>
+<h3 id="损失函数_1">损失函数<a class="headerlink" href="#损失函数_1" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(y^{(i)}\)</span> 和 <span class="arithmatex">\(\hat{y}^{(i)}\)</span> 分别表示第 <span class="arithmatex">\(i\)</span> 个样本的真实值和预测值， <span class="arithmatex">\(m\)</span> 为样本个数</p>
+<h4 id="mse">MSE<a class="headerlink" href="#mse" title="Permanent link">&para;</a></h4>
+<p>均方误差(Mean Square Error, MSE)</p>
+<div class="arithmatex">\[
+MSE(y,\hat y)=\frac 1m \sum_{i=1}^m (y^{(i)}-\hat{y}^{(i)})^2
+\]</div>
+<h4 id="rmse">RMSE<a class="headerlink" href="#rmse" title="Permanent link">&para;</a></h4>
+<p>均方根误差(Root Mean Square Error, RMSE)</p>
+<div class="arithmatex">\[
+RMSE(y,\hat y)=\sqrt{\frac 1m \sum_{i=1}^m (y^{(i)}-\hat{y}^{(i)})^2}
+\]</div>
+<h4 id="mae">MAE<a class="headerlink" href="#mae" title="Permanent link">&para;</a></h4>
+<p>平均绝对误差(Mean Absolute Error, MAE)</p>
+<div class="arithmatex">\[
+MAE(y,\hat y)=\frac 1m \sum_{i=1}^m |y^{(i)}-\hat{y}^{(i)}|
+\]</div>
+<h3 id="线性回归">线性回归<a class="headerlink" href="#线性回归" title="Permanent link">&para;</a></h3>
+<p>线性回归（Linear Regression）</p>
+<p>是一种通过属性的线性组合来进行<strong>预测</strong>的线性模型，其目的是找到一条直线或者一个平面或者更高维的超平面，使得预测值与真实值之间的误差最小化。</p>
+<ul>
+<li><strong>损失函数</strong>（Loss Function）度量单样本预测的错误程度，损失函数值越小，模型就越好。</li>
+<li><strong>代价函数</strong>（Cost Function）度量全部样本集的平均误差。常用的代价函数包括均方误差、均方根误差、平均绝对误差等。</li>
+<li><strong>目标函数</strong>（Object Function）代价函数和正则化函数，最终要优化的函数。</li>
+<li><strong>学习率</strong> <span class="arithmatex">\(\alpha\)</span> ，可以理解为<strong>步长</strong>：</li>
+</ul>
+<p><img alt="learning-rate" src="../../../assets/cs/ai/ml/learning-rate.png" /></p>
+<h3 id="梯度下降_1">梯度下降<a class="headerlink" href="#梯度下降_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>批量梯度下降 BGD（Batch Gradient Descent）</li>
+<li>梯度下降的<strong>每一步</strong>中，都用到了<strong>所有</strong>的训练样本</li>
+<li>随机梯度下降 SGD（Stochastic Gradient Descent）</li>
+<li>梯度下降的<strong>每一步</strong>中，用到<strong>一个</strong>样本，在每一次计算之后便更新参数 ，而不需要首先将所有的训练集求和</li>
+<li>小批量梯度下降 MBGD（Mini-Batch Gradient Descent）</li>
+<li>梯度下降的<strong>每一步</strong>中，用到了<strong>一定批量</strong>的训练样本</li>
+</ul>
+<div class="arithmatex">\[
+w_{j}:=w_{j}-\alpha\frac{1}{b}\sum_{k=i}^{i+b-1}\big(h\big(x^{(k)}\big)-y^{(k)}\big)x_{j}^{(k)}
+\]</div>
+<p><span class="arithmatex">\(b=1\)</span> 为随机梯度下降 (SGD, Stochastic Gradient Descent)</p>
+<p><span class="arithmatex">\(b=m\)</span> 为批量梯度下降 (BGD, Batch Gradient Descent)</p>
+<p><span class="arithmatex">\(b=batch\_ size\)</span> 为小批量梯度下降 (MBGD, Mini-Batch Gradient Descent)</p>
+<p>归一化</p>
+<p>数据归一化的目的是使得各特征对目标变量的影响一致，会将特征数据进行伸缩变化，所以数据归一化是会改变特征数据分布的</p>
+<p>将数据映射到 <span class="arithmatex">\([0,1]\)</span> 区间</p>
+<p>Z-Score</p>
+<p>数据标准化为了不同特征之间具备可比性，经过标准化变换之后的特征数据分布没有发生改变。</p>
+<p>就是当数据特征取值范围或单位差异较大时，最好是做一下标准化处理</p>
+<p>处理后的数据均值为 0，方差为 1</p>
+<p><img alt="欠拟合过拟合" src="../../../assets/cs/ai/ml/%E6%AC%A0%E6%8B%9F%E5%90%88%E8%BF%87%E6%8B%9F%E5%90%88.png" /></p>
+<h3 id="过拟合的处理">过拟合的处理<a class="headerlink" href="#过拟合的处理" title="Permanent link">&para;</a></h3>
+<h4 id="交叉验证">交叉验证<a class="headerlink" href="#交叉验证" title="Permanent link">&para;</a></h4>
+<p>交叉验证 Cross Validation</p>
+<p>最常见的缓解过拟合问题的方法，将数据集分为训练用的和测试用的两份数据集（大多是 训练:测试 = 9:1 ）</p>
+<p>多重交叉验证 N-fold Cross Validation</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>迁移学习</p>
+</div>
+<h4 id="获得更多的训练数据">获得更多的训练数据<a class="headerlink" href="#获得更多的训练数据" title="Permanent link">&para;</a></h4>
+<p>使用更多的训练数据是解决过拟合问题最有效的手段，因为更多的样本能够让模型学习到更多更有效的特征，减小噪声的影响</p>
+<h4 id="降维">降维<a class="headerlink" href="#降维" title="Permanent link">&para;</a></h4>
+<p>即丢弃一些不能帮助我们正确预测的特征。可以是手工选择保留哪些特征，或者使用一些模型选择的算法来帮忙（例如 PCA）。</p>
+<h4 id="正则化">正则化<a class="headerlink" href="#正则化" title="Permanent link">&para;</a></h4>
+<p>正则化 (regularization)的技术，保留所有的特征，但是减少参数的大小（magnitude），它可以改善或者减少过拟合问题。</p>
+<h4 id="集成学习方法">集成学习方法<a class="headerlink" href="#集成学习方法" title="Permanent link">&para;</a></h4>
+<p>集成学习是把多个模型集成在一起，来降低单一模型的过拟合风险。</p>
+<h3 id="欠拟合的处理">欠拟合的处理<a class="headerlink" href="#欠拟合的处理" title="Permanent link">&para;</a></h3>
+<h4 id="添加新特征">添加新特征<a class="headerlink" href="#添加新特征" title="Permanent link">&para;</a></h4>
+<p>当特征不足或者现有特征与样本标签的相关性不强时，模型容易出现欠拟合。通过挖掘组合特征等新的特征，往往能够取得更好的效果。</p>
+<h4 id="增加模型复杂度">增加模型复杂度<a class="headerlink" href="#增加模型复杂度" title="Permanent link">&para;</a></h4>
+<p>简单模型的学习能力较差，通过增加模型的复杂度可以使模型拥有更强的拟合能力。例如，在线性模型中添加高次项，在神经网络模型中增加网络层数或神经元个数等。</p>
+<h4 id="减小正则化系数">减小正则化系数<a class="headerlink" href="#减小正则化系数" title="Permanent link">&para;</a></h4>
+<p>正则化是用来防止过拟合的，但当模型出现欠拟合现象时，则需要有针对性地减小正则化系数。</p>
+<h2 id="分类问题_1">分类问题<a class="headerlink" href="#分类问题_1" title="Permanent link">&para;</a></h2>
+<p>分类问题和回归问题有一定的相似性，都是通过对数据集的学习来对未知结果进行预测，区别在于输出值不同。</p>
+<ul>
+<li>分类问题的输出值是离散值（如垃圾邮件和正常邮件）。</li>
+<li>回归问题的输出值是连续值（例如房子的价格）。</li>
+</ul>
+<p>在回归问题的基础上，对预测结果值进行量化，即将连续值量化为离散值，就能解决分类问题。</p>
+<h3 id="逻辑回归">逻辑回归<a class="headerlink" href="#逻辑回归" title="Permanent link">&para;</a></h3>
+<p>逻辑回归是线性回归的一种扩展，用来处理分类问题。</p>
+<p>常用的逻辑函数 Sigmoid 及其导函数：</p>
+<div class="arithmatex">\[
+\sigma(x)=\frac{1}{1+e^{-x}}\\
+\sigma'(x)=\sigma(x)\cdot[1-\sigma(x)]
+\]</div>
+<p>损失函数：</p>
+<div class="arithmatex">\[
+J(w)=-\frac{1}{m}l(w)=-\frac{1}{m}\sum_{i=1}^{m}\big[y^{(i)}\ln(\hat y^{(i)})+(1-y^{(i)})\ln(1-\hat y^{(i)})\big]
+\]</div>
+<p>梯度为：</p>
+<div class="arithmatex">\[
+\frac{1}{m}\sum_{i=1}^{m}(\hat y^{(i)}-y^{(i)})x^{(i)}_j
+\]</div>
+<p>梯度下降更新参数 <span class="arithmatex">\(w_j\)</span>：</p>
+<div class="arithmatex">\[
+w_{j}:=w_{j}-\alpha\frac{\partial J(w)}{\partial w_j}
+\]</div>
+<h3 id="svm">SVM<a class="headerlink" href="#svm" title="Permanent link">&para;</a></h3>
+<p><strong>支持向量机</strong>，Support Vector Machines，SVM</p>
+<ul>
+<li>支持向量：支撑平面上把两类类别划分开来的超平面的向量点</li>
+<li>机：一个算法</li>
+</ul>
+<h2 id="聚类问题_1">聚类问题<a class="headerlink" href="#聚类问题_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>只考 K-means</p>
+</blockquote>
+<h3 id="k-means">K-means<a class="headerlink" href="#k-means" title="Permanent link">&para;</a></h3>
+<p>K-means 算法是一种无监督学习方法，是最普及的聚类算法，算法使用一个没有标签的数据集，然后将数据聚类成不同的组。</p>
+<h4 id="算法流程">算法流程<a class="headerlink" href="#算法流程" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>初试化簇质心为的任意点（<span class="arithmatex">\(K\)</span> 个）。初试化时，必须注意簇的质心必须小于训练数据点的数目。</p>
+</li>
+<li>
+<p>遍历所有数据点，计算所有质心与数据点的距离。这些簇将根据质心的最小距离而形成。</p>
+</li>
+<li>移动质心，因为上面步骤中形成的簇没有优化，所以需要形成优化的簇。为此需要迭代地将质心移动到一个新位置。取一个簇的数据点，计算平均值，然后将簇的质心移动到这个新位置。所有簇重复相同的步骤。</li>
+<li>重复上述步骤，直至收敛。</li>
+</ol>
+<h4 id="优点缺点">优点缺点<a class="headerlink" href="#优点缺点" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>优点</p>
+</li>
+<li>
+<p>原理简单，实现容易，收敛速度快</p>
+</li>
+<li>
+<p>聚类效果较优</p>
+</li>
+<li>
+<p>算法的可解释度比较强</p>
+</li>
+<li>
+<p>主要需要调参的参数仅仅时簇数 K</p>
+</li>
+<li>
+<p>缺点</p>
+</li>
+<li>
+<p>需要预先指定簇的数量</p>
+</li>
+<li>
+<p>如果有两个高度重叠的数据，那么它就无法区分，也不能判断有两个簇</p>
+</li>
+<li>
+<p>欧几里得距离限制了能处理的数据变量类型</p>
+</li>
+<li>
+<p>随机选择质心并不能带来理想的结果</p>
+</li>
+<li>
+<p>无法处理异常值和噪声数据</p>
+</li>
+<li>
+<p>不适用于非线性数据</p>
+</li>
+<li>
+<p>对特征尺度敏感</p>
+</li>
+<li>
+<p>如果遇到非常大的数据集，那么计算机可能回崩溃</p>
+</li>
+</ul>
+<h2 id="决策树模型">决策树模型<a class="headerlink" href="#决策树模型" title="Permanent link">&para;</a></h2>
+<p>决策树基于“树”结构进行决策</p>
+<ul>
+<li>每个“内部结点”对应于某个属性上的“测试”(test)</li>
+<li>每个分支对应于该测试的一种可能结果(即该属性的某个取值 )</li>
+<li>每个“叶结点”对应于一个“预测结果”</li>
+</ul>
+<p>学习过程:通过对训练样本的分析来确定“划分属性”(即内部结点所对应的属性 )</p>
+<p>预测过程:将测试示例从根结点开始沿着划分属性所构成的“判定测试序列”下行，直到叶结点</p>
+<p>策略:“分而治之”( divide-and-conquer)</p>
+<p>自根至叶的递归过程在每个中间结点寻找一个“划分”( split or test)属性。</p>
+<p>三种停止条件</p>
+<ul>
+<li>当前结点包含的样本全属于同一类别，无需划分</li>
+<li>当前属性集为空,或是所有样本在所有属性上取值相同，无法划分</li>
+<li>当前结点包含的样本集合为空，不能划分</li>
+</ul>
+<h3 id="伪代码">伪代码<a class="headerlink" href="#伪代码" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>输入:</p>
+</li>
+<li>
+<p>训练集 <span class="arithmatex">\(D=\{(x_1,y_1),(x_2,y_2),\cdots,(x_m,y_m)\}\)</span>；</p>
+</li>
+<li>
+<p>属性集 <span class="arithmatex">\(A=\{a_1,a_2,\cdots,a_d\}\)</span>；</p>
+</li>
+<li>
+<p>过程:</p>
+</li>
+<li>
+<p>函数 <code>TreeGenerate(D,A)</code></p>
+</li>
+<li>
+<p>输出:</p>
+</li>
+<li>以 node 为根结点的一棵决策树</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">生成结点</span> <span class="n">node</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">if</span> <span class="n">D</span> <span class="n">中样本全属于同一类别</span> <span class="n">C</span> <span class="n">then</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="n">将</span> <span class="n">node</span> <span class="n">标记为</span> <span class="n">C</span> <span class="n">类叶结点</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">end</span> <span class="k">if</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">if</span> <span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">D</span> <span class="n">中样本在</span> <span class="n">A</span> <span class="n">上取值相同</span> <span class="n">then</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">将</span> <span class="n">node</span> <span class="n">标记为叶结点</span><span class="p">,</span><span class="n">其类别标记为</span> <span class="n">D</span> <span class="n">中样本数最多的类</span><span class="p">;</span>  <span class="c1">## 利用当前结点的后验分布</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">end</span> <span class="k">if</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">从</span> <span class="n">A</span> <span class="n">中选择最优划分属性</span> <span class="n">a</span> <span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">for</span> <span class="n">a</span>  <span class="n">的每一个值</span> <span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">do</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">为</span> <span class="n">node</span> <span class="n">生成一个分支</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">令</span> <span class="n">D</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">表示</span> <span class="n">D</span> <span class="n">中在</span> <span class="n">a</span> <span class="n">上取值为</span> <span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">的样本子集</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">if</span> <span class="n">D</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="n">then</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            <span class="n">将分支结点标记为叶结点</span><span class="p">,</span><span class="n">其类别标记为</span> <span class="n">D</span> <span class="n">中样本最多的类</span><span class="p">;</span>  <span class="c1">## 将父结点的样本分布作为当前结点的先验分布</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                <span class="n">以</span> <span class="n">TreeGenerate</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">A</span>\<span class="p">{</span><span class="n">a</span><span class="p">})</span> <span class="n">为分支结点</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">end</span> <span class="k">if</span><span class="p">;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">end</span> <span class="k">for</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="信息增益id3">信息增益(ID3)<a class="headerlink" href="#信息增益id3" title="Permanent link">&para;</a></h3>
+<p>(ID3 算法)</p>
+<p>一个离散属性 <span class="arithmatex">\(a\)</span> 的取值：<span class="arithmatex">\(\{a^1,a^2,\cdots,a^V\}\)</span>；</p>
+<p><span class="arithmatex">\(D\)</span> 的信息熵定义为</p>
+<div class="arithmatex">\[
+\text{Ent}(D)=-\sum_{k=1}^{|y|}p_k\log_2(p_k)
+\]</div>
+<p><span class="arithmatex">\(\text{Ent}(D)\)</span> 的值越小，则 <span class="arithmatex">\(D\)</span> 的纯度越高</p>
+<p>以属性 <span class="arithmatex">\(a\)</span> 对数据集 <span class="arithmatex">\(D\)</span> 进行划分，<span class="arithmatex">\(D^v\)</span> 为 <span class="arithmatex">\(D\)</span> 在 <span class="arithmatex">\(a\)</span> 上取值为 <span class="arithmatex">\(a_v\)</span> 的样本集合，获得属性 <span class="arithmatex">\(a\)</span> 的<strong>信息增益</strong>为：</p>
+<div class="arithmatex">\[
+\text{Gain}(D,a)=\text{Ent}(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}\text{Ent}(D^v)
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(\text{Ent}(D)\)</span> 是划分前的信息熵；</li>
+<li><span class="arithmatex">\(\sum_{v=1}^{V}\frac{|D^v|}{|D|}\)</span> 是第 <span class="arithmatex">\(v\)</span> 个分支的权重，样本越多权重越大，该分支也就越重要；</li>
+<li><span class="arithmatex">\(\text{Ent}(D^v)\)</span> 是划分后的信息熵；</li>
+</ul>
+<p><span class="arithmatex">\(\text{Ent}(D)\)</span> 满足以下性质</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\text{Ent}(D)&amp;=-\sum_{k=1}^{|y|}p_k\log_2(p_k)=\sum_{k=1}^{|y|}p_k\log_2(\frac 1{p_k})\\
+&amp;\le \log_2\bigg(\sum_{k=1}^{|y|}p_k\frac 1{p_k}\bigg)=\log_2(|y|)
+\end{aligned}
+\]</div>
+<h3 id="增益率c45">增益率(C4.5)<a class="headerlink" href="#增益率c45" title="Permanent link">&para;</a></h3>
+<p>(C4.5 算法)</p>
+<p>信息增益对可取值数目较多的属性有所偏好，有明显弱点，例如考虑将“编号”作为一个属性。所以引入<strong>增益率</strong>：</p>
+<div class="arithmatex">\[
+\text{GainRatio}(D,a)=\frac{\text{Gain}(D,a)}{\text{IV}(a)}
+\]</div>
+<p>其中：</p>
+<div class="arithmatex">\[
+\text{IV}(a)=-\sum_{v=1}^{V}\frac{|D^v|}{|D|}\log_2\frac{|D^v|}{|D|}
+\]</div>
+<p>属性 a 的可能取值数目越多 (即 V 越大)，则 IV(a) 的值通常就越大</p>
+<p>启发式: 先从候选划分属性中找出信息增益高于平均水平的，再从中选取增益率最高的。</p>
+<h3 id="基尼系数cart">基尼系数(CART)<a class="headerlink" href="#基尼系数cart" title="Permanent link">&para;</a></h3>
+<p>(CART 算法)</p>
+<p>样本集（数据集）<span class="arithmatex">\(D\)</span> 的基尼系数定义如下：</p>
+<div class="arithmatex">\[
+\text{Gini}(D)=\sum_{k=1}^{|y|}\sum_{k'\neq k}p_kp_{k'}=1-\sum_{k=1}^{|y|}p_k^2
+\]</div>
+<p>反映了从 D 中随机抽取两个样例，其类别标记不一致的概率。</p>
+<p>样本集（数据集）<span class="arithmatex">\(D\)</span> 的属性 <span class="arithmatex">\(a\)</span> 的基尼系数定义如下：</p>
+<div class="arithmatex">\[
+\text{Gini}(D,a)=\sum_{v=1}^{V}\frac{|D^v|}{|D|}\text{Gini}(D)
+\]</div>
+<p>建立决策树时，在候选属性集合中，选取那个使划分后基尼指数最小的属性。</p>
+<h3 id="剪枝">剪枝<a class="headerlink" href="#剪枝" title="Permanent link">&para;</a></h3>
+<p>为了尽可能正确分类训练样本，有可能造成分支过多，也就是决策树的过拟合问题，可通过主动去掉一些分支来降低过拟合的风险</p>
+<p>基本策略 :</p>
+<ul>
+<li>预剪枝 (pre-pruning) : 提前终止某些分支的生长</li>
+</ul>
+<p>在构造决策树的过程中，先对每个结点在划分前进行估计，如果当前结点的划分不能带来决策树模型泛化性能的提升，则不对当前结点进行划分并且将当前结点标记为叶结点。（泛化性能可根据在测试集上的准确率衡量）</p>
+<ul>
+<li>训练时间开销<strong>降低</strong>，测试时间开销<strong>降低</strong></li>
+<li>
+<p>:过拟合风险<strong>降低</strong>，欠拟合风险<strong>增加</strong></p>
+</li>
+<li>
+<p>后剪枝 (post-pruning) : 生成一棵完全树，再“回头”剪枝</p>
+</li>
+</ul>
+<p>先把整颗决策树构造完毕，然后自底向上的对非叶结点进行考察，若将该结点对应的子树换为叶结点能够带来泛化性能的提升，则把该子树替换为叶结点。</p>
+<ul>
+<li>训练时间开销<strong>增加</strong>，测试时间开销<strong>降低</strong></li>
+<li>过拟合风险<strong>降低</strong>，欠拟合风险基本<strong>不变</strong></li>
+</ul>
+<p>泛化性能: 后剪枝通常优于预剪枝</p>
+<p>剪枝过程中需评估剪枝前后决策树的优劣</p>
+<ul>
+<li>现在我们假定使用“留出法”</li>
+</ul>
+<p>推荐阅读 https://blog.csdn.net/u012328159/article/details/79285214</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../knowledge-presentation-and-resolution/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 知识表示与推理">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                知识表示与推理
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../rl/" class="md-footer__link md-footer__link--next" aria-label="Next: 强化学习基础">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                强化学习基础
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

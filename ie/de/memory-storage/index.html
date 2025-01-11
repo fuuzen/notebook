@@ -1,0 +1,1598 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/de/memory-storage/">
+      
+      
+        <link rel="prev" href="../integrated-circuit/">
+      
+      
+        <link rel="next" href="../numerical-system/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>存储器 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ram" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              存储器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            De
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bool-algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    码制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorial-logic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组合逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../digital-process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数模转换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gate-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    门电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrated-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集成电路(CMOS&TTL)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sram" class="md-nav__link">
+    <span class="md-ellipsis">
+      SRAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dram" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRAM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rom" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mos-rom" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOS ROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rom-设计组合逻辑电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROM 设计组合逻辑电路
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prom" class="md-nav__link">
+    <span class="md-ellipsis">
+      PROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      EPROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eeprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      EEPROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#闪存" class="md-nav__link">
+    <span class="md-ellipsis">
+      闪存
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#存储器扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器扩展
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="存储器扩展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#字长扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      字长扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#字容量扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      字容量扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#字长字扩展结合" class="md-nav__link">
+    <span class="md-ellipsis">
+      字长字扩展结合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特殊存储器" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊存储器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊存储器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      LIFO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时序逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shift-register/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移位寄存器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../signals-and-systems/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sram" class="md-nav__link">
+    <span class="md-ellipsis">
+      SRAM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dram" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRAM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rom" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ROM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mos-rom" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOS ROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rom-设计组合逻辑电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROM 设计组合逻辑电路
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prom" class="md-nav__link">
+    <span class="md-ellipsis">
+      PROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      EPROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eeprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      EEPROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#闪存" class="md-nav__link">
+    <span class="md-ellipsis">
+      闪存
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#存储器扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器扩展
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="存储器扩展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#字长扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      字长扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#字容量扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      字容量扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#字长字扩展结合" class="md-nav__link">
+    <span class="md-ellipsis">
+      字长字扩展结合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特殊存储器" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊存储器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊存储器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      LIFO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>存储器</h1>
+
+<p>两类主要的半导体存储器是 RAM 和 ROM。</p>
+<ul>
+<li>RAM (随机访问存储器) 类型的存储器在等量时间内可以访问所有的地址，并且可以按照任何顺序来选择这些地址以执行读或者写操作。所有的 RAM 都具有读和写的能力。因为 RAM 在电源关闭时会丢失所存储的数据，所以它是易失性内存。 RAM 系列 RAM 的两种类别是静 RAM (SRAM) 和动态 RAM (DRAM) 。当直流电源移走后， SRAM 和 DRAM 都会丢失存储的数据，因此被归类为易失性存储器。</li>
+<li>静态 RAM 通常使用锁存器作为存储元件，因而只要加上直流电源，就可以永远地存储数据。<ul>
+<li>异步 SRAM (ASRAM)</li>
+<li>同步 SRAM (SB SRAM)，具有突发特性</li>
+</ul>
+</li>
+<li>动态 RAM 使用电容作为存储元件，如果没有对电容再充电就不能长期存储数据，再充电则称为刷新过程。<ul>
+<li>快速页模式 DRAM (FPMDRAM)</li>
+<li>扩充数据输出 DRAM (EDO DRAM)</li>
+<li>突发 EDO DRAM (BEDO DRAM)</li>
+<li>同步 DRAM (SDRAM)</li>
+</ul>
+</li>
+<li>ROM (只读存储器) 类型的存储器将永久或者半永久地保存数据。数据可以从 ROM 中读出，但是和 RAM 不同，它没有写操作。ROM 和 RAM 相似，也是随机存储器，但是术语 RAM 的 传统意思是随机读/写存储器。本章将会介绍几种类型的 RAM 和 ROM。因为 ROM 在电源关闭 后仍然保存着数据，所以它是永久性存储器</li>
+<li>MROM (Mask ROM) —— 掩膜 ROM，出场时已经固定，不能更改，适合大量生产，简单，便宜，非易失性。</li>
+<li>PROM —— 可一次性编程 ROM</li>
+<li>EPROM —— 可擦除 PROM，也就是可多次编程</li>
+<li>UV EPROM —— 紫外线版本的 EPROM</li>
+<li>EEPROM —— 电版本的</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>对于给定的物理空间和成本，DRAM 可以存储比 SRAM 多得多的数据，因为 DRAM 单元更加简单，并在给定芯片面积里，因此可以比 SRAM 填充更多的单元</p>
+</div>
+<h2 id="ram">RAM<a class="headerlink" href="#ram" title="Permanent link">&para;</a></h2>
+<h3 id="sram">SRAM<a class="headerlink" href="#sram" title="Permanent link">&para;</a></h3>
+<p>SRAM 基本单元（是 D-触发器 ）：</p>
+<p><img alt="sram单元" src="../../../assets/ie/de/memory-storage/sram%E5%8D%95%E5%85%83.png" /></p>
+<p><span class="arithmatex">\(32k\times8\)</span> SRAM</p>
+<p><img alt="32kx8sram" src="../../../assets/ie/de/memory-storage/32kx8sram.png" /></p>
+<p>逻辑组成如下：</p>
+<p><img alt="32kx8sram逻辑图" src="../../../assets/ie/de/memory-storage/32kx8sram%E9%80%BB%E8%BE%91%E5%9B%BE.png" /></p>
+<p>读：</p>
+<p><img alt="32kx8sram读" src="../../../assets/ie/de/memory-storage/32kx8sram%E8%AF%BB.png" /></p>
+<p>写：</p>
+<p><img alt="32kx8sram写" src="../../../assets/ie/de/memory-storage/32kx8sram%E5%86%99.png" /></p>
+<h3 id="dram">DRAM<a class="headerlink" href="#dram" title="Permanent link">&para;</a></h3>
+<p>DRAM 的基本单元，使用电容，电容充电表示 1 高电位，放电表示 0 低电位。</p>
+<p><img alt="mosdram单元" src="../../../assets/ie/de/memory-storage/mosdram%E5%8D%95%E5%85%83.png" /></p>
+<p>DRAM 的 4 种基本操作：</p>
+<p><img alt="mosdram单元基本操作" src="../../../assets/ie/de/memory-storage/mosdram%E5%8D%95%E5%85%83%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C.png" /></p>
+<p><span class="arithmatex">\(1M\times1\)</span> DRAM 逻辑图：</p>
+<p><img alt="1mx1dram逻辑图" src="../../../assets/ie/de/memory-storage/1mx1dram%E9%80%BB%E8%BE%91%E5%9B%BE.png" /></p>
+<p>DRAM 的读写周期：</p>
+<p><img alt="dram读写周期" src="../../../assets/ie/de/memory-storage/dram%E8%AF%BB%E5%86%99%E5%91%A8%E6%9C%9F.png" /></p>
+<h2 id="rom">ROM<a class="headerlink" href="#rom" title="Permanent link">&para;</a></h2>
+<p>ROM（Read Only Memory）,即只读存储器，由于其在掉电后数据不会丢失，因此在早期的时候，ROM 芯片中的内容一般都是在生产的时候被烧写进去的，然后终生具有这些固定的内容。不过，随着技术的不断发展和革新，现在很多型号的 ROM 都已经可以被多次修改了，但是大家仍然习惯对其沿用“只读存储器”的称号。</p>
+<h3 id="mos-rom">MOS ROM<a class="headerlink" href="#mos-rom" title="Permanent link">&para;</a></h3>
+<p>MOS ROM 基本单元：</p>
+<p><img alt="mosrom单元" src="../../../assets/ie/de/memory-storage/mosrom%E5%8D%95%E5%85%83.png" /></p>
+<p><img alt="256x4rom" src="../../../assets/ie/de/memory-storage/256x4rom.png" /></p>
+<p><img alt="256x4rom逻辑图" src="../../../assets/ie/de/memory-storage/256x4rom%E9%80%BB%E8%BE%91%E5%9B%BE.png" /></p>
+<h3 id="rom-设计组合逻辑电路">ROM 设计组合逻辑电路<a class="headerlink" href="#rom-设计组合逻辑电路" title="Permanent link">&para;</a></h3>
+<p>实际上是枚举所有的输入输出，也就是真值表，存储到 ROM 里。</p>
+<p>输入作为地址，通过<strong>地址译码器</strong>，输出相应地址的数据。</p>
+<ul>
+<li>有黑点 ⚫️ 表示存储 1 ；</li>
+<li>否则表示存储 0 ；</li>
+</ul>
+<p>给出逻辑表达式（函数）时，求出标准的极小值只和的形式，依据极小值的下标确定画 ⚫️ 的位置</p>
+<h3 id="prom">PROM<a class="headerlink" href="#prom" title="Permanent link">&para;</a></h3>
+<p>PROM（Programmable Read Only Memory）,即可编程只读存储器，不过它也只能被程序写一次，以后就只能保存和使用这些数据了，所以 PROM 也称为一次可编程存储器。</p>
+<h3 id="eprom">EPROM<a class="headerlink" href="#eprom" title="Permanent link">&para;</a></h3>
+<p>EPROM（Erasable Programmable Read Only Memory），即可擦除可编程只读存储器。它解决了 PROM 只能编程一次的问题，不过其存储内容的擦除必须借助紫外线的长时间照射才能完成，所以 EPROM 又叫紫外线擦除可编程只读存储器。</p>
+<h3 id="eeprom">EEPROM<a class="headerlink" href="#eeprom" title="Permanent link">&para;</a></h3>
+<p>EEPROM（Electrically Erasable Programmable Read Only Memory），即电可擦除可编程只读存储器。它克服了 EPROM 在擦除时较为麻烦的问题，可以直接通过计算机程序对其进行重复的擦写，其擦除、重写的原理是通过使用高于常规的操作电压实现的。对于 EEPROM 来说，最重要的参数指标就是寿命问题，也就是可擦写的次数。</p>
+<h3 id="闪存">闪存<a class="headerlink" href="#闪存" title="Permanent link">&para;</a></h3>
+<p>闪存 Flash Memory 是 EEPROM 的一种特殊形式，也就是变种。</p>
+<p>EEPROM 的擦除和重写都是针对整个芯片而言的，但 Flash 的数据删除和重写则是以块（块的容量一般在 256KB~20MB 之间）为单位的，因此 Flash 的更新速度要远比 EEPROM 快。不过由于数据的删除和重写不是以单个字节为单位的，因此 Flash 仍不能达到 RAM 的要求。</p>
+<p>Flash 又分为 NOR 型和 NAND 型两个大类，其中 NOR 型具有独立的地址线和数据线，适合频繁的随机读、写场合，适合程序代码的存储和直接运行，但容量通常较小，价格也比较贵；而 NAND 型的地址线和数据线是公用的，因此其本身的操作速度和频率就会偏低，但是容量相对较大，且价格也要便宜，所以适合大量资料的存储。</p>
+<h2 id="存储器扩展">存储器扩展<a class="headerlink" href="#存储器扩展" title="Permanent link">&para;</a></h2>
+<h3 id="字长扩展">字长扩展<a class="headerlink" href="#字长扩展" title="Permanent link">&para;</a></h3>
+<p>共享数据线和控制线，并联数据线。</p>
+<p>2 个 <span class="arithmatex">\(64k\times4\)</span> ROM 的字长扩展得到个 <span class="arithmatex">\(64k\times8\)</span> ROM ：</p>
+<p><img alt="64kx4rom字长扩展64kx8rom" src="../../../assets/ie/de/memory-storage/64kx4rom%E5%AD%97%E9%95%BF%E6%89%A9%E5%B1%9564kx8rom.png" /></p>
+<h3 id="字容量扩展">字容量扩展<a class="headerlink" href="#字容量扩展" title="Permanent link">&para;</a></h3>
+<p><img alt="514kx4ram字容量扩展1mx4ram" src="../../../assets/ie/de/memory-storage/514kx4ram%E5%AD%97%E5%AE%B9%E9%87%8F%E6%89%A9%E5%B1%951mx4ram.png" /></p>
+<p><img alt="💡" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4a1.svg" title=":bulb:" /> 利用<strong>译码器</strong></p>
+<h3 id="字长字扩展结合">字长字扩展结合<a class="headerlink" href="#字长字扩展结合" title="Permanent link">&para;</a></h3>
+<h2 id="特殊存储器">特殊存储器<a class="headerlink" href="#特殊存储器" title="Permanent link">&para;</a></h2>
+<h3 id="fifo">FIFO<a class="headerlink" href="#fifo" title="Permanent link">&para;</a></h3>
+<p><img alt="FIFO" src="../../../assets/ie/de/memory-storage/FIFO.png" /></p>
+<p>FIFO 寄存器模块的应用，实现数据整型：</p>
+<p><img alt="FIFO应用" src="../../../assets/ie/de/memory-storage/FIFO%E5%BA%94%E7%94%A8.png" /></p>
+<h3 id="lifo">LIFO<a class="headerlink" href="#lifo" title="Permanent link">&para;</a></h3>
+<p>类似栈的效果，LIFO 寄存器结构：</p>
+<p><img alt="LIFO结构" src="../../../assets/ie/de/memory-storage/LIFO%E7%BB%93%E6%9E%84.png" /></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../integrated-circuit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 集成电路(CMOS&amp;TTL)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                集成电路(CMOS&TTL)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../numerical-system/" class="md-footer__link md-footer__link--next" aria-label="Next: 数制">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                数制
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1641 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/signals-and-systems/communication/">
+      
+      
+        <link rel="prev" href="../LT/">
+      
+      
+        <link rel="next" href="../duality/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>通信系统 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#采样" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              通信系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../de/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signals and systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    周期信号的傅里叶级数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    通信系统
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    通信系统
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#采样的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样的概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样的数学模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样的数学模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲激串采样理想采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲激串采样(理想采样)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采样定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#理想低通滤波器" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想低通滤波器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nyquist-采样定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nyquist 采样定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#零阶保持采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      零阶保持采样
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#内插" class="md-nav__link">
+    <span class="md-ellipsis">
+      内插
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内插">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#理想内插" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想内插
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#调制与调解" class="md-nav__link">
+    <span class="md-ellipsis">
+      调制与调解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="调制与调解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#正弦幅度调制" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦幅度调制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#同步调解" class="md-nav__link">
+    <span class="md-ellipsis">
+      同步调解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散/连续时间傅里叶系数/变换的对偶关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信号基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#采样的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样的概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样的数学模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样的数学模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲激串采样理想采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲激串采样(理想采样)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="采样定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#理想低通滤波器" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想低通滤波器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nyquist-采样定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nyquist 采样定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#零阶保持采样" class="md-nav__link">
+    <span class="md-ellipsis">
+      零阶保持采样
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#内插" class="md-nav__link">
+    <span class="md-ellipsis">
+      内插
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内插">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#理想内插" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想内插
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#调制与调解" class="md-nav__link">
+    <span class="md-ellipsis">
+      调制与调解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="调制与调解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#正弦幅度调制" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦幅度调制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#同步调解" class="md-nav__link">
+    <span class="md-ellipsis">
+      同步调解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>通信系统</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>there are still some bugs rendering katex here...</p>
+</div>
+<p>LTI 系统对输入信号所起的作用包括两个方面:</p>
+<ul>
+<li>改变输入信号各频率分量的幅度</li>
+<li>改变输入信号各频率分量的相对相位</li>
+</ul>
+<div class="arithmatex">\[
+\begin{aligned}
+Y(j\omega)&amp;=X(j\omega)H(j\omega)\\
+|Y(j\omega)|&amp;=|X(j\omega)|\cdot|H(j\omega)|\\
+\angle Y(j\omega)&amp;=\angle X(j\omega)+\angle H(j\omega)
+\end{aligned}
+\]</div>
+<p>线性与非线性相位</p>
+<p>信号在传输过程中，相位特性或幅度特性发生改变都可能引起信号波形的改变，即发生<strong>失真</strong>。</p>
+<p>当相位特性仅仅是产生一个线性相移时，只引起信号在时间上的平移。如连续时间 LTI 系统，信号的<strong>时移</strong>会导致其频谱产生一个线性<strong>相移</strong>：</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+x(t-t_0)\stackrel{F}{\longleftrightarrow}X(j\omega)e^{-j\omega t_0}
+\]</div>
+<p>此时信号波形不发生改变，只是发生时间上的延迟，因此未丢失信号所携带的任何信息。</p>
+<p>如果系统的相位特性是<strong>非线性</strong>的，由于不同频率分量所产生的时移不同，叠加起来会变成一个与原来信号不相同的信号波形。</p>
+<p>系统响应与输入信号满足：</p>
+<div class="arithmatex">\[
+y(t)=kx(t-t_0)\ \ \ y[n]=kx[n-n_0]
+\]</div>
+<p>也就是：</p>
+<p>$$</p>
+<p>$$</p>
+<p>则可视为在传输中未发生失真</p>
+<div class="arithmatex">\[
+|H(j\omega)|=k,\ \ \angle H(j\omega)=-\omega t_0
+\]</div>
+<p>在传输信号的带宽范围内</p>
+<p>理想滤波器</p>
+<ul>
+<li>是<strong>非因果</strong>系统，因而是物理<strong>不可实现</strong>的</li>
+<li><span class="arithmatex">\(h(t)\)</span> 存在震荡</li>
+</ul>
+<h2 id="采样">采样<a class="headerlink" href="#采样" title="Permanent link">&para;</a></h2>
+<h3 id="采样的概念">采样的概念<a class="headerlink" href="#采样的概念" title="Permanent link">&para;</a></h3>
+<p>在某些离散的时间点上提取连续时间信号值的过程就是<strong>采样</strong>（sampling）</p>
+<p>与之相对应的，从离散时间信号等间隔地提取信号，则叫做<strong>抽取</strong>（decimation）</p>
+<p>一般情况下，从连续时间信号采样所得到的样本序列不能唯一地代表原来的连续时间信号，决定是否能从采样结果恢复原信号的关键在于<strong>采样定理</strong></p>
+<h3 id="采样的数学模型">采样的数学模型<a class="headerlink" href="#采样的数学模型" title="Permanent link">&para;</a></h3>
+<p><img alt="采样的数学模型" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E9%87%87%E6%A0%B7%E7%9A%84%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B.png" /></p>
+<p>在时域：</p>
+<div class="arithmatex">\[
+x_p(t)=x(t)\cdot p(t)
+\]</div>
+<p>在频域：</p>
+<div class="arithmatex">\[
+X_p(j\omega)=\frac{1}{2\pi}X(j\omega)*P(j\omega)
+\]</div>
+<h3 id="冲激串采样理想采样">冲激串采样(理想采样)<a class="headerlink" href="#冲激串采样理想采样" title="Permanent link">&para;</a></h3>
+<p>以 <span class="arithmatex">\(T\)</span> 为采样间隔的脉冲采样信号为：</p>
+<div class="arithmatex">\[
+p(t)=\sum_{n=-\infty}^{+\infty}\delta(t-nT)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(p(t)\)</span> 是<strong>采样函数</strong></li>
+<li><span class="arithmatex">\(p(t)\)</span> 的基波周期 <span class="arithmatex">\(T\)</span> 为<strong>采样周期</strong></li>
+<li><span class="arithmatex">\(p(t)\)</span> 的基波频率 <span class="arithmatex">\(\omega_s=\frac{2\pi}{T}\)</span> 是<strong>采样频率</strong></li>
+</ul>
+<p>采样结果为：</p>
+<div class="arithmatex">\[
+x_p(t)=x(t)\cdot p(t)=\sum_{n=-\infty}^{+\infty}x(nT)\delta(t-nT)
+\]</div>
+<p>这样的采样就是<strong>理想采样</strong>，也就是<strong>冲激串采样</strong>。</p>
+<p><img alt="理想采样" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E7%90%86%E6%83%B3%E9%87%87%E6%A0%B7.png" /></p>
+<p>由 CTFT 在频域有：</p>
+<div class="arithmatex">\[
+p(t)\stackrel{CTFT}{\longleftrightarrow}P(j\omega)=\frac{2\pi}{T}\sum_{n=-\infty}^{+\infty}\delta(\omega-\frac{2\pi}{T}k)
+\]</div>
+<p>从而可得到 <span class="arithmatex">\(X_p(j\omega)\)</span>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X_p(j\omega)
+&amp;=\frac{1}{2\pi}X(j\omega)*P(j\omega)\\
+&amp;=\frac{1}{2\pi}X(j\omega)*\frac{2\pi}{T}\sum_{n=-\infty}^{+\infty}\delta(\omega-\frac{2\pi}{T}k)\\
+&amp;=\frac{1}{T}\sum_{n=-\infty}^{+\infty}X(j(\omega-\frac{2\pi}{T}k))\\
+&amp;=\frac{1}{T}\sum_{n=-\infty}^{+\infty}X(j(\omega-k\omega_s))
+\end{aligned}
+\]</div>
+<p>可见，在时域对连续时间信号进行理想采样，就相当于在频域将连续时间信号的频谱以 <span class="arithmatex">\(\omega_s=\frac{2\pi}{T}\)</span> 为周期进行延拓。</p>
+<h3 id="采样定理">采样定理<a class="headerlink" href="#采样定理" title="Permanent link">&para;</a></h3>
+<p>要想使采样后的信号样本能完全代表原来的信号，就意味着要能够从 <span class="arithmatex">\(X_𝑝(j\omega)\)</span> 中<strong>不失真地分离</strong>出 <span class="arithmatex">\(X(j\omega)\)</span> 。这就要求 <span class="arithmatex">\(X_𝑝(j\omega)\)</span> 在周期性延拓时<strong>不能发生频谱的混叠</strong>，因此:</p>
+<ol>
+<li><span class="arithmatex">\(x(t)\)</span> 必须是<strong>带限</strong>的，设最高频率分量为 <span class="arithmatex">\(\omega_M\)</span>；</li>
+<li>采样间隔（周期）不能是任意的，必须保持采样频率 <span class="arithmatex">\(\omega_s=\frac{2\pi}{T}\gt 2\omega_M\)</span>；</li>
+<li>采样频率也不能过大，不能导致周期延拓后频谱发生混叠（补充）</li>
+</ol>
+<p>采样频率的下限 <span class="arithmatex">\(2\omega_M\)</span> 也叫做奈奎斯特率（Nyquist rate）</p>
+<p>在满足上述条件时，就可以通过理想低通滤波器从 <span class="arithmatex">\(X_𝑝(j\omega)\)</span> 中不失真地分离出 <span class="arithmatex">\(X(j\omega)\)</span> 。</p>
+<h4 id="理想低通滤波器">理想低通滤波器<a class="headerlink" href="#理想低通滤波器" title="Permanent link">&para;</a></h4>
+<p><img alt="低通滤波器频域" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8%E9%A2%91%E5%9F%9F.png" /></p>
+<p>若要满足采样定理，低通滤波器截止频率 <span class="arithmatex">\(\omega_c\)</span> 必须满足：<span class="arithmatex">\(\omega_M\lt\omega_c\lt\omega_s-\omega_M\)</span>。</p>
+<p>为补偿采样导致的频谱幅度减小，滤波器在通带内应具有 <span class="arithmatex">\(T\)</span> 倍增益。</p>
+<h3 id="nyquist-采样定理">Nyquist 采样定理<a class="headerlink" href="#nyquist-采样定理" title="Permanent link">&para;</a></h3>
+<p>对带限于最高频率 <span class="arithmatex">\(\omega_𝑀\)</span> 的连续时间信号 <span class="arithmatex">\(x(t)\)</span> ，如果以 <span class="arithmatex">\(\omega_s&gt;2\omega_𝑀\)</span> 的频率进行理想采样，则 <span class="arithmatex">\(x(t)\)</span> 可以唯一地由其样本 <span class="arithmatex">\(x(nT)\)</span> 来确定。</p>
+<p>这里的 <span class="arithmatex">\(T\)</span> 也是采样周期，对应采样频率 <span class="arithmatex">\(\omega_s\)</span>。</p>
+<h3 id="零阶保持采样">零阶保持采样<a class="headerlink" href="#零阶保持采样" title="Permanent link">&para;</a></h3>
+<p>零阶保持采样相当于理想采样后，再级联一个零阶保持系统，是最简单的一种恢复重建采样前原信号的方法。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>如果由零阶保持所给出的粗糙内插令人不够满意，则可以使用各种更为平滑的內插手段，其中的一些合起来统称为高阶保持 (higher order hold)</p>
+</div>
+<p><img alt="零阶保持采样" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E9%9B%B6%E9%98%B6%E4%BF%9D%E6%8C%81%E9%87%87%E6%A0%B7.png" /></p>
+<p><img alt="零阶保持采样结果" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E9%9B%B6%E9%98%B6%E4%BF%9D%E6%8C%81%E9%87%87%E6%A0%B7%E7%BB%93%E6%9E%9C.png" /></p>
+<p>为了能从 <span class="arithmatex">\(x_0(t)\)</span> 恢复 <span class="arithmatex">\(x(t)\)</span> ，零阶保持后要再级（串，卷积）联一个系统 <span class="arithmatex">\(H_𝑟(j\omega)\)</span> ，使得：</p>
+<div class="arithmatex">\[
+H_0(j\omega)H_r(j\omega)=H(j\omega)=
+\begin{cases}
+T,&amp;|\omega|\lt\omega_c\\
+0,&amp;|\omega|\gt\omega_c
+\end{cases}
+\]</div>
+<p>其中 <span class="arithmatex">\(\omega_M\lt\omega_c\lt\omega_s-\omega_M\)</span> ；图像如下：</p>
+<p><img alt="零阶保持采样最终输出" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E9%9B%B6%E9%98%B6%E4%BF%9D%E6%8C%81%E9%87%87%E6%A0%B7%E6%9C%80%E7%BB%88%E8%BE%93%E5%87%BA.png" /></p>
+<p>零阶保持系统的单位冲激响应 <span class="arithmatex">\(h_0(t)\)</span> 是矩形方波信号（经过了一定的时移），利用基本 CTFT 变换对和时移特性可得到：</p>
+<div class="arithmatex">\[
+H_0(j\omega)=\frac{2}{\omega}\sin(\frac{\omega}{2}T)e^{-j\frac{\omega}{2}T}
+\]</div>
+<p><img alt="零阶保持系统频域" src="../../../assets/ie/signals-and-systems/sampling-interpolation/%E9%9B%B6%E9%98%B6%E4%BF%9D%E6%8C%81%E7%B3%BB%E7%BB%9F%E9%A2%91%E5%9F%9F.png" /></p>
+<p>由 <span class="arithmatex">\(H(j\omega)\)</span> 和 <span class="arithmatex">\(H_0(j\omega)\)</span> 可得到 <span class="arithmatex">\(H_𝑟(j\omega)\)</span>：</p>
+<div class="arithmatex">\[
+H_𝑟(j\omega)=\frac{H(j\omega)}{H_0(j\omega)}=\frac{2}{\omega}\frac{H(j\omega)}{\sin(\frac{\omega}{2}T)}e^{j\frac{\omega}{2}T}
+\]</div>
+<table>
+<thead>
+<tr>
+<th><img alt="Hr的模" src="../../../assets/ie/signals-and-systems/sampling-interpolation/Hr%E7%9A%84%E6%A8%A1.png" /></th>
+<th><img alt="Hr的幅度" src="../../../assets/ie/signals-and-systems/sampling-interpolation/Hr%E7%9A%84%E5%B9%85%E5%BA%A6.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="内插">内插<a class="headerlink" href="#内插" title="Permanent link">&para;</a></h2>
+<h3 id="理想内插">理想内插<a class="headerlink" href="#理想内插" title="Permanent link">&para;</a></h3>
+<p>也称为<strong>时域带限内插</strong>。</p>
+<p>若 <span class="arithmatex">\(h(t)\)</span> 为理想低通滤波器的单位冲激响应，则</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x_r(t)
+&amp;=x_𝑝(t)*h(t)\\
+&amp;=\sum_{n=-∞}^{+∞}x(nT)\delta(t-nT)*h(t)\\
+&amp;=\sum_{n=-∞}^{+∞}x(nT)h(t - nT)
+\end{aligned}
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这里利用了单位冲激响应的卷积特性（定义）：</p>
+</div>
+<div class="arithmatex">\[
+x(h(g(t)))=x(h(t))*\delta(g(t))
+\]</div>
+<p>表明：理想内插以<strong>理想低通滤波器</strong>的单位冲激响应作为内插函数。</p>
+<p>当理想低通滤波器的截止频率为 <span class="arithmatex">\(\omega_c=\frac{1}{2}\omega_s=\frac{\pi}{T}\)</span> 时有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(t)=T\frac{\sin \omega_c t}{\pit}\text{Sa}(\omega_ct)=\text{Sa}(\omega_ct)
+\end{aligned}
+\]</div>
+<p>则有：</p>
+<div class="arithmatex">\[
+x_r(t)=\sum_{n=-∞}^{+\infty}x(nT)\cdot Sa[\omega_c(t-nT)]
+\]</div>
+<p>按照这个过程，就得到了原始信号 <span class="arithmatex">\(x(t)\)</span> 的重建信号 <span class="arithmatex">\(x_r(t)\)</span>。只要采样过程满足采样定理，那么这个重建就完全恢复了 <span class="arithmatex">\(x(t)\)</span>。</p>
+<h2 id="调制与调解">调制与调解<a class="headerlink" href="#调制与调解" title="Permanent link">&para;</a></h2>
+<p>Modulation &amp; Demodulation</p>
+<p>利用傅里叶变换的<strong>相乘特性</strong>：两个信号在时域相乘，可以看成是由一个信号控制另一个信号的幅度，这就是幅度调制。其中前者为<strong>调制信号</strong>，后者为<strong>载波</strong></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>WIKI：<a href="https://en.wikipedia.org/wiki/Modulation">调制</a>与<a href="https://en.wikipedia.org/wiki/Demodulation">调解</a></p>
+</div>
+<h3 id="正弦幅度调制">正弦幅度调制<a class="headerlink" href="#正弦幅度调制" title="Permanent link">&para;</a></h3>
+<p>正弦幅度调制等效于在频域将调制信号的频谱搬移到载频位置</p>
+<p>调制信号 <span class="arithmatex">\(s(t)\stackrel{CTFT}{\longleftrightarrow}S(j\omega)\)</span>：</p>
+<p><img alt="s正弦幅度调制信号的频域" src="../../../assets/ie/signals-and-systems/communication/s%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6%E4%BF%A1%E5%8F%B7%E7%9A%84%E9%A2%91%E5%9F%9F.png" /></p>
+<p>载波信号 <span class="arithmatex">\(p(t)\stackrel{CTFT}{\longleftrightarrow}P(j\omega)\)</span>：</p>
+<p><img alt="p余弦信号的频域" src="../../../assets/ie/signals-and-systems/communication/p%E4%BD%99%E5%BC%A6%E4%BF%A1%E5%8F%B7%E7%9A%84%E9%A2%91%E5%9F%9F.png" /></p>
+<p>输入乘法器，输出调制后的信号：</p>
+<p><img alt="正弦幅度调制" src="../../../assets/ie/signals-and-systems/communication/%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6.png" /></p>
+<p>调制后的信号 <span class="arithmatex">\(r(t)\stackrel{CTFT}{\longleftrightarrow}R(j\omega)\)</span>：</p>
+<p><img alt="正弦幅度调制结果" src="../../../assets/ie/signals-and-systems/communication/%E6%AD%A3%E5%BC%A6%E5%B9%85%E5%BA%A6%E8%B0%83%E5%88%B6%E7%BB%93%E6%9E%9C.png" /></p>
+<h3 id="同步调解">同步调解<a class="headerlink" href="#同步调解" title="Permanent link">&para;</a></h3>
+<p>必须要求调制和解调时所使用的载波不仅要<strong>严格同频</strong>，而且要<strong>同相</strong>。因此这种解调方法称为<strong>同步</strong>解调。</p>
+<div class="arithmatex">\[
+\begin{aligned}
+r(t)cos\omega_0t\stackrel{F}{\longleftrightarrow}
+&amp;\ \frac{1}{2\pi}R(j\omega)*\pi[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]\\
+=&amp;\ \frac{1}{2}S(j\omega)+\frac{1}{4}S[j(\omega-2\omega_0)]+\frac{1}{4}S[j(\omega+2\omega_0)]
+\end{aligned}
+\]</div>
+<p><img alt="同步调解结果" src="../../../assets/ie/signals-and-systems/communication/%E5%90%8C%E6%AD%A5%E8%B0%83%E8%A7%A3%E7%BB%93%E6%9E%9C.png" /></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../LT/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 拉普拉斯变换">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                拉普拉斯变换
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../duality/" class="md-footer__link md-footer__link--next" aria-label="Next: 离散/连续时间傅里叶系数/变换的对偶关系">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                离散/连续时间傅里叶系数/变换的对偶关系
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

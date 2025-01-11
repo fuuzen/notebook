@@ -1,0 +1,3470 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/rl/">
+      
+      
+        <link rel="prev" href="../ml/">
+      
+      
+        <link rel="next" href="../search/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>强化学习基础 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#基本概念" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              强化学习基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#机器学习范式" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习范式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习算法构成" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习算法构成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习算法构成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#给定" class="md-nav__link">
+    <span class="md-ellipsis">
+      给定
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="给定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#三大集合" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大集合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两大模型-两大主角" class="md-nav__link">
+    <span class="md-ellipsis">
+      两大模型 (两大主角)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="两大模型 (两大主角)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#环境模型optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境模型（optional）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#主角模型智能体" class="md-nav__link">
+    <span class="md-ellipsis">
+      主角模型（智能体）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三大特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大特征
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特有挑战" class="md-nav__link">
+    <span class="md-ellipsis">
+      特有挑战
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习的问题建模" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习的问题建模
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习的问题建模">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#状态空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#当前状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      当前状态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奖励信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      奖励信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#价值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      价值函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#马尔科夫决策问题模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫决策问题模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔科夫决策问题模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#马尔可夫奖励过程mrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔可夫奖励过程(MRP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔可夫奖励过程(MRP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#动作序列集" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作序列集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作幕episode" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作幕(Episode)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折扣回报" class="md-nav__link">
+    <span class="md-ellipsis">
+      折扣回报
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#马尔科夫决策过程mdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫决策过程(MDP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔科夫决策过程(MDP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题模型_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#状态-奖励表" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态-奖励表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#状态迁移图" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态迁移图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#游戏轨迹" class="md-nav__link">
+    <span class="md-ellipsis">
+      游戏轨迹
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#强化学习的值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习的值函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习的值函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基础概统知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础概统知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础概统知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#概率" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#条件概率" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件概率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      期望
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#条件期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件期望
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单值函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单值函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样平均" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样平均
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单收益">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#简单收益的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益的期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益的期望
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单收益的期望">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散动作的简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散动作的简单收益
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续动作的简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续动作的简单收益
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#存在问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      存在问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折扣目标收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      折扣目标收益
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="折扣目标收益">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#目标收益的递归计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标收益的递归计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#标准状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#标准动作值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准动作值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-值的递归计算贝尔曼方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      V 值的递归计算(贝尔曼方程)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#从值函数计算最优策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      从值函数计算最优策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从值函数计算最优策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#确定性策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      确定性策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不确定性策略随机策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      不确定性策略（随机策略）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#值函数的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      值函数的应用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔曼期望方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼期望方程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝尔曼期望方程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作值函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优策略的数学表达" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优策略的数学表达
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔曼最优方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优方程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝尔曼最优方程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#最优状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优状态值函数_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两种最优值函数的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      两种最优值函数的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tdl" class="md-nav__link">
+    <span class="md-ellipsis">
+      TDL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TDL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#值估计" class="md-nav__link">
+    <span class="md-ellipsis">
+      值估计
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="值估计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sarsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sarsa
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sarsa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表格" class="md-nav__link">
+    <span class="md-ellipsis">
+      表格
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q-Learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q-Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表格_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      表格
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#策略_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#机器学习范式" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器学习范式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习算法构成" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习算法构成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习算法构成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#给定" class="md-nav__link">
+    <span class="md-ellipsis">
+      给定
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="给定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#三大集合" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大集合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两大模型-两大主角" class="md-nav__link">
+    <span class="md-ellipsis">
+      两大模型 (两大主角)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="两大模型 (两大主角)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#环境模型optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境模型（optional）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#主角模型智能体" class="md-nav__link">
+    <span class="md-ellipsis">
+      主角模型（智能体）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三大特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大特征
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特有挑战" class="md-nav__link">
+    <span class="md-ellipsis">
+      特有挑战
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#强化学习的问题建模" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习的问题建模
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习的问题建模">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#状态空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#当前状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      当前状态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奖励信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      奖励信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#价值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      价值函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#马尔科夫决策问题模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫决策问题模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔科夫决策问题模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#马尔可夫奖励过程mrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔可夫奖励过程(MRP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔可夫奖励过程(MRP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#动作序列集" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作序列集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作幕episode" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作幕(Episode)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折扣回报" class="md-nav__link">
+    <span class="md-ellipsis">
+      折扣回报
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#马尔科夫决策过程mdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      马尔科夫决策过程(MDP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="马尔科夫决策过程(MDP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题模型_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#状态-奖励表" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态-奖励表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#状态迁移图" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态迁移图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#游戏轨迹" class="md-nav__link">
+    <span class="md-ellipsis">
+      游戏轨迹
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#强化学习的值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      强化学习的值函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强化学习的值函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基础概统知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础概统知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础概统知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#概率" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#条件概率" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件概率
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      期望
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#条件期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件期望
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单值函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单值函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样平均" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样平均
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单收益">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#简单收益的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#简单收益的期望" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单收益的期望
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简单收益的期望">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散动作的简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散动作的简单收益
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续动作的简单收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续动作的简单收益
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#存在问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      存在问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折扣目标收益" class="md-nav__link">
+    <span class="md-ellipsis">
+      折扣目标收益
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="折扣目标收益">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#目标收益的递归计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标收益的递归计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#标准状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#标准动作值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      标准动作值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-值的递归计算贝尔曼方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      V 值的递归计算(贝尔曼方程)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#从值函数计算最优策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      从值函数计算最优策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从值函数计算最优策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#确定性策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      确定性策略
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不确定性策略随机策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      不确定性策略（随机策略）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#值函数的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      值函数的应用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔曼期望方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼期望方程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝尔曼期望方程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动作值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      动作值函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优策略的数学表达" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优策略的数学表达
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔曼最优方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔曼最优方程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝尔曼最优方程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#最优状态值函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优状态值函数_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优状态值函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两种最优值函数的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      两种最优值函数的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tdl" class="md-nav__link">
+    <span class="md-ellipsis">
+      TDL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TDL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#值估计" class="md-nav__link">
+    <span class="md-ellipsis">
+      值估计
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="值估计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sarsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sarsa
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sarsa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表格" class="md-nav__link">
+    <span class="md-ellipsis">
+      表格
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q-Learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q-Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#表格_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      表格
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#策略_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>强化学习基础</h1>
+
+<blockquote>
+<p>强烈推荐：https://hrl.boyuai.com/</p>
+</blockquote>
+<h2 id="基本概念">基本概念<a class="headerlink" href="#基本概念" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>RL, in a nutshell, is to “learn to make good sequences of decisions through trail-and-errors”</p>
+</blockquote>
+<h3 id="机器学习范式">机器学习范式<a class="headerlink" href="#机器学习范式" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>监督</p>
+</li>
+<li>
+<p>给定训练数据 training data</p>
+</li>
+<li>
+<p>和期望的输出（标签）desired outputs (with labels)</p>
+</li>
+<li>
+<p>半监督</p>
+</li>
+<li>
+<p>给定训练数据 training data</p>
+</li>
+<li>
+<p>和部分期望的输出 some labels</p>
+</li>
+<li>
+<p>无监督</p>
+</li>
+<li>
+<p>仅给定训练数据 training data</p>
+</li>
+<li>
+<p>without labels</p>
+</li>
+<li>
+<p><strong>强化学习</strong> Reinforce Learning (RL)</p>
+</li>
+<li>从序列决策中获取奖励 observations and periodic rewards as the agent takes sequential actions;</li>
+</ul>
+<p>强化学习是一种自动化目标导向的计算方法，与其他机器学习范式最大的区别在于：</p>
+<ul>
+<li><strong>交互</strong>：与环境之间存在交互，从环境中学习</li>
+<li><strong>决策序列</strong>：以前的决策会影响以后的决策，也就是学习的过程</li>
+<li><strong>探索</strong>：不断试错、探索的学习过程</li>
+</ul>
+<h3 id="强化学习算法构成">强化学习算法构成<a class="headerlink" href="#强化学习算法构成" title="Permanent link">&para;</a></h3>
+<h4 id="给定">给定<a class="headerlink" href="#给定" title="Permanent link">&para;</a></h4>
+<h5 id="三大集合">三大集合<a class="headerlink" href="#三大集合" title="Permanent link">&para;</a></h5>
+<ul>
+<li>状态集合</li>
+<li>动作集合</li>
+<li>奖励值集合</li>
+</ul>
+<h5 id="两大模型-两大主角">两大模型 (两大主角)<a class="headerlink" href="#两大模型-两大主角" title="Permanent link">&para;</a></h5>
+<p><img alt="两大模型" src="../../../assets/cs/ai/rl/%E4%B8%A4%E5%A4%A7%E6%A8%A1%E5%9E%8B.png" /></p>
+<h6 id="环境模型optional">环境模型（optional）<a class="headerlink" href="#环境模型optional" title="Permanent link">&para;</a></h6>
+<p>述了环境的具体表现。在给定状态和动作情况下，模型可能会预测结果的下一个状态和下一个奖励</p>
+<ul>
+<li>有环境模型：定义了环境模型</li>
+<li>无环境模型：不定义环境模型，靠智能体感知实时状态来理解环境</li>
+</ul>
+<h6 id="主角模型智能体">主角模型（智能体）<a class="headerlink" href="#主角模型智能体" title="Permanent link">&para;</a></h6>
+<p>概念来源于分布式人工智能思想。通常意义上，智能体是一个能够感知并施加某种作用到自身和环境、有生命周期的一个物理的或抽象的计算实体。智能体接受一个任务指令后，经过学习，可自主完成该任务</p>
+<h4 id="目标">目标<a class="headerlink" href="#目标" title="Permanent link">&para;</a></h4>
+<p>智能体获取从任务开始到任务结束过程中每一步的最优动作</p>
+<h4 id="三大特征">三大特征<a class="headerlink" href="#三大特征" title="Permanent link">&para;</a></h4>
+<ul>
+<li>探索试错</li>
+<li>延迟回报</li>
+<li>长期目标</li>
+</ul>
+<p>强化学习的关键特征是<strong>长期目标优化</strong>，智能体关注整体学习问题，优化整个过程</p>
+<p>大多强化学习算法的关键特征是<strong>值函数</strong>的使用</p>
+<h4 id="特有挑战">特有挑战<a class="headerlink" href="#特有挑战" title="Permanent link">&para;</a></h4>
+<p><strong>探索和开发</strong> (exploration and exploitation)：短期和长期目标的权衡</p>
+<h3 id="强化学习的问题建模">强化学习的问题建模<a class="headerlink" href="#强化学习的问题建模" title="Permanent link">&para;</a></h3>
+<h4 id="问题模型">问题模型<a class="headerlink" href="#问题模型" title="Permanent link">&para;</a></h4>
+<h5 id="状态空间">状态空间<a class="headerlink" href="#状态空间" title="Permanent link">&para;</a></h5>
+<p>智能体所处的实际环境所有状态<strong>集合</strong></p>
+<h5 id="当前状态">当前状态<a class="headerlink" href="#当前状态" title="Permanent link">&para;</a></h5>
+<p>智能体感知到的环境当前所处的状态</p>
+<h5 id="动作策略">动作策略<a class="headerlink" href="#动作策略" title="Permanent link">&para;</a></h5>
+<p>智能体在某时间的行为</p>
+<h5 id="奖励信号">奖励信号<a class="headerlink" href="#奖励信号" title="Permanent link">&para;</a></h5>
+<p>智能体收到的关于动作效果的反馈</p>
+<h4 id="价值函数">价值函数<a class="headerlink" href="#价值函数" title="Permanent link">&para;</a></h4>
+<p><strong>奖励信号</strong> 只能说明 <strong>动作的即时效果</strong>，而 <strong>价值函数</strong> 则指明什么策略的 <strong>长期效果</strong> 是好还是差。</p>
+<h2 id="马尔科夫决策问题模型">马尔科夫决策问题模型<a class="headerlink" href="#马尔科夫决策问题模型" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="(https://hrl.boyuai.com/chapter/1/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/#33-%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B)">参考</a></li>
+</ul>
+<h3 id="马尔可夫奖励过程mrp">马尔可夫奖励过程(MRP)<a class="headerlink" href="#马尔可夫奖励过程mrp" title="Permanent link">&para;</a></h3>
+<p><strong>马尔可夫奖励过程</strong>（Markov reward process）</p>
+<h4 id="动作序列集">动作序列集<a class="headerlink" href="#动作序列集" title="Permanent link">&para;</a></h4>
+<p>动作序列集（Action Sequence Set）是指一组按特定顺序排列的动作序列。它通常用于描述某个系统、机器人或智能体在特定环境中的行为。动作序列集可以包含一系列离散的动作步骤，也可以包含连续的动作序列。</p>
+<p>动作序列集可以被分为两类：</p>
+<ul>
+<li>有终止态的离散动作（动作幕）</li>
+<li>无终止态的连续动作</li>
+</ul>
+<h4 id="动作幕episode">动作幕(Episode)<a class="headerlink" href="#动作幕episode" title="Permanent link">&para;</a></h4>
+<p>一个完整的有<strong>起始终止状态</strong>的<strong>动作序列集</strong>（Episode，简称<strong>动作幕</strong>）</p>
+<ul>
+<li>从标准起始态或从标准分布的初始态集合中抽取初始态开始</li>
+<li>以终止态结束</li>
+<li>不同动作序列集都可以认为是在同一个终止态结束，只是序列具体元素不同</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>区分奖励和收益</p>
+</div>
+<h4 id="简单收益">简单收益<a class="headerlink" href="#简单收益" title="Permanent link">&para;</a></h4>
+<p>Return (aka cumulative future reward) ，未来的累积奖励，也就是<strong>简单收益</strong></p>
+<h4 id="折扣回报">折扣回报<a class="headerlink" href="#折扣回报" title="Permanent link">&para;</a></h4>
+<p>Discounted Return ，<strong>折扣回报</strong>，也就是引入了折扣因子的简单收益。</p>
+<h3 id="马尔科夫决策过程mdp">马尔科夫决策过程(MDP)<a class="headerlink" href="#马尔科夫决策过程mdp" title="Permanent link">&para;</a></h3>
+<p><strong>马尔可夫决策过程</strong>（Markov decision process，MDP）</p>
+<p>MDP 与 MRP 非常相像，主要区别为 MDP 中的状态转移函数和奖励函数都比 MRP 多了动作 <span class="arithmatex">\(a\)</span> 作为自变量。</p>
+<h4 id="问题模型_1">问题模型<a class="headerlink" href="#问题模型_1" title="Permanent link">&para;</a></h4>
+<p>MDP（马尔科夫决策过程）是一个描述智能体和环境交互的<strong>四元组 (S, A, 𝑅, 𝑝)</strong></p>
+<ul>
+<li>S ：Status 状态的集合</li>
+<li>A ：Action 动作的集合</li>
+<li>R ：Reward 奖励的集合</li>
+<li>
+<p>p ：当前状态执行了一个动作跳转到下一个状态的概率</p>
+</li>
+<li>
+<p>对象</p>
+</li>
+<li>智能体</li>
+<li>环境</li>
+<li>交互</li>
+<li>动作</li>
+<li>状态</li>
+<li>奖励</li>
+</ul>
+<p><img alt="MDP模型" src="../../../assets/cs/ai/rl/MDP%E6%A8%A1%E5%9E%8B.png" /></p>
+<h4 id="状态-奖励表">状态-奖励表<a class="headerlink" href="#状态-奖励表" title="Permanent link">&para;</a></h4>
+<p>扫地机器人状态-奖励表</p>
+<p><img alt="扫地机器人状态-奖励表" src="../../../assets/cs/ai/rl/%E6%89%AB%E5%9C%B0%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%8A%B6%E6%80%81-%E5%A5%96%E5%8A%B1%E8%A1%A8.png" /></p>
+<h4 id="状态迁移图">状态迁移图<a class="headerlink" href="#状态迁移图" title="Permanent link">&para;</a></h4>
+<p>扫地机器人状态迁移图</p>
+<p><img alt="扫地机器人状态迁移图" src="../../../assets/cs/ai/rl/%E6%89%AB%E5%9C%B0%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%8A%B6%E6%80%81%E8%BF%81%E7%A7%BB%E5%9B%BE.png" /></p>
+<h4 id="游戏轨迹">游戏轨迹<a class="headerlink" href="#游戏轨迹" title="Permanent link">&para;</a></h4>
+<p>(state, action, reward) trajectory <strong>游戏轨迹</strong>：</p>
+<div class="arithmatex">\[
+s_1,a_1,r_1,s_2,a_2,r_2,\cdots s_T,a_T,r_T
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>即时奖励和长期目标的关系</p>
+</div>
+<p>某一决策的即时奖励较高不一定带来较高的长期目标</p>
+<p>追求长期目标 ≠ 追求即时奖励</p>
+<h2 id="强化学习的值函数">强化学习的值函数<a class="headerlink" href="#强化学习的值函数" title="Permanent link">&para;</a></h2>
+<h3 id="基础概统知识">基础概统知识<a class="headerlink" href="#基础概统知识" title="Permanent link">&para;</a></h3>
+<p>以下定义针对离散型随机变量：</p>
+<h4 id="概率">概率<a class="headerlink" href="#概率" title="Permanent link">&para;</a></h4>
+<p>随机变量 A = a 发生的概率</p>
+<div class="arithmatex">\[
+p(A=a)
+\]</div>
+<h4 id="条件概率">条件概率<a class="headerlink" href="#条件概率" title="Permanent link">&para;</a></h4>
+<p>在 C = c 条件下，A = a 的概率</p>
+<div class="arithmatex">\[
+p(A=a|C=c)
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>智能体处于状态 <span class="arithmatex">\(s(S=s)\)</span> 时，它的策略 <span class="arithmatex">\(\pi\)</span> 执行动作 <span class="arithmatex">\(a(A=a)\)</span> 的概率</p>
+</div>
+<div class="arithmatex">\[
+\pi(a|s)
+\]</div>
+<h4 id="期望">期望<a class="headerlink" href="#期望" title="Permanent link">&para;</a></h4>
+<p>也称随机变量 𝑿 的期待值</p>
+<div class="arithmatex">\[
+\mathbb{E}[X]=\sum_i x_i p(X=x_i)
+\]</div>
+<h4 id="条件期望">条件期望<a class="headerlink" href="#条件期望" title="Permanent link">&para;</a></h4>
+<p>Y=y 条件下，X 的期望</p>
+<div class="arithmatex">\[
+\mathbb{E}[X|Y=y]=\sum_i x_i p (X=x_i |Y=y)
+\]</div>
+<h3 id="简单值函数">简单值函数<a class="headerlink" href="#简单值函数" title="Permanent link">&para;</a></h3>
+<p>直觉上看，为找到一个好的动作决策，需为每个动作赋值，只考虑了即时奖励，未考虑长期过程</p>
+<p>有了值函数 q(a) ，决策问题即可转为优化问题求解，找最优动作：</p>
+<div class="arithmatex">\[
+\underset{a}{argmax} \ q(a)
+\]</div>
+<h4 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+q(a)=\mathbb{E}[R|A=a]\forall a\in \{ 1,...,k \}=\sum_r p(r|a)r
+\]</div>
+<p>其中 p( r | a ) 是在执行 a 动作情况下观察到智能体获得奖励 r 的概率；R 字母表示 Reward 奖励。</p>
+<h4 id="采样平均">采样平均<a class="headerlink" href="#采样平均" title="Permanent link">&para;</a></h4>
+<p>除了按定义方法计算，还可以通过<strong>采样平均</strong>方法计算，即通过以往动作所获奖励情况来估算值函数</p>
+<div class="arithmatex">\[
+Q(a)=\frac{\text{获得奖励的总和}}{\text{动作a的执行次数}}
+\]</div>
+<p>具体计算公式为：</p>
+<div class="arithmatex">\[
+Q(a)=\frac{\sum_{i=1}^{n-1}R_i \mathbb{1}_{A_i = a}}{\sum_{i=1}^{n-1}\mathbb{1}_{A_i = a}}
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathbb{1}_{A_i = a}\)</span> 表示 <span class="arithmatex">\(A_i =a\)</span> 时取 1 ，否则取 0</p>
+<h4 id="问题">问题<a class="headerlink" href="#问题" title="Permanent link">&para;</a></h4>
+<p>未考虑长期过程，实际并不采用</p>
+<h3 id="简单收益_1">简单收益<a class="headerlink" href="#简单收益_1" title="Permanent link">&para;</a></h3>
+<h4 id="简单收益的定义">简单收益的定义<a class="headerlink" href="#简单收益的定义" title="Permanent link">&para;</a></h4>
+<p>G 字母表示 Gain 收益，也叫做回报 Return</p>
+<div class="arithmatex">\[
+G_t= R_{t+1}+R_{t+2}+R_{t+3}+...+R_T
+\]</div>
+<h4 id="简单收益的期望">简单收益的期望<a class="headerlink" href="#简单收益的期望" title="Permanent link">&para;</a></h4>
+<h5 id="离散动作的简单收益">离散动作的简单收益<a class="headerlink" href="#离散动作的简单收益" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+\mathbb{E}[G_t]=\mathbb{E}[R_{t+1}+R_{t+2}+R_{t+3}+...+R_T]
+\]</div>
+<h5 id="连续动作的简单收益">连续动作的简单收益<a class="headerlink" href="#连续动作的简单收益" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+\mathbb{E}[G_t]=\mathbb{E}[R_{t+1}+R_{t+2}+R_{t+3}+...]
+\]</div>
+<h4 id="存在问题">存在问题<a class="headerlink" href="#存在问题" title="Permanent link">&para;</a></h4>
+<p>若奖励都是非负的，收益会不会是无穷大？</p>
+<h3 id="折扣目标收益">折扣目标收益<a class="headerlink" href="#折扣目标收益" title="Permanent link">&para;</a></h3>
+<p>引入<strong>折扣因子</strong> <span class="arithmatex">\(\gamma\)</span> ，<span class="arithmatex">\(\gamma \lt 1\)</span>，得到<strong>折扣回报</strong>（Discounted Return）：</p>
+<div class="arithmatex">\[
+G_t= R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...+ \gamma^{k-1}R_{t+k}+...=\sum_{k=0}^{\infty}\gamma^k R_{t+k+1}
+\]</div>
+<p>当 <span class="arithmatex">\(\gamma =0\)</span> 时：</p>
+<div class="arithmatex">\[
+G_t= R_{t+1}+0 R_{t+2}+0^2 R_{t+3}+...+ 0^{k-1}R_{t+k}+...=R_{t+1}
+\]</div>
+<p>令 <span class="arithmatex">\(R_{max}\)</span> 为智能体所能获取的最大奖励，则:</p>
+<div class="arithmatex">\[
+R_{t+k+1}\leq R_{max}
+\]</div>
+<div class="arithmatex">\[
+G_t = \sum_{k=0}^{\infty}\gamma^k R_{t+k+1} \leq \sum_{k=0}^{\infty}\gamma^k R_{max} = R_{max}\sum_{k=0}^{\infty}\gamma^k  = \frac{R_{max}}{1-\gamma}
+\]</div>
+<h4 id="目标收益的递归计算">目标收益的递归计算<a class="headerlink" href="#目标收益的递归计算" title="Permanent link">&para;</a></h4>
+<p>定义 <span class="arithmatex">\(G_T = 0\ ,\ t\leq T\)</span></p>
+<div class="arithmatex">\[
+\begin{aligned}
+G_t &amp;= R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+...+ \gamma^{k-1}R_{t+k}+... \\
+&amp;= R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+...+ \gamma^{k-2}R_{t+k}+...) \\
+&amp;= R_{t+1}+\gamma G_{t+1}
+\end{aligned}
+\]</div>
+<p>从而有：</p>
+<div class="arithmatex">\[
+G_t =R_{t+1}+\gamma G_{t+1}
+\]</div>
+<p>特别地，t = T 时有 <span class="arithmatex">\(G_T = 0\)</span> ；t = T-1 时有 <span class="arithmatex">\(G_{t-1} = R_T +\gamma G_T\)</span> 。</p>
+<h3 id="标准状态值函数">标准状态值函数<a class="headerlink" href="#标准状态值函数" title="Permanent link">&para;</a></h3>
+<p>一个状态在策略 𝝅 下的值函数，记作：<span class="arithmatex">\(v_\pi(s)\)</span>，是指该策略 𝝅 下，智能体在时间步 t 和所处状态 s 所能获得的奖励的期望值，即该值是从 s 开始，按照策略 𝝅 执行动作的预期收益</p>
+<div class="arithmatex">\[
+v_\pi(s)\doteq \mathbb{E}_\pi[G_t|S_t=s]=\mathbb{E}_\pi[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} |S_t=s]
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>符号 <span class="arithmatex">\(\doteq\)</span> 表示两个数值、表达式、模型之间的近似等于关系。这个符号通常用于数学和工程领域，在数值计算中，表示两个量非常接近或几乎相等，但并非完全相等。</p>
+</div>
+<h3 id="标准动作值函数">标准动作值函数<a class="headerlink" href="#标准动作值函数" title="Permanent link">&para;</a></h3>
+<p>一个动作在某个策略下的值函数，记作：<span class="arithmatex">\(q_\pi(s,a)\)</span> ，是指该策略 𝝅 下, 智能体在时间步 t 和所处状态 s，执行动作 𝒂 所获得的奖励的期望值，即从 s 开始，按照策略 𝝅 执行动作 𝒂 ，能获得的预期收益</p>
+<div class="arithmatex">\[
+q_\pi(s,a)\doteq \mathbb{E}_\pi[G_t|S_t=s,A_t=a]=\mathbb{E}_\pi[\sum_{k=0}^{\infty}\gamma^k R_{t+k+1} |S_t=s,A_t=a]
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>两种值函数的区别在于：</p>
+</div>
+<ul>
+<li>状态值函数相当于将当前状态 <em>s</em> 所有可能执行的动作都执行一遍，求奖励总和的期望</li>
+<li>动作值函数相当于只求当前状态 <em>s</em> 下某一个动作 <em>a</em> 的奖励的期望</li>
+</ul>
+<h3 id="v-值的递归计算贝尔曼方程">V 值的递归计算(贝尔曼方程)<a class="headerlink" href="#v-值的递归计算贝尔曼方程" title="Permanent link">&para;</a></h3>
+<p>由目标收益的递归计算可以得到 V 值的递归计算：</p>
+<div class="arithmatex">\[
+V(s)=R(s)+\gamma\cdot\sum_{s'\in S}P(s'|s)\cdot V(s')
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(V(s)\)</span> 是 <span class="arithmatex">\(s\)</span> 状态的 V 值；</li>
+<li><span class="arithmatex">\(R(s)\)</span> 是 <span class="arithmatex">\(s\)</span> 状态的奖励</li>
+<li><span class="arithmatex">\(P(s'|s)\)</span> 是从 <span class="arithmatex">\(s\)</span> 状态转变为到 <span class="arithmatex">\(s'\)</span> 的概率；</li>
+<li><span class="arithmatex">\(\gamma\)</span> 是折扣因子。</li>
+</ul>
+<p>该式子也就是贝尔曼方程(?)</p>
+<h2 id="从值函数计算最优策略">从值函数计算最优策略<a class="headerlink" href="#从值函数计算最优策略" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>策略</strong>：在每一个状态下执行何种动作？</li>
+<li><strong>最优策略</strong>：能够最大化收益的动作执行决策</li>
+</ul>
+<h3 id="策略">策略<a class="headerlink" href="#策略" title="Permanent link">&para;</a></h3>
+<h4 id="确定性策略">确定性策略<a class="headerlink" href="#确定性策略" title="Permanent link">&para;</a></h4>
+<p>在某一状态下智能体的策略采取动作 <em>a</em> 的概率是 100% ，即 <span class="arithmatex">\(\pi(s)=a\)</span></p>
+<p><img alt="确定性策略" src="../../../assets/cs/ai/rl/%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%AD%96%E7%95%A5.png" /></p>
+<h4 id="不确定性策略随机策略">不确定性策略（随机策略）<a class="headerlink" href="#不确定性策略随机策略" title="Permanent link">&para;</a></h4>
+<p>也叫随机策略</p>
+<p><span class="arithmatex">\(\pi (a|s)\)</span> 是在状态 <span class="arithmatex">\(s\)</span> 上采取的动作的概率分布，也可以表示某一状态 <code>s</code> 采取可能的行为 <code>a</code> 的概率，满足：</p>
+<div class="arithmatex">\[
+\sum_{a\in \mathcal{A}(s)}\pi (a|s)=1 \\
+\pi (a|s)\geq 0
+\]</div>
+<h3 id="值函数的应用">值函数的应用<a class="headerlink" href="#值函数的应用" title="Permanent link">&para;</a></h3>
+<p><img alt="值函数最高值的策略" src="../../../assets/cs/ai/rl/%E5%80%BC%E5%87%BD%E6%95%B0%E6%9C%80%E9%AB%98%E5%80%BC%E7%9A%84%E7%AD%96%E7%95%A5.png" /></p>
+<p><img alt="无终止态MDP的状态值函数求法举例" src="../../../assets/cs/ai/rl/%E6%97%A0%E7%BB%88%E6%AD%A2%E6%80%81MDP%E7%9A%84%E7%8A%B6%E6%80%81%E5%80%BC%E5%87%BD%E6%95%B0%E6%B1%82%E6%B3%95%E4%B8%BE%E4%BE%8B.png" /></p>
+<h3 id="贝尔曼期望方程">贝尔曼期望方程<a class="headerlink" href="#贝尔曼期望方程" title="Permanent link">&para;</a></h3>
+<p><strong>贝尔曼方程(Bellman Equation)</strong> 就是递归计算值函数得到的值函数的方程。</p>
+<p><strong>贝尔曼期望方程</strong>（Bellman Expectation Equation）是为了与接下来的贝尔曼最优方程进行区分</p>
+<h4 id="状态值函数">状态值函数<a class="headerlink" href="#状态值函数" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>v 值</p>
+</blockquote>
+<div class="arithmatex">\[
+\begin{aligned}
+v_\pi(s) &amp;\doteq \mathbb{E}_\pi[G_t|S_t=s] \\
+&amp;= \mathbb{E}_\pi[R_{t+1}+\gamma G_{t+1}|S_t =s] \\
+&amp;= \mathbb{E}_\pi[R_{t+1}] + \gamma \mathbb{E}_\pi [G_{t+1}|S_t =s] \\
+\mathbb{E}_\pi[R_{t+1}] &amp;=\sum_a \pi (a|s)\sum_{s'}\sum_{r}p(s',r|s,a)[r] \\
+\gamma \mathbb{E}_\pi [G_{t+1}|S_t =s] &amp;= \sum_a \pi (a|s)\sum_{s'}\sum_{r}p(s',r|s,a)[\gamma \mathbb{E}_\pi [G_{t+1}|S_{t+1} =s']]\\
+&amp;= \sum_a \pi (a|s)\sum_{s'}\sum_{r}p(s',r|s,a)[\gamma v_{\pi}(s')]\\
+v_\pi(s) &amp;=  \sum_a \pi (a|s)\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma v_{\pi}(s')]
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(S_{t+1}=s'\)</span></p>
+<h4 id="动作值函数">动作值函数<a class="headerlink" href="#动作值函数" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>q 值</p>
+</blockquote>
+<div class="arithmatex">\[
+\begin{aligned}
+q_\pi(s,a) &amp;\doteq \mathbb{E}_\pi[G_t|S_t=s ,A_t=a] \\
+&amp;=\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma \mathbb{E}_\pi [G_{t+1}|S_{t+1} =s']]\\
+&amp;=\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma\sum_{a'}\pi (a'|s') \mathbb{E}_\pi [G_{t+1}|S_{t+1} =s',A_{t+1}=a']]\\
+q_\pi(s,a) &amp;=\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma\sum_{a'}\pi (a'|s') q_{\pi}(s',a')]\\
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(S_{t+1}=s',A_{t+1}=a'\)</span></p>
+<h3 id="最优策略的数学表达">最优策略的数学表达<a class="headerlink" href="#最优策略的数学表达" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\forall s\in \mathcal{S}:\pi_1\geq\pi_2\Leftrightarrow v_{\pi_1}(s)\geq v_{\pi_2}(s)
+\]</div>
+<div class="arithmatex">\[
+\forall s\in \mathcal{S},\forall a\in\mathcal{A}:\pi_1\geq\pi_2\Leftrightarrow q_{\pi_1}(s,a)\geq q_{\pi_2}(s,a)
+\]</div>
+<p>从而有：</p>
+<div class="arithmatex">\[
+v_{\pi_*}(s)\doteq\mathbb{E}_{\pi_*}[G_t|S_t=s]=\max_\pi v_{\pi}(s),\forall s\in\mathcal{S}
+\]</div>
+<div class="arithmatex">\[
+q_{\pi_*}(s,a)=\mathbb{E}_{\pi_*}[G_{t}|S_{t} =s,A_{t}=a]=\max_\pi q_{\pi}(s,a),\forall s\in\mathcal{S},\forall a\in\mathcal{A}
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(*\)</span> 表示最优的，这里 <span class="arithmatex">\(\pi_*\)</span> 表示最优策略</p>
+</div>
+<h3 id="贝尔曼最优方程">贝尔曼最优方程<a class="headerlink" href="#贝尔曼最优方程" title="Permanent link">&para;</a></h3>
+<p>用 <span class="arithmatex">\(v_*(s)=v_{\pi_*}(s)?\)</span> 代替原来的 <span class="arithmatex">\(v_{\pi}(s)\)</span> ，<span class="arithmatex">\(q_{\pi_*}(s,a)\)</span> 代替原来的 <span class="arithmatex">\(q_{\pi}(s,a)\)</span> ，那么原本的贝尔曼方程就变成<strong>贝尔曼最优方程</strong>，得到的表达式就是<strong>最优值函数</strong>。</p>
+<p>参考：https://blog.csdn.net/november_chopin/article/details/106589197，有 demo 更方便掌握。</p>
+<h4 id="最优状态值函数">最优状态值函数<a class="headerlink" href="#最优状态值函数" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+v_{*}(s) &amp;= \sum_{a=\pi_{*}(s)} \pi_{*} (a|s)\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma v_{*} (s')]\\
+&amp;= \max_{a}\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma v_{*} (s')]
+\end{aligned}
+\]</div>
+<h4 id="最优状态值函数_1">最优状态值函数<a class="headerlink" href="#最优状态值函数_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+q_{\pi_*}(s,a)&amp;=\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma\sum_{a'=\pi_*(s')}\pi_* (a'|s') q_{\pi_*}(s',a')]\\
+&amp;=\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma \max_{a'} q_{\pi_*}(s',a')]
+\end{aligned}
+\]</div>
+<h4 id="两种最优值函数的关系">两种最优值函数的关系<a class="headerlink" href="#两种最优值函数的关系" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+v_{*}(s) &amp;= \max_{a}\sum_{s'}\sum_{r}p(s',r|s,a)[r+\gamma v_{*} (s')]\\
+&amp;= \max_{a}\mathbb{E}_\pi[R_{t+1}+\gamma v_{*}(S_{t+1})|S_t =s,A_t=a]\\
+&amp;= \max_{a}\mathbb{E}_{\pi_*}[R_{t+1}+\gamma G_{t+1}|S_t =s,A_t=a]\\
+&amp;= \max_{a}\mathbb{E}_{\pi_*}[G_t|S_t =s,A_t=a]\\
+v_{*}(s) &amp;= \max_{a\in\mathcal{A(s)}}q_{\pi_{*}}(s,a)
+\end{aligned}
+\]</div>
+<h2 id="tdl">TDL<a class="headerlink" href="#tdl" title="Permanent link">&para;</a></h2>
+<p>Temporal Difference Learning 差分学习</p>
+<p>TD target ：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+y_t&amp;=r_t+\gamma\cdot Q(s_{t+1},a_{t+1};w)\\
+&amp;=r_t+\gamma\cdot \max_aQ(s_{t+1},a;w)
+\end{aligned}
+\]</div>
+<p>损失函数：</p>
+<div class="arithmatex">\[
+L=\frac{1}{2}[Q(w)-y]^2
+\]</div>
+<p>梯度：</p>
+<div class="arithmatex">\[
+\frac{\partial L}{\partial w}=[Q(w)-y]\cdot\frac{\partial Q(w)}{\partial w}
+\]</div>
+<p>梯度下降计算：</p>
+<div class="arithmatex">\[
+w_{t+1}=w_t-\alpha\cdot\frac{\partial L_t}{\partial w}\large|_{w=w_t}
+\]</div>
+<h3 id="算法流程">算法流程<a class="headerlink" href="#算法流程" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Observe state <span class="arithmatex">\(S_t=s_t\)</span> and perform action <span class="arithmatex">\(A_t=a_t\)</span></li>
+<li>Predict the value: <span class="arithmatex">\(q_t=Q(s_t,a_t;w_t)\)</span></li>
+<li>Differentiate the value network: <span class="arithmatex">\(d_t=\frac{\partial Q(s_t,a_t;w)}{\partial w}\large|_{w=w_t}\)</span>；</li>
+<li>Environment provides new state <span class="arithmatex">\(s_{t+1}\)</span> and reward <span class="arithmatex">\(r_t\)</span></li>
+<li>Compute TD target: <span class="arithmatex">\(y_t=r_t+\gamma\cdot\max_a𝑄(s_{t+1},a;w_t)\)</span></li>
+<li>Gradient descent: <span class="arithmatex">\(w_{t+1}=w_t-\alpha\cdot(q_t-y_t)\cdot d_t\)</span></li>
+</ol>
+<h2 id="值估计">值估计<a class="headerlink" href="#值估计" title="Permanent link">&para;</a></h2>
+<h3 id="sarsa">Sarsa<a class="headerlink" href="#sarsa" title="Permanent link">&para;</a></h3>
+<p>State-Action-Reward-State-Action (SARSA)</p>
+<p>使用 <span class="arithmatex">\((s_t,a_t,r_t,a_{t+1})\)</span> 更新 <span class="arithmatex">\(Q_{\pi}\)</span>。</p>
+<h4 id="表格">表格<a class="headerlink" href="#表格" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Tabular version</p>
+</blockquote>
+<h4 id="神经网络">神经网络<a class="headerlink" href="#神经网络" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Value network version</p>
+</blockquote>
+<h3 id="q-learning">Q-Learning<a class="headerlink" href="#q-learning" title="Permanent link">&para;</a></h3>
+<h4 id="表格_1">表格<a class="headerlink" href="#表格_1" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Tabular version</p>
+</blockquote>
+<h4 id="神经网络_1">神经网络<a class="headerlink" href="#神经网络_1" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>DQN version</p>
+</blockquote>
+<h2 id="策略_1">策略<a class="headerlink" href="#策略_1" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ml/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 机器学习">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                机器学习
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../search/" class="md-footer__link md-footer__link--next" aria-label="Next: 搜索技术">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                搜索技术
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

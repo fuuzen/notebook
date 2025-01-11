@@ -1,0 +1,3537 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/search/">
+      
+      
+        <link rel="prev" href="../rl/">
+      
+      
+        <link rel="next" href="../uncentain-knowledge-presentation-and-resolution/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>搜索技术 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#搜索相关概念" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              搜索技术
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#搜索相关概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索相关概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索相关概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#搜索的分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索的分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#搜索策略评价标准" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索策略评价标准
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索策略评价标准">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#完备性" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时间复杂性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间复杂性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#空间复杂性" class="md-nav__link">
+    <span class="md-ellipsis">
+      空间复杂性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优性" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#搜索控制策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索控制策略
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#盲目搜索方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      盲目搜索方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="盲目搜索方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#宽度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#双向宽度优先搜索法" class="md-nav__link">
+    <span class="md-ellipsis">
+      双向宽度优先搜索法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#深度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有界深度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      有界深度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#迭代加深搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代加深搜索
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#启发式搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#启发性信息和评估函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发性信息和评估函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发性信息和评估函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#评估函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-图" class="md-nav__link">
+    <span class="md-ellipsis">
+      OR 图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最好优先搜索算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      最好优先搜索算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-算法和-a算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      A 算法和 A*算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDA*算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#问题归约和-and-or-图启发式搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题归约和 AND-OR 图启发式搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题归约和 AND-OR 图启发式搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题归约的描述" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题归约的描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and-or-图" class="md-nav__link">
+    <span class="md-ellipsis">
+      AND-OR 图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AND-OR 图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#超图" class="md-nav__link">
+    <span class="md-ellipsis">
+      超图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与或图and-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      与或图(AND-OR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可解节点" class="md-nav__link">
+    <span class="md-ellipsis">
+      可解节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不可解节点" class="md-nav__link">
+    <span class="md-ellipsis">
+      不可解节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#解图" class="md-nav__link">
+    <span class="md-ellipsis">
+      解图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#博弈树" class="md-nav__link">
+    <span class="md-ellipsis">
+      博弈树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#极大极小过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      极大极小过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="极大极小过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#井字棋" class="md-nav__link">
+    <span class="md-ellipsis">
+      井字棋
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha\)-\(\beta\)过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#约束满足搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      约束满足搜索
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#蒙特卡洛树搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      蒙特卡洛树搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="蒙特卡洛树搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#选择selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择(Selection)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择(Selection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#信任度上限树" class="md-nav__link">
+    <span class="md-ellipsis">
+      信任度上限树
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#拓展expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      拓展(Expansion)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模拟simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      模拟(Simulation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反向传播back-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向传播(Back Propagation)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#爬山法" class="md-nav__link">
+    <span class="md-ellipsis">
+      爬山法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#模拟退火算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      模拟退火算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模拟退火算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#初始化" class="md-nav__link">
+    <span class="md-ellipsis">
+      初始化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#迭代过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#停止准则" class="md-nav__link">
+    <span class="md-ellipsis">
+      停止准则
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退火方案" class="md-nav__link">
+    <span class="md-ellipsis">
+      退火方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#遗传算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗传算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="遗传算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#编码" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#轮盘赌选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮盘赌选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#锦标赛选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      锦标赛选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#截断选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      截断选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#蒙特卡洛选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      蒙特卡洛选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性排序选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性排序选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指数排序选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      指数排序选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#玻尔兹曼选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      玻尔兹曼选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#随机遍历选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机遍历选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#精英选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      精英选择
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交叉基因重组" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉(基因重组)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="交叉(基因重组)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单点交叉" class="md-nav__link">
+    <span class="md-ellipsis">
+      单点交叉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#部分映射交叉" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分映射交叉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其他交叉操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他交叉操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#变异" class="md-nav__link">
+    <span class="md-ellipsis">
+      变异
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="变异">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#倒置变异" class="md-nav__link">
+    <span class="md-ellipsis">
+      倒置变异
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪代码_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      TSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#自然启发式优化搜索算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然启发式优化搜索算法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#搜索相关概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索相关概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索相关概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#搜索的分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索的分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#搜索策略评价标准" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索策略评价标准
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="搜索策略评价标准">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#完备性" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时间复杂性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间复杂性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#空间复杂性" class="md-nav__link">
+    <span class="md-ellipsis">
+      空间复杂性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最优性" class="md-nav__link">
+    <span class="md-ellipsis">
+      最优性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#搜索控制策略" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索控制策略
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#盲目搜索方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      盲目搜索方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="盲目搜索方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#宽度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#双向宽度优先搜索法" class="md-nav__link">
+    <span class="md-ellipsis">
+      双向宽度优先搜索法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#深度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有界深度优先搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      有界深度优先搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#迭代加深搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代加深搜索
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#启发式搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#启发性信息和评估函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发性信息和评估函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发性信息和评估函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#评估函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      评估函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-图" class="md-nav__link">
+    <span class="md-ellipsis">
+      OR 图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最好优先搜索算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      最好优先搜索算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-算法和-a算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      A 算法和 A*算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDA*算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#问题归约和-and-or-图启发式搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题归约和 AND-OR 图启发式搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题归约和 AND-OR 图启发式搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题归约的描述" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题归约的描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and-or-图" class="md-nav__link">
+    <span class="md-ellipsis">
+      AND-OR 图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AND-OR 图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#超图" class="md-nav__link">
+    <span class="md-ellipsis">
+      超图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与或图and-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      与或图(AND-OR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可解节点" class="md-nav__link">
+    <span class="md-ellipsis">
+      可解节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不可解节点" class="md-nav__link">
+    <span class="md-ellipsis">
+      不可解节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#解图" class="md-nav__link">
+    <span class="md-ellipsis">
+      解图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#博弈树" class="md-nav__link">
+    <span class="md-ellipsis">
+      博弈树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#极大极小过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      极大极小过程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="极大极小过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#井字棋" class="md-nav__link">
+    <span class="md-ellipsis">
+      井字棋
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-beta过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\alpha\)-\(\beta\)过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#约束满足搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      约束满足搜索
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#蒙特卡洛树搜索" class="md-nav__link">
+    <span class="md-ellipsis">
+      蒙特卡洛树搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="蒙特卡洛树搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#选择selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择(Selection)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择(Selection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#信任度上限树" class="md-nav__link">
+    <span class="md-ellipsis">
+      信任度上限树
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#拓展expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      拓展(Expansion)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模拟simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      模拟(Simulation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反向传播back-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向传播(Back Propagation)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#爬山法" class="md-nav__link">
+    <span class="md-ellipsis">
+      爬山法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#模拟退火算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      模拟退火算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模拟退火算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#初始化" class="md-nav__link">
+    <span class="md-ellipsis">
+      初始化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#迭代过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#停止准则" class="md-nav__link">
+    <span class="md-ellipsis">
+      停止准则
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退火方案" class="md-nav__link">
+    <span class="md-ellipsis">
+      退火方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#遗传算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗传算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="遗传算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#编码" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#轮盘赌选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮盘赌选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#锦标赛选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      锦标赛选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#截断选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      截断选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#蒙特卡洛选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      蒙特卡洛选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性排序选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性排序选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指数排序选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      指数排序选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#玻尔兹曼选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      玻尔兹曼选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#随机遍历选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机遍历选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#精英选择" class="md-nav__link">
+    <span class="md-ellipsis">
+      精英选择
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交叉基因重组" class="md-nav__link">
+    <span class="md-ellipsis">
+      交叉(基因重组)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="交叉(基因重组)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单点交叉" class="md-nav__link">
+    <span class="md-ellipsis">
+      单点交叉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#部分映射交叉" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分映射交叉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其他交叉操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他交叉操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#变异" class="md-nav__link">
+    <span class="md-ellipsis">
+      变异
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="变异">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#倒置变异" class="md-nav__link">
+    <span class="md-ellipsis">
+      倒置变异
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪代码_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      TSP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#自然启发式优化搜索算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然启发式优化搜索算法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>搜索技术</h1>
+
+<p><img alt="思维导图" src="../../../assets/cs/ai/search/%E6%90%9C%E7%B4%A2.png" /></p>
+<h2 id="搜索相关概念">搜索相关概念<a class="headerlink" href="#搜索相关概念" title="Permanent link">&para;</a></h2>
+<p>对于给定的问题，智能系统的行为一般是<strong>找到能够达到所希望目标的动作序列</strong>，并使其所付出的代价最小、性能最好。</p>
+<p>基于给定的问题，问题求解的第一步是目标的表示。</p>
+<p>搜索就是<strong>找到智能系统的动作序列的过程</strong>。</p>
+<p>搜索算法的：</p>
+<ul>
+<li>输入是给定的问题</li>
+<li>搜索什么（目标）</li>
+<li>在哪里搜索（搜索空间）<ul>
+<li>和通常的搜索空间不同，人工智能中大多数问题的状态空间在问题求解之前不是全部知道的</li>
+</ul>
+</li>
+<li>输出是表示为动作序列的方案。</li>
+</ul>
+<p>一旦有了方案，就可以执行该方案所给出的动作了。（执行阶段）</p>
+<p>求解问题包括：</p>
+<ul>
+<li>目标表示</li>
+<li>搜索</li>
+<li>执行</li>
+</ul>
+<h3 id="搜索的分类">搜索的分类<a class="headerlink" href="#搜索的分类" title="Permanent link">&para;</a></h3>
+<p>根据是否使用启发式信息分为</p>
+<ul>
+<li>盲目搜索</li>
+<li>只是可以区分出哪个是目标状态</li>
+<li>一般是按预定的搜索策略进行搜索</li>
+<li>没有考虑到问题本身的特性，这种搜索具有很大的盲目性，效率不高，不便于复杂问题的求解</li>
+<li>启发式搜索</li>
+<li>是在搜索过程中加入了与问题有关的启发式信息，用于指导搜索朝着最有希望的方向前进，加速问题的求解并找到最优解。</li>
+</ul>
+<p>按表示方式分为</p>
+<ul>
+<li>状态空间搜索</li>
+<li>用状态空间法来求解问题所进行的搜索</li>
+<li>与或树搜索</li>
+<li>用问题规约方法来求解问题时所进行的搜索</li>
+</ul>
+<h3 id="搜索策略评价标准">搜索策略评价标准<a class="headerlink" href="#搜索策略评价标准" title="Permanent link">&para;</a></h3>
+<h4 id="完备性">完备性<a class="headerlink" href="#完备性" title="Permanent link">&para;</a></h4>
+<p>如果存在一个解答，该策略是否保证能够找到？</p>
+<h4 id="时间复杂性">时间复杂性<a class="headerlink" href="#时间复杂性" title="Permanent link">&para;</a></h4>
+<p>需要多长时间可以找到解答？</p>
+<h4 id="空间复杂性">空间复杂性<a class="headerlink" href="#空间复杂性" title="Permanent link">&para;</a></h4>
+<p>执行搜索需要多少存储空间？</p>
+<h4 id="最优性">最优性<a class="headerlink" href="#最优性" title="Permanent link">&para;</a></h4>
+<p>如果存在不同的几个解答，该策略是否可以发现最高质量的解答？</p>
+<h3 id="搜索控制策略">搜索控制策略<a class="headerlink" href="#搜索控制策略" title="Permanent link">&para;</a></h3>
+<ul>
+<li>不可撤回的控制策略——可能无解</li>
+<li>试探性控制策略</li>
+<li>回溯型</li>
+<li>图搜索</li>
+</ul>
+<h2 id="盲目搜索方法">盲目搜索方法<a class="headerlink" href="#盲目搜索方法" title="Permanent link">&para;</a></h2>
+<p>定义一个四元组，以此来表示状态空间:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>{ nodes, arc, goal, current }
+</code></pre></div>
+<ul>
+<li>nodes 表示当前搜索空间中现有状态的集合</li>
+<li>arc 表示可应用与当前状态的操作符，把当前状态转换为另一个状态</li>
+<li>goal 表示需要到达的状态，是 nodes 中的一个状态</li>
+<li>current 表示现在生成的用于和目标状态比较的状态（包括初始状态）</li>
+</ul>
+<p>各种算法的完备性、时间复杂度、空间复杂度、能否找到最优解的比较如下：</p>
+<p><img alt="盲目搜索算法评价" src="../../../assets/cs/ai/search/%E7%9B%B2%E7%9B%AE%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E8%AF%84%E4%BB%B7.png" /></p>
+<p>::: warning
+无论是宽度优先还是深度优先，都不适用于<strong>有环图</strong>！</p>
+<h3 id="宽度优先搜索">宽度优先搜索<a class="headerlink" href="#宽度优先搜索" title="Permanent link">&para;</a></h3>
+<p>优点:</p>
+<p>目标节点如果存在，用宽度优先搜索算法总可以找到该目标节点，而且是最小（即<strong>最短路径</strong>）的节点。</p>
+<p>问题：</p>
+<p>宽度优先搜索是一种盲目搜索，时间和空间复杂度都比较高，当目标节点距离初始节点较<strong>远</strong>时会产生许多无用的节点，搜索效率低。</p>
+<p>宽度优先搜索中，时间需求是一个很大的问题，特别是当搜索的深度比较大时，尤为严重，但是空间需求是比执行时间更严重的问题。</p>
+<h3 id="双向宽度优先搜索法">双向宽度优先搜索法<a class="headerlink" href="#双向宽度优先搜索法" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Bidirectional search</p>
+</blockquote>
+<p>双向广度优先搜索法适用于具有<strong>可逆性</strong>的问题。广度优先搜索法搜索时，结点不断扩张，深度越大，结点数越多。如果从两个方向向对方搜索，就会在路径中间某个地方相会，这样，双方的搜索的深度都不大，所搜索过的结点数就少得多，搜索时间也就节省不少。</p>
+<p>同时进行两个搜索：</p>
+<ul>
+<li>一个是从初始状态向前搜索；</li>
+<li>另一个则从目标向后搜索；</li>
+</ul>
+<p>同时从初始状态和目标状态出发，采用广度优先搜索的策略，向对方搜索，如果问题存在解，则两个方向的搜索会在中途相遇，即搜索到同一个结点。将两个方向的搜索路径连接起来，就可以得到从初始结点到目标结点的搜索路径。</p>
+<h3 id="深度优先搜索">深度优先搜索<a class="headerlink" href="#深度优先搜索" title="Permanent link">&para;</a></h3>
+<p>也称为回溯搜索，它总是首先扩展树的最深层次上的某个节点，只是当搜索遇到一个死亡节点（非目标节点而且不可扩展），搜索方法才会返回并扩展浅层次的节点</p>
+<p>上述原理对树中的每一节点是递归实现的(实现该递归用栈)</p>
+<p>优点：</p>
+<p>是比宽度优先搜索算法需要较少的空间，该算法只需要保存搜索树的一部分，它由当前正在搜索的路径和该路径上还没有完全展开的节点标志所组成</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />但是对于现实中很多问题深度可能是无穷的！这种时候认为深度优先搜索是<strong>不完备的</strong>。后面的(迭代)有界深度优先搜索就是为了解决这一问题。</p>
+<p>深度优先搜索的<strong>存储器要求</strong>是<strong>深度</strong>约束的线性函数。</p>
+<h3 id="有界深度优先搜索">有界深度优先搜索<a class="headerlink" href="#有界深度优先搜索" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Deep-limited Search</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>若状态空间无限，DFS 可能会出现循环，搜索失败；通过预定一个深度限制来解决这个问题</p>
+</div>
+<p>有界深度优先搜索过程总体上按深度优先算法方法进行，但对搜索深度需要给出一个深度限制 <span class="arithmatex">\(d_m\)</span> ，当深度达到了 <span class="arithmatex">\(d_m\)</span> 的时候，如果还没有找到解答，就停止对该分支的搜索，换到另外一个分支进行搜索</p>
+<p>深度限制 <span class="arithmatex">\(d_m\)</span> 很重要。当问题有解，且解的路径长度小于或等于 <span class="arithmatex">\(d_m\)</span> 时，则搜索过程一定能够找到解，但是和深度优先搜索一样这并不能保证最先找到的是最优解</p>
+<ul>
+<li>但是当 <span class="arithmatex">\(d_m\)</span> 取得太小，解的路径长度大于 <span class="arithmatex">\(d_m\)</span> 时，则搜索过程中就找不到解，即这时搜索过程甚至是不完备的</li>
+<li><span class="arithmatex">\(d_m\)</span> 不能太大。当 <span class="arithmatex">\(d_m\)</span> 太大时，搜索过程会产生过多的无用节点，既浪费了计算机资源，又降低了搜索效率</li>
+</ul>
+<p>有界深度搜索的主要问题是深度限制值 <span class="arithmatex">\(d_m\)</span> 的选取</p>
+<h3 id="迭代加深搜索">迭代加深搜索<a class="headerlink" href="#迭代加深搜索" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Iterative Deepening Search</p>
+</blockquote>
+<p>在有界深度优先搜索的基础上改进，试图尝试所有可能的深度限制</p>
+<p>先任意给定一个较小的数作为 <span class="arithmatex">\(d_m\)</span>，然后按有界深度算法搜索，通过典型的深度优先算法，生成深度为 m 的树:</p>
+<ul>
+<li>若在此深度限制内找到了解，则算法结束</li>
+<li>若在此限制内没有找到问题的解，则增大深度限制 <span class="arithmatex">\(d_m\)</span> ，继续搜索</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<ul>
+<li>宽度优先搜索需要指数数量的空间</li>
+</ul>
+</div>
+<ul>
+<li>深度优先搜索的空间复杂度和最大搜索深度呈线性关系</li>
+<li>迭代加深搜索对一棵深度受控的树采用深度优先的搜索。它结合了宽度优先和深度优先搜索的优点：</li>
+<li>和宽度优先搜索一样，它是最优的，也是完备的</li>
+<li>但对空间要求和深度优先搜索一样是适中的</li>
+</ul>
+<h2 id="启发式搜索">启发式搜索<a class="headerlink" href="#启发式搜索" title="Permanent link">&para;</a></h2>
+<p>启发式搜索用于两种不同类型的问题：</p>
+<ul>
+<li>前向推理</li>
+<li>一般用于状态空间的搜索。在前向推理中，推理是从预选定义的初始状态出发向目标状态方向执行</li>
+<li>反向推理</li>
+<li>反向推理一般用于问题规约中。在反向推理中，推理是从给定的目标状态向初始状态执行</li>
+</ul>
+<p>启发式搜索：如果在选择节点时能充分利用与问题有关的特征信息，估计出节点的重要性，就能在搜索时选择重要性较高的节点，以便求得最优解。</p>
+<h3 id="启发性信息和评估函数">启发性信息和评估函数<a class="headerlink" href="#启发性信息和评估函数" title="Permanent link">&para;</a></h3>
+<h4 id="评估函数">评估函数<a class="headerlink" href="#评估函数" title="Permanent link">&para;</a></h4>
+<p>用来评估节点重要性的函数称为<strong>评估函数</strong> <span class="arithmatex">\(f(x)\)</span> ，定义为从初始节点 <span class="arithmatex">\(S_0\)</span> 出发，约束地经过节点 <span class="arithmatex">\(x\)</span> 到达目标节点 <span class="arithmatex">\(S_g\)</span> 的所有路径中最小路径代价的估计值：</p>
+<div class="arithmatex">\[
+f(x)=g(x)+h(x)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(g(x)\)</span>——从初始节点 <span class="arithmatex">\(S_0\)</span> 到节点 <span class="arithmatex">\(x\)</span> 的<strong>实际代价</strong>；</li>
+<li>
+<p><span class="arithmatex">\(h(x)\)</span>——从<span class="arithmatex">\(x\)</span>到目标节点 <span class="arithmatex">\(S_g\)</span> 的最优路径的评估代价，它体现了问题的启发式信息，其形式要根据问题的特性确定，<span class="arithmatex">\(h(x)\)</span> 称为<strong>启发式函数</strong></p>
+</li>
+<li>
+<p>在正方形网格中，允许向 <span class="arithmatex">\(4\)</span> 邻域的移动，使用曼哈顿距离（<span class="arithmatex">\(L1\)</span>）</p>
+</li>
+<li>在正方形网格中，允许向 <span class="arithmatex">\(8\)</span> 邻域的移动，使用对角线距离（<span class="arithmatex">\(L∞\)</span>）等等</li>
+</ul>
+<h4 id="or-图">OR 图<a class="headerlink" href="#or-图" title="Permanent link">&para;</a></h4>
+<p>大多数前向推理问题可以表示为 OR 图，其中图中的节点表示问题的状态，弧表示应用于当前状态的规则，该规则引起状态的转换；</p>
+<p>当有多个规则可用于当前状态的时候，可以从该状态的各个子状态中选择一个比较好的状态作为下一个状态。</p>
+<h3 id="最好优先搜索算法">最好优先搜索算法<a class="headerlink" href="#最好优先搜索算法" title="Permanent link">&para;</a></h3>
+<p>最好优先搜索算法是一个<strong>通用图搜索算法框架</strong>，不是一个具体的算法。将其 <span class="arithmatex">\(f(n)\)</span> 评估函数具体化，就能得到后面的 <span class="arithmatex">\(A\)</span> 算法、<span class="arithmatex">\(A*\)</span> 算法。</p>
+<p>图搜索算法只记录状态空间中那些被搜索过的状态，它们组成一个搜索图 <span class="arithmatex">\(G\)</span>。</p>
+<p><span class="arithmatex">\(G\)</span> 由两种节点组成：</p>
+<ul>
+<li>Open 节点，如果该节点已经生成，而且启发式函数值 <span class="arithmatex">\(h(x)\)</span> 已经计算出来，但是它没有扩展。这些节点也称为未考察节点</li>
+<li>Closed 节点，如果该节点已经扩展并生成了其子节点。Closed 节点是已经考察过的节点。</li>
+</ul>
+<p>可以给出两个数据结构 OPEN 和 CLOSED 表，分别存放了 Open 节点和 Closed 节点。</p>
+<p>节点 <span class="arithmatex">\(x\)</span> 总的费用函数 <span class="arithmatex">\(f(x)\)</span> 是 <span class="arithmatex">\(g(x)\)</span> 和 <span class="arithmatex">\(h(x)\)</span> 之和。</p>
+<p>生成费用 <span class="arithmatex">\(g(x)\)</span> 可以比较容易地得到，如， 如果节点 <span class="arithmatex">\(x\)</span> 是从初始节点经过 <span class="arithmatex">\(m\)</span> 步得到，则 <span class="arithmatex">\(g(x)\)</span> 应该和 <span class="arithmatex">\(m\)</span> 成正比（或者就是 <span class="arithmatex">\(m\)</span> ）。</p>
+<p><span class="arithmatex">\(h(x)\)</span> 只是一个预测值。</p>
+<p>上述图搜索算法生成一个明确的图 <span class="arithmatex">\(G\)</span>（称为<strong>搜索图</strong>）和一个 <span class="arithmatex">\(G\)</span> 的子集 <span class="arithmatex">\(T\)</span>（称为<strong>搜索树</strong>），图 <span class="arithmatex">\(G\)</span> 中的每一个节点也在树 <span class="arithmatex">\(T\)</span> 上。</p>
+<p>搜索树是由返回指针来确定的。</p>
+<p><span class="arithmatex">\(G\)</span> 中的每一个节点（除了初始节点 <span class="arithmatex">\(S_0\)</span>）都有一个指向 <span class="arithmatex">\(G\)</span> 中一个父辈节点的指针。该父辈节点就是树中那个节点的惟一父辈节点。</p>
+<p>从最有希望的节点开始，并且生成其所有的子节点</p>
+<ul>
+<li>计算每个节点的性能（合适性）</li>
+<li>选择最有希望的节点进行扩展，而不是仅仅从当前节点所生成的子节点中进行选择</li>
+<li>如果在早期选择了一个错误的节点，最好优先搜索就提供了一个修改的机会</li>
+</ul>
+<p>最好优先搜索算法并没有显式地给出如何定义启发式函数，</p>
+<p>它不能保证当从起始节点到目标节点的最短路径存在时，一定能够找到它。</p>
+<p>最好优先搜索算法伪代码：</p>
+<p><img alt="最好优先搜索算法伪代码" src="../../../assets/cs/ai/search/%E6%9C%80%E5%A5%BD%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E4%BC%AA%E4%BB%A3%E7%A0%81.png" /></p>
+<p>算法的特例：</p>
+<div class="arithmatex">\[
+f(n)=g(n)+h(n)
+\]</div>
+<ul>
+<li>当 <span class="arithmatex">\(g(n)=0\)</span> 时，<span class="arithmatex">\(f(n)=h(n)\)</span>，称为<strong>贪婪最好优先搜索算法</strong>。</li>
+<li>当 <span class="arithmatex">\(h(n)=0\)</span> 时，<span class="arithmatex">\(f(n)=g(n)\)</span>，变成宽度优先搜索算法。</li>
+</ul>
+<h3 id="a-算法和-a算法">A 算法和 A*算法<a class="headerlink" href="#a-算法和-a算法" title="Permanent link">&para;</a></h3>
+<p>如果最好优先搜索算法中的 <span class="arithmatex">\(f(n)\)</span> 被实例化为 <span class="arithmatex">\(f(n)=g(n)+h(n)\)</span>，则称为 <strong><span class="arithmatex">\(A\)</span> 算法</strong>。</p>
+<p>进一步细化，将 <span class="arithmatex">\(A\)</span> 算法中能够保证找到最优解的这一类称为 <strong><span class="arithmatex">\(A*\)</span> 算法</strong>，如果：</p>
+<ul>
+<li>启发函数 <span class="arithmatex">\(h\)</span> 满足对于任一结点 <span class="arithmatex">\(n\)</span>，<span class="arithmatex">\(h(n)\)</span> 的值都不大于 <span class="arithmatex">\(n\)</span> 到目标结点的最优代价；</li>
+<li>也就是 <span class="arithmatex">\(h(n)\leq h^*(n)\)</span>。</li>
+<li>搜索空间中的每个结点都具有有限个后继。</li>
+<li>搜索空间中的每个有向边的代价均为正值。
+  称以上 3 个条件为“运行条件”。</li>
+</ul>
+<p>定义评估函数 <span class="arithmatex">\(f^*\)</span>：</p>
+<div class="arithmatex">\[
+f^*(n)=g^*(n)+h^*(n)
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(g^*(n)\)</span> 为起始节点到节点 <span class="arithmatex">\(n\)</span> 的<strong>最短</strong>路径的代价</li>
+<li><span class="arithmatex">\(h^*(n)\)</span> 是从 <span class="arithmatex">\(n\)</span> 到目标节点的<strong>最短</strong>路径的代价。</li>
+</ul>
+<p>这样 <span class="arithmatex">\(f^*(n)\)</span> 就是从起始节点出发通过节点 <span class="arithmatex">\(n\)</span> 到达目标节点的最佳路径的总代价的估值。</p>
+<p>把估价函数 <span class="arithmatex">\(f(n)\)</span> 和 <span class="arithmatex">\(f^*(n)\)</span> 相比较，<span class="arithmatex">\(g^*(n)\)</span> 是对 <span class="arithmatex">\(g(n)\)</span> 的估价；<span class="arithmatex">\(h^*(n)\)</span> 是对 <span class="arithmatex">\(h(n)\)</span> 的估价。</p>
+<p>在这两个估价中，尽管 <span class="arithmatex">\(g(n)\)</span> 容易计算，但它不一定就是从起始节点 <span class="arithmatex">\(S_0\)</span> 到节点 <span class="arithmatex">\(n\)</span> 的真正的最短路径的代价，很可能从初始节点 <span class="arithmatex">\(S_0\)</span> 到节点 <span class="arithmatex">\(n\)</span> 的真正最短路径还没有找到，所以一般都有：</p>
+<div class="arithmatex">\[
+g(n)\geq g^*(n)
+\]</div>
+<p>最好优先搜索算法框架中保证了能够计算出更好的 <span class="arithmatex">\(g(n)\)</span>。</p>
+<p><span class="arithmatex">\(A*\)</span> 算法中要求 <span class="arithmatex">\(h(n)\)</span> 是 <span class="arithmatex">\(h^*(n)\)</span> 的下界，即对任意节点 <span class="arithmatex">\(n\)</span> 均有 <span class="arithmatex">\(h(n)\leq h^*(n)\)</span>。称这个时候 <span class="arithmatex">\(h(n)\)</span> 是<strong>可采纳的</strong>，这保证了 <span class="arithmatex">\(A*\)</span> 算法是收敛的！</p>
+<h3 id="ida算法">IDA*算法<a class="headerlink" href="#ida算法" title="Permanent link">&para;</a></h3>
+<p>也叫<strong>迭代加深 A*算法</strong>。</p>
+<ul>
+<li>迭代加深搜索算法，它以深度优先的方式在有限制的深度内搜索目标节点。在每个深度上，该算法在每个深度上检查目标节点是否出现，如果出现则停止，否则深度加 1 继续搜索。</li>
+<li>而 <span class="arithmatex">\(A*\)</span> 算法是选择具有最小估价函数值的节点扩展。</li>
+</ul>
+<p>迭代加深 <span class="arithmatex">\(A*\)</span> 搜索算法 是 上述两种算法的结合，这里启发式函数用做深度的限制，而不是选择扩展节点的排序</p>
+<p>伪代码：</p>
+<p><img alt="IDA_star伪代码" src="../../../assets/cs/ai/search/IDA_star%E4%BC%AA%E4%BB%A3%E7%A0%81.png" /></p>
+<h2 id="问题归约和-and-or-图启发式搜索">问题归约和 AND-OR 图启发式搜索<a class="headerlink" href="#问题归约和-and-or-图启发式搜索" title="Permanent link">&para;</a></h2>
+<h3 id="问题归约的描述">问题归约的描述<a class="headerlink" href="#问题归约的描述" title="Permanent link">&para;</a></h3>
+<p>问题归约可以用三元组表示：<span class="arithmatex">\((S_0,O,P)\)</span> ，其中：</p>
+<ul>
+<li><span class="arithmatex">\(S_0\)</span> 是初始问题</li>
+<li><span class="arithmatex">\(P\)</span> 是本原问题集(不用证明的，公理、已知事实，或已证明过的问题)</li>
+<li><span class="arithmatex">\(O\)</span> 是操作算子集(操作算子把一个问题化成若干个子问题)</li>
+</ul>
+<p>问题归约表示方法就是由初始问题出发，运用操作算子产生一些子问题，对子问题再运用操作算子产生子问题的子问题，这样一直进行到产生的问题均为本原问题，则问题得解。所有问题归约的最终目的是产生本原问题</p>
+<h3 id="and-or-图"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />AND-OR 图<a class="headerlink" href="#and-or-图" title="Permanent link">&para;</a></h3>
+<h4 id="超图">超图<a class="headerlink" href="#超图" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>这个不考</p>
+</blockquote>
+<p><img alt="超图" src="../../../assets/cs/ai/search/%E8%B6%85%E5%9B%BE.png" /></p>
+<p><span class="arithmatex">\(q\)</span> 指向 <span class="arithmatex">\(p\)</span> 和 <span class="arithmatex">\(t\)</span> 的两条有向边被一个圆弧连接，用于表示 <span class="arithmatex">\(q\)</span> 被分解 (归约) 为 <span class="arithmatex">\(p\)</span> 与 <span class="arithmatex">\(t\)</span> : 只有当 <span class="arithmatex">\(p\)</span> 和 <span class="arithmatex">\(t\)</span> 对应的问题都被解决时，<span class="arithmatex">\(q\)</span> 才能被解决。把圆弧连接的有向边看作 一个整体，把有向边 <span class="arithmatex">\(\langle q,m\rangle\)</span> 看作另一个整体，这两个整体表示可以将 <span class="arithmatex">\(q\)</span> 按照前一个整体进行分解，或者，将 <span class="arithmatex">\(q\)</span> 按照后一个整体进行分解</p>
+<p><strong>超图</strong> (hypergrah) 用二元组 <span class="arithmatex">\((N,H)\)</span> 表示，其中 :</p>
+<ul>
+<li><span class="arithmatex">\(N\)</span> 为结点的有穷集合</li>
+<li><span class="arithmatex">\(H\)</span> 为“超边” (Hyperarce) 的集合</li>
+</ul>
+<p>一个<strong>超边</strong>表示为 <span class="arithmatex">\(\langle s,D\rangle\)</span>，也称为“k 连接符”(k-conector)，其中 <span class="arithmatex">\(k=|D|\)</span> 其中 :</p>
+<ul>
+<li><span class="arithmatex">\(s\in N\)</span> ，称 <span class="arithmatex">\(s\)</span> 为该超边的源结点</li>
+<li><span class="arithmatex">\(D\in N\)</span> ，称 D 该超边的目的结点集。每个超边 <span class="arithmatex">\(\langle s,D\rangle\)</span> 都表示结点 <span class="arithmatex">\(s\)</span> 对应的问题的一个可行的分 解方法.</li>
+<li>若 <span class="arithmatex">\(|D|=1\)</span> ，则该超边称为“或弧”，同时称 <span class="arithmatex">\(D\)</span> 中的结点为 <span class="arithmatex">\(s\)</span> 的“或子结点”(OR-node)，也称它为 s 的“或后继”(OR-descendents)，也就是<strong>或节点</strong></li>
+<li>若 <span class="arithmatex">\(|D|&gt;1\)</span> ，则该超边称为“与弧”，同时称 <span class="arithmatex">\(D\)</span> 中的结点为 <span class="arithmatex">\(s\)</span> 的“与子结点”(AND-node)，也称它们为 s 的“与后继”(AND-descendents)，也就是<strong>与节点</strong></li>
+</ul>
+<h4 id="与或图and-or">与或图(AND-OR)<a class="headerlink" href="#与或图and-or" title="Permanent link">&para;</a></h4>
+<p>用 AND-OR 图把问题归约为子问题替换集合，将：</p>
+<ul>
+<li><strong>初始节点</strong>表示初始问题描述</li>
+<li>对应于本原问题的节点称为<strong>叶节点</strong></li>
+</ul>
+<p>它的四元组表示为 <span class="arithmatex">\((N,n_0,H,T)\)</span> ，其中:</p>
+<ul>
+<li>N 是结点集合，其中每个结点都对应一个唯一的问题</li>
+<li><span class="arithmatex">\(n_0\in N\)</span> ，对应于初始问题</li>
+<li>H 是超边的集合，其中每个超边 <span class="arithmatex">\(\langle S,D\rangle\)</span> 都表示结点 s 对应的问题的一个可行的分解方法</li>
+<li>若 <span class="arithmatex">\(|D|=1\)</span>，则该超边称为“或弧”，同时称 <span class="arithmatex">\(D\)</span> 中的结点为;的“或子结点”(OR-node)，也称它为 <span class="arithmatex">\(s\)</span> 的“或后继”(OR-descendents)，也就是<strong>或节点</strong></li>
+<li>若 <span class="arithmatex">\(|D|&gt;1\)</span>，则该超边称为“与弧”，同时称 <span class="arithmatex">\(D\)</span> 中的结点为;的“与子结点”(AND-node)，也称它们力;的“与后继”(AND-descendents)，也就是<strong>与节点</strong></li>
+<li><span class="arithmatex">\(t\)</span> 是 <span class="arithmatex">\(N\)</span> 的子集，其中每个结点对应的问题都为本原问题，<span class="arithmatex">\(T\)</span> 中的结点也称为叶结点</li>
+</ul>
+<h4 id="可解节点">可解节点<a class="headerlink" href="#可解节点" title="Permanent link">&para;</a></h4>
+<p>可解节点可递归地定义如下：</p>
+<ul>
+<li>叶节点是可解节点</li>
+<li>如果某节点为或子节点，那么该节点可解当且仅当至少有一个子节点为可解节点</li>
+<li>如果某节点为与子节点，那么该节点可解当且仅当所有子节点均为可解节点</li>
+</ul>
+<h4 id="不可解节点">不可解节点<a class="headerlink" href="#不可解节点" title="Permanent link">&para;</a></h4>
+<p>不可解节点可递归定义如下：</p>
+<ul>
+<li>有后裔节点的非叶节点是不可解节点</li>
+<li>或节点是不可解节点（含有或后继节点），当且仅当它的所有子节点都是不可解节点</li>
+<li>与节点是不可解节点（含有与后继节点），当且仅当它的子节点中至少有一个是不可解节点。</li>
+</ul>
+<h4 id="解图">解图<a class="headerlink" href="#解图" title="Permanent link">&para;</a></h4>
+<p>能导致初始节点可解的那些可解节点及有关连线组成的子图称为该 AND-OR 图的解图</p>
+<h2 id="博弈">博弈<a class="headerlink" href="#博弈" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这里讲的博弈是二人博弈，二人零和、全信息、非偶然博弈，博弈双方的利益是完全对立的；</p>
+</div>
+<p>（1）对垒的双方 MAX 和 MIN 轮流采取行动，博弈的结果只能有 3 种情况：MAX 胜、MIN 败；MAX 败，MIN 胜；和局。</p>
+<p>（2）在对垒过程中，任何一方都了解当前的格局和过去的历史。</p>
+<p>（3）任何一方在采取行动前都要根据当前的实际情况，进行得失分析，选择对自己最为有利而对对方最不利的对策，在不存在“碰运气”的偶然因素，即双方都很理智地决定自己的行动。</p>
+<h3 id="博弈树">博弈树<a class="headerlink" href="#博弈树" title="Permanent link">&para;</a></h3>
+<p>把双人博弈过程用图的形式表示出来，这样就可以得到一棵 AND-OR 树，这种 AND-OR 树称为博弈树；</p>
+<p>博弈树特点：</p>
+<ul>
+<li>博弈的初始状态是初始节点</li>
+<li>博弈树的 “与” 节点 和 “或” 节点是逐层交替出现的</li>
+<li>向前看 <span class="arithmatex">\(n\)</span> 步，则博弈树有 <span class="arithmatex">\(2n\)</span> 层（<span class="arithmatex">\(2n\)</span> 层树枝，<span class="arithmatex">\(2n+1\)</span> 层节点）</li>
+</ul>
+<p>整个博弈过程始终站在某一方的立场上，不同立场决定节点的性质：</p>
+<ul>
+<li>能使自己一方获胜的终局都是本原问题，相应的节点也是<strong>可解</strong>节点；</li>
+<li>所有使对方获胜的节点都是<strong>不可解</strong>节点</li>
+<li>轮到自己一方走的节点都是<strong>或</strong>节点</li>
+<li>轮到对方走的节点都是<strong>与</strong>节点</li>
+</ul>
+<p>从 MAX 一方的角度来看，也就是希望 MAX 获胜，博弈树中的节点分为：</p>
+<ul>
+<li>MAX 节点 —— 下一步该 MAX 走的节点，所有 MAX 节点都是<strong>或节点</strong></li>
+<li>MIN 节点 —— 下一步该 MIN 走的节点，所有 MIN 节点都是<strong>与节点</strong></li>
+</ul>
+<h3 id="极大极小过程">极大极小过程<a class="headerlink" href="#极大极小过程" title="Permanent link">&para;</a></h3>
+<p>极大极小过程是考虑双方对弈若干步之后，从可能的走法中选一步相对好的走法来走，即在<strong>有限的搜索深度范围内进行求解</strong></p>
+<p>定义一个静态估价函数 <span class="arithmatex">\(f\)</span> ,以便对棋局的态势做出评估，这个函数可以根据棋局的态势特征进行定义。假定对弈双方分别为 MAX 和 MIN ，规定：</p>
+<ul>
+<li>有利于 MAX 方的态势：<span class="arithmatex">\(f(p)\)</span> 取正值</li>
+<li>有利于 MIN 方的态势：<span class="arithmatex">\(f(p)\)</span> 取负值</li>
+<li>态势均衡的时候：<span class="arithmatex">\(f(p)\)</span> 取零</li>
+</ul>
+<p>其中 <span class="arithmatex">\(p\)</span> 代表棋局</p>
+<p>MINMAX 基本思想：</p>
+<ol>
+<li>当轮到 MIN 走步的节点时，MIN 应考虑最坏的情况（即 <span class="arithmatex">\(f(p)\)</span> 取极小值）</li>
+<li>当轮到 MAX 走步的节点时，MAX 应考虑最好的情况（即 <span class="arithmatex">\(f(p)\)</span> 取极大值）</li>
+<li>评价往回倒推时，相应于两位棋手的对抗策略，交替使用（1）和（2）两种方法传递倒推值</li>
+</ol>
+<p>所以这种方法称为<strong>极大极小过程</strong></p>
+<h4 id="井字棋">井字棋<a class="headerlink" href="#井字棋" title="Permanent link">&para;</a></h4>
+<p>设只进行两层，即每方只走一步</p>
+<p>估价函数 <span class="arithmatex">\(e(p)\)</span>：</p>
+<ul>
+<li>若格局 p 对任何一方都不是获胜的，则：<span class="arithmatex">\(e(p)\)</span> = (所有空格都放上 MAX 的棋子之后三子成一线的总数) –（所有空格都放上 MIN 的棋子后三子成一线的总数）</li>
+<li>若 <span class="arithmatex">\(p\)</span> 是 MAX 获胜，则：<span class="arithmatex">\(e(p) = +∞\)</span></li>
+<li>若 <span class="arithmatex">\(p\)</span> 是 MIN 获胜，则：<span class="arithmatex">\(e(p) = -∞\)</span></li>
+</ul>
+<p><img alt="井字棋" src="../../../assets/cs/ai/search/%E4%BA%95%E5%AD%97%E6%A3%8B.png" /></p>
+<p>在生成后继节点时，可以利用棋盘的对称性，省略了从对称上看是相同的格局</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>极大极小方法是把搜索树的生成和估值这两个过程完全分开，只有在已经生成树之后才开始进行估值,这一分离导致了低效率的策略</p>
+</div>
+<h3 id="alpha-beta过程"><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span>过程<a class="headerlink" href="#alpha-beta过程" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 剪枝技术是极大极小方法的改进，是一种提高博弈树搜索效率的方法</p>
+<p><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 剪枝技术是一种边生成节点，边计算估值和倒推值的方法，从而剪去某些分枝</p>
+<ul>
+<li>对于一个“与”（MIN）节点,它取当前子节点中的最小的倒推值作为它的倒推值的上界,称此值为 <span class="arithmatex">\(\beta\)</span> 值.也就是说 <span class="arithmatex">\(\beta\)</span> 值可以等于其后继节点当前最小的最终倒推值.“与”节点的 <span class="arithmatex">\(\beta\)</span> 值是永远不会增加的</li>
+<li>对于一个“或”（MAX）节点,它取当前子节点中得最大的倒推值作为它的倒推值的下界,称此值为 <span class="arithmatex">\(\alpha\)</span> 值.也就是说 <span class="arithmatex">\(\alpha\)</span> 值可以等于其后继节点当前最大的最终倒推值.“或”节点的 <span class="arithmatex">\(\alpha\)</span> 值是永远不会减少的.</li>
+</ul>
+<hr />
+<p><strong><span class="arithmatex">\(\beta\)</span> 剪枝</strong>：任何“或”（MAX）节点 x 的 <span class="arithmatex">\(\alpha\)</span> 值如果大于等于其父节点的 <span class="arithmatex">\(\beta\)</span> 值，则：</p>
+<ul>
+<li>对节点 x 以下的分枝可以停止搜索</li>
+<li>并使 x 的倒推值为 <span class="arithmatex">\(\alpha\)</span></li>
+</ul>
+<p><strong><span class="arithmatex">\(\alpha\)</span> 剪枝</strong>：任何“与”（MIN）节点 x 的 <span class="arithmatex">\(\beta\)</span> 值如果小于等于其父节点的 <span class="arithmatex">\(\alpha\)</span> 值，则：</p>
+<ul>
+<li>对节点 x 以下的分枝可以停止搜索</li>
+<li>并使 x 的倒推值为 <span class="arithmatex">\(\beta\)</span></li>
+</ul>
+<p>要进行 <span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 剪枝,至少必须使某一部分的搜索树生长到最大深度.因为 <span class="arithmatex">\(\alpha\)</span> 和 <span class="arithmatex">\(\beta\)</span> 值必须以某个端节点的静态估值为依据.因此采用 <span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 过程都要使用某种深度优先的搜索方法</p>
+<p><img alt="alpha-beta剪枝" src="../../../assets/cs/ai/search/alpha-beta%E5%89%AA%E6%9E%9D.png" /></p>
+<p>剪枝并不影响最后的结果</p>
+<p>好的招数序列可以改进剪枝的效率</p>
+<p>对于最佳情况，即 MIN 结点先扩展出最小估值的后继结点，MAX 结点先扩展出最大估值的后继结点。这种情况 可使得修剪的枝数最大：</p>
+<ul>
+<li>时间复杂度为：<span class="arithmatex">\(O(b^{\frac{m}{2}})\)</span>。</li>
+<li>有效的分支系数为 <span class="arithmatex">\(\sqrt{b}\)</span>。</li>
+</ul>
+<p>其中树的深度为 <span class="arithmatex">\(d\)</span>，且每个非叶结点的分枝系数为 <span class="arithmatex">\(b\)</span>。</p>
+<p><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 搜索向前看的走步数是极大极小搜索的两倍</p>
+<p><span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span> 过程就是把生成后继和倒推值估计结合起来，及时剪掉一些无用分支</p>
+<h2 id="约束满足搜索">约束满足搜索<a class="headerlink" href="#约束满足搜索" title="Permanent link">&para;</a></h2>
+<p>约束满足问题（CSP）就是为一组变量寻找满足约束的赋值。</p>
+<p>例如，N-皇后问题就是一个约束满足问题。这里的问题就是为 N 个变量赋值，每个变量的值表示每行上皇后的问题，值域均为 <span class="arithmatex">\([1，N]\)</span>，约束就是 N 个皇后谁也“吃”不到谁。</p>
+<p>类似的，还有地图着色问题</p>
+<p>一个约束满足问题表述为一个三元组 <span class="arithmatex">\((V,D,C)\)</span>：</p>
+<ul>
+<li><span class="arithmatex">\(V\)</span>：n 个变量的集合 <span class="arithmatex">\(V={v_1,\dots,v_n}\)</span>，</li>
+<li><span class="arithmatex">\(D\)</span>：变量 <span class="arithmatex">\(v_i (i=1,2,\dots,n)\)</span> 相应的取值集合
+  <span class="arithmatex">\(D=\{D_1,\dots,D_n\}\)</span>，</li>
+<li><span class="arithmatex">\(C\)</span>：约束的有限集合，其中每个约束对若干变量同时可取的值做出限制。</li>
+</ul>
+<p>如果至少存在一个解答满足某个约束，则称该约束是可满足的。</p>
+<p>如果找不到一个变量值的组合，使之满足所有的约束，则可以找到一个满足最大数目约束的解，这种情况称为最大约束满足问题。</p>
+<h2 id="蒙特卡洛树搜索">蒙特卡洛树搜索<a class="headerlink" href="#蒙特卡洛树搜索" title="Permanent link">&para;</a></h2>
+<p>分为四个阶段：</p>
+<ul>
+<li>选择（Selection）</li>
+<li>扩展（Expansion）</li>
+<li>模拟（Simulation）</li>
+<li>反向传播（Backpropagation）</li>
+</ul>
+<p><img alt="蒙特卡洛树搜索" src="../../../assets/cs/ai/search/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A0%91%E6%90%9C%E7%B4%A2.png" /></p>
+<p>推荐观看<a href="https://www.bilibili.com/video/BV1fY4y1876L">【双语字幕】MCTS 蒙特卡洛树搜索算法详细步骤解释</a></p>
+<h3 id="选择selection">选择(Selection)<a class="headerlink" href="#选择selection" title="Permanent link">&para;</a></h3>
+<p>在选择阶段，需要从根节点，也就是要做决策的局面 R 出发向下选择出一个最急迫需要被拓展的节点 N，局面 R 是是每一次迭代中第一个被检查的节点；对于被检查的局面而言，他可能有三种可能：</p>
+<ul>
+<li>该节点所有可行动作都已经被拓展过</li>
+<li>使用 <strong>UCB 公式</strong> 计算该节点所有子节点的 UCB 值，并找到值最大的一个子节点继续检查。反复向下迭代</li>
+<li>该节点有可行动作还未被拓展过</li>
+<li>认为这个节点就是本次迭代的的目标节点 N，并找出 N 还未被拓展的动作 A。执行模拟</li>
+<li>这个节点游戏已经结束了</li>
+<li>从该节点直接执行反向传播</li>
+</ul>
+<h4 id="信任度上限树">信任度上限树<a class="headerlink" href="#信任度上限树" title="Permanent link">&para;</a></h4>
+<p>N 表示总模拟次数，W 表示胜局次数。每次都选择胜率最大的节点进行模拟。但是这样会导致新节点无法被探索到。为了在最大胜率和新节点探索上保持平衡，UCT（Upper Confidence Bound，上限置信区间算法）被引入：</p>
+<div class="arithmatex">\[
+\frac{w_i}{n_i}+c\sqrt{\frac{\ln{t}}{n_i}}
+\]</div>
+<ul>
+<li><span class="arithmatex">\(w_i\)</span> 代表第 i 次移动后取胜的次数；</li>
+<li><span class="arithmatex">\(n_i\)</span> 代表第 i 次移动后仿真的次数；</li>
+<li><span class="arithmatex">\(c\)</span> 为探索参数，理论上等于 <span class="arithmatex">\(2\sqrt{2}\)</span> ；在实际中通常可凭经验选择；</li>
+<li><span class="arithmatex">\(t\)</span> 代表仿真总次数，等于所有 <span class="arithmatex">\(n_i\)</span> 的和；</li>
+</ul>
+<p>目前蒙特卡洛树搜索的实现大多是基于 UCT 的一些变形</p>
+<h3 id="拓展expansion">拓展(Expansion)<a class="headerlink" href="#拓展expansion" title="Permanent link">&para;</a></h3>
+<p>在选择阶段结束时候，我们查找到了一个最迫切被拓展的节点 N，以及他一个尚未拓展的动作 A。在搜索树中创建一个新的节点<span class="arithmatex">\(N_n\)</span>作为 N 的一个新子节点。<span class="arithmatex">\(N_n\)</span>的局面就是节点 N 在执行了动作 A 之后的局面</p>
+<h3 id="模拟simulation">模拟(Simulation)<a class="headerlink" href="#模拟simulation" title="Permanent link">&para;</a></h3>
+<p>为了让<span class="arithmatex">\(N_n\)</span>得到一个初始的评分。我们从<span class="arithmatex">\(N_n\)</span>开始，让游戏随机进行，直到得到一个游戏结局，这个结局将作为<span class="arithmatex">\(N_n\)</span>的初始评分。一般使用胜利/失败来作为评分，只有 1 或者 0。</p>
+<h3 id="反向传播back-propagation">反向传播(Back Propagation)<a class="headerlink" href="#反向传播back-propagation" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(N_n\)</span> 的模拟结束之后，它的父节点 N 以及从根节点到 N 的路径上的所有节点都会根据本次模拟的结果来添加自己的累计评分</p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>有些搜索算法在内存中保留一条或多条路径，并且记录哪些是已经探索过的，哪些是还没有探索过的。当找到目标时，到达目标的路径同时也构成了这个问题的一个解。</p>
+</div>
+<p>但是在许多问题中，问题的<strong>解</strong>与到达目标的<strong>路径</strong>是<strong>无关</strong>的。例如，在八皇后问题中，重要的是最终皇后的布局，而不是加入皇后的次序</p>
+<p><strong>局部搜索算法</strong>从单独的一个当前状态出发，通常只移动到与之相邻的状态。典型情况下，搜索的路径是不保留的</p>
+<ul>
+<li>只用很少的内存</li>
+<li>通常能在很大状态空间中找到合理的解</li>
+</ul>
+<h2 id="爬山法">爬山法<a class="headerlink" href="#爬山法" title="Permanent link">&para;</a></h2>
+<p><strong>贪婪局部搜索</strong></p>
+<p>一直向值增加的方向持续移动，将会在到达一个“峰顶”时终止</p>
+<p>爬山法有许多变化的形式：</p>
+<ul>
+<li>随机爬山法，它在上山移动中随机地选择下一步；选择的概率随着上山移动的陡峭程度而变化。</li>
+<li>首选爬山法，它在实现随机爬山法的基础上，采用的方式是随机地生成后继节点直到生成一个优于当前节点的后继。这个算法在有很多后继节点的情况下有很好的效果。</li>
+<li>随机重新开始爬山法，它通过随机生成的初始状态来进行一系列的爬山法搜索，找到目标时停止搜索。这个算法是完备的，概率接近于 1</li>
+</ul>
+<h2 id="模拟退火算法">模拟退火算法<a class="headerlink" href="#模拟退火算法" title="Permanent link">&para;</a></h2>
+<p>S.A. (Simulated annealing) 算法，是一种通用<a href="https://zh.wikipedia.org/wiki/概率演算法">概率算法</a>，适用于一定时间内寻找在一个很大<a href="https://zh.wikipedia.org/w/index.php?title=搜尋空間&amp;action=edit&amp;redlink=1">搜寻空间</a>中的近似最优解</p>
+<div class="arithmatex">\[
+P=e^{-\frac{\delta}{t}}
+\]</div>
+<p>其中 <span class="arithmatex">\(\delta\)</span> 为邻近解与当前解的目标函数之差；<span class="arithmatex">\(t\)</span> 为<strong>温度参数</strong>；</p>
+<h3 id="初始化">初始化<a class="headerlink" href="#初始化" title="Permanent link">&para;</a></h3>
+<p>由一个产生函数从当前解产生一个位于解空间的新解，并定义一个足够大的数值作为初始温度。</p>
+<h3 id="迭代过程">迭代过程<a class="headerlink" href="#迭代过程" title="Permanent link">&para;</a></h3>
+<p>迭代过程是模拟退火算法的核心步骤，分为<strong>新解的产生</strong>和<strong>接受新解</strong>两部分：</p>
+<ol>
+<li>由一个产生函数从当前解产生一个位于解空间的新解；为便于后续的计算和接受，减少算法耗时，通常选择由当前新解经过简单地变换即可产生新解的方法，如对构成新解的全部或部分元素进行置换、互换等，注意到产生新解的变换方法决定了当前新解的邻域结构，因而对冷却进度表的选取有一定的影响。</li>
+<li>计算与新解所对应的目标函数差。因为目标函数差仅由变换部分产生，所以目标函数差的计算最好按增量计算。事实表明，对大多数应用而言，这是计算目标函数差的最快方法。</li>
+<li>判断新解是否被接受，判断的依据是一个接受准则</li>
+<li>最常用的接受准则是 Metropolis 准则：<ul>
+<li>若 <span class="arithmatex">\(\delta\lt0\)</span> 则接受 <span class="arithmatex">\(S'\)</span> 作为新的当前解 <span class="arithmatex">\(S\)</span>，</li>
+<li>否则以概率 <span class="arithmatex">\(P=e^{-\frac{\delta}{t}}\)</span> 接受 <span class="arithmatex">\(S'\)</span> 作为新的当前解 <span class="arithmatex">\(S\)</span>。</li>
+</ul>
+</li>
+<li>当新解被确定接受时，用新解代替当前解，这只需将当前解中对应于产生新解时的变换部分予以实现，同时修正目标函数值即可。此时，当前解实现了一次迭代。可在此基础上开始下一轮试验。</li>
+<li>而当新解被判定为舍弃时，则在原当前解的基础上继续下一轮试验。</li>
+</ol>
+<p>模拟退火算法与初始值无关，算法求得的解与初始解状态 S（是算法迭代的起点）无关；模拟退火算法具有渐近收敛性，已在理论上被证明是一种以概率 1 收敛于全局最优解的全局优化算法；模拟退火算法具有并行性。</p>
+<h3 id="停止准则">停止准则<a class="headerlink" href="#停止准则" title="Permanent link">&para;</a></h3>
+<p>迭代过程的一般停止准则：温度 T 降低至某阈值时，或连续若干次迭代均未接受新解时，停止迭代，接受当前寻找的最优解为最终解。</p>
+<h3 id="退火方案">退火方案<a class="headerlink" href="#退火方案" title="Permanent link">&para;</a></h3>
+<p>在某个温度状态 <span class="arithmatex">\(T\)</span> 下，当一定数量的迭代操作完成后，降低温度 T，在新的温度状态下执行下一个批次的迭代操作。</p>
+<h3 id="伪代码">伪代码<a class="headerlink" href="#伪代码" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">//</span> <span class="n">Initialization</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">//</span> <span class="n">Randomly</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">solution</span> <span class="n">X0</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="o">//</span> <span class="ow">and</span> <span class="n">calculate</span> <span class="n">its</span> <span class="n">fitness</span> <span class="n">value</span> <span class="n">f</span><span class="p">(</span><span class="n">X0</span><span class="p">)</span><span class="o">.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">Xbest</span><span class="o">=</span><span class="n">X0</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">t</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">=</span><span class="n">T</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">while</span> <span class="ow">not</span> <span class="n">stop</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  <span class="o">//</span><span class="n">The</span> <span class="n">search</span> <span class="n">loop</span> <span class="n">under</span> <span class="n">the</span> <span class="n">temperature</span> <span class="n">tk</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span> <span class="n">to</span> <span class="n">L</span> <span class="p">:</span> <span class="o">//</span><span class="n">The</span> <span class="n">loop</span> <span class="n">times</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="o">//</span> <span class="n">Generate</span> <span class="n">a</span> <span class="n">new</span> <span class="n">solution</span> <span class="n">Xnew</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">current</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="o">//</span> <span class="n">solution</span> <span class="n">Xk</span><span class="p">,</span> <span class="ow">and</span> <span class="n">calculate</span> <span class="n">its</span> <span class="n">fitness</span> <span class="n">value</span> <span class="n">f</span><span class="p">(</span><span class="n">Xnew</span><span class="p">)</span><span class="o">.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">Xnew</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">k</span><span class="p">))</span> <span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">Xk</span> <span class="o">=</span> <span class="n">Xnew</span><span class="p">;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">k</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">f</span><span class="p">(</span><span class="n">Xbest</span><span class="p">)</span> <span class="n">Xbest</span><span class="o">=</span><span class="n">X</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>      <span class="k">continue</span><span class="p">;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">end</span> <span class="k">if</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">Calculate</span> <span class="n">P</span><span class="p">(</span><span class="n">tk</span><span class="p">)</span> <span class="o">=</span> <span class="n">exp</span><span class="p">[(</span><span class="n">f</span><span class="p">(</span><span class="n">Xnew</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">k</span><span class="p">)))</span><span class="o">/</span><span class="n">t</span><span class="p">(</span><span class="n">k</span><span class="p">)];</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="k">if</span> <span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="err">$</span><span class="n">p</span><span class="err">$</span> <span class="p">:</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>      <span class="n">X</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="n">Xnew</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">end</span> <span class="k">if</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  <span class="n">end</span> <span class="k">for</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>  <span class="o">//</span><span class="n">Drop</span> <span class="n">down</span> <span class="n">the</span> <span class="n">temperature</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>  <span class="n">t</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">drop</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>  <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>  <span class="n">end</span> <span class="k">while</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="nb">print</span> <span class="n">Xbest</span>
+</code></pre></div>
+<h2 id="遗传算法">遗传算法<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#遗传算法" title="Permanent link">&para;</a></h2>
+<p>遗传算法的特点：</p>
+<ul>
+<li>自组织、自适应和自学习性(智能性)</li>
+<li>遗传算法具有<strong>并行性</strong>——遗传算法按并行方式搜索一个种群数目的点，而不是单点</li>
+<li>遗传算法不需要求导或其他辅助知识，而只需要影响搜索方向的目标函数和相应的适应度函数</li>
+<li>遗传算法强调概率转换规则，而不是确定的转换规则</li>
+<li>遗传算法可以更加直接地被应用</li>
+<li>遗传算法对给定问题，可以产生许多潜在解，最终的选择由使用者确定</li>
+</ul>
+<p>由于遗传算法是基于<strong>随机搜索</strong>的算法，遗传算法对给定问题，可以产生许多的潜在解，最终由使用者决定最终解。只运行一次算法的结果并不能反映算法的性能。为了更好地分析遗传算法的性能, 应该以不同的初始随机种子或用不同的参数 (例如种群数量, 变异概率等) 多次运行算法</p>
+<p>(在某些特殊不止一个解存在情况下，如<strong>多目标优化问题</strong>有一组 pareto 最优解。这种遗传算法对于确认可替代解集而言是特别合适的)</p>
+<p>采用多种群(即有子种群)的算法往往会获得更好的结果。每个子种群像单种群遗传算法一样独立地演算若干代后，在子种群之间进行个体交换。这种多种群遗传算法更贴近于自然种族的进化，称为<strong>并行遗传算法</strong>(ParallelingGeneticAlgorithm,PGA)。</p>
+<p>遗传算法包括 3 个基本操作：</p>
+<ul>
+<li>选择</li>
+<li>交叉或基因重组</li>
+<li>变异</li>
+</ul>
+<h3 id="编码">编码<a class="headerlink" href="#编码" title="Permanent link">&para;</a></h3>
+<p>解的<strong>染色体表示</strong>：</p>
+<ul>
+<li>随机排列</li>
+</ul>
+<p>对于 <span class="arithmatex">\(N\)</span> 个城市的 TSP 问题，对 <span class="arithmatex">\(N\)</span> 个城市从 1 开始编号，解表示为 1 到 <span class="arithmatex">\(N\)</span> 的排列</p>
+<p><img alt="染色体表示1" src="../../../assets/cs/ai/search/%E6%9F%93%E8%89%B2%E4%BD%93%E8%A1%A8%E7%A4%BA1.png" /></p>
+<ul>
+<li>随机数排序</li>
+</ul>
+<p>生成 <span class="arithmatex">\(N\)</span> 个 <span class="arithmatex">\((0,1)\)</span> 范围内的随机数对 <span class="arithmatex">\(N\)</span> 个城市编号，这 <span class="arithmatex">\(N\)</span> 个随机数的排序对应旅游城市的顺序</p>
+<p><img alt="染色体表示2" src="../../../assets/cs/ai/search/%E6%9F%93%E8%89%B2%E4%BD%93%E8%A1%A8%E7%A4%BA2.png" /></p>
+<h3 id="选择">选择<a class="headerlink" href="#选择" title="Permanent link">&para;</a></h3>
+<p>选择是用来确定重组或交叉个体，以及被选个体将产生多少个子代个体。</p>
+<p>首先计算适应度：</p>
+<ul>
+<li>(1) 按比例的适应度计算；</li>
+<li>(2) 基于排序的适应 s 计算；</li>
+</ul>
+<p>适应度计算之后是实际的<strong>选择</strong>，按照适应度进行父代个体的选择。</p>
+<p>选择策略如下：</p>
+<h4 id="轮盘赌选择">轮盘赌选择<a class="headerlink" href="#轮盘赌选择" title="Permanent link">&para;</a></h4>
+<p>（Roulette-wheel selection）</p>
+<h4 id="锦标赛选择">锦标赛选择<a class="headerlink" href="#锦标赛选择" title="Permanent link">&para;</a></h4>
+<p>（Tournament selection）</p>
+<p>遗传算法中最流行的选择策略</p>
+<ul>
+<li>更小的复杂度</li>
+<li>易并行化处理</li>
+<li>不易陷入局部最优点</li>
+<li>不需要对所有的适应度值进行排序处理</li>
+</ul>
+<h4 id="截断选择">截断选择<a class="headerlink" href="#截断选择" title="Permanent link">&para;</a></h4>
+<p>（Truncation selection）</p>
+<h4 id="蒙特卡洛选择">蒙特卡洛选择<a class="headerlink" href="#蒙特卡洛选择" title="Permanent link">&para;</a></h4>
+<p>（Monte Carlo selection）</p>
+<h4 id="概率选择">概率选择<a class="headerlink" href="#概率选择" title="Permanent link">&para;</a></h4>
+<p>（Probability selection）</p>
+<h4 id="线性排序选择">线性排序选择<a class="headerlink" href="#线性排序选择" title="Permanent link">&para;</a></h4>
+<p>（Linear-rank selection）</p>
+<h4 id="指数排序选择">指数排序选择<a class="headerlink" href="#指数排序选择" title="Permanent link">&para;</a></h4>
+<p>（Exponential-rank selection）</p>
+<h4 id="玻尔兹曼选择">玻尔兹曼选择<a class="headerlink" href="#玻尔兹曼选择" title="Permanent link">&para;</a></h4>
+<p>（Boltzmann selection）</p>
+<h4 id="随机遍历选择">随机遍历选择<a class="headerlink" href="#随机遍历选择" title="Permanent link">&para;</a></h4>
+<p>（Stochastic-universal selection）</p>
+<h4 id="精英选择">精英选择<a class="headerlink" href="#精英选择" title="Permanent link">&para;</a></h4>
+<p>（Elite selection）</p>
+<h3 id="交叉基因重组">交叉(基因重组)<a class="headerlink" href="#交叉基因重组" title="Permanent link">&para;</a></h3>
+<h4 id="单点交叉">单点交叉<a class="headerlink" href="#单点交叉" title="Permanent link">&para;</a></h4>
+<p>随机产生一个交叉点位置，父个体 1 和父个体 2 在交叉点位置之右(后)的部分基因码互换，形成子个体 1 和子个体 2。</p>
+<h4 id="部分映射交叉">部分映射交叉<a class="headerlink" href="#部分映射交叉" title="Permanent link">&para;</a></h4>
+<p>(Partial-Mapped Crossover ,PMX)</p>
+<ul>
+<li>step 1 : 随机选择下标 s,t</li>
+<li>step 2 : 交叉子串，2 个 parent 的 s-t 部分子串交换</li>
+<li>step 3 : 确定映射关系，参考<a href="https://fuuzen.github.io/math/discrete-math/algebra/permutation-group/">置换群</a>的操作</li>
+<li>step 4 : 生成后代染色体</li>
+</ul>
+<h4 id="其他交叉操作">其他交叉操作<a class="headerlink" href="#其他交叉操作" title="Permanent link">&para;</a></h4>
+<p>order crossover (OX)</p>
+<p>cycle crossover (CX)</p>
+<p>position-based crossover</p>
+<p>order-based crossover</p>
+<h3 id="变异">变异<a class="headerlink" href="#变异" title="Permanent link">&para;</a></h3>
+<p>(mutation)</p>
+<p>交叉之后子代经历的变异，实际上是子代基因按小概率扰动产生的变化。</p>
+<h4 id="倒置变异">倒置变异<a class="headerlink" href="#倒置变异" title="Permanent link">&para;</a></h4>
+<p>(Inversion Mutation)</p>
+<ul>
+<li>step 1: 随机选择下标 s,t</li>
+<li>step 2 : 将 parent 的 s-t 中间部分倒置，得到 offspring</li>
+</ul>
+<h3 id="流程">流程<a class="headerlink" href="#流程" title="Permanent link">&para;</a></h3>
+<p><img alt="遗传算法流程图" src="../../../assets/cs/ai/search/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" /></p>
+<ol>
+<li>随机产生初始种群，个体数目一定，每个个体表示为染色体的基因编码</li>
+<li>计算个体的适应度，并判断是否符合优化准则，若符合，输出最佳个体及其代表的最优解，并结束计算；否则转向第 3 步</li>
+<li>依据适应度选择再生个体，适应度高的个体被选中的概率高，适应度低的个体可能被淘汰</li>
+<li>按照一定的交叉概率和交叉方法，生成新的个体</li>
+<li>按照一定的变异概率和变异方法，生成新的个体</li>
+<li>由交叉和变异产生新一代的种群，返回到第 2 步</li>
+</ol>
+<h3 id="伪代码_1">伪代码<a class="headerlink" href="#伪代码_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">输入</span> <span class="err">$</span><span class="n">N</span><span class="err">$</span> <span class="n">个城市的坐标</span> <span class="p">(</span><span class="n">这里单纯以欧式距离作为路程代价</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">(</span><span class="n">还可以输入距离矩阵</span><span class="err">，</span><span class="n">在算法运行前计算距离</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">随机生成10个不同个体的初始种群</span> <span class="n">P</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">for</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span> <span class="n">to</span> <span class="n">最大选代轮数</span> <span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  <span class="n">初始化后代种群</span> <span class="n">C</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">每一代后代数目</span> <span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">依据适应度</span><span class="err">，</span><span class="n">从</span> <span class="n">P</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="n">中选取一对父母</span> <span class="n">p1</span><span class="p">,</span><span class="n">p2</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">利用交叉操作</span><span class="err">，</span><span class="n">从</span> <span class="n">p1</span><span class="p">,</span><span class="n">p2</span> <span class="n">产生后代</span> <span class="n">c1</span><span class="p">,</span><span class="n">c2</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">以一定概率对</span> <span class="n">c1</span><span class="p">,</span><span class="n">c2</span> <span class="n">进行变异操作</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">C</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  <span class="n">end</span> <span class="k">for</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  <span class="n">依据适应度</span><span class="err">，</span><span class="n">从</span> <span class="n">Union</span><span class="p">{</span><span class="n">P</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">C</span><span class="p">(</span><span class="n">t</span><span class="p">)}</span> <span class="n">选取优异个体作为</span> <span class="n">P</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">end</span> <span class="k">for</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">依据适应度</span><span class="err">，</span><span class="n">从最后一代种群中选择最优个体作问题的解</span>
+</code></pre></div>
+<h3 id="tsp">TSP<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#tsp" title="Permanent link">&para;</a></h3>
+<p>用遗传算法 (GA) 旅行商问题 (TSP) 。(python 中可以直接用 <code>GA.tsp</code> ...)</p>
+<p>可供测试的数据集：<a href="https://www.math.uwaterloo.ca/tsp/world/countries.html">National Traveling Salesman Problems (uwaterloo.ca) </a></p>
+<h2 id="自然启发式优化搜索算法">自然启发式优化搜索算法<a class="headerlink" href="#自然启发式优化搜索算法" title="Permanent link">&para;</a></h2>
+<p>群体智能（Swarm intelligence，SI）和生物启发（u）</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>This part is to be completed</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../rl/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 强化学习基础">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                强化学习基础
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-footer__link md-footer__link--next" aria-label="Next: 不确定性知识表示与推理">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                不确定性知识表示与推理
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

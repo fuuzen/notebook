@@ -1,0 +1,1912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/match/">
+      
+      
+        <link rel="prev" href="../graph-basics/">
+      
+      
+        <link rel="next" href="../planar-graph/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>匹配 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#匹配" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              匹配
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coloring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#匹配基础概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      匹配基础概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔热定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔热定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hall-定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALL 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典例" class="md-nav__link">
+    <span class="md-ellipsis">
+      典例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="典例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#例-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的点覆盖" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的点覆盖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哥尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      哥尼定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#托特定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      托特定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#彼得森定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      彼得森定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#匈牙利算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      匈牙利算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="匈牙利算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无权偶图完美匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      无权偶图完美匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无权偶图完美匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#m-交错树" class="md-nav__link">
+    <span class="md-ellipsis">
+      M 交错树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#匈牙利算法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      匈牙利算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有权图最优匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      有权图最优匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有权图最优匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#可行顶点标号" class="md-nav__link">
+    <span class="md-ellipsis">
+      可行顶点标号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#相等子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      相等子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kuhn-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kuhn 算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#匹配基础概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      匹配基础概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝尔热定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝尔热定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hall-定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      HALL 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典例" class="md-nav__link">
+    <span class="md-ellipsis">
+      典例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="典例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#例-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      例 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的点覆盖" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的点覆盖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哥尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      哥尼定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#托特定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      托特定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#彼得森定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      彼得森定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#匈牙利算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      匈牙利算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="匈牙利算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无权偶图完美匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      无权偶图完美匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无权偶图完美匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#m-交错树" class="md-nav__link">
+    <span class="md-ellipsis">
+      M 交错树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#匈牙利算法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      匈牙利算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有权图最优匹配" class="md-nav__link">
+    <span class="md-ellipsis">
+      有权图最优匹配
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有权图最优匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#可行顶点标号" class="md-nav__link">
+    <span class="md-ellipsis">
+      可行顶点标号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#相等子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      相等子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kuhn-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kuhn 算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>匹配</h1>
+
+<h2 id="匹配">匹配<a class="headerlink" href="#匹配" title="Permanent link">&para;</a></h2>
+<h3 id="匹配基础概念">匹配基础概念<a class="headerlink" href="#匹配基础概念" title="Permanent link">&para;</a></h3>
+<p><strong>匹配 <span class="arithmatex">\(M\)</span></strong> ——如果 <span class="arithmatex">\(M\)</span> 是图 <span class="arithmatex">\(G\)</span> 的边子集(不含环)，且 <span class="arithmatex">\(M\)</span> 中的任意两条边没有共同顶点，则称 <span class="arithmatex">\(M\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个匹配，或对集，或边独立集。</p>
+<p>如果 <span class="arithmatex">\(G\)</span> 中顶点是 <span class="arithmatex">\(G\)</span> 的匹配 <span class="arithmatex">\(M\)</span> 中某条边的端点，称它为 <strong><span class="arithmatex">\(M\)</span> 饱和点</strong>，否则为 <strong><span class="arithmatex">\(M\)</span> 非饱和点</strong>。</p>
+<p><strong>最大匹配 <span class="arithmatex">\(M\)</span> (无向图定义)</strong> ——如果 <span class="arithmatex">\(M\)</span> 是图 <span class="arithmatex">\(G\)</span> 的包含边数最多的匹配，称 <span class="arithmatex">\(M\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个最大匹配。</p>
+<p>特别是，若最大匹配饱和了 <span class="arithmatex">\(G\)</span> 的所有顶点，称它为 <span class="arithmatex">\(G\)</span> 的一个<strong>完美匹配</strong>。</p>
+<p><strong><span class="arithmatex">\(M\)</span> 交错路</strong>——如果 <span class="arithmatex">\(M\)</span> 是图 <span class="arithmatex">\(G\)</span> 的匹配， <span class="arithmatex">\(G\)</span> 中一条由 <span class="arithmatex">\(M\)</span> 中的边和非 <span class="arithmatex">\(M\)</span> 中的边交错形成的路，称为 <span class="arithmatex">\(G\)</span> 中的一条 <span class="arithmatex">\(M\)</span> 交错路。</p>
+<p>特别地，若 <span class="arithmatex">\(M\)</span> 交错路的起点与终点都是 <span class="arithmatex">\(M\)</span> 非饱和点，称这种 <span class="arithmatex">\(M\)</span> 交错路为 <strong><span class="arithmatex">\(M\)</span> 可扩路</strong>。</p>
+<h3 id="贝尔热定理">贝尔热定理<a class="headerlink" href="#贝尔热定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Berge</p>
+</blockquote>
+<p><span class="arithmatex">\(G\)</span> 的匹配 <span class="arithmatex">\(M\)</span> 是最大匹配，当且仅当 <span class="arithmatex">\(G\)</span> 不包含 <span class="arithmatex">\(M\)</span> 可扩路。</p>
+<h3 id="hall-定理">HALL 定理<a class="headerlink" href="#hall-定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>完美匹配的充要条件，将 <span class="arithmatex">\(X\)</span> 视为需求，<span class="arithmatex">\(Y\)</span> 视为供给，可以理解为供给必须满足需求。</p>
+</blockquote>
+<p><span class="arithmatex">\(G=(X,Y)\)</span> 是偶图，则 <span class="arithmatex">\(G\)</span> 存在饱和 <span class="arithmatex">\(X\)</span> 每个顶点的完美匹配的充要条件是：</p>
+<div class="arithmatex">\[
+\forall S\subseteq X,\ \ |N(S)|\geq|S|
+\]</div>
+<p>其中 <span class="arithmatex">\(N(S)\)</span> 表示 <span class="arithmatex">\(S\)</span> 的邻集（图 <span class="arithmatex">\(G\)</span> 中所有与 <span class="arithmatex">\(S\)</span> 相邻接顶点的集合），<span class="arithmatex">\(N(S)\)</span> 一定是 <span class="arithmatex">\(Y\)</span> 的子集。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(G=(X,Y)\)</span> 存在饱和 <span class="arithmatex">\(X\)</span> 每个顶点的匹配也常说成存在由 <span class="arithmatex">\(X\)</span> 到 <span class="arithmatex">\(Y\)</span> 的匹配 。</p>
+</div>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />推论：若 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k(k\gt0)\)</span> 正则偶图，则 <span class="arithmatex">\(G\)</span> 存在完美匹配。</p>
+<h3 id="典例">典例<a class="headerlink" href="#典例" title="Permanent link">&para;</a></h3>
+<h4 id="例-1">例 1<a class="headerlink" href="#例-1" title="Permanent link">&para;</a></h4>
+<p>证明每个 <span class="arithmatex">\(k\)</span> 方体都是 <span class="arithmatex">\(k\)</span> 正则偶图。</p>
+<p>事实上，由 <span class="arithmatex">\(k\)</span> 方体的构造： <span class="arithmatex">\(k\)</span> 方体有 <span class="arithmatex">\(2k\)</span> 个顶点，每个顶点可以用长度为 <span class="arithmatex">\(k\)</span> 的二进制码来表示，两个顶点连线当且仅当代表两个顶点的二进制码只有一位坐标不同。</p>
+<p>如果我们划分 <span class="arithmatex">\(k\)</span> 方体的 <span class="arithmatex">\(2k\)</span> 个顶点，把坐标之和为偶数的顶点归入 <span class="arithmatex">\(X\)</span>，否则归入 <span class="arithmatex">\(Y\)</span> 。显然，<span class="arithmatex">\(X\)</span> 中顶点互不邻接，<span class="arithmatex">\(Y\)</span> 中顶点也如此。所以 <span class="arithmatex">\(k\)</span> 方体是偶图。</p>
+<p>又不难知道 <span class="arithmatex">\(k\)</span> 方体的每个顶点度数为 <span class="arithmatex">\(k\)</span> , 所以 <span class="arithmatex">\(k\)</span> 方体是 <span class="arithmatex">\(k\)</span> 正则偶图。</p>
+<p>由推论： <span class="arithmatex">\(k\)</span> 方体存在完美匹配。</p>
+<p>直接在 k 方体中找出完美匹配。</p>
+<p>设 <span class="arithmatex">\(k\)</span> 方体顶点二进制码为 <span class="arithmatex">\(x_1,x_2,\cdots,x_k\)</span> , 我们取 <span class="arithmatex">\(x_1,x_2,\cdots,x_{k-1},0\)</span> ,和</p>
+<p><span class="arithmatex">\((x-1,x_2,\cdots,x_{k-1},1)\)</span> 之间的全体边所成之集为 <span class="arithmatex">\(M\)</span>。</p>
+<p>显然，<span class="arithmatex">\(M\)</span> 中的边均不相邻接，所以作成 <span class="arithmatex">\(k\)</span> 方体的匹配，又容易知道：<span class="arithmatex">\(|M|=2^{k-1}\)</span>，所以 <span class="arithmatex">\(M\)</span> 是完美匹配。</p>
+<h4 id="例-2">例 2<a class="headerlink" href="#例-2" title="Permanent link">&para;</a></h4>
+<p>求 <span class="arithmatex">\(𝐾_{2𝑛}\)</span> 和 <span class="arithmatex">\(𝐾_{𝑛,𝑛}\)</span> 中不同的完美匹配的个数</p>
+<p><span class="arithmatex">\(𝐾_{2𝑛}\)</span> 的任意一个顶点有 <span class="arithmatex">\(2𝑛-1\)</span> 种不同的方法被匹配。所以 <span class="arithmatex">\(𝐾_{2𝑛}\)</span> 的不同完美匹配个数等于 <span class="arithmatex">\((2𝑛-1)𝐾_{2𝑛-2}\)</span> , 如此推下去，可以归纳出 <span class="arithmatex">\(𝐾_{2𝑛}\)</span> 的不同完美匹配个数为：<span class="arithmatex">\((2𝑛-1)!!\)</span>。</p>
+<p>同样的推导方法可归纳出 <span class="arithmatex">\(𝐾_{𝑛,𝑛}\)</span> 的不同完美匹配个数为：<span class="arithmatex">\(𝑛!\)</span>。</p>
+<h4 id="例-3">例 3<a class="headerlink" href="#例-3" title="Permanent link">&para;</a></h4>
+<p>证明树至多存在一个完美匹配。</p>
+<p>证明：若不然，设 <span class="arithmatex">\(𝑀_1\)</span> 与 <span class="arithmatex">\(𝑀_2\)</span> 是树 <span class="arithmatex">\(T\)</span> 的两个不同的完美匹配，那么 <span class="arithmatex">\(𝑀_1\Delta𝑀_2≠\varnothing\)</span>, 容易知道：<span class="arithmatex">\(𝑇[𝑀_1\Delta 𝑀_2]\)</span> 每个非空部分顶点度数为 2 ，即它存在圈，于是推出 <span class="arithmatex">\(T\)</span> 中有圈，矛盾。</p>
+<h3 id="图的点覆盖">图的点覆盖<a class="headerlink" href="#图的点覆盖" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G\)</span> 的一个顶点子集 <span class="arithmatex">\(K\)</span> 称为 <span class="arithmatex">\(G\)</span> 的一个点覆盖，如果 <span class="arithmatex">\(G\)</span> 的每条边都至少有一个端点在 <span class="arithmatex">\(K\)</span> 中。<span class="arithmatex">\(G\)</span> 的一个包含点数最少的点覆盖称为 <span class="arithmatex">\(G\)</span> 的最小点覆盖，其包含的点数称为 <span class="arithmatex">\(G\)</span> 的覆盖数，记为 <span class="arithmatex">\(\alpha(G)\)</span>。</p>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />设 <span class="arithmatex">\(M\)</span> 是 <span class="arithmatex">\(G\)</span> 的匹配，<span class="arithmatex">\(K\)</span> 是 <span class="arithmatex">\(G\)</span> 的覆盖，若 <span class="arithmatex">\(|M|=|K|\)</span> , 则 <span class="arithmatex">\(M\)</span> 是最大匹配，而 <span class="arithmatex">\(K\)</span> 是最小覆盖。</p>
+<h3 id="哥尼定理">哥尼定理<a class="headerlink" href="#哥尼定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>偶图的点覆盖与偶图匹配间的关系</p>
+</blockquote>
+<p>在偶图中，最大匹配的边数等于最小覆盖的顶点数。</p>
+<h3 id="托特定理">托特定理<a class="headerlink" href="#托特定理" title="Permanent link">&para;</a></h3>
+<p>图 <span class="arithmatex">\(G\)</span> 有完美匹配当且仅当对 <span class="arithmatex">\(V\)</span> 的任意非空真子集 <span class="arithmatex">\(S\)</span> , 有：</p>
+<div class="arithmatex">\[
+o(G-S)\leq|S|
+\]</div>
+<p><span class="arithmatex">\(o(G-S)\)</span> 表示奇分支数目（有奇数个顶点的分支）</p>
+<h3 id="彼得森定理">彼得森定理<a class="headerlink" href="#彼得森定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>哥尼定理的推论，是完美匹配的充分条件而不是必要条件<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+</blockquote>
+<p>没有割边的 3 正则图存在完美匹配</p>
+<h2 id="匈牙利算法">匈牙利算法<a class="headerlink" href="#匈牙利算法" title="Permanent link">&para;</a></h2>
+<p>可以解决问题：</p>
+<ul>
+<li>在无权偶图中寻找完美匹配</li>
+<li>在有权偶图中寻找最优匹配</li>
+<li>在有权偶图中寻找最小匹配（权值和最小）</li>
+<li>在有权偶图中寻找最大匹配（权值和最大，通过所有权值取反转化为最小匹配问题）。</li>
+</ul>
+<p><span class="arithmatex">\(G=(X,Y)\)</span>，匈牙利算法需要满足约束：<span class="arithmatex">\(|X|=|Y|\)</span>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>基本思想</p>
+</div>
+<p>从任意初始匹配 <span class="arithmatex">\(M_0\)</span> 出发，通过寻求一条 <span class="arithmatex">\(M_0\)</span> 可扩路 <span class="arithmatex">\(P\)</span> ，令 <span class="arithmatex">\(M_1=M_0\Delta E(P)\)</span> ，得到比 <span class="arithmatex">\(M_0\)</span> 更大的匹配 <span class="arithmatex">\(M_1\)</span>。</p>
+<p>1965 年，Edmonds 首先提出：用扎根于 <span class="arithmatex">\(M\)</span> 非饱和点 <span class="arithmatex">\(u\)</span> 的 <span class="arithmatex">\(M\)</span> 交错树的生长来求 <span class="arithmatex">\(M\)</span> 可扩路。</p>
+<h3 id="无权偶图完美匹配">无权偶图完美匹配<a class="headerlink" href="#无权偶图完美匹配" title="Permanent link">&para;</a></h3>
+<h4 id="m-交错树">M 交错树<a class="headerlink" href="#m-交错树" title="Permanent link">&para;</a></h4>
+<p>定义 设 <span class="arithmatex">\(G=(X,Y)\)</span>，<span class="arithmatex">\(M\)</span> 是 <span class="arithmatex">\(G\)</span> 的匹配，<span class="arithmatex">\(u\)</span> 是 <span class="arithmatex">\(M\)</span> 非饱和点。称树 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的扎根于点 <span class="arithmatex">\(u\)</span> 的 <span class="arithmatex">\(M\)</span> 交错树，如果：</p>
+<ul>
+<li><span class="arithmatex">\(u\in V(H)\)</span>；</li>
+<li>对任意 <span class="arithmatex">\(v\in V(H)\)</span>，<span class="arithmatex">\((u,v)\)</span> 路是 <span class="arithmatex">\(M\)</span> 交错路；</li>
+</ul>
+<p>扎根于 <span class="arithmatex">\(M\)</span> 非饱和点 <span class="arithmatex">\(u\)</span> 的 <span class="arithmatex">\(M\)</span> 交错树 <span class="arithmatex">\(H\)</span> 有两种情形：</p>
+<ul>
+<li>情形 1: 除点 <span class="arithmatex">\(u\)</span> 外，<span class="arithmatex">\(H\)</span> 中所有点为 <span class="arithmatex">\(M\)</span> 饱和点，且在 <span class="arithmatex">\(M\)</span> 上配对；</li>
+<li>情形 2: <span class="arithmatex">\(H\)</span> 包含除 <span class="arithmatex">\(u\)</span> 外的 <span class="arithmatex">\(M\)</span> 非饱和点。</li>
+</ul>
+<h4 id="匈牙利算法_1">匈牙利算法<a class="headerlink" href="#匈牙利算法_1" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(M\)</span> 是初始匹配。<span class="arithmatex">\(H\)</span> 是扎根于 <span class="arithmatex">\(M\)</span> 非饱和点 <span class="arithmatex">\(u\)</span> 的交错树。令：<span class="arithmatex">\(S=V(H)\cap X\)</span>， <span class="arithmatex">\(T=V(H)\cap Y\)</span>。</p>
+<ul>
+<li>（a）</li>
+<li>若 <span class="arithmatex">\(M\)</span> 饱和 <span class="arithmatex">\(X\)</span> 所有顶点，停止；</li>
+<li>否则，设 <span class="arithmatex">\(u\)</span> 为 <span class="arithmatex">\(X\)</span> 中 <span class="arithmatex">\(M\)</span> 非饱和顶点，置 <span class="arithmatex">\(S=\{u\}\)</span> ，<span class="arithmatex">\(T=\varnothing\)</span>；</li>
+<li>（b）</li>
+<li>若 <span class="arithmatex">\(N(S)=T\)</span>，则 <span class="arithmatex">\(G\)</span> 中不存在完美匹配；</li>
+<li>否则设 <span class="arithmatex">\(y\in N(S)-T\)</span>；</li>
+<li>（c）</li>
+<li>若 <span class="arithmatex">\(y\)</span> 为 <span class="arithmatex">\(M\)</span> 饱和点，且 <span class="arithmatex">\(yz\in M\)</span>，置 <span class="arithmatex">\(S=S\cup\{z\}\)</span>，<span class="arithmatex">\(T=T\cup \{y\}\)</span>，转（b）；</li>
+<li>否则，设 <span class="arithmatex">\(P\)</span> 为 <span class="arithmatex">\(M\)</span> 可扩路，置 <span class="arithmatex">\(M=M\Delta E(P)\)</span>，转（a）</li>
+</ul>
+<h3 id="有权图最优匹配">有权图最优匹配<a class="headerlink" href="#有权图最优匹配" title="Permanent link">&para;</a></h3>
+<h4 id="可行顶点标号">可行顶点标号<a class="headerlink" href="#可行顶点标号" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(G=(X,Y)\)</span> ，若对 <span class="arithmatex">\(\forall x\in X,\forall y\in Y\)</span>，有：</p>
+<div class="arithmatex">\[
+l(x)+l(y)\geq w(xy)
+\]</div>
+<p>则称 <span class="arithmatex">\(l\)</span> 是赋权完全偶图 <span class="arithmatex">\(G\)</span> 的<strong>可行顶点标号</strong>。</p>
+<p>一个简单常用的可行顶点标号：</p>
+<div class="arithmatex">\[
+\begin{cases}
+l(x)=\max_{y\in Y}w(xy),&amp;x\in X\\
+l(y)=0,&amp;y\in Y
+\end{cases}
+\]</div>
+<h4 id="相等子图">相等子图<a class="headerlink" href="#相等子图" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(l\)</span> 是赋权完全偶图 <span class="arithmatex">\(G=(X,Y)\)</span> 的可行顶点标号，令：</p>
+<div class="arithmatex">\[
+E_l=\{xy\in E(G)|l(x)+l(y)=w(xy)\}
+\]</div>
+<p>称 <span class="arithmatex">\(G_l=G[E_l]\)</span> 为 <span class="arithmatex">\(G\)</span> 的对应于 <span class="arithmatex">\(l\)</span> 的<strong>相等子图</strong>。</p>
+<h4 id="kuhn-算法">Kuhn 算法<a class="headerlink" href="#kuhn-算法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Kuhn 采用顶点标号修改策略，找到了求最优匹配好算法如下</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /> 求的是权值和最大的匹配<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+</blockquote>
+<p>给一初始顶点标号 <span class="arithmatex">\(l\)</span> ，在相等子图 <span class="arithmatex">\(G_l\)</span> 中任选一个匹配 <span class="arithmatex">\(M\)</span>。</p>
+<p>（1）</p>
+<ul>
+<li>若 <span class="arithmatex">\(X\)</span> 是 <span class="arithmatex">\(M\)</span> 饱和的，则 <span class="arithmatex">\(M\)</span> 是最优匹配；</li>
+<li>否则，令 <span class="arithmatex">\(u\)</span> 是一个 <span class="arithmatex">\(M\)</span> 非饱和点，置 <span class="arithmatex">\(S=\{u\}\)</span>，<span class="arithmatex">\(T=\varnothing\)</span>；</li>
+</ul>
+<p>（2）</p>
+<ul>
+<li>若 <span class="arithmatex">\(T\sub N_{G_l}(S)\)</span>，转（3）；</li>
+<li>否则，计算：</li>
+</ul>
+<div class="arithmatex">\[
+\alpha_l=\min_{x\in S,y\notin T}\{l(x)+l(y)-w(xy)\}
+\]</div>
+<p>修改 <span class="arithmatex">\(l\)</span> 如下：</p>
+<div class="arithmatex">\[
+l=\begin{cases}
+l(v)-\alpha_l,&amp;v\in S\\
+l(v)+\alpha_l,&amp;v\in T\\
+l(v),&amp;\text{others}\\
+\end{cases}
+\]</div>
+<p>给出新的可行顶点标号，在新标号下重新开始。</p>
+<p>（3）在 <span class="arithmatex">\(N_{G_l}(S)\backslash T\)</span> 中选择点 <span class="arithmatex">\(y\)</span>：</p>
+<ul>
+<li>若 <span class="arithmatex">\(y\)</span> 是 <span class="arithmatex">\(M\)</span> 饱和的，<span class="arithmatex">\(yz\in M\)</span>，则置 <span class="arithmatex">\(S=S\cup\{z\}\)</span>， <span class="arithmatex">\(T=T\cup\{y\}\)</span>，转（2）；</li>
+<li>否则，设 <span class="arithmatex">\(P\)</span> 是 <span class="arithmatex">\(G_l\)</span> 中 <span class="arithmatex">\(M\)</span> 可扩路，置 <span class="arithmatex">\(M=M\Delta E(P)\)</span>，转（1）</li>
+</ul>
+<blockquote>
+<p>该算法把上面原来的匈牙利算法用于其中，主要是用来判定和求完美匹配。</p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../graph-basics/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图的基本概念">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                图的基本概念
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../planar-graph/" class="md-footer__link md-footer__link--next" aria-label="Next: 平面图">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                平面图
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

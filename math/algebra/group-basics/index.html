@@ -1,0 +1,2613 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/algebra/group-basics/">
+      
+      
+        <link rel="prev" href="../coset-of-subgroup/">
+      
+      
+        <link rel="next" href="../homomorphism/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>群论基础 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#群group的定义" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              群论基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coset-of-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    子群的陪集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    群论基础
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    群论基础
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#群group的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      群(Group)的定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群(Group)的定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#常用群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用群举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用群举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整数加群" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数加群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-剩余类加群-mathbbz_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 剩余类加群 \(\mathbb{Z}_m\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathbbq-mathbbr-mathbbc乘法群" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\mathbb{Q^*}\) \(\mathbb{R^*}\) \(\mathbb{C^*}\)乘法群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实矩阵乘法群" class="md-nav__link">
+    <span class="md-ellipsis">
+      实矩阵乘法群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#双函数复合群" class="md-nav__link">
+    <span class="md-ellipsis">
+      双函数复合群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-单位群-um" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 单位群 U(m)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#具体群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体群举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的一些术语" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的一些术语
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的一些术语">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交换群" class="md-nav__link">
+    <span class="md-ellipsis">
+      交换群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加群" class="md-nav__link">
+    <span class="md-ellipsis">
+      加群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#乘群" class="md-nav__link">
+    <span class="md-ellipsis">
+      乘群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群的一些基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的一些基本性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的一些基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逆运算基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆运算基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群满足消去律" class="md-nav__link">
+    <span class="md-ellipsis">
+      群满足消去律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群的幂运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的幂运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的幂运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加群的幂运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      加群的幂运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群元素的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      群元素的阶
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群元素的阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#任意幂的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      任意幂的阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#阶内运算可轮换" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶内运算可轮换
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的中心" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的中心
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交并与子群的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      交并与子群的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子群元素的表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子群元素的表示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#循环群" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="循环群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质不考证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质(不考证明)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#循环群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成元的数量与结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成元的数量与结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群保持循环群" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群保持循环群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子群保持循环群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成元任意幂的生成子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成元任意幂的生成子群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#循环群的子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群的子群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homomorphism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    群的同态与同构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../normal-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正规子群与商群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../permutation-group/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    置换群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prime-max-ideal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    素理想与极大理想
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#群group的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      群(Group)的定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群(Group)的定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#常用群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用群举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用群举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整数加群" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数加群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-剩余类加群-mathbbz_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 剩余类加群 \(\mathbb{Z}_m\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathbbq-mathbbr-mathbbc乘法群" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\mathbb{Q^*}\) \(\mathbb{R^*}\) \(\mathbb{C^*}\)乘法群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实矩阵乘法群" class="md-nav__link">
+    <span class="md-ellipsis">
+      实矩阵乘法群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#双函数复合群" class="md-nav__link">
+    <span class="md-ellipsis">
+      双函数复合群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-单位群-um" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 单位群 U(m)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#具体群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体群举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的一些术语" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的一些术语
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的一些术语">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交换群" class="md-nav__link">
+    <span class="md-ellipsis">
+      交换群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加群" class="md-nav__link">
+    <span class="md-ellipsis">
+      加群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#乘群" class="md-nav__link">
+    <span class="md-ellipsis">
+      乘群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群的一些基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的一些基本性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的一些基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逆运算基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆运算基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群满足消去律" class="md-nav__link">
+    <span class="md-ellipsis">
+      群满足消去律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的充要条件-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的充要条件 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群的幂运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的幂运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群的幂运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加群的幂运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      加群的幂运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#群元素的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      群元素的阶
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="群元素的阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#任意幂的阶" class="md-nav__link">
+    <span class="md-ellipsis">
+      任意幂的阶
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#阶内运算可轮换" class="md-nav__link">
+    <span class="md-ellipsis">
+      阶内运算可轮换
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群判定定理-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群判定定理 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#群的中心" class="md-nav__link">
+    <span class="md-ellipsis">
+      群的中心
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交并与子群的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      交并与子群的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子群元素的表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子群元素的表示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#循环群" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="循环群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质不考证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质(不考证明)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#循环群举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成元的数量与结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成元的数量与结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#子群保持循环群" class="md-nav__link">
+    <span class="md-ellipsis">
+      子群保持循环群
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子群保持循环群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成元任意幂的生成子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成元任意幂的生成子群
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#循环群的子群" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环群的子群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>群论基础</h1>
+
+<h2 id="群group的定义">群(Group)的定义<a class="headerlink" href="#群group的定义" title="Permanent link">&para;</a></h2>
+<p>如果集合 G 及其二元运算 <span class="arithmatex">\(\cdot\)</span> 满足下面的性质，则称 <span class="arithmatex">\((G,\cdot )\)</span> 是群：</p>
+<ul>
+<li>二元运算 <span class="arithmatex">\(\cdot\)</span> 满足<strong>结合律</strong>：即 <span class="arithmatex">\(∀a,b,c\in G\)</span> 有 <span class="arithmatex">\((a\cdot b)\cdot c=a\cdot(b\cdot c)\)</span>；</li>
+<li>有<strong>单位元</strong> <span class="arithmatex">\(e\)</span>，即存在 <span class="arithmatex">\(e\in G\)</span>，使得 <span class="arithmatex">\(∀a\in G\)</span> 有 <span class="arithmatex">\(e\cdot a=a\cdot e=a\)</span>；</li>
+<li><span class="arithmatex">\(∀a\in G\)</span> 关于 <span class="arithmatex">\(\cdot\)</span> 有<strong>逆元</strong> <span class="arithmatex">\(a^{-1}\)</span>，即 <span class="arithmatex">\(∀a\in G\)</span>，存在 <span class="arithmatex">\(b\in G\)</span>，使得 <span class="arithmatex">\(a\cdot b=b\cdot a=e\)</span>，记 <span class="arithmatex">\(b\)</span> 为 <span class="arithmatex">\(a^{-1}\)</span>；</li>
+</ul>
+<p>从代数系统角度说，群有三个运算：</p>
+<ul>
+<li>二元运算 <span class="arithmatex">\(\cdot\)</span>；</li>
+<li>一元运算 <span class="arithmatex">\((-)^{-1}\)</span>；</li>
+<li>零元运算 <span class="arithmatex">\(e\)</span>；</li>
+</ul>
+<p>其中二元运算占主导地位，在谈到群时经常只明确给出它的二元运算。进一步，在上下文能明确其运算时，人们通常直接称集合 <span class="arithmatex">\(G\)</span> 是群</p>
+<p>如果集合 <span class="arithmatex">\(S\)</span> 有满足结合律的二元运算 <span class="arithmatex">\(\cdot\)</span> ，则称 <span class="arithmatex">\((S,\cdot)\)</span> 是<strong>半群(semi-group)</strong></p>
+<p>如果 <span class="arithmatex">\(\cdot\)</span> 还有单位元 <span class="arithmatex">\(e\)</span>，则称 <span class="arithmatex">\((S,\cdot,e)\)</span> 是<strong>独异点(monoid)</strong></p>
+<h3 id="常用群举例">常用群举例<a class="headerlink" href="#常用群举例" title="Permanent link">&para;</a></h3>
+<h4 id="整数加群">整数加群<a class="headerlink" href="#整数加群" title="Permanent link">&para;</a></h4>
+<p>整数集 Z 及整数加法运算构成群，称为整数加群</p>
+<ul>
+<li>单位元是 <span class="arithmatex">\(0\)</span>。</li>
+<li>每个整数 <span class="arithmatex">\(z\)</span> 的逆元是 <span class="arithmatex">\(-z\)</span>。</li>
+</ul>
+<h4 id="模-m-剩余类加群-mathbbz_m">模 m 剩余类加群 <span class="arithmatex">\(\mathbb{Z}_m\)</span><a class="headerlink" href="#模-m-剩余类加群-mathbbz_m" title="Permanent link">&para;</a></h4>
+<p>对整数 <span class="arithmatex">\(m≥2\)</span>，记 <span class="arithmatex">\(\mathbb{Z}_m=\{0,1,\cdots,m-1\}\)</span>，<span class="arithmatex">\(\mathbb{Z}_m\)</span> 及 模 <span class="arithmatex">\(m\)</span> 加 <span class="arithmatex">\(\oplus_m\)</span> 构成群，称为<strong>模 <span class="arithmatex">\(m\)</span> 剩余类加群</strong></p>
+<p><span class="arithmatex">\(0\)</span> 是单位元，对每个整数 <span class="arithmatex">\(z\in \mathbb Z_m\)</span>，它的逆元是 <span class="arithmatex">\(((-z)+m)\bmod m\)</span></p>
+<p><img alt="模m剩余类加法群" src="../../assets/math/discrete-math/algebra/group-basics/模m剩余类加法群.png" /></p>
+<h4 id="mathbbq-mathbbr-mathbbc乘法群"><span class="arithmatex">\(\mathbb{Q^*}\)</span> <span class="arithmatex">\(\mathbb{R^*}\)</span> <span class="arithmatex">\(\mathbb{C^*}\)</span>乘法群<a class="headerlink" href="#mathbbq-mathbbr-mathbbc乘法群" title="Permanent link">&para;</a></h4>
+<p>整数集 <span class="arithmatex">\(\mathbb Z\)</span> 关于整数乘法不构成群，但非零有理数集<span class="arithmatex">\(\mathbb Q^*\)</span>、非零实数集 <span class="arithmatex">\(\mathbb R^*\)</span>、非零复数集 <span class="arithmatex">\(\mathbb C^*\)</span> 关于数的乘法运算构成群</p>
+<h4 id="实矩阵乘法群">实矩阵乘法群<a class="headerlink" href="#实矩阵乘法群" title="Permanent link">&para;</a></h4>
+<p>记<strong>实数域上的 n 阶方阵</strong>构成的集合为 <span class="arithmatex">\(M_n (\mathbb R)\)</span>，则它关于矩阵加法构成群；记<strong>实数域上的 n 阶可逆方阵构</strong>成的集合为 <span class="arithmatex">\(GL_n (\mathbb R)\)</span>，则它关于矩阵乘法构成群</p>
+<h4 id="双函数复合群">双函数复合群<a class="headerlink" href="#双函数复合群" title="Permanent link">&para;</a></h4>
+<p>集合 S 上的所有双函数 <span class="arithmatex">\(f:S→S\)</span> 及复合构成群</p>
+<ul>
+<li>恒等函数是单位元</li>
+<li>逆函数给出逆元</li>
+</ul>
+<h4 id="模-m-单位群-um">模 m 单位群 U(m)<a class="headerlink" href="#模-m-单位群-um" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\mathbb Z_m\)</span> 及 模 m 乘 <span class="arithmatex">\(⊗_m\)</span> 不构成群，但令<span class="arithmatex">\(U(m)=\{a∣a\in Z_m \text{且a与m互质}\}\)</span>，则 U(m) 与<span class="arithmatex">\(⊗_m\)</span> 构成群，称为<strong>模 m 单位群</strong></p>
+<ul>
+<li>1 是单位元</li>
+<li>对每个整数 <span class="arithmatex">\(z\in U(m)\)</span>，它的逆元是同余方程 <span class="arithmatex">\(xz≡1(\text{mod} m)\)</span>的解</li>
+<li>利用贝祖定理（即 <span class="arithmatex">\(∀a,b\in \mathbb Z^+，\exists s, t\in \mathbb Z,gcd⁡(a,b)=as+bt\)</span>）可证明 U(m) 对 <span class="arithmatex">\(⊗_m\)</span> 封闭，以及上述同余方程解的存在性，也即逆元的存在性</li>
+</ul>
+<p>当 p 是素数，则 U(p) 群也记为 <span class="arithmatex">\(\mathbb Z_p^*\)</span></p>
+<p>模 m 单位群的阶：<span class="arithmatex">\(|U(m)|=ϕ(m)\)</span>，这里 <span class="arithmatex">\(ϕ(m)\)</span> 是欧拉函数，即：</p>
+<div class="arithmatex">\[
+|U(m)|=ϕ(m)=m\prod_{i=1}^{s}(1-\frac{1}{p_i} )
+\]</div>
+<p>这里 <span class="arithmatex">\(p_1,⋯, p_s\)</span> 是 m 的 s 个不同的素因子</p>
+<h3 id="具体群举例">具体群举例<a class="headerlink" href="#具体群举例" title="Permanent link">&para;</a></h3>
+<p><img alt="1" src="../../assets/math/discrete-math/algebra/group-basics/1.png" /></p>
+<p><img alt="2" src="../../assets/math/discrete-math/algebra/group-basics/2.png" /></p>
+<p><img alt="3克莱因4元群" src="../../assets/math/discrete-math/algebra/group-basics/3克莱因4元群.png" /></p>
+<p><img alt="4" src="../../assets/math/discrete-math/algebra/group-basics/4.png" /></p>
+<h3 id="群的一些术语">群的一些术语<a class="headerlink" href="#群的一些术语" title="Permanent link">&para;</a></h3>
+<h4 id="交换群">交换群<a class="headerlink" href="#交换群" title="Permanent link">&para;</a></h4>
+<p>群的运算<strong>不一定满足交换律</strong>，满足交换律的群称为<strong>交换群</strong>，也称为<strong>阿贝尔群</strong></p>
+<h4 id="群的阶">群的阶<a class="headerlink" href="#群的阶" title="Permanent link">&para;</a></h4>
+<p>群 G 的元素个数（准确地说 G 的基数）|G|称为群 G 的<strong>阶(order)</strong>，如果 G 是有穷集，则称为有穷群（有限群），否则称为无穷群（无限群）</p>
+<h4 id="加群">加群<a class="headerlink" href="#加群" title="Permanent link">&para;</a></h4>
+<p>当群称为<strong>加群</strong>时通常将它：</p>
+<ul>
+<li>单位元记为 0</li>
+<li>元素 a 的逆元记为-a</li>
+<li>运算称为加法</li>
+<li>运算的结果称为和</li>
+<li>运算用加号 + 表示</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>通常只有当群是交换群的时候，才使用加号'+'表示这个群的运算</p>
+</div>
+<h4 id="乘群">乘群<a class="headerlink" href="#乘群" title="Permanent link">&para;</a></h4>
+<p>将不是加群的群称为<strong>乘群</strong>，并将：</p>
+<ul>
+<li>乘群的单位元通常用 1 或 e 表示</li>
+<li>元素 a 的逆元用<span class="arithmatex">\(a^{-1}\)</span>表示</li>
+<li>运算称为乘法</li>
+<li>运算结果称为积</li>
+<li>运算用 <span class="arithmatex">\(\circ\)</span> 或 <span class="arithmatex">\(\cdot\)</span> 或 * 表示，但通常省略不写！</li>
+</ul>
+<h2 id="群的一些基本性质">群的一些基本性质<a class="headerlink" href="#群的一些基本性质" title="Permanent link">&para;</a></h2>
+<p>群有单位元，因此<strong>群不可能是空集</strong></p>
+<p>群要求每个元素都有逆元，而运算的零元不可能有逆，因此<strong>群没有零元（除平凡群 <span class="arithmatex">\((\{e\},\circ)\)</span> 外）！</strong></p>
+<h3 id="逆运算基本性质">逆运算基本性质<a class="headerlink" href="#逆运算基本性质" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，有：</p>
+<div class="arithmatex">\[
+∀a\in G，(a^{-1})^{-1}= a
+\]</div>
+<div class="arithmatex">\[
+∀a, b\in G, (ab)^{-1}= b^{-1} a^{-1}
+\]</div>
+<hr />
+<p>证明</p>
+<p>根据逆元的定义有 <span class="arithmatex">\(a\)</span> 和 <span class="arithmatex">\(a^{-1}\)</span> 互为逆元。</p>
+<div class="arithmatex">\[
+(b^{-1} a^{-1})(ab)=b^{-1}(a^{-1}a)b=b^{-1}eb=b^{-1} b=e$
+\]</div>
+<p>类似地:</p>
+<div class="arithmatex">\[
+ab(b^{-1}a^{-1})=e
+\]</div>
+<p>因此 <span class="arithmatex">\(ab\)</span> 与 <span class="arithmatex">\(b^{-1}a^{-1}\)</span> 互为逆元。</p>
+<h3 id="群满足消去律">群满足消去律<a class="headerlink" href="#群满足消去律" title="Permanent link">&para;</a></h3>
+<p>群的二元运算<strong>满足消去律</strong>：</p>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，对任意 <span class="arithmatex">\(a,b,c\in G\)</span>, <span class="arithmatex">\(ab=ac\)</span> 蕴涵 <span class="arithmatex">\(b=c\)</span> ，同样 <span class="arithmatex">\(ba=ca\)</span> 蕴涵 <span class="arithmatex">\(b=c\)</span>。</p>
+<hr />
+<p>证明</p>
+<p>若 <span class="arithmatex">\(ab=ac\)</span>，则有 <span class="arithmatex">\(a^{-1}(ab)=a^{-1} (ac)\)</span></p>
+<p>而群运算满足结合律，因此 <span class="arithmatex">\((a^{-1} a)b=(a^{-1} a)c\)</span></p>
+<p>而<span class="arithmatex">\(a^{-1} a=e\)</span>，<span class="arithmatex">\(e\)</span> 是单位元，从而有 <span class="arithmatex">\(b=c\)</span>；</p>
+<p>同理可证 <span class="arithmatex">\(ba=ca\)</span> 蕴涵 <span class="arithmatex">\(b=c\)</span>。</p>
+<h3 id="群的充要条件-1">群的充要条件 1<a class="headerlink" href="#群的充要条件-1" title="Permanent link">&para;</a></h3>
+<p>给定非空集 <span class="arithmatex">\(G\)</span> 及其上的二元运算（假定是乘法运算而省略其运算符号）。<span class="arithmatex">\(G\)</span> 关于该二元运算构成<strong>群的充分必要条件</strong>是：</p>
+<ul>
+<li><span class="arithmatex">\(G\)</span> 的二元运算<strong>满足结合律</strong></li>
+<li><span class="arithmatex">\(G\)</span> 的二元运算<strong>有左单位元</strong>：即存在 <span class="arithmatex">\(e\in G\)</span> 使得对任意的 <span class="arithmatex">\(a\in G\)</span> 有 <span class="arithmatex">\(ea=a\)</span>；</li>
+<li><span class="arithmatex">\(G\)</span> 的每个元素<strong>相对左单位元有左逆元</strong>：即 <span class="arithmatex">\(\forall a\in G\)</span>，存在 <span class="arithmatex">\(a'\in G\)</span> 使得 <span class="arithmatex">\(a'a=e\)</span>；</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>“左”换成“右”也一样</p>
+</div>
+<p>证明：</p>
+<div class="arithmatex">\[
+\forall a\in G,\ \ \exists a'\in G,\ \ a'a=e\\
+aa'a=a\\
+a(a'a)=a\\
+ae=a
+\]</div>
+<p>所以 e 也是右单位元；</p>
+<div class="arithmatex">\[
+\forall a\in G,\ \ \exists a'\in G,\ \ a'a=e\\
+\exists a''\in G,\ \ a''a'=e \\
+aa'=eaa'=a''a'aa'=a''(a'a)a'=a''ea'=a''a'=e
+\]</div>
+<p>所以 每个元素的左逆元也是右逆元。</p>
+<h3 id="群的充要条件-2">群的充要条件 2<a class="headerlink" href="#群的充要条件-2" title="Permanent link">&para;</a></h3>
+<p>给定非空集 <span class="arithmatex">\(G\)</span> 及其二元运算，且该二元运算<strong>满足结合律</strong>。<span class="arithmatex">\(G\)</span> 构成群的充分必要条件是：</p>
+<p>对任意的 <span class="arithmatex">\(a,b\in G\)</span>，方程 <span class="arithmatex">\(ax=b\)</span> 与 <span class="arithmatex">\(ya=b\)</span> 在 <span class="arithmatex">\(G\)</span> 中都有解。</p>
+<h3 id="问题-5">问题 5<a class="headerlink" href="#问题-5" title="Permanent link">&para;</a></h3>
+<p>给定非空集 <span class="arithmatex">\(G\)</span> 及其上的二元运算（假定是乘法运算而省略其运算符号）满足：</p>
+<ul>
+<li>该运算有<strong>左单位元</strong> <span class="arithmatex">\(e\)</span> ，即 <span class="arithmatex">\(∀a\in G\)</span> 有 <span class="arithmatex">\(ea=a\)</span>；</li>
+<li>对关于该左单位元，每个元素有<strong>右逆</strong>，即任意 <span class="arithmatex">\(a\in G\)</span> ，存在 <span class="arithmatex">\(b\)</span> 使得 <span class="arithmatex">\(ab=e\)</span>；</li>
+</ul>
+<p>请问 <span class="arithmatex">\(G\)</span> 关于该运算是否一定构成群？</p>
+<h3 id="群的充要条件-3">群的充要条件 3<a class="headerlink" href="#群的充要条件-3" title="Permanent link">&para;</a></h3>
+<p>给定非空有限集 <span class="arithmatex">\(G\)</span> 及其二元运算，该二元运算<strong>满足结合律</strong>且<strong>满足消去律</strong>，即对任意 <span class="arithmatex">\(a, b, c\in G\)</span> ，<span class="arithmatex">\(ab = ac\)</span> 蕴含 <span class="arithmatex">\(b = c\)</span> 以及 <span class="arithmatex">\(ba = ca\)</span> 蕴含 <span class="arithmatex">\(b = c\)</span> 。</p>
+<p>证明 <span class="arithmatex">\(G\)</span> 关于该运算构成群。</p>
+<h2 id="群的幂运算">群的幂运算<a class="headerlink" href="#群的幂运算" title="Permanent link">&para;</a></h2>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\((G,\circ)\)</span> 是群, 定义<strong>群的幂运</strong>算：<span class="arithmatex">\(∀a\in G, ∀n\in Z\)</span> ，定义 <strong><span class="arithmatex">\(a\)</span> 的 <span class="arithmatex">\(n\)</span> 次幂</strong>，记为 <span class="arithmatex">\(a^n\)</span>：</p>
+<p><img alt="群元素的阶" src="../../assets/math/discrete-math/algebra/group-basics/群元素的阶.png" /></p>
+<h3 id="加群的幂运算">加群的幂运算<a class="headerlink" href="#加群的幂运算" title="Permanent link">&para;</a></h3>
+<p>对于加群，元素的幂运算实际上是<strong>倍数运算</strong>。</p>
+<ul>
+<li>例如对于整数加群 <span class="arithmatex">\((Z, +)\)</span> ，整数 <span class="arithmatex">\(z\)</span> 的 <span class="arithmatex">\(n\)</span> 次幂实际上是 <span class="arithmatex">\(nz\)</span> 。这时有：</li>
+<li><span class="arithmatex">\(0z=0\)</span>；</li>
+<li><span class="arithmatex">\((-nz)= n(-z)\)</span>；</li>
+<li><span class="arithmatex">\(nz + mz = (n+m)z\)</span>；</li>
+<li><span class="arithmatex">\(m(nz)= (mn)z\)</span>；</li>
+</ul>
+<h3 id="基本性质">基本性质<a class="headerlink" href="#基本性质" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\((G, \circ)\)</span> 是群，对任意 <span class="arithmatex">\(a\in G,\ \ m, n\in Z\)</span> ，有：</p>
+<div class="arithmatex">\[
+a^n\circ a^m= a^{n+m}\\(a^n )^m=a^{nm}
+\]</div>
+<hr />
+<p>证明</p>
+<ul>
+<li>先对于 <span class="arithmatex">\(m≥0\)</span>，对 <span class="arithmatex">\(m\)</span> 实施数学归纳法；</li>
+<li>再对于 <span class="arithmatex">\(m&lt;0\)</span> ，利用 <span class="arithmatex">\(a^m=(a^{-1})^{-m}\)</span>。</li>
+</ul>
+<h3 id="常用性质">常用性质<a class="headerlink" href="#常用性质" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(a,b\)</span> 是群 <span class="arithmatex">\(G\)</span> 的元素，容易得到：</p>
+<div class="arithmatex">\[
+\forall n\in \mathbb Z\ ,\  (aba^{-1} )^n=ab^n a^{-1}
+\]</div>
+<h2 id="群元素的阶">群元素的阶<a class="headerlink" href="#群元素的阶" title="Permanent link">&para;</a></h2>
+<h3 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h3>
+<p>群 <span class="arithmatex">\((G,∘)\)</span> 元素 <span class="arithmatex">\(a\)</span> 的<strong>阶(order)</strong>，记为 <strong><span class="arithmatex">\(|a|\)</span></strong> ，是指最小的正整数 <span class="arithmatex">\(k\)</span> 使得 <span class="arithmatex">\(a^k=e\)</span> ，若这样的正整数不存在，则称元素 <span class="arithmatex">\(a\)</span> 的阶<strong>无穷</strong></p>
+<h3 id="任意幂的阶">任意幂的阶<a class="headerlink" href="#任意幂的阶" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(e\)</span> 是其单位元，<span class="arithmatex">\(a\)</span> 是 <span class="arithmatex">\(G\)</span> 的任意元素，且 <span class="arithmatex">\(|a|=n\)</span>：</p>
+<ul>
+<li>对任意整数 <span class="arithmatex">\(m\)</span> ，<span class="arithmatex">\(a^m=e\)</span> 当且仅当 <span class="arithmatex">\(n|m\)</span>；</li>
+<li>特别的，<span class="arithmatex">\(m=-1\)</span> 时，<span class="arithmatex">\(|a^{-1}|=n\)</span>；</li>
+<li>对任意整数 <span class="arithmatex">\(m\)</span> : <span class="arithmatex">\(|a^m| = \frac{n}{gcd(n, m)}\)</span>；</li>
+</ul>
+<p><img alt="定理9证明" src="../../assets/math/discrete-math/algebra/group-basics/定理9证明.png" /></p>
+<h3 id="阶内运算可轮换">阶内运算可轮换<a class="headerlink" href="#阶内运算可轮换" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(a,b,c\)</span> 是群 <span class="arithmatex">\(G\)</span> 的元素，证明：</p>
+<ul>
+<li><span class="arithmatex">\(|a|=|a^{-1}|=|cac^{-1}|\)</span> ；</li>
+<li><span class="arithmatex">\(|ab|=|ba|\)</span>；</li>
+<li><span class="arithmatex">\(|abc|=|bca|=|cab|\)</span>；</li>
+</ul>
+<hr />
+<p>(2) 因为 <span class="arithmatex">\(ab = a(ba)a^{-1}\)</span> ，所以由 (1) 可知：</p>
+<div class="arithmatex">\[
+|ab|=|a(ba)a^{-1}|=|ba|
+\]</div>
+<hr />
+<p>(3) 因为:</p>
+<ul>
+<li><span class="arithmatex">\(abc=a(bc)\)</span></li>
+<li><span class="arithmatex">\(bca=(bc)a\)</span></li>
+<li><span class="arithmatex">\(cab=(ca)b\)</span></li>
+</ul>
+<p>因此由 (1) 可知：</p>
+<div class="arithmatex">\[
+|abc|=|a(bc)|=|(bc)a|=|bca|=|b(ca)|=|(ca)b|=|cab|
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>虽然 <span class="arithmatex">\(|abc|=|bca|\)</span> ，但是 <span class="arithmatex">\(|abc|\neq|bac|\)</span> ！这与置换群有关</p>
+</div>
+<h2 id="子群">子群<a class="headerlink" href="#子群" title="Permanent link">&para;</a></h2>
+<h3 id="定义_2">定义<a class="headerlink" href="#定义_2" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的子集，如果 <span class="arithmatex">\(H\)</span> 关于 <span class="arithmatex">\(G\)</span> 的运算也构成群，则称 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的子群，记为：</p>
+<div class="arithmatex">\[
+H\leq G
+\]</div>
+<p>若 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的子群，且 <span class="arithmatex">\(H≠G\)</span> ，则称 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的<strong>真子群</strong>，记为：</p>
+<div class="arithmatex">\[
+H\lt G
+\]</div>
+<p>显然 <span class="arithmatex">\(H=\{e\}\)</span> 是 <span class="arithmatex">\(G\)</span> 的子群，这里 <span class="arithmatex">\(e\)</span> 是 <span class="arithmatex">\(G\)</span> 的单位元，将 <span class="arithmatex">\(\{e\}\)</span> 和 <span class="arithmatex">\(G\)</span> 自己称为群 <span class="arithmatex">\(G\)</span> 的<strong>平凡子群</strong>，其他子群称为<strong>非平凡子群</strong></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>从代数系统角度说，子群就是子代数，下面定理说明子群对群的三个运算都封闭！</p>
+</div>
+<h3 id="子群判定定理-1"><strong>子群判定定理 1</strong><a class="headerlink" href="#子群判定定理-1" title="Permanent link">&para;</a></h3>
+<p>给定 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(H⊆G\)</span> 关于 <span class="arithmatex">\(G\)</span> 的运算构成群，也就是 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的子群当且仅当：</p>
+<ul>
+<li><span class="arithmatex">\(H\)</span> 对 <span class="arithmatex">\(G\)</span> 的 (二元) 运算封闭</li>
+<li><span class="arithmatex">\(H\)</span> 对零元运算封闭，即 <span class="arithmatex">\(G\)</span> 的单位元应属于 <span class="arithmatex">\(H\)</span>；</li>
+<li><span class="arithmatex">\(H\)</span> 对一元运算封闭，即 <span class="arithmatex">\(\forall a\in H,\ \ a^{-1}\in H\)</span>；</li>
+</ul>
+<h3 id="子群判定定理-2"><strong>子群判定定理 2</strong><a class="headerlink" href="#子群判定定理-2" title="Permanent link">&para;</a></h3>
+<p>群 G 的非空子集 H 是 G 的子群当且仅当：</p>
+<ul>
+<li><span class="arithmatex">\(e\in H\)</span>；</li>
+<li><span class="arithmatex">\(∀a, b\in H,\ \ \ ab\in H\)</span>；</li>
+</ul>
+<p><img alt="子群判定定理一证明1" src="../../assets/math/discrete-math/algebra/group-basics/子群判定定理一证明1.png" /><img alt="子群判定定理一证明2" src="../../assets/math/discrete-math/algebra/group-basics/子群判定定理一证明2.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>实际上是构造 <span class="arithmatex">\(a^{|a|} = a^{j-i}\)</span> ，其中 <span class="arithmatex">\(|a|&gt;0\)</span> 为 <span class="arithmatex">\(a\)</span> 的阶</p>
+</div>
+<h3 id="子群判定定理-3"><strong>子群判定定理 3</strong><a class="headerlink" href="#子群判定定理-3" title="Permanent link">&para;</a></h3>
+<p>群 G 的非空子集 H 是 G 的子群当且仅当：</p>
+<ul>
+<li><span class="arithmatex">\(∀a, b\in H,\ \ \ ab^{-1}\in H\)</span>；</li>
+<li>或 <span class="arithmatex">\(∀a, b\in H,\ \ \ b^{-1}a\in H\)</span>；</li>
+</ul>
+<h3 id="群的中心">群的中心<a class="headerlink" href="#群的中心" title="Permanent link">&para;</a></h3>
+<p>定义群 G 的<strong>中心</strong> ：</p>
+<div class="arithmatex">\[
+C=\{a\in G∣∀x\in G, xa=ax\}
+\]</div>
+<p>即 C 是 G 中那些与 G 的任何元素都可交换的元素构成的集合.</p>
+<p>证明：C 是 G 的子群 ( <span class="arithmatex">\(C\leq G\)</span> )</p>
+<ul>
+<li>首先 C 是否是非空集？哪个元素一定属于 C？</li>
+<li>其次，如何运用子群的判定定理证明 C 是 G 的子群？</li>
+<li>例如利用子群判定定理二，如何证明对任意 a, b\in C，都有 ab<sup>-1</sup>\in C ？</li>
+<li>或者利用子群判定定理一，证明对任意 a\in C 有 a<sup>-1</sup>\in C，以及对任意 a,b\in C 有 ab\in C ？</li>
+</ul>
+<hr />
+<p>首先，由群的性质：<span class="arithmatex">\(\forall x\in G,\ \ \ xe=ex=e\)</span> ，所以 <span class="arithmatex">\(e\in C\)</span> ，因此 C <strong>非空</strong>。</p>
+<p>对 <span class="arithmatex">\(\forall a,b\in C\)</span> ，为证明 <span class="arithmatex">\(ab^{-1}\in C\)</span> 只需证明它与 G 中所有元素都可交换即可。</p>
+<p><span class="arithmatex">\(\forall x\in G\)</span> ，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(ab^{-1})x &amp;=ab^{-1}(x^{-1})^{-1}\\
+&amp;=a(x^{-1}b)^{-1}\\
+&amp;\overset{b\in C}{=}a(bx^{-1})^{-1}\\
+&amp;=a(xb^{-1})\\
+&amp;\overset{\text{结合律}}{=}(ax)b^{-1}\\
+&amp;\overset{a\in C}{=}(xa)b^{-1}\\
+&amp;\overset{\text{结合律}}{=}x(ab^{-1})
+\end{aligned}
+\]</div>
+<h3 id="交并与子群的关系">交并与子群的关系<a class="headerlink" href="#交并与子群的关系" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，且 <span class="arithmatex">\(H≤G\)</span> , <span class="arithmatex">\(K≤G\)</span> ，证明：</p>
+<ul>
+<li>$ H\cap K≤G$（<strong>交保持子群</strong>，可推广）</li>
+<li>$ H∪K≤G$ 当且仅当 <span class="arithmatex">\(H⊆K\)</span> 或 <span class="arithmatex">\(K⊆H\)</span>（<strong>并保持子群的充要条件</strong>）</li>
+</ul>
+<p><img alt="问题15证明1" src="../../assets/math/discrete-math/algebra/group-basics/问题15证明1.png" /><img alt="问题15证明2" src="../../assets/math/discrete-math/algebra/group-basics/问题15证明2.png" /></p>
+<h3 id="生成子群">生成子群<a class="headerlink" href="#生成子群" title="Permanent link">&para;</a></h3>
+<p>简单地说，群 <span class="arithmatex">\(G\)</span> 的一个<strong>子集的生成子群</strong>就是<strong>包含这个子集的最小的子群</strong>。群 <span class="arithmatex">\(G\)</span> 的子集 <span class="arithmatex">\(S\)</span> 的生成子群记为：</p>
+<div class="arithmatex">\[
+⟨S⟩
+\]</div>
+<p>两个子群的交总是子群这个命题可<strong>推广</strong>到任意多个子群的交也总是子群，从而对于群 <span class="arithmatex">\(G\)</span> 的某个子集 <span class="arithmatex">\(S\)</span> ，可给出包含 <span class="arithmatex">\(S\)</span> 的最小子群，这个子群就是 <span class="arithmatex">\(S\)</span> 的<strong>生成子群</strong> <span class="arithmatex">\(⟨S⟩\)</span> ，可由所有包含 <span class="arithmatex">\(S\)</span> 的子群的交给出，即：</p>
+<div class="arithmatex">\[
+\text{&lt;}S\text{&gt;}=\cap\{H|S\subseteq H \land H\leq G\}
+\]</div>
+<ul>
+<li>如果 <span class="arithmatex">\(S\)</span> 为有限集 <span class="arithmatex">\(S=\{a_1, a_2,\cdots,a_n\}\)</span> ，将 <span class="arithmatex">\(⟨S⟩\)</span> 直接记为 <span class="arithmatex">\(⟨a_1, a_2,\cdots,a_n ⟩\)</span>；</li>
+<li>对于群 <span class="arithmatex">\(G\)</span> ，若存在 <span class="arithmatex">\(a\in G\)</span> ，使得 <span class="arithmatex">\(G=⟨a⟩\)</span> ，即 <span class="arithmatex">\(G\)</span> 是由元素 <span class="arithmatex">\(a\)</span> 生成的群，这时称 G 为<strong>循环群</strong>。</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>空集生成的子群是什么？</p>
+</div>
+<h3 id="生成子群元素的表示">生成子群元素的表示<a class="headerlink" href="#生成子群元素的表示" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(G\)</span> 的非空子集，则：</p>
+<div class="arithmatex">\[
+⟨S⟩=\cap\{a_{1}^{l_{1}}a_{2}^{l_{2}}...a_{k}^{l_{k}}|
+a_{i}\in S,\ \ \ l_{i}=\pm 1,\ \ \ k\in\mathbb{N} \}
+\]</div>
+<p>即 <span class="arithmatex">\(⟨S⟩\)</span> 的任意元素可表示成有限个 S 的元素或其逆的乘积</p>
+<p><img alt="问题16证明" src="../../assets/math/discrete-math/algebra/group-basics/问题16证明.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>当 <span class="arithmatex">\(S=\{a\}\)</span> 时，即有 <span class="arithmatex">\(⟨a⟩=\{a^r∣r\in Z\}\)</span></p>
+</div>
+<h2 id="循环群">循环群<a class="headerlink" href="#循环群" title="Permanent link">&para;</a></h2>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，如果存在 <span class="arithmatex">\(a\in G\)</span> 使得</p>
+<div class="arithmatex">\[
+G=⟨a⟩=\{a^k | k\in Z\}
+\]</div>
+<p>则称 <span class="arithmatex">\(G\)</span> 是<strong>循环群</strong>(cyclic group)，并称 <span class="arithmatex">\(a\)</span> 为 <span class="arithmatex">\(G\)</span> 的一个<strong>生成元</strong></p>
+<ul>
+<li>当 <span class="arithmatex">\(G\)</span> 是无限集时称为<strong>无限循环群</strong></li>
+<li>当 <span class="arithmatex">\(G\)</span> 有 <span class="arithmatex">\(n\)</span> 个元素时，称为 <strong>n 阶循环群</strong></li>
+</ul>
+<h3 id="性质不考证明">性质(不考证明)<a class="headerlink" href="#性质不考证明" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是群，<span class="arithmatex">\(e\)</span> 是它的单位元</p>
+<ol>
+<li><span class="arithmatex">\(⟨a^{-1}⟩= ⟨a⟩\)</span>；</li>
+<li>若 <span class="arithmatex">\(G\)</span> 是有限群，则 <span class="arithmatex">\(G=⟨a⟩⟺|G|= |a|\)</span>；</li>
+<li>若 <span class="arithmatex">\(G\)</span> 是无限循环群，则</li>
+<li><span class="arithmatex">\(G = \{e, a, a^{-1}, a^2, a^{-2}, ⋯, a^n, a^{-n}, ⋯\}\)</span>；</li>
+<li><span class="arithmatex">\(\forall k, l\in Z,\ \ \ a^k= a^l⟺k= l\)</span>；</li>
+<li>若 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(n\)</span> 阶循环群，则</li>
+<li><span class="arithmatex">\(G = \{e, a, a^2, a^{3}, ⋯, a^{n-1}\}\)</span>；</li>
+<li><span class="arithmatex">\(\forall k, l\in Z,\ \ \ a^k = a^l ⟺n | k-l\)</span>；</li>
+</ol>
+<h3 id="循环群举例">循环群举例<a class="headerlink" href="#循环群举例" title="Permanent link">&para;</a></h3>
+<p>整数加群 <span class="arithmatex">\(\mathbb Z\)</span> 是无限循环群</p>
+<p>显然 <span class="arithmatex">\(\mathbb Z= ⟨1⟩= ⟨-1⟩\)</span> ， 即 1 和 -1 是它的生成元</p>
+<p>对任意 <span class="arithmatex">\(d\in \mathbb Z\)</span> ，若 <span class="arithmatex">\(d≠±1\)</span> ，显然有 <span class="arithmatex">\(1\not\in⟨d⟩\)</span> ，因此 1 和 -1 是 <span class="arithmatex">\(\mathbb Z\)</span> 的仅有的两个生成元。</p>
+<hr />
+<p>模 <span class="arithmatex">\(m\)</span> 加群 <span class="arithmatex">\(\mathbb Z_m\)</span> 是 <span class="arithmatex">\(m\)</span> 阶循环群，显然 <span class="arithmatex">\(\mathbb Z_m=⟨1⟩\)</span>。</p>
+<hr />
+<p><span class="arithmatex">\(U(5)\)</span> 是 4 阶循环群，<span class="arithmatex">\(U(5)=⟨2⟩=⟨3⟩\)</span>；</p>
+<p>当 <span class="arithmatex">\(m\)</span> 是素数时，<span class="arithmatex">\(U(m)\)</span> 是 <span class="arithmatex">\(m-1\)</span> 阶循环群（证明这个需要不少数论知识）</p>
+<p>当 <span class="arithmatex">\(m\)</span> 不是素数时：</p>
+<ul>
+<li><span class="arithmatex">\(U(m)\)</span> 可能是循环群（例如 <span class="arithmatex">\(U(9)=\{1,2,4,5,7,8\}=⟨2⟩\)</span> ）</li>
+<li>也可能不是循环群（例如<span class="arithmatex">\(U(15)=\{1,2,4,7,8,11,13,14\}\)</span> ）</li>
+</ul>
+<h3 id="生成元的数量与结构">生成元的数量与结构<a class="headerlink" href="#生成元的数量与结构" title="Permanent link">&para;</a></h3>
+<p><img alt="定理17" src="../../assets/math/discrete-math/algebra/group-basics/定理17.png" /></p>
+<hr />
+<p><img alt="定理17证明" src="../../assets/math/discrete-math/algebra/group-basics/定理17证明.png" /></p>
+<h3 id="子群保持循环群">子群保持循环群<a class="headerlink" href="#子群保持循环群" title="Permanent link">&para;</a></h3>
+<p>循环群的任意子群都是循环群</p>
+<hr />
+<p><img alt="定理18证明" src="../../assets/math/discrete-math/algebra/group-basics/定理18证明.png" /></p>
+<h4 id="问题">问题<a class="headerlink" href="#问题" title="Permanent link">&para;</a></h4>
+<p>如果一个群的所有非平凡子群都是循环群，那么这个群一定是循环群吗？</p>
+<p><strong>不一定</strong>！</p>
+<p><span class="arithmatex">\(U(12)=\{1,5,7,11\}\)</span> 不是循环群，但它的每个非平凡子群都是循环群！</p>
+<p><span class="arithmatex">\(|1|=1 , |5| = 2 , |7| = 2 , |11| = 2\)</span> ，可见 <span class="arithmatex">\(U(12)\)</span> 的所有非平凡子群都是二阶群，不难证明<strong>所有二阶群都是循环群</strong></p>
+<h3 id="生成元任意幂的生成子群">生成元任意幂的生成子群<a class="headerlink" href="#生成元任意幂的生成子群" title="Permanent link">&para;</a></h3>
+<p><img alt="推论19" src="../../assets/math/discrete-math/algebra/group-basics/推论19.png" /></p>
+<h3 id="循环群的子群">循环群的子群<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#循环群的子群" title="Permanent link">&para;</a></h3>
+<p><img alt="推论20" src="../../assets/math/discrete-math/algebra/group-basics/推论20.png" /></p>
+<p><img alt="推论20证明1" src="../../assets/math/discrete-math/algebra/group-basics/推论20证明1.png" /><img alt="推论20证明2" src="../../assets/math/discrete-math/algebra/group-basics/推论20证明2.png" /></p>
+<p>例题：</p>
+<p><span class="arithmatex">\(\mathbb{Z}_{14}\)</span> 加群的所有子群是：</p>
+<ul>
+<li><span class="arithmatex">\(⟨1⟩=\mathbb{Z}_{14}\)</span>、</li>
+<li><span class="arithmatex">\(⟨2⟩=\{0,2,4,6,8,10,12,14\}\)</span>、</li>
+<li><span class="arithmatex">\(⟨7⟩=\{0,7\}\)</span>、</li>
+<li><span class="arithmatex">\(⟨0⟩={0}\)</span>、</li>
+</ul>
+<p><span class="arithmatex">\(U(14)\)</span> 的所有子群是：</p>
+<ul>
+<li><span class="arithmatex">\(⟨3⟩\)</span>、</li>
+<li><span class="arithmatex">\(⟨3^2=9⟩\)</span>、</li>
+<li><span class="arithmatex">\(⟨3^3=13⟩\)</span>、</li>
+<li><span class="arithmatex">\(⟨3^6=1⟩\)</span>、</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../coset-of-subgroup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 子群的陪集">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                子群的陪集
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../homomorphism/" class="md-footer__link md-footer__link--next" aria-label="Next: 群的同态与同构">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                群的同态与同构
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

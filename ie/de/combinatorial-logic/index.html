@@ -1,0 +1,3125 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/de/combinatorial-logic/">
+      
+      
+        <link rel="prev" href="../coding/">
+      
+      
+        <link rel="next" href="../digital-process/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>组合逻辑电路 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#组合逻辑电路基础" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              组合逻辑电路
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            De
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bool-algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    码制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    组合逻辑电路
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    组合逻辑电路
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#组合逻辑电路基础" class="md-nav__link">
+    <span class="md-ellipsis">
+      组合逻辑电路基础
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="组合逻辑电路基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分析方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      分析方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#设计方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      加法器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#半加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      半加法器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      全加法器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二进制加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制加法器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二进制加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74ls283" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS283
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      比较器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="比较器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74ls85" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS85
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS85">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展-8-位比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 8 位比较器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#扩展-16-位比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 16 位比较器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#译码器nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      译码器(n:m)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="译码器(n:m)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74hc154416" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC154(4:16)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74HC154(4:16)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74hc42" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC42
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls47" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS47
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS47">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      灭零
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="灭零">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#头部灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      头部灭零
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尾部灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      尾部灭零
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#试灯" class="md-nav__link">
+    <span class="md-ellipsis">
+      试灯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4 译码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-8-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-8 译码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls13838" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS138(3:8)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-32-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-32 译码器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#编码器nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器(n:m)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编码器(n:m)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#普通编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通编码器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="普通编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#十进制-bcd-编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      十进制-BCD 编码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-普通编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8/3 普通编码器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优先编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      优先编码器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优先编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#83-优先编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8/3 优先编码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75ls14883" class="md-nav__link">
+    <span class="md-ellipsis">
+      75LS148(8:3)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="75LS148(8:3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多路复用器n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      多路复用器(n:1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多路复用器(n:1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls151" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS151
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS151">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展-16-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 16 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls153" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS153
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls157" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS157
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-段显示多路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 段显示多路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#扩展_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实现门电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现门电路
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#解多路复用器1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      解多路复用器(1:n)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="解多路复用器(1:n)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-线-4-线多路分配器" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 线-4 线多路分配器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74hc154" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC154
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#传输时延与竞争冒险" class="md-nav__link">
+    <span class="md-ellipsis">
+      传输时延与竞争冒险
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传输时延与竞争冒险">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#消除冒险的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      消除冒险的方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="消除冒险的方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#滤波电容" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波电容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冗余项" class="md-nav__link">
+    <span class="md-ellipsis">
+      冗余项
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../digital-process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数模转换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gate-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    门电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrated-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集成电路(CMOS&TTL)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时序逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shift-register/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移位寄存器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../signals-and-systems/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#组合逻辑电路基础" class="md-nav__link">
+    <span class="md-ellipsis">
+      组合逻辑电路基础
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="组合逻辑电路基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分析方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      分析方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#设计方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      加法器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#半加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      半加法器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      全加法器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二进制加法器" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制加法器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二进制加法器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74ls283" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS283
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      比较器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="比较器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74ls85" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS85
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS85">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展-8-位比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 8 位比较器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#扩展-16-位比较器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 16 位比较器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#译码器nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      译码器(n:m)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="译码器(n:m)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#74hc154416" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC154(4:16)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74HC154(4:16)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74hc42" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC42
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls47" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS47
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS47">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      灭零
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="灭零">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#头部灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      头部灭零
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尾部灭零" class="md-nav__link">
+    <span class="md-ellipsis">
+      尾部灭零
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#试灯" class="md-nav__link">
+    <span class="md-ellipsis">
+      试灯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4 译码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-8-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-8 译码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls13838" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS138(3:8)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-32-译码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-32 译码器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#编码器nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码器(n:m)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编码器(n:m)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#普通编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通编码器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="普通编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#十进制-bcd-编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      十进制-BCD 编码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-普通编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8/3 普通编码器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#优先编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      优先编码器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优先编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#83-优先编码器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8/3 优先编码器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75ls14883" class="md-nav__link">
+    <span class="md-ellipsis">
+      75LS148(8:3)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="75LS148(8:3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多路复用器n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      多路复用器(n:1)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多路复用器(n:1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      8 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls151" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS151
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="74LS151">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#扩展-16-路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展 16 路复用器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls153" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS153
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74ls157" class="md-nav__link">
+    <span class="md-ellipsis">
+      74LS157
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-段显示多路复用器" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 段显示多路复用器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#扩展_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实现门电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现门电路
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#解多路复用器1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      解多路复用器(1:n)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="解多路复用器(1:n)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-线-4-线多路分配器" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 线-4 线多路分配器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74hc154" class="md-nav__link">
+    <span class="md-ellipsis">
+      74HC154
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#传输时延与竞争冒险" class="md-nav__link">
+    <span class="md-ellipsis">
+      传输时延与竞争冒险
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="传输时延与竞争冒险">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#消除冒险的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      消除冒险的方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="消除冒险的方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#滤波电容" class="md-nav__link">
+    <span class="md-ellipsis">
+      滤波电容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冗余项" class="md-nav__link">
+    <span class="md-ellipsis">
+      冗余项
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>组合逻辑电路</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>基本框架</p>
+</div>
+<ul>
+<li>数字电路</li>
+<li>组合逻辑电路<ul>
+<li>以门电路为基本单元</li>
+</ul>
+</li>
+<li>时序逻辑电路<ul>
+<li>以触发器为基本单元</li>
+</ul>
+</li>
+</ul>
+<h2 id="组合逻辑电路基础">组合逻辑电路基础<a class="headerlink" href="#组合逻辑电路基础" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>Programmable Logic Device : PLD —— 可编程逻辑器件</p>
+</div>
+<h3 id="特点">特点<a class="headerlink" href="#特点" title="Permanent link">&para;</a></h3>
+<p>功能上，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关；</p>
+<p>结构上，组合逻辑电路不含有存储单元（记忆单元），只有从输入到输出的通路，<strong>没有反馈环路</strong></p>
+<h3 id="分析方法">分析方法<a class="headerlink" href="#分析方法" title="Permanent link">&para;</a></h3>
+<p>给定一个组合逻辑电路，分析其电路逻辑功能：</p>
+<ol>
+<li>根据电路图，从输入到输出逐级分析，得到输出与输入的逻辑函数式；</li>
+<li>对得到的逻辑函数式进行化简、形式变换或列出真值表，最后分析其逻辑功能；</li>
+</ol>
+<h3 id="设计方法">设计方法<a class="headerlink" href="#设计方法" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Step 1：逻辑抽象；</li>
+<li>分析因果关系，确定输入/输出变量；</li>
+<li>定义逻辑状态的含意（赋值）；<ul>
+<li>输入和输出都有可能需要多个变量</li>
+<li>一个对象有 <span class="arithmatex">\(k\)</span> 种状态，则可能需要 <span class="arithmatex">\(n=\lceil\log_2k\rceil\)</span> 个信号来表示；若 <span class="arithmatex">\(2^n\gt k\)</span>，多余的项为<strong>无关项中的约束项</strong>，可以不写在真值表中</li>
+</ul>
+</li>
+<li>列出真值表；</li>
+<li>Step 2：将真值表转换为逻辑函数式；</li>
+<li>Step 3：选定器件类型；</li>
+<li>是否有器件类型限制，例如 “只能用与非门” 这类条件；</li>
+<li>是否有指定使用的中规模器件，例如 “使用数据选择器” 这类条件；</li>
+<li>Step 4：根据所选器件，对逻辑式进行化简或形式变换；（或进行相应的描述（PLD））</li>
+<li>与非门——<strong>与非—与非式</strong></li>
+<li>或非门——<strong>或非—或非式</strong></li>
+<li>Step 5：画出逻辑电路连接图</li>
+</ul>
+<h2 id="加法器">加法器<a class="headerlink" href="#加法器" title="Permanent link">&para;</a></h2>
+<h3 id="半加法器">半加法器<a class="headerlink" href="#半加法器" title="Permanent link">&para;</a></h3>
+<p>Basic Adders</p>
+<p><img alt="半加法器" src="../../../assets/ie/de/combinatorial-logic/%E5%8D%8A%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th><span class="arithmatex">\(C_{out}\)</span></th>
+<th><span class="arithmatex">\(\Sigma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+\begin{aligned}
+C_{out}&amp;=AB\\
+\Sigma&amp;=A\oplus B
+\end{aligned}
+\]</div>
+<p>门电路实现：</p>
+<p><img alt="半加法器门电路实现" src="../../../assets/ie/de/combinatorial-logic/%E5%8D%8A%E5%8A%A0%E6%B3%95%E5%99%A8%E9%97%A8%E7%94%B5%E8%B7%AF%E5%AE%9E%E7%8E%B0.png" /></p>
+<h3 id="全加法器">全加法器<a class="headerlink" href="#全加法器" title="Permanent link">&para;</a></h3>
+<p>Full-adder</p>
+<p><img alt="全加法器" src="../../../assets/ie/de/combinatorial-logic/%E5%85%A8%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th><span class="arithmatex">\(C_{in}\)</span></th>
+<th><span class="arithmatex">\(C_{out}\)</span></th>
+<th><span class="arithmatex">\(\Sigma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+\begin{aligned}
+C_{out}&amp;=AB+(A\oplus B)C_{in}\\
+\Sigma&amp;=A\oplus B\oplus C_{in}
+\end{aligned}
+\]</div>
+<p>输出写为这个形式，与半加法器的输出对比，全加法器可以用 <strong>2 个半加法器级联和 1 个或门</strong>实现</p>
+<p>门电路实现全加法器：</p>
+<p><img alt="门电路实现全加法器" src="../../../assets/ie/de/combinatorial-logic/%E9%97%A8%E7%94%B5%E8%B7%AF%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<p>半加法器实现全加法器：</p>
+<p><img alt="半加法器实现全加法器" src="../../../assets/ie/de/combinatorial-logic/%E5%8D%8A%E5%8A%A0%E6%B3%95%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<h3 id="二进制加法器">二进制加法器<a class="headerlink" href="#二进制加法器" title="Permanent link">&para;</a></h3>
+<p>Parallel Binary Adders</p>
+<p>全加法器级联实现，利用了<strong>模块化设计的思想</strong>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>模块化思想，或者说集成化思想，是人们不断积累的设计经验。有很多场合下的逻辑问题是具有共性的，为了更方便地设计电路，通常可以将一些具有特定功能、解决某类问题的电路封装打包即集成化，组成一些常用的组合逻辑电路模块（中规模集成器件）；在设计大规模的集成电路时，就可以调用这些典型的电路模块而避免使用复杂且数量巨大的分立的门电路</p>
+</div>
+<h4 id="74ls283">74LS283<a class="headerlink" href="#74ls283" title="Permanent link">&para;</a></h4>
+<p>4-bit parallel adder, 4 位二进制加法器</p>
+<p><img alt="4位并行加法器" src="../../../assets/ie/de/combinatorial-logic/4%E4%BD%8D%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<p>2 个 74LS283 级联可以得到 8 位二进制加法器（8-bit parallel adder）：</p>
+<p><img alt="全加法器级联实现4位并行加法器" src="../../../assets/ie/de/combinatorial-logic/%E5%85%A8%E5%8A%A0%E6%B3%95%E5%99%A8%E7%BA%A7%E8%81%94%E5%AE%9E%E7%8E%B04%E4%BD%8D%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8.png" /></p>
+<p>4 个全加法器级联实现，但是这样上一级的 <span class="arithmatex">\(C_{out}\)</span> 到下一级 <span class="arithmatex">\(C_{in}\)</span> 会存在延迟，级联越多，这样的串行部分产生的延迟越多</p>
+<p>全加法器中，令：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+C_{g}&amp;=AB\\
+C_{p}&amp;=A+B
+\end{aligned}
+\]</div>
+<p>则有：</p>
+<div class="arithmatex">\[
+C_{out}=C_{g}+C_{p}C_{in}
+\]</div>
+<p><img alt="look-ahead-adder" src="../../../assets/ie/de/combinatorial-logic/look-ahead-adder.png" /></p>
+<h2 id="比较器">比较器<a class="headerlink" href="#比较器" title="Permanent link">&para;</a></h2>
+<p>comparator</p>
+<p>简单的 1、2 位比较器直接利用异或门可以实现。</p>
+<p>位数比较多时，比如 4 位比较器，从高位开始比较，若出现不一样则剩余低位可以不必比较，直接输出结果（大于、小于）否则直到所有位比较完，并且都相等，则输出“相等”</p>
+<h3 id="74ls85">74LS85<a class="headerlink" href="#74ls85" title="Permanent link">&para;</a></h3>
+<p>4 位比较器</p>
+<p><img alt="74LS85" src="../../../assets/ie/de/combinatorial-logic/74LS85.png" /></p>
+<ul>
+<li>8 位数据输入，按从 3 到 0 的高位到低位顺序比较</li>
+<li>3 位级联输入，当本次比较结果为相等时输出级联输入的结果</li>
+<li>3 位比较结果输出，高电平有效</li>
+</ul>
+<p>注意 3 个级联输入: <span class="arithmatex">\(A&lt;B\)</span> 、<span class="arithmatex">\(A=B\)</span> 和 <span class="arithmatex">\(A&gt;B\)</span> 。 这些输入允许几个比较器级联起来，用来比较大于 4 位数字的数。</p>
+<ul>
+<li>低位比较器的 <span class="arithmatex">\(A&lt;B\)</span> 、<span class="arithmatex">\(A =B\)</span> 和 <span class="arithmatex">\(A&gt;B\)</span> 输出与对应的下一个较高位比较器的级联输入相连接;</li>
+<li>最低位比较器在 <span class="arithmatex">\(A=B\)</span> 输入端又必须接高电平，在 <span class="arithmatex">\(A&lt;B\)</span> 和 <span class="arithmatex">\(A&gt;B\)</span> 输入端又必须接低电平;</li>
+</ul>
+<h4 id="扩展-8-位比较器">扩展 8 位比较器<a class="headerlink" href="#扩展-8-位比较器" title="Permanent link">&para;</a></h4>
+<p>2 个 74HC85 扩展为 8 位比较器：</p>
+<p><img alt="74LS85扩展8位比较器" src="../../../assets/ie/de/combinatorial-logic/74LS85%E6%89%A9%E5%B1%958%E4%BD%8D%E6%AF%94%E8%BE%83%E5%99%A8.png" /></p>
+<h4 id="扩展-16-位比较器">扩展 16 位比较器<a class="headerlink" href="#扩展-16-位比较器" title="Permanent link">&para;</a></h4>
+<p>5 个 74LS85 扩展为 16 位比较器：</p>
+<p><img alt="74LS85扩展16位比较器" src="../../../assets/ie/de/combinatorial-logic/74LS85%E6%89%A9%E5%B1%9516%E4%BD%8D%E6%AF%94%E8%BE%83%E5%99%A8.webp" /></p>
+<h2 id="译码器nm">译码器(n:m)<a class="headerlink" href="#译码器nm" title="Permanent link">&para;</a></h2>
+<p>decoder</p>
+<h3 id="74hc154416">74HC154(4:16)<a class="headerlink" href="#74hc154416" title="Permanent link">&para;</a></h3>
+<p>4 位译码器，4 线 - 16 线译码器，也是 4 线 - 16 线解多路复用器</p>
+<ul>
+<li>4 位输入</li>
+<li>2 位片选，当且仅当 2 位都为低位时才正常工作</li>
+<li>16 位输出，低电平有效</li>
+</ul>
+<p><img alt="74HC154" src="../../../assets/ie/de/combinatorial-logic/74HC154.png" /></p>
+<h4 id="扩展">扩展<a class="headerlink" href="#扩展" title="Permanent link">&para;</a></h4>
+<p>74HC54 扩展实现 5 位输入译码器：</p>
+<p><img alt="74HC54实现5位输入译码器" src="../../../assets/ie/de/combinatorial-logic/74HC54%E5%AE%9E%E7%8E%B05%E4%BD%8D%E8%BE%93%E5%85%A5%E8%AF%91%E7%A0%81%E5%99%A8.png" /></p>
+<h3 id="74hc42">74HC42<a class="headerlink" href="#74hc42" title="Permanent link">&para;</a></h3>
+<p>BCD-十进制译码器，把每 一个 BCD 码(8421 码)转换成 10 个十进制数中的一个数所表示的输出</p>
+<ul>
+<li>4 位输入，<span class="arithmatex">\(A_0,A_1,A_2,A_3\)</span> 分别表示 1 2 4 8</li>
+<li>10 位输出， 低电平有效</li>
+</ul>
+<h3 id="74ls47">74LS47<a class="headerlink" href="#74ls47" title="Permanent link">&para;</a></h3>
+<p>BCD-7 段译码器/驱动器，它把一个 BCD 输入进行译码，并驱动 7 段显示器</p>
+<ul>
+<li>4 位输入，<span class="arithmatex">\(A_0,A_1,A_2,A_3\)</span> 分别表示 1 2 4 8 ，<strong>高电平有效</strong>！</li>
+<li>3 位控制位</li>
+<li><span class="arithmatex">\(\overline{LT}\)</span>，输入低电平有效时<strong>试灯</strong>；</li>
+<li><span class="arithmatex">\(\overline{RBI}\)</span>，输入低电平有效，且该位当前状态为 <code>0</code> 时<strong>灭 <code>0</code></strong>；</li>
+<li><span class="arithmatex">\(\overline{BI}/\overline{RBO}\)</span>，输出低电平有效表示该位当前状态为 <code>0</code>；</li>
+<li>7 位输出，<strong>低电平有效</strong></li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>74LS48 与它的区别在于输出的 7 位没有取非，它的输出是高电平有效</p>
+</div>
+<h4 id="灭零">灭零<a class="headerlink" href="#灭零" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\overline{LT}\ \overline{RBI}=10\)</span> 时<strong>灭零</strong>。把数字前面的 0 熄灭称为头部灭零，把数字尾端的 0 熄灭称为尾部灭零。只是把不需要的零熄灭！</p>
+<h5 id="头部灭零">头部灭零<a class="headerlink" href="#头部灭零" title="Permanent link">&para;</a></h5>
+<p><img alt="头部灭零" src="../../../assets/ie/de/combinatorial-logic/%E5%A4%B4%E9%83%A8%E7%81%AD%E9%9B%B6.png" /></p>
+<h5 id="尾部灭零">尾部灭零<a class="headerlink" href="#尾部灭零" title="Permanent link">&para;</a></h5>
+<p><img alt="尾部灭零" src="../../../assets/ie/de/combinatorial-logic/%E5%B0%BE%E9%83%A8%E7%81%AD%E9%9B%B6.png" /></p>
+<h4 id="试灯">试灯<a class="headerlink" href="#试灯" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\overline{LT}=0\)</span> 时试灯，即显示为 <code>8</code>。</p>
+<h3 id="2-4-译码器">2-4 译码器<a class="headerlink" href="#2-4-译码器" title="Permanent link">&para;</a></h3>
+<h3 id="3-8-译码器">3-8 译码器<a class="headerlink" href="#3-8-译码器" title="Permanent link">&para;</a></h3>
+<p>3 线 - 8 线译码器</p>
+<h3 id="74ls13838"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />74LS138(3:8)<a class="headerlink" href="#74ls13838" title="Permanent link">&para;</a></h3>
+<ul>
+<li>3 位输入位为选择位</li>
+<li>8 位输出位</li>
+<li>3 位片选位</li>
+</ul>
+<h3 id="5-32-译码器">5-32 译码器<a class="headerlink" href="#5-32-译码器" title="Permanent link">&para;</a></h3>
+<p>可以用 1 个 74LS139 和 4 个 74LS138 实现</p>
+<h2 id="编码器nm">编码器(n:m)<a class="headerlink" href="#编码器nm" title="Permanent link">&para;</a></h2>
+<p>数字电路中的编码器是在已经实现了非电信号到电信号的转换、模拟信号到数字信号的转换之后对信息进行编码，即此时输入的信号是一组 高、低电平 （1 和 0 ）；</p>
+<p>编码器的功能就是根据输入的每一个高、低电平来输出其对应的二进制代码</p>
+<p>输入 <span class="arithmatex">\(n\)</span> 个<strong>电平信号</strong>，至少需要 <span class="arithmatex">\(\lceil\log_2n\rceil\)</span> 个输出端口，即 <span class="arithmatex">\(\lceil\log_2n\rceil\)</span> 位二进制编码</p>
+<h3 id="普通编码器">普通编码器<a class="headerlink" href="#普通编码器" title="Permanent link">&para;</a></h3>
+<p>普通编码器规定了<strong>任意时刻有且只有一个有效输入信号</strong>，作为默认给定的约束条件</p>
+<h4 id="十进制-bcd-编码器">十进制-BCD 编码器<a class="headerlink" href="#十进制-bcd-编码器" title="Permanent link">&para;</a></h4>
+<p><img alt="十进制-BCD编码器" src="../../../assets/ie/de/combinatorial-logic/%E5%8D%81%E8%BF%9B%E5%88%B6-BCD%E7%BC%96%E7%A0%81%E5%99%A8.png" /></p>
+<h4 id="83-普通编码器">8/3 普通编码器<a class="headerlink" href="#83-普通编码器" title="Permanent link">&para;</a></h4>
+<p><img alt="普通8-3编码器" src="../../../assets/ie/de/combinatorial-logic/%E6%99%AE%E9%80%9A8-3%E7%BC%96%E7%A0%81%E5%99%A8.png" /></p>
+<p>真值表：（不包含无关项）</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(I_0\)</span></th>
+<th><span class="arithmatex">\(I_1\)</span></th>
+<th><span class="arithmatex">\(I_2\)</span></th>
+<th><span class="arithmatex">\(I_3\)</span></th>
+<th><span class="arithmatex">\(I_4\)</span></th>
+<th><span class="arithmatex">\(I_5\)</span></th>
+<th><span class="arithmatex">\(I_6\)</span></th>
+<th><span class="arithmatex">\(I_7\)</span></th>
+<th><span class="arithmatex">\(Y_2\)</span></th>
+<th><span class="arithmatex">\(Y_1\)</span></th>
+<th><span class="arithmatex">\(Y_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>因为任一时刻只能有一个输入为 1，因此只需要将输入为 1 的变量保留，其余的变量无关（相当于在卡诺图中 x 的方块填入 1 合并消去无关变量）化简为最简与或式：</p>
+<div class="arithmatex">\[
+Y_2=I_4+I_5+I_6+I_7\\
+Y_1=I_2+I_3+I_6+I_7\\
+Y_0=I_1+I_3+I_5+I_7
+\]</div>
+<p>从而可画出逻辑电路图：</p>
+<p><img alt="普通8-3编码器逻辑电路图" src="../../../assets/ie/de/combinatorial-logic/%E6%99%AE%E9%80%9A8-3%E7%BC%96%E7%A0%81%E5%99%A8%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9B%BE.png" /></p>
+<p>此设计存在的问题：</p>
+<ul>
+<li>不能有多个信号同时输入</li>
+<li>也不能没有信号输入（因为根据我们的约束条件，00000000 也属于无关项）；</li>
+</ul>
+<p>因此我们以上的设计只是一个思路的训练，最终的设计结果并不能直接应用到实际当中</p>
+<h3 id="优先编码器">优先编码器<a class="headerlink" href="#优先编码器" title="Permanent link">&para;</a></h3>
+<ul>
+<li>允许多个信号<strong>同时输入</strong></li>
+<li>编码时存在<strong>优先顺序</strong></li>
+</ul>
+<h4 id="83-优先编码器">8/3 优先编码器<a class="headerlink" href="#83-优先编码器" title="Permanent link">&para;</a></h4>
+<p>规定:</p>
+<ul>
+<li>高电平输入有效，即输入 1 表示对此输入信号编码，输出的 <span class="arithmatex">\(Y_2Y_1Y_0\)</span> 即为 0 ~ 7 对应的三位二进制代码 000~111；</li>
+<li>二进制数大的优先级高，即 <span class="arithmatex">\(I_7\)</span> 优先级最高，<span class="arithmatex">\(I_0\)</span> 最低；</li>
+</ul>
+<p>真值表：（不包含无关项）</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(I_0\)</span></th>
+<th><span class="arithmatex">\(I_1\)</span></th>
+<th><span class="arithmatex">\(I_2\)</span></th>
+<th><span class="arithmatex">\(I_3\)</span></th>
+<th><span class="arithmatex">\(I_4\)</span></th>
+<th><span class="arithmatex">\(I_5\)</span></th>
+<th><span class="arithmatex">\(I_6\)</span></th>
+<th><span class="arithmatex">\(I_7\)</span></th>
+<th><span class="arithmatex">\(Y_2\)</span></th>
+<th><span class="arithmatex">\(Y_1\)</span></th>
+<th><span class="arithmatex">\(Y_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>此真值表不完整！当前只有 <span class="arithmatex">\(2^8–1\)</span> 行，缺少了一行 00000000 ！</p>
+<p>这时存在的问题是，输入全为 0 时输出为 <span class="arithmatex">\(I_0\)</span> 表示的状态，无法表示输入全为 0 的状态。在实际应用的 8/3 优先编码器中，还附加了其他的输入输出端口，以便于片选和拓展。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>附加了其他的输入输出端口进行片选和拓展的最主要目还是厂家希望产品应用更广泛，同种型号芯片可以实现不同功能</p>
+</div>
+<h4 id="75ls14883">75LS148(8:3)<a class="headerlink" href="#75ls14883" title="Permanent link">&para;</a></h4>
+<ul>
+<li>8 位输入，低电平有效</li>
+<li>1 位片选位 <span class="arithmatex">\(\overline{EI}\)</span> ，低电平有效，正常工作</li>
+<li>3 位输出编码，低电平有效<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></li>
+<li>2 位输出有效位</li>
+<li><span class="arithmatex">\(\overline{EO}\)</span> ， <span class="arithmatex">\(\overline{EI}\)</span> 有效且所有输入都无效时为 0</li>
+<li><span class="arithmatex">\(\overline{GS}\)</span> ， <span class="arithmatex">\(\overline{EI}\)</span> 无效且任何一个输入有效时为 0</li>
+</ul>
+<p>功能表：</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(EI'\)</span></th>
+<th><span class="arithmatex">\(I_0'\)</span></th>
+<th><span class="arithmatex">\(I_1'\)</span></th>
+<th><span class="arithmatex">\(I_2'\)</span></th>
+<th><span class="arithmatex">\(I_3'\)</span></th>
+<th><span class="arithmatex">\(I_4'\)</span></th>
+<th><span class="arithmatex">\(I_5'\)</span></th>
+<th><span class="arithmatex">\(I_6'\)</span></th>
+<th><span class="arithmatex">\(I_7'\)</span></th>
+<th><span class="arithmatex">\(Y_2'\)</span></th>
+<th><span class="arithmatex">\(Y_1'\)</span></th>
+<th><span class="arithmatex">\(Y_0'\)</span></th>
+<th><span class="arithmatex">\(EO'\)</span></th>
+<th><span class="arithmatex">\(GS'\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>x</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="扩展_1">扩展<a class="headerlink" href="#扩展_1" title="Permanent link">&para;</a></h5>
+<p>2 个 74LS148 实现 16 线 - 4 线编码器：</p>
+<p><img alt="74LS148实现16线-4线编码器" src="../../../assets/ie/de/combinatorial-logic/74LS148%E5%AE%9E%E7%8E%B016%E7%BA%BF-4%E7%BA%BF%E7%BC%96%E7%A0%81%E5%99%A8.png" /></p>
+<h2 id="多路复用器n1">多路复用器(n:1)<a class="headerlink" href="#多路复用器n1" title="Permanent link">&para;</a></h2>
+<p>（Mux）<strong>多路复用器</strong>（Multiplexer）或<strong>数据选择器</strong>（Data Selector），能够实现<strong>并行</strong>数据到<strong>串行</strong>数据的转化。</p>
+<p>包括：</p>
+<ul>
+<li>数据选择位（低电平有效）</li>
+<li>数据输入位</li>
+<li>数据输出位</li>
+</ul>
+<p>此时数据输入输出位不必再关心是否低电平有效</p>
+<h3 id="4-路复用器">4 路复用器<a class="headerlink" href="#4-路复用器" title="Permanent link">&para;</a></h3>
+<ul>
+<li>2 位数据选择位 <span class="arithmatex">\(\overline{S_0},\overline{S_1}\)</span> ，低电平有效</li>
+<li>4 位数据输入位 <span class="arithmatex">\(D_0,D_1,D_2,D_3\)</span>；</li>
+<li>1 位数据输出位 <span class="arithmatex">\(Y\)</span>；</li>
+</ul>
+<div class="arithmatex">\[
+Y=\overline{S_1S_0}D_0+\overline{S_1}S_0D_1+S_1\overline{S_0}D_0+S_1S_0D_1
+\]</div>
+<p><img alt="4位多路复用器" src="../../../assets/ie/de/combinatorial-logic/4%E4%BD%8D%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%99%A8.png" /></p>
+<h3 id="8-路复用器">8 路复用器<a class="headerlink" href="#8-路复用器" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+Y&amp;=\overline{S_3S_2S_1S_0}D_0+\overline{S_3S_2S_1}S_0D_1+\overline{S_3S_2}S_1\overline{S_0}D_2+\overline{S_3S_2S_1S_0}D_3
+\end{aligned}
+\]</div>
+<h3 id="74ls151">74LS151<a class="headerlink" href="#74ls151" title="Permanent link">&para;</a></h3>
+<h4 id="扩展-16-路复用器">扩展 16 路复用器<a class="headerlink" href="#扩展-16-路复用器" title="Permanent link">&para;</a></h4>
+<p>2 个 74LS151 扩展实现 16 路复用器</p>
+<p><img alt="74LS151扩展实现16路复用器" src="../../../assets/ie/de/combinatorial-logic/74LS151%E6%89%A9%E5%B1%95%E5%AE%9E%E7%8E%B016%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%99%A8.png" /></p>
+<h3 id="74ls153">74LS153<a class="headerlink" href="#74ls153" title="Permanent link">&para;</a></h3>
+<p>双 4 选 1 数据选择器，也就是 2 组 4 选 1 共用同一个选择输入和同一个片选输入。</p>
+<h3 id="74ls157">74LS157<a class="headerlink" href="#74ls157" title="Permanent link">&para;</a></h3>
+<p>四 2 选 1 数据选择器，也就是 4 组 2 选 1 共用同一个选择输入和同一个片选输入。</p>
+<ul>
+<li>1 位片选输入，电平有效</li>
+<li>1 位选择输入</li>
+<li>8 位数据输入</li>
+<li>4 位数据输出</li>
+</ul>
+<h3 id="7-段显示多路复用器">7 段显示多路复用器<a class="headerlink" href="#7-段显示多路复用器" title="Permanent link">&para;</a></h3>
+<p>把 BCD 数字分配到一个 7 段显示器上的一个简单方法</p>
+<h3 id="扩展_2"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />扩展<a class="headerlink" href="#扩展_2" title="Permanent link">&para;</a></h3>
+<p>2 个 4 选 1 扩展为 8 选 1</p>
+<p>1 个 4 选 1 + 门电路扩展为 5 选 1</p>
+<p>5 个 4 选 1 扩展为 16 选 1 （<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />树状扩展）</p>
+<h3 id="实现门电路"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />实现门电路<a class="headerlink" href="#实现门电路" title="Permanent link">&para;</a></h3>
+<h2 id="解多路复用器1n">解多路复用器(1:n)<a class="headerlink" href="#解多路复用器1n" title="Permanent link">&para;</a></h2>
+<p><strong>解多路分配器</strong>（Demultiplexer）或<strong>数据分配器</strong>（）</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>数据选择器的逆</p>
+</div>
+<h3 id="1-线-4-线多路分配器">1 线-4 线多路分配器<a class="headerlink" href="#1-线-4-线多路分配器" title="Permanent link">&para;</a></h3>
+<p><img alt="1线-4线多路分配器" src="../../../assets/ie/de/combinatorial-logic/1%E7%BA%BF-4%E7%BA%BF%E5%A4%9A%E8%B7%AF%E5%88%86%E9%85%8D%E5%99%A8.png" /></p>
+<p><img alt="1线-4线多路分配器波形图" src="../../../assets/ie/de/combinatorial-logic/1%E7%BA%BF-4%E7%BA%BF%E5%A4%9A%E8%B7%AF%E5%88%86%E9%85%8D%E5%99%A8%E6%B3%A2%E5%BD%A2%E5%9B%BE.png" /></p>
+<h3 id="74hc154">74HC154<a class="headerlink" href="#74hc154" title="Permanent link">&para;</a></h3>
+<p>4 位译码器 74HC154 可以作为 4 线 - 16 线解多路复用器</p>
+<p><img alt="74HC154作4线-16线解多路复用器" src="../../../assets/ie/de/combinatorial-logic/74HC154%E4%BD%9C4%E7%BA%BF-16%E7%BA%BF%E8%A7%A3%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%99%A8.png" /></p>
+<h2 id="传输时延与竞争冒险">传输时延与竞争冒险<a class="headerlink" href="#传输时延与竞争冒险" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<ul>
+<li>毛刺 glitch</li>
+</ul>
+</div>
+<ul>
+<li>竞争 race</li>
+<li>冒险 hazard</li>
+</ul>
+<p>时延导致竞争的存在，竞争可能产生毛刺，竞争导致了逻辑误判，就是<strong>冒险</strong></p>
+<h3 id="消除冒险的方法">消除冒险的方法<a class="headerlink" href="#消除冒险的方法" title="Permanent link">&para;</a></h3>
+<h4 id="滤波电容">滤波电容<a class="headerlink" href="#滤波电容" title="Permanent link">&para;</a></h4>
+<h4 id="冗余项">冗余项<a class="headerlink" href="#冗余项" title="Permanent link">&para;</a></h4>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../coding/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 码制">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                码制
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../digital-process/" class="md-footer__link md-footer__link--next" aria-label="Next: 数模转换">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                数模转换
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

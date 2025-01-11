@@ -1,0 +1,2853 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/concepts/">
+      
+      
+        <link rel="prev" href="../agent/">
+      
+      
+        <link rel="next" href="../knowledge-presentation-and-resolution/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>人工智能绪论 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#人工智能的概念" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              人工智能绪论
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体 Agent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体 Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体的两大目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体的两大目标
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体的两大目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体可否像人一样思考" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体可否像人一样思考
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体可否像人一样思考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#认知科学" class="md-nav__link">
+    <span class="md-ellipsis">
+      认知科学
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#认知神经科学" class="md-nav__link">
+    <span class="md-ellipsis">
+      认知神经科学
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能体如何像人一样行动" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体如何像人一样行动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体如何像人一样行动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#图林测试" class="md-nav__link">
+    <span class="md-ellipsis">
+      图林测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图林测试内容" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图林测试内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图灵提出了-ai-的几大元素" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图灵提出了 AI 的几大元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图灵测试存在的问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图灵测试存在的问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三大主流学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大主流学派
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三大主流学派">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑学派
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#仿生学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      仿生学派
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#控制论学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制论学派
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#理论基础" class="md-nav__link">
+    <span class="md-ellipsis">
+      理论基础
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理论基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#物理符号系统的假设" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理符号系统的假设
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的内涵" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的内涵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的内涵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#强弱-人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      强/弱 人工智能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强/弱 人工智能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#强人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      强人工智能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#弱人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      弱人工智能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#泛狭义-人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      泛/狭义 人工智能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="泛/狭义 人工智能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#泛人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      泛人工智能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#狭义人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      狭义人工智能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的发展历史" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的发展历史
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的发展历史">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#不同阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      不同阶段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不同阶段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1950-1970" class="md-nav__link">
+    <span class="md-ellipsis">
+      1950-1970
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1970-1990" class="md-nav__link">
+    <span class="md-ellipsis">
+      1970-1990
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1990-" class="md-nav__link">
+    <span class="md-ellipsis">
+      1990-
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2010-" class="md-nav__link">
+    <span class="md-ellipsis">
+      2010-
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三次大跃进" class="md-nav__link">
+    <span class="md-ellipsis">
+      三次大跃进
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能研究课题" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能研究课题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能研究课题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智-能-感-知" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 感 知
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 感 知">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#模式识别" class="md-nav__link">
+    <span class="md-ellipsis">
+      模式识别
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算机视觉" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机视觉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自然语言处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然语言处理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-推-理" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 推 理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 推 理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#搜索技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索技术
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题求解" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题求解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理证明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#专家系统和知识库" class="md-nav__link">
+    <span class="md-ellipsis">
+      专家系统和知识库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#大数据知识工程" class="md-nav__link">
+    <span class="md-ellipsis">
+      大数据知识工程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-学-习" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 学 习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 学 习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#记忆与联想" class="md-nav__link">
+    <span class="md-ellipsis">
+      记忆与联想
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#深度学习迁移学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度学习、迁移学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算智能与进化计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算智能与进化计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#遗传算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗传算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#数据挖掘与知识发现" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据挖掘与知识发现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-行-动" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 行 动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 行 动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能检索" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能检索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能调度与指挥" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能调度与指挥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能控制" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人机对话系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      人机对话系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能机器人" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能机器人
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分布式人工智能与-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式人工智能与 Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#游戏" class="md-nav__link">
+    <span class="md-ellipsis">
+      游戏
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人机智能融合" class="md-nav__link">
+    <span class="md-ellipsis">
+      人机智能融合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能实例" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能实例
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体 Agent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体 Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体的两大目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体的两大目标
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体的两大目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能体可否像人一样思考" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体可否像人一样思考
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体可否像人一样思考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#认知科学" class="md-nav__link">
+    <span class="md-ellipsis">
+      认知科学
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#认知神经科学" class="md-nav__link">
+    <span class="md-ellipsis">
+      认知神经科学
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能体如何像人一样行动" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体如何像人一样行动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体如何像人一样行动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#图林测试" class="md-nav__link">
+    <span class="md-ellipsis">
+      图林测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图林测试内容" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图林测试内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图灵提出了-ai-的几大元素" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图灵提出了 AI 的几大元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-图灵测试存在的问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      # 图灵测试存在的问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三大主流学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      三大主流学派
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三大主流学派">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑学派
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#仿生学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      仿生学派
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#控制论学派" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制论学派
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#理论基础" class="md-nav__link">
+    <span class="md-ellipsis">
+      理论基础
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理论基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#物理符号系统的假设" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理符号系统的假设
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的内涵" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的内涵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的内涵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#强弱-人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      强/弱 人工智能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="强/弱 人工智能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#强人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      强人工智能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#弱人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      弱人工智能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#泛狭义-人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      泛/狭义 人工智能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="泛/狭义 人工智能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#泛人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      泛人工智能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#狭义人工智能" class="md-nav__link">
+    <span class="md-ellipsis">
+      狭义人工智能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能的发展历史" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能的发展历史
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能的发展历史">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#不同阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      不同阶段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不同阶段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1950-1970" class="md-nav__link">
+    <span class="md-ellipsis">
+      1950-1970
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1970-1990" class="md-nav__link">
+    <span class="md-ellipsis">
+      1970-1990
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1990-" class="md-nav__link">
+    <span class="md-ellipsis">
+      1990-
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2010-" class="md-nav__link">
+    <span class="md-ellipsis">
+      2010-
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三次大跃进" class="md-nav__link">
+    <span class="md-ellipsis">
+      三次大跃进
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能研究课题" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能研究课题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="人工智能研究课题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智-能-感-知" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 感 知
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 感 知">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#模式识别" class="md-nav__link">
+    <span class="md-ellipsis">
+      模式识别
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算机视觉" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算机视觉
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自然语言处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然语言处理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-推-理" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 推 理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 推 理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#搜索技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索技术
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题求解" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题求解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理证明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#专家系统和知识库" class="md-nav__link">
+    <span class="md-ellipsis">
+      专家系统和知识库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#大数据知识工程" class="md-nav__link">
+    <span class="md-ellipsis">
+      大数据知识工程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-学-习" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 学 习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 学 习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#记忆与联想" class="md-nav__link">
+    <span class="md-ellipsis">
+      记忆与联想
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#神经网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      神经网络
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#深度学习迁移学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度学习、迁移学习
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算智能与进化计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算智能与进化计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#遗传算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      遗传算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#数据挖掘与知识发现" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据挖掘与知识发现
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智-能-行-动" class="md-nav__link">
+    <span class="md-ellipsis">
+      智 能 行 动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智 能 行 动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#智能检索" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能检索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能调度与指挥" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能调度与指挥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能控制" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能控制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人机对话系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      人机对话系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#智能机器人" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能机器人
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分布式人工智能与-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式人工智能与 Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#游戏" class="md-nav__link">
+    <span class="md-ellipsis">
+      游戏
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人机智能融合" class="md-nav__link">
+    <span class="md-ellipsis">
+      人机智能融合
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#人工智能实例" class="md-nav__link">
+    <span class="md-ellipsis">
+      人工智能实例
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>人工智能绪论</h1>
+
+<h2 id="人工智能的概念">人工智能的概念<a class="headerlink" href="#人工智能的概念" title="Permanent link">&para;</a></h2>
+<p>人工智能（Artificial Intelligence - AI）：研究如何通过计算机技术实现一个智能体，让智能体完成类似于人类智能的行为。</p>
+<h3 id="智能体-agent">智能体 Agent<a class="headerlink" href="#智能体-agent" title="Permanent link">&para;</a></h3>
+<p>完成智能行为的主体，是物理或抽象实体，可以感知世界并对世界施加作用。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>大模型智能体 LLM Agent</p>
+</div>
+<p>在近几年随 ChatGPT 兴起的新概念</p>
+<h4 id="智能体的两大目标">智能体的两大目标<a class="headerlink" href="#智能体的两大目标" title="Permanent link">&para;</a></h4>
+<ul>
+<li>能否使智能体像人一样<strong>思考</strong>、理性地思考？</li>
+<li>能否使智能体像人一样<strong>行动</strong>、理性地行动？</li>
+</ul>
+<h5 id="智能体可否像人一样思考">智能体可否像人一样思考<a class="headerlink" href="#智能体可否像人一样思考" title="Permanent link">&para;</a></h5>
+<p>首先，需要测量人如何思考的方法：内省、心理实验、 脑成像。</p>
+<h6 id="认知科学">认知科学<a class="headerlink" href="#认知科学" title="Permanent link">&para;</a></h6>
+<p>交叉学科，融合人工智能的计算机模型和心理学实验技术，试图构建一种精确可测试的人类思维理论。</p>
+<h6 id="认知神经科学">认知神经科学<a class="headerlink" href="#认知神经科学" title="Permanent link">&para;</a></h6>
+<p>交叉学科，以认知科学的理论以及神经心理学、神经科学及计算机模型的实验证据为基础。</p>
+<h5 id="智能体如何像人一样行动">智能体如何像人一样行动<a class="headerlink" href="#智能体如何像人一样行动" title="Permanent link">&para;</a></h5>
+<h6 id="图林测试">图林测试<a class="headerlink" href="#图林测试" title="Permanent link">&para;</a></h6>
+<p>1950 年，英国数学家图灵(Alan Turing)提出了一个测试方法来确定一个机器是否具有人类智能。</p>
+<h6 id="-图林测试内容"># 图林测试内容<a class="headerlink" href="#-图林测试内容" title="Permanent link">&para;</a></h6>
+<ul>
+<li>两个人对机器进行测试: 一人扮演提问者，另外一人作为被测者。</li>
+<li>这两人与机器分别处在三个不同的房间，提问者通过打印问题和接受打印问题来与被测者和被测机器进行通迅。提问者可以向被测机器和被测者提问，但他只知道接受提问的是 A 或 B，而并不知道他是人还是机器。</li>
+<li>若超过 30%的测试者不能确定出被测试者是人还是机器，那么这台机器就通过了测试，并被认为具有人类智能。</li>
+</ul>
+<h6 id="-图灵提出了-ai-的几大元素"># 图灵提出了 AI 的几大元素<a class="headerlink" href="#-图灵提出了-ai-的几大元素" title="Permanent link">&para;</a></h6>
+<ul>
+<li>知识</li>
+<li>推理</li>
+<li>语言</li>
+<li>理解</li>
+<li>学习</li>
+</ul>
+<h6 id="-图灵测试存在的问题"># 图灵测试存在的问题<a class="headerlink" href="#-图灵测试存在的问题" title="Permanent link">&para;</a></h6>
+<ul>
+<li>图灵测试不可重复</li>
+<li>无法数学分析</li>
+</ul>
+<h3 id="三大主流学派"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />三大主流学派<a class="headerlink" href="#三大主流学派" title="Permanent link">&para;</a></h3>
+<h4 id="逻辑学派">逻辑学派<a class="headerlink" href="#逻辑学派" title="Permanent link">&para;</a></h4>
+<p>符号主义 / 功能主义方法，模拟大脑逻辑思维<strong>功能</strong></p>
+<p>原理主要为物理符号系统 (即符号操作系统) 假设和有限合理性原理。</p>
+<h4 id="仿生学派">仿生学派<a class="headerlink" href="#仿生学派" title="Permanent link">&para;</a></h4>
+<p>联结主义 / 结构主义方法，模拟大脑<strong>结构</strong></p>
+<p>原理主要为神经网络及神经网络间的连接机制与学习算法</p>
+<h4 id="控制论学派">控制论学派<a class="headerlink" href="#控制论学派" title="Permanent link">&para;</a></h4>
+<p>行为主义 / 进化主义方法，模拟智能系统<strong>行为</strong></p>
+<p>原理为控制论及感知—动作型控制系统</p>
+<h3 id="理论基础">理论基础<a class="headerlink" href="#理论基础" title="Permanent link">&para;</a></h3>
+<h4 id="物理符号系统的假设">物理符号系统的假设<a class="headerlink" href="#物理符号系统的假设" title="Permanent link">&para;</a></h4>
+<p>一个完善的符号系统应具有下列 6 种功能</p>
+<ul>
+<li>输入 (input) 符号</li>
+<li>输出 (output) 符号</li>
+<li>存储 (store) 符号</li>
+<li>复制(copy)符号</li>
+<li>建立符号结构: 通过找出各符号间的关系，在符号系统中形成符号结构</li>
+<li>条件性迁移 (conditional transfer) : 根据已有符号，继续完成活动过程</li>
+</ul>
+<p>任何一个系统，如果它能够表现出智能，那么它就必定能够执行上述 6 种功能。反之，任何系统如果具有这 6 种功能，那么它就能够表现出智能;这种智能指的是人类所具有的那种智能。</p>
+<p>物理符号系统的假设伴随 3 个推论，或称为附带条件</p>
+<ul>
+<li>既然人具有智能，那么他就 一定是 一个物理符号系统。人之所以能够表现出智能，就是基 于他的信息处理过程</li>
+<li>既 然 计 算 机 是 一个 物 理 符 号 系 统 ，它 就 一定 能 够 表 现 出 智 能 。这 是 人 工 智能的基本条件。</li>
+<li>既然人是 一个物理符号系统，计算机也是 一个物理符号系统，那么就能够 用计算机模拟人的活动</li>
+</ul>
+<h2 id="人工智能的内涵">人工智能的内涵<a class="headerlink" href="#人工智能的内涵" title="Permanent link">&para;</a></h2>
+<ul>
+<li>搜索</li>
+<li>知识</li>
+<li>推理</li>
+<li>归纳</li>
+<li>演绎</li>
+<li>...</li>
+</ul>
+<h3 id="强弱-人工智能">强/弱 人工智能<a class="headerlink" href="#强弱-人工智能" title="Permanent link">&para;</a></h3>
+<h4 id="强人工智能">强人工智能<a class="headerlink" href="#强人工智能" title="Permanent link">&para;</a></h4>
+<p>一个机器和人的思考行为都完全一样</p>
+<h4 id="弱人工智能">弱人工智能<a class="headerlink" href="#弱人工智能" title="Permanent link">&para;</a></h4>
+<p>只能表面上执行看上去的智能行为</p>
+<h3 id="泛狭义-人工智能">泛/狭义 人工智能<a class="headerlink" href="#泛狭义-人工智能" title="Permanent link">&para;</a></h3>
+<h4 id="泛人工智能">泛人工智能<a class="headerlink" href="#泛人工智能" title="Permanent link">&para;</a></h4>
+<p>智能体拥有在任何问题上应用智能的能力</p>
+<h4 id="狭义人工智能">狭义人工智能<a class="headerlink" href="#狭义人工智能" title="Permanent link">&para;</a></h4>
+<p>只能完成一项具体任务的人工智能</p>
+<h2 id="人工智能的发展历史">人工智能的发展历史<a class="headerlink" href="#人工智能的发展历史" title="Permanent link">&para;</a></h2>
+<h3 id="不同阶段">不同阶段<a class="headerlink" href="#不同阶段" title="Permanent link">&para;</a></h3>
+<h4 id="1950-1970">1950-1970<a class="headerlink" href="#1950-1970" title="Permanent link">&para;</a></h4>
+<p>早期爆发阶段，巨大期望</p>
+<ul>
+<li>1952：Samuel 写了一个能学习的五子棋程序</li>
+<li>1955：Newell 和 Simon 写了一个推理的程序</li>
+</ul>
+<h4 id="1970-1990">1970-1990<a class="headerlink" href="#1970-1990" title="Permanent link">&para;</a></h4>
+<p>知识就是力量，知识工程</p>
+<ul>
+<li>1980-1988：专家系统工业爆发</li>
+<li>1988-1993： 日本第五代计算机系统项目失败</li>
+</ul>
+<h4 id="1990-">1990-<a class="headerlink" href="#1990-" title="Permanent link">&para;</a></h4>
+<p>机器学习兴起，人工智能的春天</p>
+<h4 id="2010-">2010-<a class="headerlink" href="#2010-" title="Permanent link">&para;</a></h4>
+<p>深度学习获得工业投资和应用</p>
+<h3 id="三次大跃进">三次大跃进<a class="headerlink" href="#三次大跃进" title="Permanent link">&para;</a></h3>
+<ol>
+<li>智能系统代替人完成部分逻辑推理工作，如机器 定理证明和专家系统</li>
+<li>智能系统能够和环境交互，从运行的环境中获取信息，代替人完成包括不定性在内的部分思维 工作，通过自身的动作，对环境施加影响，并适应环境的变化，如智能机器人</li>
+<li>智 能 系 统 具 有 人 类 的 认 知 和 思 维 能 力 ，能 够 发 现 新 的 知 识 ，完 成 面 临 的 任 务 ，如 基 于 数 据 挖 掘 的 系 统</li>
+</ol>
+<h2 id="人工智能研究课题">人工智能研究课题<a class="headerlink" href="#人工智能研究课题" title="Permanent link">&para;</a></h2>
+<h3 id="智-能-感-知">智 能 感 知<a class="headerlink" href="#智-能-感-知" title="Permanent link">&para;</a></h3>
+<h4 id="模式识别">模式识别<a class="headerlink" href="#模式识别" title="Permanent link">&para;</a></h4>
+<h4 id="计算机视觉">计算机视觉<a class="headerlink" href="#计算机视觉" title="Permanent link">&para;</a></h4>
+<h4 id="自然语言处理">自然语言处理<a class="headerlink" href="#自然语言处理" title="Permanent link">&para;</a></h4>
+<h3 id="智-能-推-理">智 能 推 理<a class="headerlink" href="#智-能-推-理" title="Permanent link">&para;</a></h3>
+<h4 id="搜索技术">搜索技术<a class="headerlink" href="#搜索技术" title="Permanent link">&para;</a></h4>
+<h4 id="问题求解">问题求解<a class="headerlink" href="#问题求解" title="Permanent link">&para;</a></h4>
+<h4 id="定理证明">定理证明<a class="headerlink" href="#定理证明" title="Permanent link">&para;</a></h4>
+<h4 id="专家系统和知识库">专家系统和知识库<a class="headerlink" href="#专家系统和知识库" title="Permanent link">&para;</a></h4>
+<h4 id="大数据知识工程">大数据知识工程<a class="headerlink" href="#大数据知识工程" title="Permanent link">&para;</a></h4>
+<h3 id="智-能-学-习">智 能 学 习<a class="headerlink" href="#智-能-学-习" title="Permanent link">&para;</a></h3>
+<h4 id="记忆与联想">记忆与联想<a class="headerlink" href="#记忆与联想" title="Permanent link">&para;</a></h4>
+<h4 id="神经网络">神经网络<a class="headerlink" href="#神经网络" title="Permanent link">&para;</a></h4>
+<h4 id="深度学习迁移学习">深度学习、迁移学习<a class="headerlink" href="#深度学习迁移学习" title="Permanent link">&para;</a></h4>
+<h4 id="计算智能与进化计算">计算智能与进化计算<a class="headerlink" href="#计算智能与进化计算" title="Permanent link">&para;</a></h4>
+<h4 id="遗传算法">遗传算法<a class="headerlink" href="#遗传算法" title="Permanent link">&para;</a></h4>
+<h4 id="数据挖掘与知识发现">数据挖掘与知识发现<a class="headerlink" href="#数据挖掘与知识发现" title="Permanent link">&para;</a></h4>
+<h3 id="智-能-行-动">智 能 行 动<a class="headerlink" href="#智-能-行-动" title="Permanent link">&para;</a></h3>
+<h4 id="智能检索">智能检索<a class="headerlink" href="#智能检索" title="Permanent link">&para;</a></h4>
+<h4 id="智能调度与指挥">智能调度与指挥<a class="headerlink" href="#智能调度与指挥" title="Permanent link">&para;</a></h4>
+<h4 id="智能控制">智能控制<a class="headerlink" href="#智能控制" title="Permanent link">&para;</a></h4>
+<h4 id="人机对话系统">人机对话系统<a class="headerlink" href="#人机对话系统" title="Permanent link">&para;</a></h4>
+<h4 id="智能机器人">智能机器人<a class="headerlink" href="#智能机器人" title="Permanent link">&para;</a></h4>
+<h4 id="分布式人工智能与-agent">分布式人工智能与 Agent<a class="headerlink" href="#分布式人工智能与-agent" title="Permanent link">&para;</a></h4>
+<h4 id="游戏">游戏<a class="headerlink" href="#游戏" title="Permanent link">&para;</a></h4>
+<h4 id="人机智能融合">人机智能融合<a class="headerlink" href="#人机智能融合" title="Permanent link">&para;</a></h4>
+<h2 id="人工智能实例">人工智能实例<a class="headerlink" href="#人工智能实例" title="Permanent link">&para;</a></h2>
+<ul>
+<li>专家系统：在专门的领域（医疗、探矿、财务等领域）内的咨询服务系统</li>
+<li>自然语言处理：在有限范围内的问题回答系统。</li>
+<li>程序验证系统：通过定理证明途径验证程序的正确性。</li>
+<li>智能机器人：通过计算机视觉和智能控制完成具体行动任务</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../agent/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Agent">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Agent
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../knowledge-presentation-and-resolution/" class="md-footer__link md-footer__link--next" aria-label="Next: 知识表示与推理">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                知识表示与推理
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

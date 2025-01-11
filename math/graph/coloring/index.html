@@ -1,0 +1,1979 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/coloring/">
+      
+      
+        <link rel="prev" href="../algebra-graph/">
+      
+      
+        <link rel="next" href="../connectivity/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>着色问题 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#边着色问题" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              着色问题
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#边着色问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      边着色问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="边着色问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#二部图" class="md-nav__link">
+    <span class="md-ellipsis">
+      二部图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#偶图哥尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶图(哥尼定理)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般简单图" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般简单图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一般简单图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#引理" class="md-nav__link">
+    <span class="md-ellipsis">
+      引理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#维津定理vizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      维津定理(Vizing)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无环有重边图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环有重边图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#边着色的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      边着色的应用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="边着色的应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#排课表问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      排课表问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#比赛安排问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      比赛安排问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#顶点着色" class="md-nav__link">
+    <span class="md-ellipsis">
+      顶点着色
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="顶点着色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#色数上界" class="md-nav__link">
+    <span class="md-ellipsis">
+      色数上界
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最大色数的正常着色算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大色数的正常着色算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#布鲁克斯定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      布鲁克斯定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#次大度" class="md-nav__link">
+    <span class="md-ellipsis">
+      次大度
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四色和五色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      四色和五色定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四色和五色定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#四色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      四色定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      五色定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#边着色问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      边着色问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="边着色问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#二部图" class="md-nav__link">
+    <span class="md-ellipsis">
+      二部图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#偶图哥尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶图(哥尼定理)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般简单图" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般简单图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一般简单图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#引理" class="md-nav__link">
+    <span class="md-ellipsis">
+      引理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#维津定理vizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      维津定理(Vizing)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充分条件-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      充分条件 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无环有重边图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环有重边图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#边着色的应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      边着色的应用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="边着色的应用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#排课表问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      排课表问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#比赛安排问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      比赛安排问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#顶点着色" class="md-nav__link">
+    <span class="md-ellipsis">
+      顶点着色
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="顶点着色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#色数上界" class="md-nav__link">
+    <span class="md-ellipsis">
+      色数上界
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最大色数的正常着色算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大色数的正常着色算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#布鲁克斯定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      布鲁克斯定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#次大度" class="md-nav__link">
+    <span class="md-ellipsis">
+      次大度
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四色和五色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      四色和五色定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四色和五色定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#四色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      四色定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五色定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      五色定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>着色问题</h1>
+
+<h2 id="边着色问题">边着色问题<a class="headerlink" href="#边着色问题" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>图的边着色，本质上是对应实际问题中的“划分”问题或“分类” 问题。</p>
+</blockquote>
+<p>对 <span class="arithmatex">\(G\)</span> 的边进行着色，若相邻边着不同颜色，则称对 <span class="arithmatex">\(G\)</span> 进行<strong>正常边着色</strong>；</p>
+<p>在对 <span class="arithmatex">\(G\)</span> 正常边着色时，着相同颜色的边集称为该正常边着色的一个<strong>色组</strong>；</p>
+<p>如果能用 <span class="arithmatex">\(k\)</span> 种颜色对图 <span class="arithmatex">\(G\)</span> 进行正常边着色，称 <span class="arithmatex">\(G\)</span> 是 <strong><span class="arithmatex">\(k\)</span> 边可着色的</strong>；</p>
+<p>对 <span class="arithmatex">\(G\)</span> 进行正常边着色需要的最少颜色数称为 <span class="arithmatex">\(G\)</span> 的<strong>边色数</strong>，记为：</p>
+<div class="arithmatex">\[
+\chi'(G)
+\]</div>
+<p>着色需要满足相邻边着不同色，所以很自然地有：(对于无环图)</p>
+<div class="arithmatex">\[
+\chi'(G)\geq\Delta
+\]</div>
+<p>也就是<strong>边色数以最大顶点度为下限</strong>。</p>
+<h3 id="二部图">二部图<a class="headerlink" href="#二部图" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\chi'(K_{m,n})=\Delta
+\]</div>
+<hr />
+<p>证明</p>
+<p>假设：</p>
+<ul>
+<li><span class="arithmatex">\(n\gt m\)</span>；</li>
+<li>所以 <span class="arithmatex">\(\Delta=n\)</span>；</li>
+<li><span class="arithmatex">\(X=\{x_0,x_1,\cdots,x_{m-1}\}\)</span>；</li>
+<li><span class="arithmatex">\(Y=\{y_0,y_1,\cdots,y_{n-1}\}\)</span>；</li>
+<li><span class="arithmatex">\(n\)</span> 个颜色集合为：<span class="arithmatex">\(\{0,1,2,\cdots,n-1\}\)</span>；</li>
+</ul>
+<p>令 <span class="arithmatex">\(\pi\)</span> 是 <span class="arithmatex">\(K_{m,n}\)</span> 的一个 <span class="arithmatex">\(n\)</span> 着色方案，满足：</p>
+<div class="arithmatex">\[
+\forall x_i y_j\in E(K_{m,n}),\ \ \pi(x_iy_j)=(i+j)(\bmod n)
+\]</div>
+<p>对 <span class="arithmatex">\(K_{m,n}\)</span> 中任意两条邻接边 <span class="arithmatex">\(x_iy_j\)</span> 和 <span class="arithmatex">\(x_iy_k\)</span> ，若二者在 <span class="arithmatex">\(\pi\)</span> 中着色相同，即 <span class="arithmatex">\(\pi(x_iy_j)=\pi(x_iy_k)\)</span> ，则有：</p>
+<div class="arithmatex">\[
+(i+j)(\bmod n)=(i+k)(\bmod n)
+\Rightarrow
+j=k
+\]</div>
+<p>于是 <span class="arithmatex">\(x_iy_j=x_iy_k\)</span> ，所以 <span class="arithmatex">\(\pi\)</span> 是一个正常的 <span class="arithmatex">\(n\)</span> 着色（满足相邻边着不同色）。也即 <span class="arithmatex">\((X,Y)\)</span> 是 <span class="arithmatex">\(n\)</span> 可着色的。</p>
+<p>同时 <span class="arithmatex">\(\chi'(K_{m,n})\geq\Delta=n\)</span> ，所以 <span class="arithmatex">\(\chi'(K_{m,n})=n\)</span>。</p>
+<h3 id="偶图哥尼定理">偶图(哥尼定理)<a class="headerlink" href="#偶图哥尼定理" title="Permanent link">&para;</a></h3>
+<p>偶图 <span class="arithmatex">\(G\)</span> 的边色数：</p>
+<div class="arithmatex">\[
+\chi'(G)=\Delta
+\]</div>
+<hr />
+<p>证明可利用数学归纳法</p>
+<p>当 <span class="arithmatex">\(m=1\)</span> 时，<span class="arithmatex">\(\Delta=1\)</span>，有 <span class="arithmatex">\(\chi'(G)=\Delta=1\)</span> 成立。</p>
+<p>设对于小于 <span class="arithmatex">\(m\)</span> 条边的偶图来说命题成立。</p>
+<p>设 <span class="arithmatex">\(G\)</span> 是具有 <span class="arithmatex">\(m\)</span> 条边的偶图。</p>
+<p>取 <span class="arithmatex">\(uv\in G\)</span> , 考虑 <span class="arithmatex">\(G_1=G-uv\)</span>, 由归纳假设有:</p>
+<div class="arithmatex">\[
+\chi'(G_1)=\Delta(G_1)\leq\Delta(G)
+\]</div>
+<p>这说明， <span class="arithmatex">\(G\)</span> 存在一种 <span class="arithmatex">\(\Delta(G)\)</span> 边着色方案 <span class="arithmatex">\(\pi\)</span> . 对于该着色方案，因为 <span class="arithmatex">\(uv\)</span> 未着色，所以点 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 均至少缺少一种色。</p>
+<hr />
+<p>情形 1：如果 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 均缺同一种色 <span class="arithmatex">\(i\)</span>。</p>
+<p>则在 <span class="arithmatex">\(G_1+uv\)</span> 中给 <span class="arithmatex">\(uv\)</span> 着色 <span class="arithmatex">\(i\)</span> , 而 <span class="arithmatex">\(G\)</span> 其它边按 <span class="arithmatex">\(\pi\)</span> 方案着色。这样得到 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(\Delta\)</span> 着色方案，所以: <span class="arithmatex">\(\chi'(G)=\Delta\)</span>。</p>
+<hr />
+<p>情形 2：如果 <span class="arithmatex">\(u\)</span> 缺色 <span class="arithmatex">\(i\)</span> , 而 <span class="arithmatex">\(v\)</span> 缺色 <span class="arithmatex">\(j\)</span> , 但不缺色 <span class="arithmatex">\(i\)</span>。</p>
+<p>设 <span class="arithmatex">\(H(i,j)\)</span> 表示 <span class="arithmatex">\(G\)</span> 中由 <span class="arithmatex">\(i\)</span> 色边与 <span class="arithmatex">\(j\)</span> 色边导出的子图。显然，该图每个分支是 <span class="arithmatex">\(i\)</span> 色边和 <span class="arithmatex">\(j\)</span> 色边交替出现的路或圈。
+对于 <span class="arithmatex">\(H(i,j)\)</span> 中含点 <span class="arithmatex">\(v\)</span> 的分支来说，因 <span class="arithmatex">\(v\)</span> 缺色 <span class="arithmatex">\(j\)</span> , 但不缺色 <span class="arithmatex">\(i\)</span> , 所以，在 <span class="arithmatex">\(H(i,j)\)</span> 中，点 <span class="arithmatex">\(v\)</span> 的度数为 1。这说明，<span class="arithmatex">\(H(i,j)\)</span> 中含 <span class="arithmatex">\(v\)</span> 的分支是一条路 <span class="arithmatex">\(P\)</span> . 进一步地，我们可以说明，上面的路 <span class="arithmatex">\(P\)</span> 不含点 <span class="arithmatex">\(u\)</span> .因为，如果 <span class="arithmatex">\(P\)</span> 含有点 <span class="arithmatex">\(u\)</span> , 那么 <span class="arithmatex">\(P\)</span> 必然是一条长度为偶数的路，这样，<span class="arithmatex">\(P+uv\)</span> 是 <span class="arithmatex">\(G\)</span> 中的奇圈，这与 <span class="arithmatex">\(G\)</span> 是偶图矛盾!</p>
+<p>既然 <span class="arithmatex">\(P\)</span> 不含点 <span class="arithmatex">\(u\)</span> , 所以我们可以交换 <span class="arithmatex">\(P\)</span> 中着色，而不破坏 <span class="arithmatex">\(G_1\)</span> 的正常边着色。但交换着色后，<span class="arithmatex">\(v\)</span> 就变成缺色 <span class="arithmatex">\(j\)</span> , 但不缺色 <span class="arithmatex">\(i\)</span>，<span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 均缺色 <span class="arithmatex">\(i\)</span> , 于是由情形 1, 可以得到 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(\Delta\)</span> 正常边着色，即证明 <span class="arithmatex">\(\chi'(G)=\Delta\)</span>。</p>
+<h3 id="一般简单图">一般简单图<a class="headerlink" href="#一般简单图" title="Permanent link">&para;</a></h3>
+<h4 id="引理">引理<a class="headerlink" href="#引理" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(G\)</span> 是简单图，<span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 是 <span class="arithmatex">\(G\)</span> 中两个不相邻的顶点，<span class="arithmatex">\(\pi\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个正常 <span class="arithmatex">\(k\)</span> 边着色。若对该着色，<span class="arithmatex">\(x,y\)</span> 以及与 <span class="arithmatex">\(x\)</span> 相邻的点均至少缺少一种颜色，则 <span class="arithmatex">\(G+xy\)</span> 也是 <span class="arithmatex">\(k\)</span> 边可着色的</p>
+<h4 id="维津定理vizing">维津定理(Vizing)<a class="headerlink" href="#维津定理vizing" title="Permanent link">&para;</a></h4>
+<p>若图 <span class="arithmatex">\(G\)</span> 是简单图，则 <span class="arithmatex">\(\chi'(G)=\Delta\)</span> 或 <span class="arithmatex">\(\chi'(G)=\Delta+1\)</span>。</p>
+<hr />
+<p>只需要证明 <span class="arithmatex">\(\chi'(G)≤\Delta+1\)</span> 即可。 对 <span class="arithmatex">\(G\)</span> 的边数 <span class="arithmatex">\(m\)</span> 作数学归纳证明。</p>
+<p>当 <span class="arithmatex">\(m=1\)</span> 时，<span class="arithmatex">\(\Delta=1\)</span>, <span class="arithmatex">\(\chi'(G)=1&lt;Δ+1\)</span>。</p>
+<p>设当边数少于 <span class="arithmatex">\(m\)</span> 时，结论成立。下面考虑边数为 <span class="arithmatex">\(m≥2\)</span> 的单图 <span class="arithmatex">\(G\)</span>。</p>
+<p>设 <span class="arithmatex">\(xy\in E(G)\)</span> , 令 <span class="arithmatex">\(G_1=G-xy\)</span>. 由归纳假设有:</p>
+<div class="arithmatex">\[
+\chi'(G_1)≤\Delta(G_1)+1≤\Delta(G)+1
+\]</div>
+<p>于是，存在 <span class="arithmatex">\(G_1\)</span> 的 <span class="arithmatex">\(\Delta(G)+1\)</span> 正常边作色 <span class="arithmatex">\(\pi\)</span>。显然 <span class="arithmatex">\(G\)</span> 的每个顶点都至少缺少一种颜色。根据引理知 <span class="arithmatex">\(G+xy\)</span> 是 <span class="arithmatex">\(\Delta(G) +1\)</span> 可着色的。即证明: <span class="arithmatex">\(\chi'(G) ≤ \Delta(G)+1\)</span>。</p>
+<h4 id="充分条件-1">充分条件 1<a class="headerlink" href="#充分条件-1" title="Permanent link">&para;</a></h4>
+<p>::: primary
+给出了 Vizing 定理结论中 <span class="arithmatex">\(\chi'(G)=\Delta\)</span> 情况的<strong>充分条件</strong>
+设 <span class="arithmatex">\(G\)</span> 是单图且 <span class="arithmatex">\(\Delta(G)&gt;0\)</span>。若 <span class="arithmatex">\(G\)</span> 中只有一个最大度点或恰有两个相邻的最大度点，则:</p>
+<div class="arithmatex">\[
+\chi'(G)=\Delta(G)
+\]</div>
+<h4 id="充分条件-2">充分条件 2<a class="headerlink" href="#充分条件-2" title="Permanent link">&para;</a></h4>
+<p>::: primary
+给出了 Vizing 定理结论中 <span class="arithmatex">\(\chi'(G)=\Delta+1\)</span> 情况的<strong>充分条件</strong>
+设 <span class="arithmatex">\(G\)</span> 是单图。若点数 <span class="arithmatex">\(n=2k+1\)</span> 且边数 <span class="arithmatex">\(m&gt;k\Delta\)</span>，则:</p>
+<div class="arithmatex">\[
+\chi'(G)=\Delta(G)+1
+\]</div>
+<hr />
+<p>证明可利用反证法，若不然，由维津定理，<span class="arithmatex">\(\chi'(G)=\Delta(G)\)</span>。</p>
+<p>设 <span class="arithmatex">\(\pi\)</span> 是 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(\Delta(G)\)</span> 正常边着色方案，对于 <span class="arithmatex">\(G\)</span> 的每个色组来说，包含的边数至多 <span class="arithmatex">\(\frac{n-1}{2}=k\)</span>。这样：<span class="arithmatex">\(m(G)≤\Delta k\)</span>，与条件矛盾。</p>
+<h4 id="充分条件-3">充分条件 3<a class="headerlink" href="#充分条件-3" title="Permanent link">&para;</a></h4>
+<p>::: primary
+给出了 Vizing 定理结论中 <span class="arithmatex">\(\chi'(G)=\Delta+1\)</span> 情况的<strong>充分条件</strong>
+设 <span class="arithmatex">\(G\)</span> 是奇数阶 <span class="arithmatex">\(\Delta\)</span> 正则单图，若 <span class="arithmatex">\(\Delta&gt;0\)</span>，则:</p>
+<div class="arithmatex">\[
+\chi'(G)=\Delta(G)+1
+\]</div>
+<hr />
+<p>证明：</p>
+<p>设 <span class="arithmatex">\(n=2k+1\)</span>，因 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(\Delta\)</span> 正则单图，且 <span class="arithmatex">\(\Delta&gt;0\)</span>，所以：</p>
+<div class="arithmatex">\[
+m(G)=\frac{n\Delta}{2}=\frac{(2k+1)\Delta}{2}\gt k\Delta
+\]</div>
+<p>由定理 <span class="arithmatex">\(\chi'(G)=\Delta(G)+1\)</span>。</p>
+<h3 id="无环有重边图">无环有重边图<a class="headerlink" href="#无环有重边图" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>维津定理(Vizing)</p>
+</blockquote>
+<p>设无环图 <span class="arithmatex">\(G\)</span> 中边的最大重数为 <span class="arithmatex">\(\mu\)</span>​，则:</p>
+<div class="arithmatex">\[
+\chi'(G)\leq\Delta(G)+\mu
+\]</div>
+<p>其中 <span class="arithmatex">\(\leq\)</span> 边界是紧的，也就是等号是可以相等的。</p>
+<h2 id="边着色的应用">边着色的应用<a class="headerlink" href="#边着色的应用" title="Permanent link">&para;</a></h2>
+<h3 id="排课表问题">排课表问题<a class="headerlink" href="#排课表问题" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(X,Y\)</span> 分别表示教师、教学班的集合：</p>
+<div class="arithmatex">\[
+X=\{x_1,x_2,\cdots,x_m\}\\
+Y=\{y_1,y_2,\cdots,y_n\}
+\]</div>
+<p><span class="arithmatex">\(x_i\)</span> 与 <span class="arithmatex">\(y_j\)</span> 间连 <span class="arithmatex">\(p_{ij}\)</span> 条边，得二部图 <span class="arithmatex">\(G=(X,Y)\)</span>。</p>
+<p>求最少排多少节课的问题，每节课可以有多个教学班同时上课，转化为如何在 <span class="arithmatex">\(G\)</span> 中将边集 <span class="arithmatex">\(E\)</span> 划分为互不相交的 <span class="arithmatex">\(p\)</span> 个匹配，且使得 <span class="arithmatex">\(p\)</span> 最小</p>
+<p>如果每个匹配中的边用同一种颜色着色，不同匹配中的边不同颜色，则问题转化为在 <span class="arithmatex">\(G\)</span> 中给每条边着色，相邻边着不同色，至少需要的颜色数</p>
+<h3 id="比赛安排问题">比赛安排问题<a class="headerlink" href="#比赛安排问题" title="Permanent link">&para;</a></h3>
+<p>玩家为顶点，2 个玩家间进行一次比赛为一条边，求最少安排多少场比赛，每场比赛可以有多对玩家同时比赛。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>基于圈的边着色问题和顶点着色问题是完全等价的，因为边和点可互换。</p>
+</div>
+<h2 id="顶点着色">顶点着色<a class="headerlink" href="#顶点着色" title="Permanent link">&para;</a></h2>
+<p>对图 <span class="arithmatex">\(G\)</span> 的每个顶点着色，使得相邻顶点着不同颜色，称为对 <span class="arithmatex">\(G\)</span> 的<strong>正常顶点着色</strong>；</p>
+<p>如果用 <span class="arithmatex">\(k\)</span> 种颜色可以对 <span class="arithmatex">\(G\)</span> 进行正常点着色，称 <span class="arithmatex">\(G\)</span> 是 <strong><span class="arithmatex">\(k\)</span> 可着色的</strong>；</p>
+<p>着同一种颜色的顶点集合称为一个<strong>色组</strong>，它们彼此互不相邻，所有又称为<strong>点独立集</strong>；</p>
+<p>图 <span class="arithmatex">\(G\)</span> 正常顶点着色需要的最少颜色数，称为图 <span class="arithmatex">\(G\)</span> 的<strong>点色数</strong>，简称<strong>色数</strong>，记为：</p>
+<div class="arithmatex">\[
+\chi(G)
+\]</div>
+<p>色数为 <span class="arithmatex">\(k\)</span> 的图称为 <strong><span class="arithmatex">\(k\)</span> 色数图</strong>。</p>
+<h3 id="色数上界">色数上界<a class="headerlink" href="#色数上界" title="Permanent link">&para;</a></h3>
+<p>对任意的无环图 <span class="arithmatex">\(G\)</span>，均有：</p>
+<div class="arithmatex">\[
+\chi(G)\leq\Delta+1
+\]</div>
+<blockquote>
+<p>任意一个顶点度数至多为 <span class="arithmatex">\(\Delta\)</span>, 因此，正常着色过程中，其邻点最多用去 <span class="arithmatex">\(\Delta\)</span> 种颜色，所以，至少还有一种色可供该点正常着色使用。</p>
+</blockquote>
+<hr />
+<p>证明 ：我们对顶点数作数学归纳证明。</p>
+<p>当 <span class="arithmatex">\(n=1\)</span> 时，结论显然成立。</p>
+<p>设对顶点数少于 <span class="arithmatex">\(n\)</span> 的图来说，定理结论成立。考虑一般的 <span class="arithmatex">\(n\)</span> 阶图 <span class="arithmatex">\(G\)</span>，任取 <span class="arithmatex">\(v\in V(G)\)</span>，令 <span class="arithmatex">\(G_1=G-v\)</span>， 由归纳假设：</p>
+<div class="arithmatex">\[
+\chi(G_1)\leq\Delta(G_1)+1\leq\Delta(G)+1
+\]</div>
+<p>设 <span class="arithmatex">\(\pi\)</span> 是 <span class="arithmatex">\(G_1\)</span> 的一种 <span class="arithmatex">\(\Delta(G_1)+1\)</span>正常点着色方案，因为 <span class="arithmatex">\(v\)</span> 的邻点在 <span class="arithmatex">\(\pi\)</span> 下至多用去 <span class="arithmatex">\(\Delta(G)\)</span> 种色，所以给 <span class="arithmatex">\(v\)</span> 染上其邻点没有用过的色，就把 <span class="arithmatex">\(\pi\)</span> 扩充成了 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(\Delta(G_1)+1\)</span> 着色方案。</p>
+<h3 id="最大色数的正常着色算法">最大色数的正常着色算法<a class="headerlink" href="#最大色数的正常着色算法" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G=(V,E)\)</span>，<span class="arithmatex">\(V=\{v_1,v_2,\cdots,v_n\}\)</span>，色集合 <span class="arithmatex">\(C=\{1,2,\cdots,\Delta+1\}\)</span>，着色方案为 <span class="arithmatex">\(\pi\)</span>.</p>
+<ul>
+<li>(1) 令 <span class="arithmatex">\(\pi(v_1)=1\)</span>；</li>
+<li>(2) <code>for i in 1..n</code> 循环 <span class="arithmatex">\(n-1\)</span> 次：（若 <span class="arithmatex">\(i=n\)</span>，则停止）</li>
+<li>令：<span class="arithmatex">\(C(v_{i+1})=\{\pi(v_j)|j≤i,\ v_j\ \text{adj}\ v_{i+1}\}\)</span>；</li>
+<li>设 <span class="arithmatex">\(k\)</span> 为 <span class="arithmatex">\(C-C(v_{i+1})\)</span> 中的最小整数；</li>
+<li>令 <span class="arithmatex">\(\pi(v_{i+1})=k\)</span>；</li>
+</ul>
+<p>Welsh-Powell 稍微对上面算法做了一个修改，着色时按所谓最大度优先策略，即使用上面算法时，<span class="arithmatex">\(V=\{v_1,v_2,\cdots,v_n\}\)</span> 按顶点度数由大到小的次序着色。这样的着色方案起到了对上面算法的一个改进作用，有机会得到色数更小的结果。</p>
+<h3 id="布鲁克斯定理">布鲁克斯定理<a class="headerlink" href="#布鲁克斯定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>给出了一些图的更小的上界</p>
+</blockquote>
+<p>若 <span class="arithmatex">\(G\)</span> 是连通的单图，并且它既不是奇圈，又不是完全图，则：</p>
+<div class="arithmatex">\[
+\chi(G)\leq\Delta(G)
+\]</div>
+<h3 id="次大度">次大度<a class="headerlink" href="#次大度" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是至少有一条边的简单图，定义：</p>
+<div class="arithmatex">\[
+\Delta_2(G)=\max_{u\in V(G)}\max_{\begin{aligned}
+v\in N(u)\\
+d(v)\leq d(u)
+\end{aligned}}
+d(v)
+\]</div>
+<p>其中 <span class="arithmatex">\(N(u)\)</span> 为 <span class="arithmatex">\(G\)</span> 中点 <span class="arithmatex">\(u\)</span> 的邻域。称 <strong><span class="arithmatex">\(\Delta_2(G)\)</span> 为 <span class="arithmatex">\(G\)</span> 的次大度</strong>。</p>
+<blockquote>
+<p>布鲁斯克定理的改进</p>
+</blockquote>
+<div class="arithmatex">\[
+\chi(G)\leq\Delta_2(G)+1
+\]</div>
+<p>设 <span class="arithmatex">\(G\)</span> 是非空简单图，若 <span class="arithmatex">\(G\)</span> 中最大度点互不邻接，则有：</p>
+<div class="arithmatex">\[
+\chi(G)\leq\Delta(G)
+\]</div>
+<h2 id="四色和五色定理">四色和五色定理<a class="headerlink" href="#四色和五色定理" title="Permanent link">&para;</a></h2>
+<h3 id="四色定理">四色定理<a class="headerlink" href="#四色定理" title="Permanent link">&para;</a></h3>
+<h3 id="五色定理">五色定理<a class="headerlink" href="#五色定理" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>希伍德。</p>
+</blockquote>
+<p>对任意简单图，都有：</p>
+<div class="arithmatex">\[
+\chi\leq5
+\]</div>
+<p>该定理说明每个平面图是 5 可着色的。根据平面图和其对偶图的关系，该定理等价于每个平面图是 5 可顶点正常着色的。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../algebra-graph/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图的代数表示">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                图的代数表示
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../connectivity/" class="md-footer__link md-footer__link--next" aria-label="Next: 图的连通性">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                图的连通性
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

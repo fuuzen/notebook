@@ -1,0 +1,1815 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/de/integrated-circuit/">
+      
+      
+        <link rel="prev" href="../gate-circuit/">
+      
+      
+        <link rel="next" href="../memory-storage/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>集成电路(CMOS&TTL) - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#逻辑电平规范与抗噪" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              集成电路(CMOS&TTL)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            De
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bool-algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    码制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorial-logic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组合逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../digital-process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数模转换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gate-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    门电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    集成电路(CMOS&TTL)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    集成电路(CMOS&TTL)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#逻辑电平规范与抗噪" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑电平规范与抗噪
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电平规范与抗噪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑电平规范" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑电平规范
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电平规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#噪声容限" class="md-nav__link">
+    <span class="md-ellipsis">
+      噪声容限
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#负载和扇出" class="md-nav__link">
+    <span class="md-ellipsis">
+      负载和扇出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负载和扇出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CMOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      NMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CMOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      与非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#或非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      或非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三态门" class="md-nav__link">
+    <span class="md-ellipsis">
+      三态门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#漏极开路门" class="md-nav__link">
+    <span class="md-ellipsis">
+      漏极开路门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#双极型晶体管" class="md-nav__link">
+    <span class="md-ellipsis">
+      双极型晶体管
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl-门电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL 门电路
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTL 门电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非门_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与非门_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      与非门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集电极开路门" class="md-nav__link">
+    <span class="md-ellipsis">
+      集电极开路门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时序逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shift-register/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移位寄存器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../signals-and-systems/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#逻辑电平规范与抗噪" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑电平规范与抗噪
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电平规范与抗噪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#逻辑电平规范" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑电平规范
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逻辑电平规范">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#噪声容限" class="md-nav__link">
+    <span class="md-ellipsis">
+      噪声容限
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#负载和扇出" class="md-nav__link">
+    <span class="md-ellipsis">
+      负载和扇出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负载和扇出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CMOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      NMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmos" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMOS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      CMOS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CMOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      与非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#或非门" class="md-nav__link">
+    <span class="md-ellipsis">
+      或非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三态门" class="md-nav__link">
+    <span class="md-ellipsis">
+      三态门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#漏极开路门" class="md-nav__link">
+    <span class="md-ellipsis">
+      漏极开路门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#双极型晶体管" class="md-nav__link">
+    <span class="md-ellipsis">
+      双极型晶体管
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl-门电路" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL 门电路
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTL 门电路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非门_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      非门
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与非门_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      与非门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集电极开路门" class="md-nav__link">
+    <span class="md-ellipsis">
+      集电极开路门
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>集成电路(CMOS&TTL)</h1>
+
+<h2 id="逻辑电平规范与抗噪">逻辑电平规范与抗噪<a class="headerlink" href="#逻辑电平规范与抗噪" title="Permanent link">&para;</a></h2>
+<h3 id="逻辑电平规范">逻辑电平规范<a class="headerlink" href="#逻辑电平规范" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />保证输出的电平作为下一级输入是有效的</p>
+</blockquote>
+<h4 id="cmos">CMOS<a class="headerlink" href="#cmos" title="Permanent link">&para;</a></h4>
+<p><img alt="cmos输入输出逻辑电平" src="../../../assets/ie/de/integrated-circuit/cmos%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%80%BB%E8%BE%91%E7%94%B5%E5%B9%B3.png" /></p>
+<h4 id="ttl">TTL<a class="headerlink" href="#ttl" title="Permanent link">&para;</a></h4>
+<p><img alt="ttl输入输出逻辑电平" src="../../../assets/ie/de/integrated-circuit/ttl%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%80%BB%E8%BE%91%E7%94%B5%E5%B9%B3.png" /></p>
+<h3 id="噪声容限">噪声容限<a class="headerlink" href="#噪声容限" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />保证输出的电平作为下一级输入是有效的基础上，输出与输入的界限相差即为噪声容限</p>
+</blockquote>
+<p>电路抗噪度的一个衡量标准叫做<strong>噪声容限</strong>(noisemargin)，用伏特表示。对于一个给定的逻辑电路，有两个噪声容限值：</p>
+<ul>
+<li>噪声容限高电平 (<span class="arithmatex">\(V_{NH}\)</span>) (Noisemargin High)</li>
+<li>噪声容限低电平 (<span class="arithmatex">\(V_{NL}\)</span>) (Noisemargin Low)</li>
+</ul>
+<p>这两个参数由如下的公式定义：</p>
+<div class="arithmatex">\[
+V_{NH}=V_{OH(\min)}-V_{IH(\min)}\\
+V_{NL}=V_{IL(\max)}-V_{OL(\max)}
+\]</div>
+<blockquote>
+<p>有时看到噪声容限是用 <span class="arithmatex">\(V_{CC}\)</span> 的百分比来表示的</p>
+</blockquote>
+<p><img alt="噪声容限" src="../../../assets/ie/de/integrated-circuit/%E5%99%AA%E5%A3%B0%E5%AE%B9%E9%99%90.png" /></p>
+<h2 id="负载和扇出">负载和扇出<a class="headerlink" href="#负载和扇出" title="Permanent link">&para;</a></h2>
+<p>当一个逻辑门的输出连接到了一个或多个其他门的输人时，驱动门上就会有一个负载，对于一个给定的门，它可以驱动的负载门输人是有数量限制的。这个限制就称为这个门的<strong>扇出</strong>。</p>
+<p>基本概念：</p>
+<ul>
+<li><strong>灌电流</strong> —— 输出为低电平时，负载电流从外部电路注入输出端口；</li>
+<li><strong>拉电流</strong> —— 输出为高电平时，负载电流从输出端口流出到外部电路；</li>
+<li><strong>扇入系数</strong> —— 门电路允许的输入端的个数；</li>
+<li><strong>扇出系数</strong> —— 门电路允许驱动的同类型负载门的个数；</li>
+</ul>
+<h3 id="cmos_1">CMOS<a class="headerlink" href="#cmos_1" title="Permanent link">&para;</a></h3>
+<p>当驱动门的输出是高电平时，负载门的输入电容通过驱动门的输出电阻充电。当驱动门电路的输出是低电平时，电容放电：</p>
+<p><img alt="cmos容性负载" src="../../../assets/ie/de/integrated-circuit/cmos%E5%AE%B9%E6%80%A7%E8%B4%9F%E8%BD%BD.png" /></p>
+<p>如果给驱动门的输出添加更多的负载门输人，那么总的电容将会增加，因为输入电容实际上是并行出现的。电容的增加会延长充电和放电时间，因此就会降低这个门电路的最大工作频率。因此，CMOS 门电路的扇出是和工作频率有关的。负载门输入越少，最大频率就越高。</p>
+<h3 id="ttl_1">TTL<a class="headerlink" href="#ttl_1" title="Permanent link">&para;</a></h3>
+<p>TTL 驱动门向处于高电平状态的负载门提供<strong>灌电流</strong> (<span class="arithmatex">\(I_{IH}\)</span>)，从处于低电平状态的负载门吸收<strong>拉电流</strong> (<span class="arithmatex">\(I_{IL}\)</span>)。</p>
+<p>TTL 电路的功耗在工作频率的范围以内基本上是恒定功率。</p>
+<p><img alt="ttl负载" src="../../../assets/ie/de/integrated-circuit/ttl%E8%B4%9F%E8%BD%BD.png" /></p>
+<p>负载元件越多，驱动门承载的灌电流或拉电流就越大，驱动门中内阻的压降就越大，要保证不能脱离标准逻辑电平，限制了扇出。</p>
+<h2 id="cmos_2">CMOS<a class="headerlink" href="#cmos_2" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>数字电路中只考虑<strong>增强型</strong> MOS 管</p>
+</div>
+<p><img alt="nmos-and-pmos" src="../../../assets/ie/de/integrated-circuit/nmos-and-pmos.png" /></p>
+<h3 id="nmos">NMOS<a class="headerlink" href="#nmos" title="Permanent link">&para;</a></h3>
+<p>NMOSFET，N 型金氧半场效晶体管</p>
+<p>N 沟道增强型 MOS 管，箭头往里走，栅级无圆圈</p>
+<p><img alt="NMOS" src="../../../assets/ie/de/gate-circuit/NMOS.png" /></p>
+<p>左侧是简化符号，右侧是标准符号</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>栅级 G</th>
+<th>漏级 D</th>
+<th>源级 S (接地)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导通</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="nmos" src="../../../assets/ie/de/integrated-circuit/nmos.png" /></p>
+<h3 id="pmos">PMOS<a class="headerlink" href="#pmos" title="Permanent link">&para;</a></h3>
+<p>PMOSFET，P 型金氧半场效晶体管</p>
+<p>P 沟道增强型 MOS 管，箭头往外走，栅级有圆圈</p>
+<p><img alt="PMOS" src="../../../assets/ie/de/gate-circuit/PMOS.png" /></p>
+<p>左侧是简化符号，右侧是标准符号</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>栅级 G</th>
+<th>漏级 D</th>
+<th>源级 S (接电源)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导通</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="pmos" src="../../../assets/ie/de/integrated-circuit/pmos.png" /></p>
+<h3 id="cmos_3">CMOS<a class="headerlink" href="#cmos_3" title="Permanent link">&para;</a></h3>
+<p>由 NMOS 和 PMOS 两种管子组成的互补 MOS 电路，即 CMOS 电路。</p>
+<p>CMOS 电路元件不使用的管脚尽量不能悬空<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<h4 id="非门">非门<a class="headerlink" href="#非门" title="Permanent link">&para;</a></h4>
+<p><img alt="cmos非门" src="../../../assets/ie/de/integrated-circuit/cmos%E9%9D%9E%E9%97%A8.png" /></p>
+<h4 id="与非门">与非门<a class="headerlink" href="#与非门" title="Permanent link">&para;</a></h4>
+<p><img alt="cmos与非门" src="../../../assets/ie/de/integrated-circuit/cmos%E4%B8%8E%E9%9D%9E%E9%97%A8.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>或非门和与非门之间存在对偶关系，将 NMOS 和 PMOS 交换、高电平和低电平交换，就能够相互转换</p>
+</div>
+<h4 id="或非门">或非门<a class="headerlink" href="#或非门" title="Permanent link">&para;</a></h4>
+<p><img alt="cmos或非门" src="../../../assets/ie/de/integrated-circuit/cmos%E6%88%96%E9%9D%9E%E9%97%A8.png" /></p>
+<h4 id="三态门">三态门<a class="headerlink" href="#三态门" title="Permanent link">&para;</a></h4>
+<p>三态门引入了<strong>高阻抗状态</strong>。</p>
+<p>三态门的 3 个状态如下：</p>
+<p><img alt="三态门3个状态" src="../../../assets/ie/de/integrated-circuit/%E4%B8%89%E6%80%81%E9%97%A83%E4%B8%AA%E7%8A%B6%E6%80%81.png" /></p>
+<p>一个错误 ❌ 的三态 CMOS 反相器：</p>
+<p><img alt="三态CMOS反相器-错误" src="../../../assets/ie/de/integrated-circuit/%E4%B8%89%E6%80%81CMOS%E5%8F%8D%E7%9B%B8%E5%99%A8-%E9%94%99%E8%AF%AF.png" /></p>
+<p><span class="arithmatex">\(\overline{Enable}\)</span> 和输入是对称设计的，所以输入为高电平时，输出也一样处于高阻抗状态。</p>
+<p>正确设计：</p>
+<p><img alt="cmos三态非门" src="../../../assets/ie/de/integrated-circuit/cmos%E4%B8%89%E6%80%81%E9%9D%9E%E9%97%A8.png" /></p>
+<h4 id="漏极开路门">漏极开路门<a class="headerlink" href="#漏极开路门" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Open-drain，OD 门</p>
+</blockquote>
+<p>术语<strong>漏极开路</strong>的意思是输出晶体管的漏极端没有连接，必须从外部通过负载连接到 <span class="arithmatex">\(V_{DD}\)</span>。</p>
+<p>实现大负载</p>
+<p>与非门示例：</p>
+<p><img alt="cmos漏极开路与非门" src="../../../assets/ie/de/integrated-circuit/cmos%E6%BC%8F%E6%9E%81%E5%BC%80%E8%B7%AF%E4%B8%8E%E9%9D%9E%E9%97%A8.png" /></p>
+<h2 id="ttl_2">TTL<a class="headerlink" href="#ttl_2" title="Permanent link">&para;</a></h2>
+<p>TTL 电路中悬空的输入端将起到<strong>高电平</strong>的效果。</p>
+<p>TTL 电路元件不使用的管脚尽量不能悬空<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />，避免噪声影响。</p>
+<h3 id="双极型晶体管">双极型晶体管<a class="headerlink" href="#双极型晶体管" title="Permanent link">&para;</a></h3>
+<p>Bipoplar Junction Transistor (BJT) (三极管)</p>
+<p>开关效应原理图：</p>
+<p><img alt="双极型晶体管原理" src="../../../assets/ie/de/integrated-circuit/%E5%8F%8C%E6%9E%81%E5%9E%8B%E6%99%B6%E4%BD%93%E7%AE%A1%E5%8E%9F%E7%90%86.png" /></p>
+<h3 id="ttl-门电路">TTL 门电路<a class="headerlink" href="#ttl-门电路" title="Permanent link">&para;</a></h3>
+<h4 id="非门_1">非门<a class="headerlink" href="#非门_1" title="Permanent link">&para;</a></h4>
+<p><img alt="ttl非门" src="../../../assets/ie/de/integrated-circuit/ttl%E9%9D%9E%E9%97%A8.png" /></p>
+<p>工作原理如下：</p>
+<p><img alt="ttl非门原理" src="../../../assets/ie/de/integrated-circuit/ttl%E9%9D%9E%E9%97%A8%E5%8E%9F%E7%90%86.png" /></p>
+<h4 id="与非门_1">与非门<a class="headerlink" href="#与非门_1" title="Permanent link">&para;</a></h4>
+<p><img alt="ttl与非门" src="../../../assets/ie/de/integrated-circuit/ttl%E4%B8%8E%E9%9D%9E%E9%97%A8.png" /></p>
+<h3 id="集电极开路门">集电极开路门<a class="headerlink" href="#集电极开路门" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Open-Collector Gates，OC 门</p>
+</blockquote>
+<p><img alt="集电路开路" src="../../../assets/ie/de/integrated-circuit/%E9%9B%86%E7%94%B5%E8%B7%AF%E5%BC%80%E8%B7%AF.png" /></p>
+<p>驱动 LED 和灯泡：</p>
+<p><img alt="ttl集电极开路" src="../../../assets/ie/de/integrated-circuit/ttl%E9%9B%86%E7%94%B5%E6%9E%81%E5%BC%80%E8%B7%AF.png" /></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../gate-circuit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 门电路">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                门电路
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../memory-storage/" class="md-footer__link md-footer__link--next" aria-label="Next: 存储器">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                存储器
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

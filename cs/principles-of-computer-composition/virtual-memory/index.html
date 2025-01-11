@@ -1,0 +1,2492 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/principles-of-computer-composition/virtual-memory/">
+      
+      
+        <link rel="prev" href="../operation/">
+      
+      
+        <link rel="next" href="../von-neumann-architecture/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>虚拟存储器 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#思维导图" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              虚拟存储器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Principles of computer composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-indicators-of-computer-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机性能的基本指标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据通路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dram-refresh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DRAM刷新
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exception-and-interruption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常和中断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instruction-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指令系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    虚拟存储器
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    虚拟存储器
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#思维导图" class="md-nav__link">
+    <span class="md-ellipsis">
+      思维导图
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#分区方案" class="md-nav__link">
+    <span class="md-ellipsis">
+      分区方案
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分区方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#简单分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单分区：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可变长分区partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      可变长分区（Partitioning）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分页paging" class="md-nav__link">
+    <span class="md-ellipsis">
+      分页（Paging）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚存技术的实质" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚存技术的实质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚存技术的实质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#程序员在比实际主存空间大得多的逻辑地址空间编写程序" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序员在比实际主存空间大得多的逻辑地址空间编写程序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序执行时把当前需要的程序段和相应的数据块调入主存其他暂不用的部分存放在磁盘上" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序执行时，把当前需要的程序段和相应的数据块调入主存，其他暂不用的部分存放在磁盘上
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令执行时通过硬件将逻辑地址亦称虚拟地址或虚地址转化为物理地址亦称主存地址或实地址分页查表" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令执行时，通过硬件将逻辑地址(亦称虚拟地址或虚地址)转化为物理地址(亦称主存地址或实地址)//分页查表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在发生指令或数据访问失效时由操作系统进行主存和磁盘之间的信息交换" class="md-nav__link">
+    <span class="md-ellipsis">
+      在发生指令或数据访问失效时，由操作系统进行主存和磁盘之间的信息交换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#每个进程都有专属于自己的从-0-到-ffffffffh-的地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      每个进程都有专属于自己的从 0 到 FFFFFFFFH 的地址空间
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#快表--转换后备缓冲器--tlb-translation-lookaside-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      快表 / 转换后备缓冲器 / TLB (Translation Lookaside Buffer)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快表 / 转换后备缓冲器 / TLB (Translation Lookaside Buffer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#原理" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb-页表项" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB 页表项
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb-缺失" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB 缺失
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#主存分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      主存分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三种地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      三种地址空间：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址映射把虚拟地址空间映射到主存地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址映射：把虚拟地址空间映射到主存地址空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址变换程序运行时把虚拟地址变换成主存物理地址" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址变换：程序运行时，把虚拟地址变换成主存物理地址
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#为什么需要虚存" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么需要虚存
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么需要虚存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#同时运行更多进程内存需求增大" class="md-nav__link">
+    <span class="md-ellipsis">
+      同时运行更多进程，内存需求增大
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#允许多个程序有效而安全地共享存储器消除内存因小而有限的存储器容量给程序设计造成的障碍" class="md-nav__link">
+    <span class="md-ellipsis">
+      允许多个程序有效而安全地共享存储器，消除内存因小而有限的存储器容量给程序设计造成的障碍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#允许单用户程序大小超过主存储器的容量" class="md-nav__link">
+    <span class="md-ellipsis">
+      允许单用户程序大小超过主存储器的容量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚存组织方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚存组织方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚存组织方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#页式" class="md-nav__link">
+    <span class="md-ellipsis">
+      页式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#段式" class="md-nav__link">
+    <span class="md-ellipsis">
+      段式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#段页式" class="md-nav__link">
+    <span class="md-ellipsis">
+      段页式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../von-neumann-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冯·诺伊曼体系结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../yatcpu/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Yatcpu
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#思维导图" class="md-nav__link">
+    <span class="md-ellipsis">
+      思维导图
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#分区方案" class="md-nav__link">
+    <span class="md-ellipsis">
+      分区方案
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分区方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#简单分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单分区：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可变长分区partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      可变长分区（Partitioning）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分页paging" class="md-nav__link">
+    <span class="md-ellipsis">
+      分页（Paging）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚存技术的实质" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚存技术的实质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚存技术的实质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#程序员在比实际主存空间大得多的逻辑地址空间编写程序" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序员在比实际主存空间大得多的逻辑地址空间编写程序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序执行时把当前需要的程序段和相应的数据块调入主存其他暂不用的部分存放在磁盘上" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序执行时，把当前需要的程序段和相应的数据块调入主存，其他暂不用的部分存放在磁盘上
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令执行时通过硬件将逻辑地址亦称虚拟地址或虚地址转化为物理地址亦称主存地址或实地址分页查表" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令执行时，通过硬件将逻辑地址(亦称虚拟地址或虚地址)转化为物理地址(亦称主存地址或实地址)//分页查表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在发生指令或数据访问失效时由操作系统进行主存和磁盘之间的信息交换" class="md-nav__link">
+    <span class="md-ellipsis">
+      在发生指令或数据访问失效时，由操作系统进行主存和磁盘之间的信息交换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#每个进程都有专属于自己的从-0-到-ffffffffh-的地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      每个进程都有专属于自己的从 0 到 FFFFFFFFH 的地址空间
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#快表--转换后备缓冲器--tlb-translation-lookaside-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      快表 / 转换后备缓冲器 / TLB (Translation Lookaside Buffer)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快表 / 转换后备缓冲器 / TLB (Translation Lookaside Buffer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#原理" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb-页表项" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB 页表项
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb-缺失" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB 缺失
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#主存分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      主存分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三种地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      三种地址空间：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址映射把虚拟地址空间映射到主存地址空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址映射：把虚拟地址空间映射到主存地址空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址变换程序运行时把虚拟地址变换成主存物理地址" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址变换：程序运行时，把虚拟地址变换成主存物理地址
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#为什么需要虚存" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么需要虚存
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么需要虚存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#同时运行更多进程内存需求增大" class="md-nav__link">
+    <span class="md-ellipsis">
+      同时运行更多进程，内存需求增大
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#允许多个程序有效而安全地共享存储器消除内存因小而有限的存储器容量给程序设计造成的障碍" class="md-nav__link">
+    <span class="md-ellipsis">
+      允许多个程序有效而安全地共享存储器，消除内存因小而有限的存储器容量给程序设计造成的障碍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#允许单用户程序大小超过主存储器的容量" class="md-nav__link">
+    <span class="md-ellipsis">
+      允许单用户程序大小超过主存储器的容量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚存组织方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚存组织方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚存组织方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#页式" class="md-nav__link">
+    <span class="md-ellipsis">
+      页式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#段式" class="md-nav__link">
+    <span class="md-ellipsis">
+      段式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#段页式" class="md-nav__link">
+    <span class="md-ellipsis">
+      段页式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>虚拟存储器</h1>
+
+<h2 id="思维导图">思维导图<a class="headerlink" href="#思维导图" title="Permanent link">&para;</a></h2>
+<p><img alt="虚拟存储器" src="../../../assets/cs/principles-of-computer-composition/%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8.png" /></p>
+<h2 id="分区方案">分区方案<a class="headerlink" href="#分区方案" title="Permanent link">&para;</a></h2>
+<h3 id="简单分区">简单分区：<a class="headerlink" href="#简单分区" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>原理：使用长度不等的固定长分区，当一个进程调入主存时，分配给它一个能容纳的最小分区</p>
+</li>
+<li>
+<p>缺点：固定长度的分区，可能会浪费 主存空间。多数情况下，进程对分区大小的需求不可能和提供的分区大小一样</p>
+</li>
+</ul>
+<h3 id="可变长分区partitioning">可变长分区（Partitioning）<a class="headerlink" href="#可变长分区partitioning" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>原理：分配的分区大小与进程所需大小一样</p>
+</li>
+<li>
+<p>特点：开始较好 ，但到最后存储器中会有许多碎片。时间越长，存储器的碎片会越来越多，存储器的利用率下降</p>
+</li>
+<li>
+<p>程序员自己手动管理内存，可以改善内存碎片化问题（例如一次性 malloc 或 new、stl 新建容器好几 kb 大小......</p>
+</li>
+</ul>
+<h3 id="分页paging">分页（Paging）<a class="headerlink" href="#分页paging" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>基本思想</p>
+</li>
+<li>
+<p>内存分成固定长且较小的存储块(页框/page frame)</p>
+</li>
+<li>
+<p>每个进程也划分成固定长的程序块(页/page)</p>
+</li>
+<li>
+<p>程序块(页/page)可装到内存可用的存储块(页框/page frame)中</p>
+</li>
+<li>
+<p>无需用连续页框来存放一个进程</p>
+</li>
+<li>
+<p>操作系统为每个进程生成一个页表：页和页框一一对应的关系表</p>
+</li>
+<li>
+<p>通过页表(page table)实现逻辑地址向物理地址转换(Address Mapping)</p>
+</li>
+</ul>
+<h2 id="虚存技术的实质">虚存技术的实质<a class="headerlink" href="#虚存技术的实质" title="Permanent link">&para;</a></h2>
+<h3 id="程序员在比实际主存空间大得多的逻辑地址空间编写程序">程序员在比实际主存空间大得多的逻辑地址空间编写程序<a class="headerlink" href="#程序员在比实际主存空间大得多的逻辑地址空间编写程序" title="Permanent link">&para;</a></h3>
+<h3 id="程序执行时把当前需要的程序段和相应的数据块调入主存其他暂不用的部分存放在磁盘上">程序执行时，把当前需要的程序段和相应的数据块调入主存，其他暂不用的部分存放在磁盘上<a class="headerlink" href="#程序执行时把当前需要的程序段和相应的数据块调入主存其他暂不用的部分存放在磁盘上" title="Permanent link">&para;</a></h3>
+<h3 id="指令执行时通过硬件将逻辑地址亦称虚拟地址或虚地址转化为物理地址亦称主存地址或实地址分页查表">指令执行时，通过硬件将逻辑地址(亦称虚拟地址或虚地址)转化为物理地址(亦称主存地址或实地址)//分页查表<a class="headerlink" href="#指令执行时通过硬件将逻辑地址亦称虚拟地址或虚地址转化为物理地址亦称主存地址或实地址分页查表" title="Permanent link">&para;</a></h3>
+<h3 id="在发生指令或数据访问失效时由操作系统进行主存和磁盘之间的信息交换">在发生指令或数据访问失效时，由操作系统进行主存和磁盘之间的信息交换<a class="headerlink" href="#在发生指令或数据访问失效时由操作系统进行主存和磁盘之间的信息交换" title="Permanent link">&para;</a></h3>
+<h3 id="每个进程都有专属于自己的从-0-到-ffffffffh-的地址空间">每个进程都有专属于自己的从 0 到 FFFFFFFFH 的地址空间<a class="headerlink" href="#每个进程都有专属于自己的从-0-到-ffffffffh-的地址空间" title="Permanent link">&para;</a></h3>
+<h2 id="快表--转换后备缓冲器--tlb-translation-lookaside-buffer">快表 / 转换后备缓冲器 / TLB (Translation Lookaside Buffer)<a class="headerlink" href="#快表--转换后备缓冲器--tlb-translation-lookaside-buffer" title="Permanent link">&para;</a></h2>
+<h3 id="原理">原理：<a class="headerlink" href="#原理" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>使用 Cache 来存储页表项，称为 TLB，它包含最近使用的那些页表项，加速虚实地址转换</p>
+</li>
+<li>
+<p>多用全相联：命中率高，小、成本不高</p>
+</li>
+<li>
+<p>采用随机替换策略：降低替换算法开销</p>
+</li>
+<li>
+<p>采用回写策略：减少访问内存的次数</p>
+</li>
+</ul>
+<h3 id="tlb-页表项">TLB 页表项<a class="headerlink" href="#tlb-页表项" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Tag 位</p>
+</li>
+<li>
+<p>Index 位，组相联时才有</p>
+</li>
+<li>
+<p>Physical Adress，对应物理页框号</p>
+</li>
+<li>
+<p>其他标志位</p>
+</li>
+<li>
+<p>Valid 位，1 位</p>
+</li>
+<li>
+<p>Dirty 位，1 位</p>
+</li>
+<li>
+<p>Ref</p>
+</li>
+<li>
+<p>Access</p>
+</li>
+</ul>
+<h3 id="tlb-缺失">TLB 缺失<a class="headerlink" href="#tlb-缺失" title="Permanent link">&para;</a></h3>
+<h2 id="基本概念">基本概念<a class="headerlink" href="#基本概念" title="Permanent link">&para;</a></h2>
+<h3 id="主存分配">主存分配<a class="headerlink" href="#主存分配" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>操作系统：固定（ROM）</p>
+</li>
+<li>
+<p>用户区：分区（RAM）</p>
+</li>
+</ul>
+<h3 id="三种地址空间">三种地址空间：<a class="headerlink" href="#三种地址空间" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>虚拟地址空间</p>
+</li>
+<li>
+<p>主存地址空间</p>
+</li>
+<li>
+<p>辅存地址空间</p>
+</li>
+</ul>
+<h3 id="地址映射把虚拟地址空间映射到主存地址空间">地址映射：把虚拟地址空间映射到主存地址空间<a class="headerlink" href="#地址映射把虚拟地址空间映射到主存地址空间" title="Permanent link">&para;</a></h3>
+<h3 id="地址变换程序运行时把虚拟地址变换成主存物理地址">地址变换：程序运行时，把虚拟地址变换成主存物理地址<a class="headerlink" href="#地址变换程序运行时把虚拟地址变换成主存物理地址" title="Permanent link">&para;</a></h3>
+<h2 id="为什么需要虚存">为什么需要虚存<a class="headerlink" href="#为什么需要虚存" title="Permanent link">&para;</a></h2>
+<h3 id="同时运行更多进程内存需求增大">同时运行更多进程，内存需求增大<a class="headerlink" href="#同时运行更多进程内存需求增大" title="Permanent link">&para;</a></h3>
+<h3 id="允许多个程序有效而安全地共享存储器消除内存因小而有限的存储器容量给程序设计造成的障碍">允许多个程序有效而安全地共享存储器，消除内存因小而有限的存储器容量给程序设计造成的障碍<a class="headerlink" href="#允许多个程序有效而安全地共享存储器消除内存因小而有限的存储器容量给程序设计造成的障碍" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>可以更有效的共享处理器和主存</p>
+</li>
+<li>
+<p>虚拟存储器实现程序地址空间到物理空间的转换，加强了各个程序地址空间之间的保护</p>
+</li>
+</ul>
+<h3 id="允许单用户程序大小超过主存储器的容量">允许单用户程序大小超过主存储器的容量<a class="headerlink" href="#允许单用户程序大小超过主存储器的容量" title="Permanent link">&para;</a></h3>
+<ul>
+<li>虚拟存储器自动管理主存和辅存组成的两级层次结构</li>
+</ul>
+<h2 id="虚存组织方式">虚存组织方式<a class="headerlink" href="#虚存组织方式" title="Permanent link">&para;</a></h2>
+<h3 id="页式">页式<a class="headerlink" href="#页式" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>原理：</p>
+</li>
+<li>
+<p>虚存地址空间和主存地址空间按统一大小分成若干页，虚存称为虚页，主存称为实页</p>
+</li>
+<li>
+<p>程序按页从磁盘调入主存(某一虚页调入某一实页)</p>
+</li>
+<li>
+<p>指令给出虚拟地址/逻辑地址</p>
+</li>
+<li>
+<p>每个页表项记录对应的虚页情况</p>
+</li>
+<li>
+<p>Valid 为 0 说明“miss”(称为 page fault / 缺页)</p>
+</li>
+<li>
+<p>CPU 执行指令时，先将逻辑地址转换为物理地址</p>
+</li>
+<li>
+<p>地址转换由 MMU 实现</p>
+</li>
+<li>
+<p>页大小比 Cache 中 Block 大得多</p>
+</li>
+<li>
+<p>采用全相联映射</p>
+</li>
+<li>
+<p>通过软件来处理“缺页”</p>
+</li>
+<li>
+<p>采用 Write Back 写策略</p>
+</li>
+<li>
+<p>地址格式</p>
+</li>
+<li>
+<p>虚存的地址格式 (逻辑地址格式)：</p>
+<ul>
+<li>
+<p>直接映射虚拟地址</p>
+</li>
+<li>
+<p>高位，虚拟地址比物理地址长的位数，算在 Tag 位里</p>
+</li>
+<li>
+<p>Tag 位，标记位
+    长度 = log _2 ( 主存中 页 的 数量 / TLB 中 页表项 的 数量 )</p>
+</li>
+<li>
+<p>Index 位，Cache 槽号
+    长度 = log _2 ( TLB 中 页表项 的 数量 )</p>
+</li>
+<li>
+<p>Offset 位，页内地址
+    长度 = log _2 ( 页 的 大小 ) (按编址单位算)</p>
+</li>
+<li>
+<p>全相联虚拟地址</p>
+</li>
+<li>
+<p>高位，虚拟地址比物理地址长的位数，算在 Tag 位里</p>
+</li>
+<li>
+<p>Tag 位，标记位
+    长度 = log _2 ( 主存中 页 的 数量 )</p>
+</li>
+<li>
+<p>Offset 位，页内地址
+    长度 = log _2 ( 页 的 大小 ) (按编址单位算)</p>
+</li>
+<li>
+<p>n 路组相联虚拟地址</p>
+</li>
+<li>
+<p>高位，虚拟地址比物理地址长的位数，算在 Tag 位里</p>
+</li>
+<li>
+<p>Tag 位，标记位
+    长度 = log _2 ( 主存中 页 的 数量 / 组的数量)</p>
+</li>
+<li>
+<p>组号位
+    长度 = log _2 ( 组 的 数量 )</p>
+</li>
+<li>
+<p>Offset 位，页内地址
+    长度 = log _2 ( 页 的 大小 ) (按编址单位算)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>主存的地址格式 (物理地址格式)：</p>
+<ul>
+<li>
+<p>实页号 / 物理页号</p>
+</li>
+<li>
+<p>页内地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>页表(Page Table)
+  建立一个映射关系表来存放虚拟地址与物理地址之间的映射关系，该映射关系表被称为页表，用来实现虚实地址的转换</p>
+</li>
+<li>
+<p>建立在主存中，操作系统为每道程序建立一个页表</p>
+</li>
+<li>
+<p>设置页表基址寄存器：保存页表在主存中的起始地址</p>
+</li>
+<li>
+<p>页表项</p>
+<ul>
+<li>
+<p>装入位</p>
+</li>
+<li>
+<p>修改(Dirty)位</p>
+</li>
+<li>
+<p>替换控制位</p>
+</li>
+<li>
+<p>访问权限位</p>
+</li>
+<li>
+<p>禁止缓存位</p>
+</li>
+<li>
+<p>实页号</p>
+</li>
+</ul>
+</li>
+<li>
+<p>页表的项数 = 页表的容量 = 最大页表项 = 虚存大小 / 页大小</p>
+</li>
+<li>
+<p>页表大小 = 页表的项数 * 页表项大小</p>
+</li>
+<li>
+<p>异常情况</p>
+</li>
+<li>
+<p>缺页( page fault)</p>
+<ul>
+<li>
+<p>产生条件：当 Valid(有效位 / 装入位)为 0 时</p>
+</li>
+<li>
+<p>相应处理：从磁盘中读信息到内存，若内存没有空间，则还要从内存选择一页替换到磁盘上，替换算法类似于 Cache，采用回写法，页面淘汰时，根据“dirty”位确定是否要写磁盘</p>
+</li>
+<li>
+<p>异常处理结束后：缺页发生时，当前指令的执行被阻塞，当前进程挂起；缺页处理结束后，回到原指令继续执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>保护违例( protection_violation_fault )</p>
+<ul>
+<li>
+<p>产生条件： 当 Access Rights (存取权限)与所指定的具体操作不相符时</p>
+</li>
+<li>
+<p>相应处理：在屏幕上显示“内存保护错”信息</p>
+</li>
+<li>
+<p>异常处理结束后：当前指令执行被阻塞，当前进程终止</p>
+</li>
+<li>
+<p>Access Rights (存取权限)可能的取值有哪些？</p>
+</li>
+<li>
+<p>R = Read-only</p>
+</li>
+<li>
+<p>R/W = read/write</p>
+</li>
+<li>
+<p>X = execute only</p>
+</li>
+</ul>
+</li>
+<li>
+<p>特点</p>
+</li>
+<li>
+<p>优点：实现简单，开销少。因为只有进程的最后一个零头（内部碎片）不能利用，故浪费很小</p>
+</li>
+<li>
+<p>缺点：由于页不是逻辑上独立的实体，可能会出现如“一条指令跨页”等情况（CISC），使处理、管理、保护和共享都不方便</p>
+</li>
+</ul>
+<h3 id="段式">段式<a class="headerlink" href="#段式" title="Permanent link">&para;</a></h3>
+<h3 id="段页式">段页式<a class="headerlink" href="#段页式" title="Permanent link">&para;</a></h3>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../operation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 运算">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                运算
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../von-neumann-architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: 冯·诺伊曼体系结构">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                冯·诺伊曼体系结构
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

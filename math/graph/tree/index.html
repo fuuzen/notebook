@@ -1,0 +1,2125 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/tree/">
+      
+      
+        <link rel="prev" href="../spectral-clustering/">
+      
+      
+        <link rel="next" href="../../logic/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>树 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#树的基本性质" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              树
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coloring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#树的基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的基本性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树的基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#树的叶子数" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的叶子数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#森林的分支数" class="md-nav__link">
+    <span class="md-ellipsis">
+      森林的分支数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的边数下限" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的边数下限
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树的叶子数下限" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的叶子数下限
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#森林的路分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      森林的路分解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树的同构子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的同构子图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#树的度序列问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的度序列问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#树的中心与形心" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的中心与形心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树的中心与形心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中心" class="md-nav__link">
+    <span class="md-ellipsis">
+      中心
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#形心" class="md-nav__link">
+    <span class="md-ellipsis">
+      形心
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#生成树" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生成树的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成树的计数" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树的计数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成树的计数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#凯莱递推计数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      凯莱递推计数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#关联矩阵计数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联矩阵计数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#矩阵树定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩阵树定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最小生成树" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kruskal-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kruskal 算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kruskal 算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#完备性证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性证明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法案例" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法案例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#管梅谷的破圈法" class="md-nav__link">
+    <span class="md-ellipsis">
+      管梅谷的破圈法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prim-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prim 算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树图" class="md-nav__link">
+    <span class="md-ellipsis">
+      树图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#树的基本性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的基本性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树的基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#树的叶子数" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的叶子数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#森林的分支数" class="md-nav__link">
+    <span class="md-ellipsis">
+      森林的分支数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的边数下限" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的边数下限
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树的叶子数下限" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的叶子数下限
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#森林的路分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      森林的路分解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树的同构子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的同构子图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#树的度序列问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的度序列问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#树的中心与形心" class="md-nav__link">
+    <span class="md-ellipsis">
+      树的中心与形心
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树的中心与形心">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中心" class="md-nav__link">
+    <span class="md-ellipsis">
+      中心
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#形心" class="md-nav__link">
+    <span class="md-ellipsis">
+      形心
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#生成树" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生成树的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成树的计数" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成树的计数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成树的计数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#凯莱递推计数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      凯莱递推计数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#关联矩阵计数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联矩阵计数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#矩阵树定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩阵树定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最小生成树" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小生成树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最小生成树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kruskal-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kruskal 算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kruskal 算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#完备性证明" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性证明
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法案例" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法案例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#管梅谷的破圈法" class="md-nav__link">
+    <span class="md-ellipsis">
+      管梅谷的破圈法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prim-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prim 算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树图" class="md-nav__link">
+    <span class="md-ellipsis">
+      树图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="树图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>树</h1>
+
+<h2 id="树的基本性质">树的基本性质<a class="headerlink" href="#树的基本性质" title="Permanent link">&para;</a></h2>
+<h3 id="树的叶子数">树的叶子数<a class="headerlink" href="#树的叶子数" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(T\)</span> 为 <span class="arithmatex">\((n,m)\)</span> 树，<span class="arithmatex">\(T\)</span> 中有 <span class="arithmatex">\(n_i\)</span> 个度为 <span class="arithmatex">\(i,(1\leq i\leq k)\)</span> 的点，且有 <span class="arithmatex">\(\sum n_i=n\)</span> ，则有：<span class="arithmatex">\(n_1=2+n_3+2n_4+\cdots+(k-2)n_k\)</span>。</p>
+<p>证明: 由 <span class="arithmatex">\(m=n-1\)</span> 得:</p>
+<div class="arithmatex">\[
+m=(n_1+n_2+\cdots+n_p)-1
+\]</div>
+<p>又由握手定理得:</p>
+<div class="arithmatex">\[
+2m=n+2n_2+\cdots+kn_k
+\]</div>
+<p>由上面两等式得:</p>
+<div class="arithmatex">\[
+n_1=2+n_3+2n_4+\cdots+(k-2)n_k
+\]</div>
+<h3 id="森林的分支数">森林的分支数<a class="headerlink" href="#森林的分支数" title="Permanent link">&para;</a></h3>
+<p>具有 <span class="arithmatex">\(k\)</span> 个分支的森林有 <span class="arithmatex">\(n-k\)</span> 条边。</p>
+<hr />
+<p>证明:</p>
+<p>设森林 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(k\)</span> 个分支为 <span class="arithmatex">\(T_i(1≤i\leq k)\)</span> ，对每个分支，使用定理 3 得</p>
+<div class="arithmatex">\[
+m(T_i)=n_i-1(n_i=|V(T_i)|)
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+m(G)=\sum_{i=1}^{k}m(T_i)=n-k
+\]</div>
+<h3 id="图的边数下限">图的边数下限<a class="headerlink" href="#图的边数下限" title="Permanent link">&para;</a></h3>
+<p>每个 <span class="arithmatex">\(n\)</span> 阶连通图的边数至少为 <span class="arithmatex">\(n-1\)</span>.</p>
+<p>证明:</p>
+<p>(1) 如果 <span class="arithmatex">\(n\)</span> 阶连通图 <span class="arithmatex">\(G\)</span> 没有一度顶点，那么由握手定理有:</p>
+<div class="arithmatex">\[
+m(G)=\frac{1}{2}\sum_{v\in V(G)}d(v)\geq n
+\]</div>
+<hr />
+<p>(2) 如果 <span class="arithmatex">\(G\)</span> 有一度顶点:</p>
+<p>对顶点数作数学归纳。</p>
+<p>当 <span class="arithmatex">\(n=1\)</span> 时，结论显然</p>
+<p>设当 <span class="arithmatex">\(n=k\)</span> 时，结论成立。</p>
+<p>当 <span class="arithmatex">\(n=k+1\)</span> 时，设 <span class="arithmatex">\(u\)</span> 是 <span class="arithmatex">\(G\)</span> 的一度顶点，则 <span class="arithmatex">\(G-u\)</span> 为具有 <span class="arithmatex">\(k\)</span> 个顶点的连通图</p>
+<p>(2.1) 若 <span class="arithmatex">\(G-u\)</span> 有一度顶点，则由归纳假设，其边数至少 <span class="arithmatex">\(k-1\)</span> ，于是 <span class="arithmatex">\(G\)</span> 的边数至少有 <span class="arithmatex">\(k\)</span> 条;</p>
+<p>(2.2) 如果 <span class="arithmatex">\(G-u\)</span> 没有一度顶点，由握手定理有：</p>
+<div class="arithmatex">\[
+m(G-u)=\frac{1}{2}\sum_{v\in V(G-u)}d(v)\geq k
+\]</div>
+<p>所以，<span class="arithmatex">\(G\)</span> 至少有 <span class="arithmatex">\(k+1\)</span> 条边。</p>
+<p>而当 <span class="arithmatex">\(G\)</span> 是树时，边数恰为 <span class="arithmatex">\(n-1\)</span> .</p>
+<p>所以 n 阶连通图 G 至少有 n-1 条边。</p>
+<p>所以，树也被称为最小连通图。</p>
+<p>任意树 <span class="arithmatex">\(T\)</span> 的两个不邻接顶点之间添加一条边后，可以得到唯一圈</p>
+<hr />
+<p>证明:</p>
+<p>设 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 是树 <span class="arithmatex">\(T\)</span> 的任意两个不邻接顶点，由定理 2 知:有唯一路 <span class="arithmatex">\(P\)</span> 连接 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> ；于是 <span class="arithmatex">\(P\cup\{uv\}\)</span> 是一圈。</p>
+<p>显然，由 <span class="arithmatex">\(P\)</span> 的唯一性也就决定了 <span class="arithmatex">\(P\cup\{uv\}\)</span>的唯一性。</p>
+<h3 id="树的叶子数下限">树的叶子数下限<a class="headerlink" href="#树的叶子数下限" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是树且 <span class="arithmatex">\(\Delta≥k\)</span> ，则 <span class="arithmatex">\(G\)</span> 至少有 <span class="arithmatex">\(k\)</span> 个一度顶点（叶子顶点）</p>
+<hr />
+<p>证明：反证法，假设 <span class="arithmatex">\(G\)</span> 有至多 <span class="arithmatex">\(k-1\)</span> 个叶子顶点</p>
+<div class="arithmatex">\[
+2m(G)=\sum_{v\in V(G)}d(v)\geq k-1+k+2(n-k)=2n-1\gt 2n-2
+\]</div>
+<p>所以 <span class="arithmatex">\(m(G)\gt n-1\)</span> ，与 <span class="arithmatex">\(G\)</span> 是树矛盾！</p>
+<h3 id="森林的路分解">森林的路分解<a class="headerlink" href="#森林的路分解" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是森林且恰有 <span class="arithmatex">\(2k\)</span> 个<strong>奇度</strong>顶点，则在 <span class="arithmatex">\(G\)</span> 中有 <span class="arithmatex">\(k\)</span> 条边不重合的路 <span class="arithmatex">\(P_1,P_2,\cdots,P_k\)</span> 使得:</p>
+<div class="arithmatex">\[
+E(G)=E(P_1)\cup E(P_2)\cup\cdots\cup E(P_k)
+\]</div>
+<p>证明: 对 <span class="arithmatex">\(k\)</span> 作数学归纳。</p>
+<p>当 <span class="arithmatex">\(k=1\)</span> 时，<span class="arithmatex">\(G\)</span> 只有两个奇数度顶点，此时，容易证明，<span class="arithmatex">\(G\)</span> 是一条路;</p>
+<p>设当 <span class="arithmatex">\(k=t\)</span> 时，结论成立。令 <span class="arithmatex">\(k=t+1\)</span>：</p>
+<p>在 <span class="arithmatex">\(G\)</span> 中一个分支中取两个一度项点 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> ，令 <span class="arithmatex">\(P\)</span> 是连接该两个项点的唯一路，则 <span class="arithmatex">\(G-P\)</span> 是有 <span class="arithmatex">\(2t\)</span> 个奇数顶点的森林，由归纳假设，它可以分解 <span class="arithmatex">\(t\)</span> 条边不重合的路之并，所以 <span class="arithmatex">\(G\)</span> 可以分解为 <span class="arithmatex">\(t+1\)</span> 条边不重合的路之并。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>对图作<strong>某种形式的分解</strong>，是图论的一个研究对象，它在网络结构分析中具有重要作用。</p>
+</div>
+<h3 id="树的同构子图">树的同构子图<a class="headerlink" href="#树的同构子图" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(k\)</span> 阶树。若图 <span class="arithmatex">\(G\)</span> 满足 <span class="arithmatex">\(\delta≥k-1\)</span> ，则 <span class="arithmatex">\(T\)</span> 同构于 <span class="arithmatex">\(G\)</span> 的某个子图。</p>
+<p>证明: 对 <span class="arithmatex">\(k\)</span> 作数学归纳</p>
+<p>当 <span class="arithmatex">\(k=1\)</span> 时，结论显然。</p>
+<p>假设对 <span class="arithmatex">\(k-1,(k ≥3)\)</span> 的每颗树 <span class="arithmatex">\(T\)</span> ，以及最小度至少为 <span class="arithmatex">\(k-2\)</span> 的每个图 <span class="arithmatex">\(H\)</span> ，<span class="arithmatex">\(T_1\)</span> 同构于 <span class="arithmatex">\(H\)</span> 的某个子图 <span class="arithmatex">\(F\)</span> ；</p>
+<p>现在设 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(k\)</span> 阶树，且图 <span class="arithmatex">\(G\)</span> 满足 <span class="arithmatex">\(\delta≥k-1\)</span> ，证明 <span class="arithmatex">\(T\)</span> 同构于 <span class="arithmatex">\(G\)</span> 的某个子图：</p>
+<p>设 <span class="arithmatex">\(u\)</span> 是 <span class="arithmatex">\(T\)</span> 的树叶，<span class="arithmatex">\(v\)</span> 是 <span class="arithmatex">\(u\)</span> 的邻接顶点。则 <span class="arithmatex">\(T-u\)</span> 是 <span class="arithmatex">\(k-1\)</span> 阶树。</p>
+<p>由于 <span class="arithmatex">\(\delta(G)≥k-1&gt;k-2\)</span> ，由归纳假设，<span class="arithmatex">\(T-u\)</span> 同构于 <span class="arithmatex">\(G\)</span> 的某个子图 <span class="arithmatex">\(F\)</span> ；</p>
+<p><img alt="树的同构子图证明" src="../../assets/math/discrete-math/graph/tree/树的同构子图证明.png" /></p>
+<p>设 <span class="arithmatex">\(v\)</span> 是与 <span class="arithmatex">\(T\)</span> 中 <span class="arithmatex">\(v\)</span> 相对应的 <span class="arithmatex">\(F\)</span> 中的点，由于 <span class="arithmatex">\(d_{G(v_1)}\geq k-1\)</span> ，所以 <span class="arithmatex">\(v\)</span> 在 <span class="arithmatex">\(G\)</span> 中一定有相异于 <span class="arithmatex">\(F\)</span> 中的邻点 <span class="arithmatex">\(w\)</span> ，作 <span class="arithmatex">\(F\cup\{u_1w\}\)</span> ，则该子图和 <span class="arithmatex">\(T\)</span> 同构。</p>
+<h2 id="树的度序列问题">树的度序列问题<a class="headerlink" href="#树的度序列问题" title="Permanent link">&para;</a></h2>
+<p>在第一章中，介绍了判定一个非增非负序列是否为简单图的度序列定理。下面介绍一个判定非增非负序列是否为树的度序列的简单方法。</p>
+<p>设 <span class="arithmatex">\(S=\{d_1,d_2,\cdots,d_n\}\)</span> 是 <span class="arithmatex">\(n\)</span> 个正整数序列，它们满足:</p>
+<ul>
+<li><span class="arithmatex">\(d_1\geq d_2\geq\cdots\geq d_n\)</span> ；</li>
+<li><span class="arithmatex">\(\sum di=2(n-1)\)</span> ；</li>
+</ul>
+<p>则存在一颗树 <span class="arithmatex">\(T\)</span> ，其度序列为 <span class="arithmatex">\(S\)</span> 。</p>
+<hr />
+<p>证明: 对 <span class="arithmatex">\(n\)</span> 作数学归纳。</p>
+<p>当 <span class="arithmatex">\(n=1,2\)</span> 时，结论显然。</p>
+<p>假设对 <span class="arithmatex">\(n=k\)</span> 时结论成立。设 <span class="arithmatex">\(n=k+1\)</span>,</p>
+<p>首先,序列中至少一个数为 1，否则，序列和大于 <span class="arithmatex">\(2k\)</span> ，与条件相矛盾!</p>
+<p>所以，<span class="arithmatex">\(d_{k+1}=1\)</span> 。</p>
+<p>我们从序列中删掉 <span class="arithmatex">\(d_1\)</span> 和 <span class="arithmatex">\(d_{k+1}\)</span> ，增加数 <span class="arithmatex">\(d^*=d_i-1\)</span> 放在它应该在的位置。得到序列 <span class="arithmatex">\(S\)</span> ，该序列含 <span class="arithmatex">\(k\)</span> 个数，序列和为 <span class="arithmatex">\(2(k-1)\)</span> ；</p>
+<p>由归纳假设，存在树 <span class="arithmatex">\(T\)</span> ，它的度序列为 <span class="arithmatex">\(S_i\)</span>；</p>
+<p>现在，增加结点 <span class="arithmatex">\(v\)</span> ，把它和 <span class="arithmatex">\(T_1\)</span> 中点 <span class="arithmatex">\(d^*\)</span> 相连得到树 <span class="arithmatex">\(T\)</span> 为所求</p>
+<h2 id="树的中心与形心">树的中心与形心<a class="headerlink" href="#树的中心与形心" title="Permanent link">&para;</a></h2>
+<h3 id="中心">中心<a class="headerlink" href="#中心" title="Permanent link">&para;</a></h3>
+<ol>
+<li>图的顶点的<strong>离心率</strong> <span class="arithmatex">\(e(v)=\max\{d(u,v)|u\in V(G)\}\)</span>；</li>
+<li>图的<strong>直径</strong>：<strong>最大离心率</strong></li>
+<li>图的<strong>半径</strong> <span class="arithmatex">\(r(G)=\min\{e(v)|v\in V(G)\}\)</span>；</li>
+<li>图的<strong>中心点</strong>：<strong>离心率等于半径</strong>的点</li>
+<li>图的<strong>中心</strong>：全体中心点的<strong>集合</strong></li>
+</ol>
+<p>对树 <span class="arithmatex">\(T\)</span> 的阶数 <span class="arithmatex">\(n\)</span> 作归纳证明。</p>
+<p>当 <span class="arithmatex">\(n=1,2\)</span> 时，结论显然成立</p>
+<p>设对 <span class="arithmatex">\(n&lt;k,(k≥3)\)</span> 的树结论成立，设 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(k\)</span> 阶树</p>
+<p>容易知道，删掉 <span class="arithmatex">\(T\)</span> 的所有叶，得到的树 <span class="arithmatex">\(T\)</span> ，的每个点的离心率比它们在 <span class="arithmatex">\(T\)</span> 中离心率减少 1</p>
+<p>又因 <span class="arithmatex">\(T\)</span> 的叶不能是中心点，所以 <span class="arithmatex">\(T\)</span> 的中心点在 <span class="arithmatex">\(T_1\)</span> 中</p>
+<p>这样，若点 <span class="arithmatex">\(u\)</span> 的离心率在 <span class="arithmatex">\(T\)</span> 中最小，则在 <span class="arithmatex">\(T_1\)</span> 中依然最小，即说明 <span class="arithmatex">\(T\)</span> 的中心点是 <span class="arithmatex">\(T_1\)</span> 的中心点，反之亦然。</p>
+<h3 id="形心">形心<a class="headerlink" href="#形心" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(u\)</span> 是树 <span class="arithmatex">\(T\)</span> 的任意一个顶点，树 <span class="arithmatex">\(T\)</span> 在顶点 <span class="arithmatex">\(u\)</span> 的分支是指包含 <span class="arithmatex">\(u\)</span> 作为一个叶点的极大子树，其分支数为顶点 <span class="arithmatex">\(u\)</span> 的度数;</p>
+<ol>
+<li>点 <span class="arithmatex">\(u\)</span> 的<strong>权</strong>：树 <span class="arithmatex">\(T\)</span> 在 <span class="arithmatex">\(u\)</span> 点的分支中边的最大数目称为；</li>
+<li>树 <span class="arithmatex">\(T\)</span> 的<strong>形心点</strong>：树 <span class="arithmatex">\(T\)</span> 中<strong>权值最小</strong>的点</li>
+<li>树 <span class="arithmatex">\(T\)</span> 的<strong>形心</strong>：全体形心点的<strong>集合</strong></li>
+</ol>
+<p>每一棵树有一个由<strong>一个点</strong>或<strong>两个邻接的点</strong>组成的形心。</p>
+<h2 id="生成树">生成树<a class="headerlink" href="#生成树" title="Permanent link">&para;</a></h2>
+<h3 id="生成树的性质">生成树的性质<a class="headerlink" href="#生成树的性质" title="Permanent link">&para;</a></h3>
+<p>每个连通图至少包含一棵生成树</p>
+<hr />
+<p>证明:</p>
+<p>如果连通图 <span class="arithmatex">\(G\)</span> 是树，则其本身是一棵生成树;</p>
+<p>若连通图 <span class="arithmatex">\(G\)</span> 中有圈 <span class="arithmatex">\(C\)</span> ，则去掉 <span class="arithmatex">\(C\)</span> 中一条边后得到的图仍然是连通的，这样不断去掉 <span class="arithmatex">\(G\)</span> 中圈，最后得到一个 <span class="arithmatex">\(G\)</span> 的无圈连通子图 <span class="arithmatex">\(T\)</span> ，它为 <span class="arithmatex">\(G\)</span> 的一棵生成树。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>定理 1 的证明实际上给出了连通图 <span class="arithmatex">\(G\)</span> 的生成树的求法，该方法称为<strong>破圈法</strong>。</p>
+</div>
+<p>推论</p>
+<p>若 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\((n,m)\)</span> 连通图，则 <span class="arithmatex">\(m≥n-1\)</span>。</p>
+<p>连通图 <span class="arithmatex">\(G\)</span> 的生成树一般不唯一<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<h3 id="生成树的计数">生成树的计数<a class="headerlink" href="#生成树的计数" title="Permanent link">&para;</a></h3>
+<h4 id="凯莱递推计数法">凯莱递推计数法<a class="headerlink" href="#凯莱递推计数法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>凯莱(Cayley 1821-1895): 剑桥大学数学教授，著名代数学家，发表论文数仅次于 Erdos,Euler，Cauchy. 著名成果是 1854 年定义了抽象群，并且得到著名定理:任意一个群都和一个变换群同构。同时，他也是一名出色的律师，作律师 14 年期间，发表 200 多篇数学论文，著名定理也是在该期间发表的。</p>
+</blockquote>
+<p>图 <span class="arithmatex">\(G\)</span> 的边 <span class="arithmatex">\(e\)</span> 称为被收缩，是指删掉 <span class="arithmatex">\(e\)</span> 后，把 <span class="arithmatex">\(e\)</span> 的两个端点重合，如此得到的图记为<span class="arithmatex">\(G\cdote\)</span>；</p>
+<p>用 <span class="arithmatex">\(\tau(G)\)</span> 表示 <span class="arithmatex">\(G\)</span> 的生成树颗数。</p>
+<div class="arithmatex">\[
+\tau(G)=\tau(G-e)+\tau(G\cdot e)
+\]</div>
+<hr />
+<p>证明：对于 <span class="arithmatex">\(G\)</span> 的一条边 <span class="arithmatex">\(e\)</span> 来说，<span class="arithmatex">\(G\)</span> 的生成树中包含边 <span class="arithmatex">\(e\)</span> 的棵数为 <span class="arithmatex">\(G\cdot e\)</span> ，而不包含 <span class="arithmatex">\(e\)</span> 的棵数为 <span class="arithmatex">\(G-e\)</span>。</p>
+<p>凯莱公式的缺点是：</p>
+<ul>
+<li>计算量很大</li>
+<li>不能具体指出每棵生成树</li>
+</ul>
+<h4 id="关联矩阵计数法">关联矩阵计数法<a class="headerlink" href="#关联矩阵计数法" title="Permanent link">&para;</a></h4>
+<p>n×m 矩阵的一个阶数为 <span class="arithmatex">\(\min\{n,m\}\)</span> 的子方阵，称为它的一个<strong>主子阵</strong>；主子阵的行列式称为<strong>主子行列式</strong>。</p>
+<blockquote>
+<p>显然，当 <span class="arithmatex">\(n&lt;m\)</span> 时，n×m 矩阵 <span class="arithmatex">\(C_m^n\)</span> 个主子阵。</p>
+</blockquote>
+<p>设 <span class="arithmatex">\(A_m\)</span> 是连通图 <span class="arithmatex">\(G\)</span> 的基本关联矩阵的主子阵，则 <span class="arithmatex">\(A_m\)</span> 非奇异的充分必要条件是相应于 <span class="arithmatex">\(A_m\)</span> 的列的那些边构成 <span class="arithmatex">\(G\)</span> 的一棵生成树。</p>
+<ul>
+<li>该方法的优点是不仅指出生成树棵数，而且能绘出所有不同生成树；</li>
+<li>缺点是找所有非奇异主子阵计算量太大！</li>
+</ul>
+<h4 id="矩阵树定理">矩阵树定理<a class="headerlink" href="#矩阵树定理" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>该定理是由物理学家克希荷夫提出的。他于 1824 年出生于普鲁士的哥尼斯堡。1845 年因宣布著名的克希荷夫电流电压定律而闻名，1847 年大学毕业时发表了生成树计数文章，给出了矩阵树定理。他的一生主要花在实验物理上。担任过德国柏林数学物理会主席职务</p>
+</blockquote>
+<p><span class="arithmatex">\(G\)</span> 的生成树棵数为拉普拉斯矩阵 <span class="arithmatex">\(L\)</span> 的任意一个元素的代数余子式。</p>
+<h3 id="最小生成树">最小生成树<a class="headerlink" href="#最小生成树" title="Permanent link">&para;</a></h3>
+<h4 id="kruskal-算法">Kruskal 算法<a class="headerlink" href="#kruskal-算法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>克鲁斯克尔(Kruskal):1928 年生，一家 3 弟兄都是数学家 1954 年在普林斯顿大学获博士学位，导师是 ErdÖs,他大部分研究工作数学和语言学，主要在贝尔实验室工作。1956 年发表包含克鲁斯克尔算论文，使他名声大振</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>从 <span class="arithmatex">\(G\)</span> 中的最小边开始，进行避圈式扩张。</p>
+</div>
+<h5 id="算法流程">算法流程<a class="headerlink" href="#算法流程" title="Permanent link">&para;</a></h5>
+<ol>
+<li>选择边 <span class="arithmatex">\(e_1\)</span> ,使得其权值最小；</li>
+<li>若已经选定边 <span class="arithmatex">\(e_1,e_2,\cdots,e_k\)</span> ，则从 <span class="arithmatex">\(E-\{e_1,e_2,\cdots,e_k\}\)</span> 中选择边 <span class="arithmatex">\(e_{k+1}\)</span> , 使得：</li>
+<li><span class="arithmatex">\([e_1,e_2,\cdots,e_{k+1}]\)</span> 为无圈图</li>
+<li><span class="arithmatex">\(e_{k+1}\)</span> 的权值 <span class="arithmatex">\(w(e_{k+1})\)</span> 尽可能小。</li>
+<li>当 (2) 不能进行时，停止。</li>
+</ol>
+<h5 id="完备性证明">完备性证明<a class="headerlink" href="#完备性证明" title="Permanent link">&para;</a></h5>
+<p>克鲁斯克尔算法得到的任何生成树一定是最小生成树。证明：</p>
+<p>设 <span class="arithmatex">\(G\)</span> 是一个 <span class="arithmatex">\(n\)</span> 阶连通赋权图，用 <span class="arithmatex">\(T^*=G[\{e_1,e_2,\cdots,e_{n-1}\}]\)</span>（导出子图）表示由克鲁斯克尔算法得到的一棵生成树，我们证明：它是最小生成树</p>
+<p>设 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(G\)</span> 的一棵最小生成树。若 <span class="arithmatex">\(T^*≠T\)</span>.</p>
+<p>由克鲁斯克尔算法容易知道：<span class="arithmatex">\(T\cap T^*≠\varnothing\)</span>.</p>
+<p>于是令 <span class="arithmatex">\(f(T)=k\)</span> 表示 <span class="arithmatex">\(T^*\)</span> 中的边 <span class="arithmatex">\(e_i\)</span> 不在 <span class="arithmatex">\(T\)</span> 中的最小 <span class="arithmatex">\(i\)</span> 值。即可令 <span class="arithmatex">\(T=G[\{e_1,e_2,\cdots,e_{k-1},e'_k,\cdots,e'_{n-1}\}]\)</span>（导出子图）</p>
+<p>考虑：<span class="arithmatex">\(T∪e_k\)</span> , 则由树的性质，它必然为 <span class="arithmatex">\(G\)</span> 中圈 <span class="arithmatex">\(C\)</span> .</p>
+<p>作 <span class="arithmatex">\(T_1=T∪e_k-e\)</span> , 容易知道：<span class="arithmatex">\(T_1\)</span> 还为 <span class="arithmatex">\(G\)</span> 的一棵生成树。</p>
+<p>设 <span class="arithmatex">\(e\)</span> 是圈 <span class="arithmatex">\(C\)</span> 的在 <span class="arithmatex">\(T\)</span> 中，但不在 <span class="arithmatex">\(T^*\)</span> 中的边。</p>
+<p>由克鲁斯克尔算法知道：<span class="arithmatex">\(w(e)≥w(e_k)\)</span> .</p>
+<p>所以：<span class="arithmatex">\(w(T)≥w(T_1)\)</span> .</p>
+<p>这说明 <span class="arithmatex">\(T_1\)</span> 是最小树，但这与 <span class="arithmatex">\(f(T)\)</span> 的选取假设矛盾！所以：<span class="arithmatex">\(T=T^*\)</span></p>
+<h4 id="算法案例">算法案例<a class="headerlink" href="#算法案例" title="Permanent link">&para;</a></h4>
+<ol>
+<li>选一条边 <span class="arithmatex">\(e_1\)</span> , 使得 <span class="arithmatex">\(w(e_1)\)</span> 尽可能小；</li>
+<li>若边 <span class="arithmatex">\(e_1,e_2,\cdots,e_i\)</span> 已经选定，则用下述方法从 <span class="arithmatex">\(E\backslash\{e_1,e_2,\cdots,e_i\}\)</span> 中选取边 <span class="arithmatex">\(e_{i+1}\)</span></li>
+<li>(a) <span class="arithmatex">\(G[\{e_1,e_2,\cdots,e_{i+1}\}]\)</span> 为不相交路之并；</li>
+<li>(b) <span class="arithmatex">\(w(e_{i+1})\)</span> 是满足 (a) 的尽可能小的权。</li>
+<li>当 (2) 不能继续执行时停止。</li>
+</ol>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>该方法不能得到一条最小生成路</p>
+</div>
+<h4 id="管梅谷的破圈法">管梅谷的破圈法<a class="headerlink" href="#管梅谷的破圈法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>在克鲁斯克尔算法基础上，我国著名数学家管梅谷教授于 1975 年提出了最小生成树的破圈法。</p>
+</blockquote>
+<p>从赋权图 <span class="arithmatex">\(G\)</span> 的任意圈开始，去掉该圈中权值最大的一条边，称为破圈。</p>
+<p>不断破圈，直到 <span class="arithmatex">\(G\)</span> 中没有圈为止，最后剩下的 <span class="arithmatex">\(G\)</span> 的子图为 <span class="arithmatex">\(G\)</span> 的最小生成树</p>
+<h4 id="prim-算法">Prim 算法<a class="headerlink" href="#prim-算法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Prim 算法是由 Prim 在 1957 年提出的一个著名算法。作者因此而出名。Prim(1921---) 1949 年在普林斯顿大学获博士学位，是 Sandia 公司副总裁。</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>Kruskal 关注边，Prim 关注点</p>
+</div>
+<p>对于连通赋权图 <span class="arithmatex">\(G\)</span> 的任意一个顶点 <span class="arithmatex">\(u\)</span> ，选择与点 <span class="arithmatex">\(u\)</span> 关联的且权值最小的边作为最小生成树的第一条边 <span class="arithmatex">\(e_1\)</span> ;</p>
+<p>在接下来的边 <span class="arithmatex">\(e_2,e_3,\cdots,e_{n-1},\)</span> 在与一条已经选取的边只有一个公共端点的的所有边中，选取权值最小的边。</p>
+<h3 id="树图">树图<a class="headerlink" href="#树图" title="Permanent link">&para;</a></h3>
+<p>连通图 <span class="arithmatex">\(G\)</span> 的树图是指这样的图，它的顶点是 <span class="arithmatex">\(G\)</span> 的生成树 <span class="arithmatex">\(T_1,T_2,\cdots,T_\tau\)</span> ； <span class="arithmatex">\(T_i\)</span> 与 <span class="arithmatex">\(T_j\)</span> 相连当且仅当它们恰有 <span class="arithmatex">\(n-2\)</span> 条公共边。</p>
+<h4 id="连通性">连通性<a class="headerlink" href="#连通性" title="Permanent link">&para;</a></h4>
+<p>任何连通图的树图是连通图。</p>
+<hr />
+<p>证明：只需证明，对任意 <span class="arithmatex">\(T_i\)</span> 与 <span class="arithmatex">\(T_j\)</span> ，在树图中存在连接它们的路即可！</p>
+<p>对任意 <span class="arithmatex">\(T_i\)</span> 与 <span class="arithmatex">\(T_j\)</span> , 设 <span class="arithmatex">\(e_1,e_2,\cdots,e_k\ (k&lt;n-2)\)</span> 是它们的公共边。</p>
+<p>由树的性质：<span class="arithmatex">\(∃e'_{k+1}\in E(T_i)\)</span> , 但 <span class="arithmatex">\(e'_{k+1}\not\in E(T_j)\)</span> , 使得：<span class="arithmatex">\(T_j +e'_{k+1}\)</span> 有唯一圈。</p>
+<p>该圈中: <span class="arithmatex">\(∃e_{k+1}\in E(T_j)\)</span> , 但 <span class="arithmatex">\(e_{k+1}\not\in E(T_i)\)</span>；</p>
+<p>作： <span class="arithmatex">\(T_{i+1}=T_i-e'_{k+1}+e_{k+1}\)</span> ，则 <span class="arithmatex">\(T_i\)</span> 与 <span class="arithmatex">\(T_{i+1}\)</span> 有 <span class="arithmatex">\(n-2\)</span> 条边相同，于是，它们邻接。</p>
+<p>此时，<span class="arithmatex">\(T_{i+1}\)</span> 与 <span class="arithmatex">\(T_j\)</span> 有 <span class="arithmatex">\(k+1\)</span> 条边相同。</p>
+<p>如此这样作下去，可以得到连接 <span class="arithmatex">\(T_i\)</span> 与 <span class="arithmatex">\(T_j\)</span> 的一条路为：<span class="arithmatex">\(T_i, T_{i+1},\cdots,T_j\)</span>。</p>
+<p>所以，连通图 <span class="arithmatex">\(G\)</span> 的树图是连通的。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../spectral-clustering/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Spectral Clustering(谱聚类)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Spectral Clustering(谱聚类)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../logic/" class="md-footer__link md-footer__link--next" aria-label="Next: 逻辑学笔记">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                逻辑学笔记
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

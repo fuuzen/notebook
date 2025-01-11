@@ -1,0 +1,2720 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/signals-and-systems/CTFT/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../DTFT/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>连续时间信号的傅里叶变换 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#公式表" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              连续时间信号的傅里叶变换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../de/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signals and systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#公式表" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#傅里叶变换性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      傅里叶变换性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本傅里叶变换对" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本傅里叶变换对
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#非周期信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      非周期信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="非周期信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ft-公式推导" class="md-nav__link">
+    <span class="md-ellipsis">
+      FT 公式推导
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#收敛性" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="收敛性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#平方可积条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方可积条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dirichlet-条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dirichlet 条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常见信号的-ft" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见信号的 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见信号的 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#低通信号单侧" class="md-nav__link">
+    <span class="md-ellipsis">
+      低通信号(单侧)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#低通信号双侧" class="md-nav__link">
+    <span class="md-ellipsis">
+      低通信号(双侧)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲激信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲激信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      常数信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#矩形信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩形信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#周期信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="周期信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ft-公式推导_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FT 公式推导
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常见信号的-ft_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见信号的 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见信号的 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#正弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#余弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      余弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#均匀冲激串" class="md-nav__link">
+    <span class="md-ellipsis">
+      均匀冲激串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#周期性矩形脉冲" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期性矩形脉冲
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特殊信号-ft" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊信号 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊信号 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#符号函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奇偶对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶对称性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="奇偶对称性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#奇偶分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶分解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域和频域的尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域和频域的尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对偶性" class="md-nav__link">
+    <span class="md-ellipsis">
+      对偶性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#移频特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      移频特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频域微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频域积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parseval-定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parseval 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#相乘特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      相乘特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连续时间-lti-系统的分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续时间 LTI 系统的分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续时间 LTI 系统的分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#频域分析法" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域分析法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    周期信号的傅里叶级数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通信系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散/连续时间傅里叶系数/变换的对偶关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信号基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#公式表" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#傅里叶变换性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      傅里叶变换性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本傅里叶变换对" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本傅里叶变换对
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#非周期信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      非周期信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="非周期信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ft-公式推导" class="md-nav__link">
+    <span class="md-ellipsis">
+      FT 公式推导
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#收敛性" class="md-nav__link">
+    <span class="md-ellipsis">
+      收敛性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="收敛性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#平方可积条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方可积条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dirichlet-条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dirichlet 条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常见信号的-ft" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见信号的 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见信号的 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#低通信号单侧" class="md-nav__link">
+    <span class="md-ellipsis">
+      低通信号(单侧)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#低通信号双侧" class="md-nav__link">
+    <span class="md-ellipsis">
+      低通信号(双侧)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲激信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲激信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      常数信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#矩形信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      矩形信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#采样信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      采样信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#周期信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="周期信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ft-公式推导_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      FT 公式推导
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常见信号的-ft_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见信号的 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常见信号的 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#正弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#余弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      余弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#均匀冲激串" class="md-nav__link">
+    <span class="md-ellipsis">
+      均匀冲激串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#周期性矩形脉冲" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期性矩形脉冲
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特殊信号-ft" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊信号 FT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊信号 FT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#符号函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奇偶对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶对称性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="奇偶对称性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#奇偶分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶分解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域和频域的尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域和频域的尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对偶性" class="md-nav__link">
+    <span class="md-ellipsis">
+      对偶性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#移频特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      移频特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频域微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频域积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parseval-定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parseval 定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#相乘特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      相乘特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连续时间-lti-系统的分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续时间 LTI 系统的分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续时间 LTI 系统的分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#频域分析法" class="md-nav__link">
+    <span class="md-ellipsis">
+      频域分析法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>连续时间信号的傅里叶变换</h1>
+
+<h2 id="公式表">公式表<a class="headerlink" href="#公式表" title="Permanent link">&para;</a></h2>
+<h3 id="傅里叶变换性质">傅里叶变换性质<a class="headerlink" href="#傅里叶变换性质" title="Permanent link">&para;</a></h3>
+<p><img alt="傅里叶变换性质1" src="../../../assets/ie/signals-and-systems/CTFT/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%80%A7%E8%B4%A81.png" /><img alt="傅里叶变换性质2" src="../../../assets/ie/signals-and-systems/CTFT/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%80%A7%E8%B4%A82.png" /></p>
+<h3 id="基本傅里叶变换对">基本傅里叶变换对<a class="headerlink" href="#基本傅里叶变换对" title="Permanent link">&para;</a></h3>
+<p><img alt="基本傅里叶变换对表" src="../../../assets/ie/signals-and-systems/CTFT/%E5%9F%BA%E6%9C%AC%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%AF%B9%E8%A1%A8.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>连续时间非周期信号傅里叶变换的推导基本思想</p>
+</div>
+<ul>
+<li>非周期函数可以通过周期性延拓得到周期函数</li>
+<li>周期函数可以令基波周期趋于无穷大得到连续的非周期函数</li>
+</ul>
+<p>对于周期性矩形脉冲信号：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+a_k
+&amp;= \frac{2T_1}{T}\text{Sa}(k\pi\frac{2T_1}{T})\\
+Ta_k
+&amp;= 2T_1\text{Sa}(\omega T_1)
+\end{aligned}
+\]</div>
+<p>其中：<span class="arithmatex">\(\omega=k\omega_0=\frac{2k\pi}{T}\)</span>。</p>
+<p>两点之间的距离：</p>
+<div class="arithmatex">\[
+\Delta\omega=(k+1)\omega_0-k\omega_0=\omega_0=\frac{2\pi}{T}
+\]</div>
+<p>当 <span class="arithmatex">\(T\to\infty\)</span> 时有 <span class="arithmatex">\(\omega_0=\frac{2\pi}{T}\to 0\)</span> ，即两点之间距离趋于 0 ，函数包络线趋于连续函数。</p>
+<h2 id="非周期信号">非周期信号<a class="headerlink" href="#非周期信号" title="Permanent link">&para;</a></h2>
+<h3 id="ft-公式推导">FT 公式推导<a class="headerlink" href="#ft-公式推导" title="Permanent link">&para;</a></h3>
+<p>连续时间非周期信号傅里叶变换的推导</p>
+<p><img alt="连续时间非周期信号傅里叶变换的推导" src="../../../assets/ie/signals-and-systems/CTFT/%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%8E%A8%E5%AF%BC.png" /></p>
+<p>周期函数 <span class="arithmatex">\(\tilde{x}(t)\)</span> 以 T 为周期，在 <span class="arithmatex">\([-\frac{T}{2},\frac{T}{2}]\)</span> 内与 <span class="arithmatex">\(x(t)\)</span> 相等，它的傅里叶级数表示为：</p>
+<div class="arithmatex">\[
+\tilde{x}(t)=\sum_{k=-\infty}^{+\infty}a_k e^{jk\omega_0 t}
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>波浪号表示周期性</p>
+</div>
+<p>当 <span class="arithmatex">\(T\to\infty\)</span> 时，在 <span class="arithmatex">\((-\infty,\infty)\)</span> 内 <span class="arithmatex">\(\tilde{x}(t)=x(t)\)</span> ；</p>
+<div class="arithmatex">\[
+\begin{aligned}
+a_k
+&amp;= \frac{1}{T}{\int}_{-\frac{T}{2}}^{\frac{T}{2}} \tilde{x}(t) e^{-jk\omega_0 t}dt\\
+&amp;= \frac{1}{T}{\int}_{-\frac{T}{2}}^{\frac{T}{2}} x(t) e^{-jk\omega_0 t}dt\\
+&amp;= \frac{1}{T}{\int}_{-\infty}^{\infty} x(t) e^{-jk\omega_0 t}dt\\
+\end{aligned}
+\]</div>
+<p>定义<strong>频谱</strong>：（傅里叶正变换）</p>
+<div class="arithmatex">\[
+X(j\omega)={\int}_{-\infty}^{\infty} x(t) e^{-jk\omega_0 t}dt
+\]</div>
+<p>从而 <span class="arithmatex">\(a_k\)</span> 可以表示为：</p>
+<div class="arithmatex">\[
+a_k=\frac{1}{T}X(jk\omega_0)
+\]</div>
+<p>因此，在 <span class="arithmatex">\([-\frac{T}{2},\frac{T}{2}]\)</span> 内有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)=\tilde{x}(t)
+&amp;= \sum_{k=-\infty}^{+\infty} a_k e^{jk\omega_0 t}\\
+&amp;= \frac{1}{T} \sum_{k=-\infty}^{+\infty} X(jk\omega_0) e^{jk\omega_0 t}\\
+&amp;= \frac{1}{2\pi} \sum_{k=-\infty}^{+\infty} X(jk\omega_0) e^{jk\omega_0 t}\omega_0\\
+&amp;= \frac{1}{2\pi} \sum_{k=-\infty}^{+\infty} X(j\omega) e^{j\omega t}\Delta\omega\\
+\end{aligned}
+\]</div>
+<p>当 <span class="arithmatex">\(T\to\infty\)</span> 时，<span class="arithmatex">\(\Delta\omega=\omega_0\to0\)</span>，即 <span class="arithmatex">\(\Delta\omega\to d\omega\)</span> 则得到（傅里叶反变换）：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)=\tilde{x}(t)
+&amp;= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j\omega) e^{j\omega t}d\omega\\
+\end{aligned}
+\]</div>
+<p>从而得到<strong>傅里叶变换对</strong>：</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这两个公式是“一对”的，要么同时可积，要么都不可积</p>
+</div>
+<p><strong>傅里叶正变换</strong>，分析公式，(<span class="arithmatex">\(e^{j\omega t}\)</span> 的线性组合)</p>
+<div class="arithmatex">\[
+X(j\omega)={\int}_{-\infty}^{\infty} x(t) e^{-j\omega t}dt
+\]</div>
+<p><strong>傅里叶反变换</strong>，综合公式，(获得 <span class="arithmatex">\(x(t)\)</span> 的频谱)</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)=\frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j\omega) e^{j\omega t}d\omega\\
+\end{aligned}
+\]</div>
+<p>可以表示为：</p>
+<div class="arithmatex">\[
+x(t)\stackrel{CTFT}{\longleftrightarrow}X(j\omega)\\\\
+\mathscr{F}\{x(t)\}=X(j\omega)
+\]</div>
+<p>周期信号傅里叶级数的系数为其一个周期内信号傅里叶变换的等间隔采样：</p>
+<div class="arithmatex">\[
+\begin{cases}
+x(t)\Leftrightarrow X(j\omega)\\
+\tilde{x}(t)\Leftrightarrow a_k
+\end{cases}
+\Rightarrow a_k=\frac{1}{T}X(jk\omega_0)
+\]</div>
+<h3 id="收敛性">收敛性<a class="headerlink" href="#收敛性" title="Permanent link">&para;</a></h3>
+<p>既然傅里叶变换是从周期信号的傅里叶级数引出的，傅里叶变换的收敛问题就应该和傅里叶级数的收敛相一致。所以也有对应的两组条件；同样地两组条件并不完全等价。它们都是傅里叶变换存在的充分条件。</p>
+<p>:::warning</p>
+<p>和周期信号的情况一样，当 <span class="arithmatex">\(x(t)\)</span> 的傅里叶变换 <span class="arithmatex">\(X(j\omega)\)</span> 存在时，其反变换在间断点附近会产生 Gibbs 现象</p>
+<h4 id="平方可积条件">平方可积条件<a class="headerlink" href="#平方可积条件" title="Permanent link">&para;</a></h4>
+<h4 id="dirichlet-条件">Dirichlet 条件<a class="headerlink" href="#dirichlet-条件" title="Permanent link">&para;</a></h4>
+<h3 id="常见信号的-ft">常见信号的 FT<a class="headerlink" href="#常见信号的-ft" title="Permanent link">&para;</a></h3>
+<h4 id="低通信号单侧">低通信号(单侧)<a class="headerlink" href="#低通信号单侧" title="Permanent link">&para;</a></h4>
+<p><img alt="低通信号(单侧)1" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%8E%E9%80%9A%E4%BF%A1%E5%8F%B7%28%E5%8D%95%E4%BE%A7%291.png" /></p>
+<div class="arithmatex">\[
+x(t)=e^{-at}u(t),\ \ \ a\gt0
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(j\omega) &amp;=\int_{0}^{+\infty}e^{-at}e^{-j\omega t}dt=\frac{1}{a+j\omega}\\
+|X(j\omega)| &amp;=\frac{1}{\sqrt{a^2+\omega^2}}\\
+\frac{d}{d\omega}|X(j\omega)| &amp;=-\arctan\frac{\omega}{a}
+\end{aligned}
+\]</div>
+<p><img alt="低通信号(单侧)2" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%8E%E9%80%9A%E4%BF%A1%E5%8F%B7%28%E5%8D%95%E4%BE%A7%292.png" /></p>
+<p><img alt="低通信号(单侧)3" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%8E%E9%80%9A%E4%BF%A1%E5%8F%B7%28%E5%8D%95%E4%BE%A7%293.png" /></p>
+<h4 id="低通信号双侧">低通信号(双侧)<a class="headerlink" href="#低通信号双侧" title="Permanent link">&para;</a></h4>
+<p><img alt="低通信号(双侧)1" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%8E%E9%80%9A%E4%BF%A1%E5%8F%B7%28%E5%8F%8C%E4%BE%A7%291.png" /></p>
+<div class="arithmatex">\[
+x(t)=e^{-a|t|},\ \ \ a\gt0
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(j\omega)
+&amp;=\int_{-\infty}^{0}e^{at}e^{-j\omega t}dt
++\int_{0}^{+\infty}e^{-at}e^{-j\omega t}dt\\
+&amp;=\frac{1}{a-j\omega}+\frac{1}{a+j\omega}\\
+&amp;= \frac{2a}{a^2+\omega^2}\\
+\\
+|X(j\omega)| &amp;= X(j\omega)\\
+\end{aligned}
+\]</div>
+<p><img alt="低通信号(双侧)2" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%8E%E9%80%9A%E4%BF%A1%E5%8F%B7%28%E5%8F%8C%E4%BE%A7%292.png" /></p>
+<h4 id="冲激信号">冲激信号<a class="headerlink" href="#冲激信号" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)=\delta(t)
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+X(j\omega)=\int_{-\infty}^{+\infty}\delta(t)e^{-j\omega t}dt=1
+\]</div>
+<p><img alt="冲激信号正变换" src="../../../assets/ie/signals-and-systems/CTFT/%E5%86%B2%E6%BF%80%E4%BF%A1%E5%8F%B7%E6%AD%A3%E5%8F%98%E6%8D%A2.png" /></p>
+<p>这表明 <span class="arithmatex">\(\delta(t)\)</span> 中包括了所有的频率成分，且所有频率分量的幅度、相位都相同。因此，系统的单位冲激响应 <span class="arithmatex">\(h(t)\)</span> 才能完全描述一个 LTI 系统的特性，<span class="arithmatex">\(\delta(t)\)</span> 才在信号与系统分析中具有如此重要的意义。</p>
+<h4 id="常数信号">常数信号<a class="headerlink" href="#常数信号" title="Permanent link">&para;</a></h4>
+<p>*这个名字我乱起的</p>
+<div class="arithmatex">\[
+x(t)=1
+\]</div>
+<p>因为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{1}{2\pi} \int_{-\infty}^{+\infty} 2\pi\ \delta(\omega)\ e^{j\omega t}d\omega = 1
+\end{aligned}
+\]</div>
+<p>所以有反变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(j\omega) &amp;= 2\pi\delta(\omega)
+\end{aligned}
+\]</div>
+<hr />
+<p>冲激信号和双侧阶跃信号(我乱起名)的对偶关系：</p>
+<div class="arithmatex">\[
+\delta(t)\stackrel{F}{\longleftrightarrow}1\stackrel{F}{\longleftrightarrow}2\pi\delta(\omega)
+\]</div>
+<h4 id="矩形信号">矩形信号<a class="headerlink" href="#矩形信号" title="Permanent link">&para;</a></h4>
+<p><img alt="矩形信号" src="../../../assets/ie/signals-and-systems/CTFT/%E7%9F%A9%E5%BD%A2%E4%BF%A1%E5%8F%B7.png" /></p>
+<div class="arithmatex">\[
+x(t)=
+\begin{cases}
+1,\ \ \ |t|\lt T_1\\
+0,\ \ \ |t|\gt T_1
+\end{cases}
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(j\omega) &amp;=\int_{-T_1}^{T_1} e^{-j\omega t}dt\\
+&amp;=\frac{2\sin{\omega T_1}}{\omega}\\
+&amp;=\frac{2T_1\sin{\omega T_1}}{\omega T_1}\\
+&amp;=2T_1\text{Sa}(\omega T_1)
+= 2T_1\text{sinc}(\frac{\omega T_1}{\pi})\\\\
+a_k = \frac{X(j\omega)}{T}
+&amp;= \frac{2T_1}{T}\text{Sa}(k\omega_0 T_1) = \frac{2T_1}{T}\text{Sa}(\frac{2T_1}{T})
+\end{aligned}
+\]</div>
+<p>不同脉冲宽度对频谱的影响：</p>
+<p><img alt="不同脉冲宽度对矩形信号频谱的影响" src="../../../assets/ie/signals-and-systems/CTFT/%E4%B8%8D%E5%90%8C%E8%84%89%E5%86%B2%E5%AE%BD%E5%BA%A6%E5%AF%B9%E7%9F%A9%E5%BD%A2%E4%BF%A1%E5%8F%B7%E9%A2%91%E8%B0%B1%E7%9A%84%E5%BD%B1%E5%93%8D.png" /></p>
+<p>可见，信号宽度在时域和频域之间有一种相反的关系。</p>
+<h4 id="采样信号">采样信号<a class="headerlink" href="#采样信号" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+X(j\omega)=
+\begin{cases}
+1,\ \ \ |\omega|\lt W\\
+0,\ \ \ |\omega|\gt W
+\end{cases}
+\]</div>
+<p>有反变换：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t) &amp;=
+\frac{1}{2\pi}\int_{-W}^{+W} e^{-j\omega t}d\omega\\
+&amp;=\frac{\sin{Wt}}{\pi t}\\
+&amp;= \frac{W}{\pi}\text{Sa}(Wt)
+= \frac{W}{\pi}\text{Sa}(\frac{Wt}{\pi})
+\end{aligned}
+\]</div>
+<p><img alt="采样信号" src="../../../assets/ie/signals-and-systems/CTFT/%E9%87%87%E6%A0%B7%E4%BF%A1%E5%8F%B7.png" /></p>
+<p>可见 <span class="arithmatex">\(x(t)\)</span> 是采样信号</p>
+<hr />
+<p>矩形信号和采样信号的对偶关系：（上矩形信号、下采样信号）</p>
+<p><img alt="矩形信号和采样信号对偶关系" src="../../../assets/ie/signals-and-systems/CTFT/%E7%9F%A9%E5%BD%A2%E4%BF%A1%E5%8F%B7%E5%92%8C%E9%87%87%E6%A0%B7%E4%BF%A1%E5%8F%B7%E5%AF%B9%E5%81%B6%E5%85%B3%E7%B3%BB.png" /></p>
+<h2 id="周期信号">周期信号<a class="headerlink" href="#周期信号" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(Ta_k\)</span> 无论在 <span class="arithmatex">\(T\)</span> 有限还是无限的时候都可以是有限的，所以我们可以将 <span class="arithmatex">\(T\)</span> 有限时的周期信号和 <span class="arithmatex">\(T\)</span> 无限时的非周期信号用傅里叶变换统一起来</p>
+</div>
+<p>但是 <span class="arithmatex">\(a_k\)</span> 却不是，所以我们无法将周期信号和非周期信号都用傅里叶级数表示。</p>
+<h3 id="ft-公式推导_1">FT 公式推导<a class="headerlink" href="#ft-公式推导_1" title="Permanent link">&para;</a></h3>
+<p>考虑 <span class="arithmatex">\(X(j\omega)=2\pi\delta(\omega-\omega_0)\)</span> 所对应的信号：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)
+&amp;=\frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j\omega)\ e^{j\omega t}d\omega\\
+&amp;=\int_{-\infty}^{+\infty} \delta(\omega-\omega_0)\ e^{j\omega t}d\omega\\
+&amp;= e^{j\omega_0 t}
+\end{aligned}
+\]</div>
+<p>于是对于表示为傅里叶级数的周期信号 <span class="arithmatex">\(x(t)\)</span>：</p>
+<div class="arithmatex">\[
+x(t)=\sum_{k=-\infty}^{+\infty}a_k\ e^{jk\omega_0 t}
+\]</div>
+<p>就有<strong>频谱</strong>即<strong>正变换</strong>：</p>
+<div class="arithmatex">\[
+X(j\omega)=2\pi \sum_{k=-\infty}^{+\infty} a_k\ \delta(\omega-\omega_0)
+\]</div>
+<p>这表明周期信号的傅里叶正变换由一系列位于谐波频率处的冲激组成，其中 <span class="arithmatex">\(k\omega_0\)</span> 处的冲激强度为对应傅里叶级数系数 <span class="arithmatex">\(a_k\)</span> 的 <span class="arithmatex">\(2\pi\)</span> 倍。</p>
+<h3 id="常见信号的-ft_1">常见信号的 FT<a class="headerlink" href="#常见信号的-ft_1" title="Permanent link">&para;</a></h3>
+<h4 id="正弦信号">正弦信号<a class="headerlink" href="#正弦信号" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)=\sin(\omega_0 t)=\frac{1}{2j}(e^{j\omega_0 t}-e^{-j\omega_0 t})
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+X(j\omega)=\frac{\pi}{j}[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)]
+\]</div>
+<p><img alt="正弦信号" src="../../../assets/ie/signals-and-systems/CTFT/%E6%AD%A3%E5%BC%A6%E4%BF%A1%E5%8F%B7.png" /></p>
+<h4 id="余弦信号">余弦信号<a class="headerlink" href="#余弦信号" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)=\cos(\omega_0 t)=\frac{1}{2}(e^{j\omega_0 t}+e^{-j\omega_0 t})
+\]</div>
+<p>有正变换：</p>
+<div class="arithmatex">\[
+X(j\omega)=\pi[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]
+\]</div>
+<p><img alt="余弦信号" src="../../../assets/ie/signals-and-systems/CTFT/%E4%BD%99%E5%BC%A6%E4%BF%A1%E5%8F%B7.png" /></p>
+<h4 id="均匀冲激串">均匀冲激串<a class="headerlink" href="#均匀冲激串" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)=\sum_{n=-\infty}^{+\infty}\delta(t-nT)
+\]</div>
+<p>其中 <span class="arithmatex">\(T=\frac{2\pi}{\omega_0}\)</span>；</p>
+<p>其傅里叶系数：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+a_k
+&amp;=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}\delta(t)\ e^{-j\frac{2\pi}{T}kt}dt\\
+&amp;=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}\delta(t)dt\\
+&amp;=\frac{1}{T}
+\end{aligned}
+\]</div>
+<p>可得傅里叶正变换：</p>
+<div class="arithmatex">\[
+X(j\omega)=\frac{2\pi}{T}\sum_{k=-\infty}^{+\infty}\delta(\omega-\frac{2\pi}{T}k)
+\]</div>
+<p><img alt="均匀冲激串" src="../../../assets/ie/signals-and-systems/CTFT/%E5%9D%87%E5%8C%80%E5%86%B2%E6%BF%80%E4%B8%B2.png" /></p>
+<h4 id="周期性矩形脉冲">周期性矩形脉冲<a class="headerlink" href="#周期性矩形脉冲" title="Permanent link">&para;</a></h4>
+<p>其傅里叶系数：</p>
+<div class="arithmatex">\[
+a_k=\frac{2T_1}{T}\text{Sa}(\pi k\frac{2T_1}{T})
+\]</div>
+<p>有傅里叶正变换：</p>
+<div class="arithmatex">\[
+X(j\omega)=\frac{4\pi T_1}{T}\sum_{k=-\infty}^{+\infty}\text{Sa}(\pi k\frac{2T_1}{T})\ \delta(\omega-\frac{2\pi}{T}k)
+=2T_1\omega_0\sum_{k=-\infty}^{+\infty}\text{Sa}(\omega_0T_1\cdot k)\ \delta(\omega-\omega_0\cdot k)
+\]</div>
+<p>其中 <span class="arithmatex">\(\omega_0=\frac{2\pi}{T}\)</span> 为谱线间隔。</p>
+<h2 id="特殊信号-ft">特殊信号 FT<a class="headerlink" href="#特殊信号-ft" title="Permanent link">&para;</a></h2>
+<h3 id="符号函数">符号函数<a class="headerlink" href="#符号函数" title="Permanent link">&para;</a></h3>
+<p><img alt="符号函数" src="../../../assets/ie/signals-and-systems/CTFT/%E7%AC%A6%E5%8F%B7%E5%87%BD%E6%95%B0.png" /></p>
+<p>可以将符号函数定义为：</p>
+<div class="arithmatex">\[
+\text{Sgn}(t)=\lim_{a\to0}[e^{-at}u(t)-e^{at}u(-t)]
+\]</div>
+<p>其傅里叶变换为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathscr{F}\{\text{Sgn}(t)\}
+&amp;=\lim_{a\to0}[\frac{1}{a+j\omega}-\frac{1}{a-j\omega}]\\
+&amp;=\lim_{a\to0}\frac{-j2\omega}{a^2+(j\omega)^2}\\
+&amp;=\frac{2}{j\omega}
+\end{aligned}
+\]</div>
+<h3 id="单位阶跃函数">单位阶跃函数<a class="headerlink" href="#单位阶跃函数" title="Permanent link">&para;</a></h3>
+<p>将 <span class="arithmatex">\(u(t)\)</span> 分解为偶部和奇部有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;u(t)=u_e(t)+u_o(t)\\
+&amp;u_e(t)=\frac{1}{2}\\
+&amp;u_o(t)=\frac{1}{2}\text{Sgn}(t)
+\end{aligned}
+\]</div>
+<p>而 <span class="arithmatex">\(1\stackrel{CTFT}{\longleftrightarrow}2\pi\delta(\omega)\)</span> ，<span class="arithmatex">\(\text{Sgn}(t)\stackrel{CTFT}{\longleftrightarrow}\frac{2}{j\omega}\)</span> ，因此有：</p>
+<div class="arithmatex">\[
+u(t)\stackrel{F}{\longleftrightarrow}\frac{1}{j\omega}+\pi\delta(\omega)
+\]</div>
+<h2 id="性质">性质<a class="headerlink" href="#性质" title="Permanent link">&para;</a></h2>
+<h3 id="线性">线性<a class="headerlink" href="#线性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)\ \ ,\ \ y(t)\stackrel{F}{\longleftrightarrow}Y(j\omega)
+\Rightarrow
+ax(t)+by(t)\stackrel{F}{\longleftrightarrow}aX(j\omega)+bY(j\omega)
+\]</div>
+<h3 id="时移特性">时移特性<a class="headerlink" href="#时移特性" title="Permanent link">&para;</a></h3>
+<p>信号的<strong>时移</strong>会导致其频谱产生一个线性<strong>相移</strong></p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+x(t-t_0)\stackrel{F}{\longleftrightarrow}X(j\omega)e^{-j\omega t_0}
+\]</div>
+<hr />
+<p>证明</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathscr{F}\{x(t-t_0)\}
+&amp;=\int_{-\infty}^{+\infty}x(t-t_0)\ e^{-j\omega t}dt\\
+&amp;=\int_{-\infty}^{+\infty}x(t')\ e^{-j\omega(t'+t_0)}dt'\\
+&amp;=e^{-j\omega t_0}\int_{-\infty}^{+\infty}x(t')\ e^{-j\omega t'}dt'\\
+&amp;=e^{-j\omega t_0}X(j\omega)
+\end{aligned}
+\]</div>
+<h3 id="共轭对称性">共轭对称性<a class="headerlink" href="#共轭对称性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+x^*(t)\stackrel{F}{\longleftrightarrow}X^*(-j\omega)
+\]</div>
+<p>特别地，当 <span class="arithmatex">\(x(t)\)</span> 是实信号(实函数)，则有频谱: <span class="arithmatex">\(X(j\omega)=X^*(-j\omega)\)</span> 为<strong>共轭偶函数</strong>（<strong>实幅偶，虚相奇</strong>）</p>
+<hr />
+<p>证明</p>
+<p>由 <span class="arithmatex">\(x(t)\)</span> 的傅里叶正变换两侧同时取共轭有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X^*(j\omega)
+&amp;={\int}_{-\infty}^{\infty} [x(t) e^{-jk\omega_0 t}]^* dt\\
+&amp;={\int}_{-\infty}^{\infty} x(t)^* e^{jk\omega_0 t} dt\\
+\end{aligned}
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X^*(-j\omega)
+&amp;={\int}_{-\infty}^{\infty} x(t)^* e^{-jk\omega_0 t} dt\\
+\end{aligned}
+\]</div>
+<p>即得证：</p>
+<div class="arithmatex">\[
+x^*(t)\stackrel{F}{\longleftrightarrow}X^*(-j\omega)
+\]</div>
+<hr />
+<p>当 <span class="arithmatex">\(x(t)\)</span> 是实信号时有 <span class="arithmatex">\(x(t)=x^*(t)\)</span> ，于是有：</p>
+<div class="arithmatex">\[
+X(j\omega)=X^*(-j\omega)=\text{Re}[X(-j\omega)]+j\ \text{Im}[X(-j\omega)]
+\]</div>
+<p>共轭偶函数：</p>
+<ul>
+<li><strong>实</strong>部是<strong>偶</strong>函数：<span class="arithmatex">\(\text{Re}[X(j\omega)]=\text{Re}[X(-j\omega)]\)</span>；</li>
+<li><strong>虚</strong>部是<strong>奇</strong>函数：<span class="arithmatex">\(\text{Im}[X(j\omega)]=-\text{Im}[X(-j\omega)]\)</span>；</li>
+<li><strong>幅度</strong>是<strong>偶</strong>函数：<span class="arithmatex">\(|X(j\omega)|=|X(-j\omega)|\)</span>；</li>
+<li><strong>相位</strong>是<strong>奇</strong>函数：<span class="arithmatex">\(\text{Arg}X(j\omega)=-\text{Arg}X(-j\omega)\)</span>；</li>
+</ul>
+<hr />
+<h3 id="奇偶对称性">奇偶对称性<a class="headerlink" href="#奇偶对称性" title="Permanent link">&para;</a></h3>
+<ul>
+<li>偶信号的傅里叶(正)变换还是偶函数</li>
+<li>实偶信号的傅里叶(正)变换还是实偶函数</li>
+<li>奇信号的傅里叶(正)变换还是奇函数</li>
+<li>实奇信号的傅里叶(正)变换是<strong>虚奇</strong>函数</li>
+</ul>
+<p>用表格总结奇偶性、是否为实函数的不同情况下的傅里叶正变换奇偶情况：</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(x(t)\)</span></th>
+<th>偶函数:<span class="arithmatex">\(x(t)=x(-t)\)</span></th>
+<th>奇函数:<span class="arithmatex">\(x(t)=-x(-t)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般的</td>
+<td><span class="arithmatex">\(X(j\omega)=X(-j\omega)\)</span></td>
+<td><span class="arithmatex">\(X(j\omega)=-X(-j\omega)\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(x(t)\)</span>是实函数:<span class="arithmatex">\(x(t)=x^*(t)\)</span></td>
+<td><span class="arithmatex">\(X(j\omega)=X(-j\omega)=X^*(j\omega)=X^*(-j\omega)\)</span></td>
+<td><span class="arithmatex">\(X(j\omega)=-X(-j\omega)=X^*(-j\omega)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="奇偶分解">奇偶分解<a class="headerlink" href="#奇偶分解" title="Permanent link">&para;</a></h4>
+<p>实信号 <span class="arithmatex">\(x(t)\)</span> 若有奇偶分解 <span class="arithmatex">\(x(t)=x_e(t)+x_o(t)\)</span> ，则有：</p>
+<div class="arithmatex">\[
+X(j\omega)=X_e(j\omega)+X_o(j\omega)\\
+x_e(t)\stackrel{F}{\longleftrightarrow}X_e(-j\omega)\\
+x_o(t)\stackrel{F}{\longleftrightarrow}X_o(-j\omega)
+\]</div>
+<h3 id="时域微分特性">时域微分特性<a class="headerlink" href="#时域微分特性" title="Permanent link">&para;</a></h3>
+<p>可将微分运算转变为代数运算</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+\frac{d}{dt}x(t)\stackrel{F}{\longleftrightarrow}j\omega X(j\omega)
+\]</div>
+<p>可以推广到高次微分，在后面的微分方程分析 LTI 系统中会用到：</p>
+<div class="arithmatex">\[
+\frac{d^k}{dt^k}x(t)\stackrel{F}{\longleftrightarrow}(j\omega)^k X(j\omega)
+\]</div>
+<hr />
+<p>证明：傅里叶反变换两侧同时对 <span class="arithmatex">\(t\)</span> 微分即可</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)
+&amp;=\frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j\omega) e^{j\omega t}d\omega\\
+\frac{d}{dt}x(t)
+&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty} X(j\omega)\frac{d}{dt}e^{j\omega t}d\omega\\
+&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty} j\omega X(j\omega)\ e^{j\omega t}d\omega\\
+\end{aligned}
+\]</div>
+<h3 id="时域积分特性">时域积分特性<a class="headerlink" href="#时域积分特性" title="Permanent link">&para;</a></h3>
+<p>可将积分运算转变为代数运算</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+\int_{-\infty}^{t}x(\tau)d\tau\stackrel{F}{\longleftrightarrow}\frac{1}{j\omega}X(j\omega)+\pi X(0)\delta(\omega)
+\]</div>
+<hr />
+<p>证明：傅里叶正变换两侧同时对 <span class="arithmatex">\(\tau\)</span> 积分即可</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathscr{F}\{\int_{-\infty}^{t}x(\tau)d\tau\}
+&amp;=\int_{-\infty}^{+\infty}[\int_{-\infty}^{t}x(\tau)d\tau]e^{-j\omega t}dt\\
+&amp;=\int_{-\infty}^{+\infty}[\int_{-\infty}^{+\infty}x(\tau)u(t-\tau)d\tau]e^{-j\omega t}dt\\
+&amp;=\int_{-\infty}^{+\infty}x(\tau)[\int_{-\infty}^{+\infty}e^{-j\omega t}u(t-\tau)dt]d\tau\\
+&amp;=\int_{-\infty}^{+\infty}x(\tau)[\int_{-\infty}^{+\infty}e^{-j\omega(t-\tau)-j\omega\tau}u(t-\tau)d(t-\tau)]d\tau\\
+&amp;=\int_{-\infty}^{+\infty}x(\tau)e^{-j\omega\tau}[\int_{-\infty}^{+\infty}e^{-j\omega s}u(s)ds]d\tau\\
+&amp;=[\frac{1}{j\omega}+\pi\delta(\omega)]\int_{-\infty}^{+\infty}x(\tau)e^{-j\omega \tau}d\tau\\
+&amp;=[\frac{1}{j\omega}+\pi\delta(\omega)]X(j\omega)\\
+&amp;=\frac{1}{j\omega}X(j\omega)+\pi X(0)\delta(\omega)
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(u(s)\stackrel{CTFT}{\longleftrightarrow}\frac{1}{j\omega}+\pi\delta(\omega)\)</span> 是单位阶跃函数的傅里叶变换</p>
+<h3 id="时域和频域的尺度变换">时域和频域的尺度变换<a class="headerlink" href="#时域和频域的尺度变换" title="Permanent link">&para;</a></h3>
+<p>信号如果在时域扩展 <em>a</em> 倍，则其带宽相应压缩 <em>a</em> 倍，反之亦然</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+x(at)\stackrel{F}{\longleftrightarrow}\frac{1}{|a|}X(\frac{j\omega}{a})
+\]</div>
+<hr />
+<p>证明：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathscr{F}\{x(at)\}
+&amp;=\int_{-\infty}^{+\infty}x(at)e^{-j\omega t}dt\\
+&amp;=\frac{1}{|a|}\int_{-\infty}^{+\infty}x(\tau)e^{-j\frac{\omega}{a}\tau}d\tau\\
+&amp;=\frac{1}{|a|}X(\frac{j\omega}{a})
+\end{aligned}
+\]</div>
+<h3 id="对偶性">对偶性<a class="headerlink" href="#对偶性" title="Permanent link">&para;</a></h3>
+<p>由对偶性可以方便地将时域的某些特性对偶到频域</p>
+<div class="arithmatex">\[
+x(t)\stackrel{CTFT}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+X(jt)\stackrel{CTFT}{\longleftrightarrow}2\pi x(-\omega)
+\]</div>
+<hr />
+<p>证明：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)
+&amp;=\frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j\omega) e^{j\omega t}d\omega\\
+2\pi x(t)
+&amp;=\int_{-\infty}^{+\infty} X(j\omega) e^{j\omega t}d\omega\\
+2\pi x(\omega)
+&amp;=\int_{-\infty}^{+\infty} X(jt) e^{j\omega t}dt\\
+2\pi x(-\omega)
+&amp;=\int_{-\infty}^{+\infty} X(jt) e^{-j\omega t}dt\\
+\end{aligned}
+\]</div>
+<h3 id="移频特性">移频特性<a class="headerlink" href="#移频特性" title="Permanent link">&para;</a></h3>
+<p>将时域的时移性对偶可以得到频域的移频特性</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+x(t)e^{j\omega_0 t}\stackrel{F}{\longleftrightarrow}X[j(\omega-\omega_0)]
+\]</div>
+<hr />
+<p>证明：</p>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)\\
+\Downarrow\text{对偶性}\\
+X(jt)\stackrel{F}{\longleftrightarrow}2\pi x(-\omega)\\
+\Downarrow\text{时移特性}\\
+X(j(t-\omega_0))\stackrel{F}{\longleftrightarrow}2\pi x(-\omega)e^{-j\omega_0 t}\\
+\Downarrow\text{对偶性}\\
+2\pi x(-t)e^{-j\omega_0 t}\stackrel{F}{\longleftrightarrow}2\pi X[j(-\omega-\omega_0)]
+\Rightarrow
+x(t)e^{j\omega_0 t}\stackrel{F}{\longleftrightarrow}X[j(\omega-\omega_0)]
+\]</div>
+<h3 id="频域微分特性">频域微分特性<a class="headerlink" href="#频域微分特性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+-jtx(t)\stackrel{F}{\longleftrightarrow}\frac{d}{d\omega}X(j\omega)
+\]</div>
+<h3 id="频域积分特性">频域积分特性<a class="headerlink" href="#频域积分特性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+\frac{x(t)}{-jt}+\pi x(0)\delta(t)\stackrel{F}{\longleftrightarrow}\int_{-\infty}^{\omega}X(j\tau)d\tau
+\]</div>
+<h3 id="parseval-定理">Parseval 定理<a class="headerlink" href="#parseval-定理" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)
+\Rightarrow
+\int_{-\infty}^{+\infty}|x(t)|^2dt=\frac{1}{2\pi}\int_{-\infty}^{+\infty}|X(j\omega)|^2d\omega
+\]</div>
+<p>这表明：信号的能量既可以在时域求得，也可以在频域求得。由于 <span class="arithmatex">\(|X(j\omega)^2|\)</span> 表示了信号<strong>能量在频域的分布</strong>，因而称其为<strong>能量谱密度函数</strong>。</p>
+<h3 id="卷积特性"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />卷积特性<a class="headerlink" href="#卷积特性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{F}{\longleftrightarrow}X(j\omega)\ \ \ ,\ \ \ h(t)\stackrel{F}{\longleftrightarrow}H(j\omega)
+\Rightarrow
+x(t)*h(t)\stackrel{F}{\longleftrightarrow}X(j\omega)H(j\omega)
+\]</div>
+<p>本质上，卷积特性的成立正是因为复指数信号 <span class="arithmatex">\(e^{jωt}\)</span> 是一切 LTI 系统的特征函数，<span class="arithmatex">\(H(j\omega)\)</span> 则是对应的特征值</p>
+<hr />
+<p>证明</p>
+<p>令 <span class="arithmatex">\(y(t)=x(t)*h(t)=\int_{-\infty}^{+\infty}x(\tau)\ h(t-\tau)\ d\tau\)</span> ，求其傅里叶正变换为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathscr{F}\{y(t)\}=Y(j\omega)
+&amp;=\int_{-\infty}^{+\infty} e^{-j\omega t}\int_{-\infty}^{+\infty}x(\tau)\ h(t-\tau)\ d\tau\ dt\\
+&amp;=\int_{-\infty}^{+\infty} e^{-j\omega(t-\tau)-j\omega \tau}\int_{-\infty}^{+\infty}x(\tau)\ h(t-\tau)\ d\tau\ d(t-\tau)\\
+&amp;=\int_{-\infty}^{+\infty} e^{-j\omega s-j\omega \tau}\int_{-\infty}^{+\infty}x(\tau)\ h(s)\ d\tau\ ds\\
+&amp;=\int_{-\infty}^{+\infty}e^{-j\omega s}e^{-j\omega \tau}\int_{-\infty}^{+\infty}x(\tau)\ h(s)\ d\tau\ ds\\
+&amp;=\int_{-\infty}^{+\infty}x(\tau)\ e^{-j\omega \tau}\ d\tau\int_{-\infty}^{+\infty}h(s)\ e^{-j\omega s}\ ds\\
+&amp;=X(j\omega)H(j\omega)
+\end{aligned}
+\]</div>
+<p>另外，可将 <span class="arithmatex">\(x(t)\)</span> 视为复指数分量 <span class="arithmatex">\(e^{j\omega t}\)</span> 的线性组合，每个 <span class="arithmatex">\(e^{j\omega t}\)</span> 通过 LTI 系统时都要受到系统对应的特征值 <span class="arithmatex">\(H(j\omega)\)</span> 的加权</p>
+<hr />
+<p><strong>LTI 系统的单位冲激响应 <span class="arithmatex">\(h(t)\)</span> 与频率响应 <span class="arithmatex">\(H(j\omega)\)</span> 一一对应</strong>，因而 LTI 系统可以由其频率响应完全表征。</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /> 并非任何系统的频率响应都存在。</p>
+<p>用频率响应表征系统时，一般都限于对稳定系统。</p>
+<p>稳定性保证了 <span class="arithmatex">\(h(t)\)</span> 的绝对可积，结合 Dirichlet 的另外两个条件（实际系统一般满足），则频率响应必然存在</p>
+<h3 id="相乘特性"><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />相乘特性<a class="headerlink" href="#相乘特性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+s(t)\stackrel{F}{\longleftrightarrow}S(j\omega)\ \ \ ,\ \ \ p(t)\stackrel{F}{\longleftrightarrow}P(j\omega)
+\Rightarrow
+s(t)p(t)\stackrel{F}{\longleftrightarrow}\frac{1}{2\pi}S(j\omega)*P(j\omega)
+\]</div>
+<hr />
+<p>证明：利用对偶性可以从卷积性质得出相乘性质</p>
+<p>由对偶性有：</p>
+<div class="arithmatex">\[
+s(t)\stackrel{F}{\longleftrightarrow}S(j\omega)\ \ \ ,\ \ \ p(t)\stackrel{F}{\longleftrightarrow}P(j\omega)
+\Rightarrow
+S(jt)\stackrel{F}{\longleftrightarrow}2\pi S(-\omega)\ \ \ ,\ \ \ P(jt)\stackrel{F}{\longleftrightarrow}2\pi P(-\omega)\\
+\]</div>
+<p>由卷积特性有：</p>
+<div class="arithmatex">\[
+S(jt)*P(jt)\stackrel{F}{\longleftrightarrow}4\pi^2s(-\omega)p(-\omega)
+\]</div>
+<p>由对偶性有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+4\pi^2s(-t)p(-t)&amp;\stackrel{F}{\longleftrightarrow}2\pi S(-j\omega)*P(-j\omega)\\
+s(-t)p(-t)&amp;\stackrel{F}{\longleftrightarrow}\frac{1}{2\pi}S(-j\omega)*P(-j\omega)
+\end{aligned}
+\]</div>
+<h2 id="连续时间-lti-系统的分析">连续时间 LTI 系统的分析<a class="headerlink" href="#连续时间-lti-系统的分析" title="Permanent link">&para;</a></h2>
+<p>利用傅里叶变换及其特性对 LTI 系统分析</p>
+<h3 id="频域分析法">频域分析法<a class="headerlink" href="#频域分析法" title="Permanent link">&para;</a></h3>
+<p>根据卷积特性, 可以对 LTI 系统进行频域分析, 其过程为:</p>
+<ol>
+<li>求出（或已知、根据系统描述直接得出）系统单位冲激响应 <span class="arithmatex">\(h(t)\)</span>；</li>
+<li>求输入 <span class="arithmatex">\(x(t)\)</span> 的傅里叶正变换：<span class="arithmatex">\(x(t)\stackrel{CTFT}{\longleftrightarrow}X(j\omega)\)</span>；</li>
+<li>求单位冲激响应 <span class="arithmatex">\(h(t)\)</span> 的傅里叶正变换：<span class="arithmatex">\(h(t)\stackrel{CTFT}{\longleftrightarrow}H(j\omega)\)</span>；</li>
+<li>若需要求 <span class="arithmatex">\(Y(j\omega)\)</span> ，由傅里叶变换卷积特性得：<span class="arithmatex">\(Y(j\omega)=X(j\omega)H(j\omega)\)</span>；</li>
+<li>若需要求 <span class="arithmatex">\(y(t)\)</span>：</li>
+<li><span class="arithmatex">\(x(t)\)</span> 是非周期的（或非周期部分）：<ul>
+<li>往往由傅里叶反变换求得：<span class="arithmatex">\(y(t)=\mathscr{F}^{-1}\{Y(j\omega)\}=\frac{1}{2\pi} \int_{-\infty}^{+\infty} Y(j\omega) e^{j\omega t}d\omega\)</span>；</li>
+<li>对有理函数求傅里叶反变换通常采用<strong>部分分式展开</strong>和利用<strong>常用变换对</strong>进行</li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x(t)\)</span> 是周期的（或周期部分）：<ul>
+<li><span class="arithmatex">\(|Y(j\omega)|=|X(j\omega)|\times|H(j\omega)|\)</span>；</li>
+<li><span class="arithmatex">\(\text{arg}Y(j\omega)=\text{arg}X(j\omega)+\text{arg}H(j\omega)\)</span>；</li>
+</ul>
+</li>
+</ol>
+<h3 id="线性常微分方程">线性常微分方程<a class="headerlink" href="#线性常微分方程" title="Permanent link">&para;</a></h3>
+<p>*线性常系数微分方程</p>
+<p>对于由线性常系数微分方程描述的 LTI 系统：</p>
+<div class="arithmatex">\[
+\sum_{k=0}^{N}a_k\frac{d^ky(t)}{dt^k}=\sum_{k=0}^{M}b_k\frac{d^kx(t)}{dt^k}
+\]</div>
+<p>对方程两边进行<strong>傅里叶变换</strong>，有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\sum_{k=0}^{N}a_{k}(j\omega)^{k}Y(j\omega)
+&amp;=
+\sum_{k=0}^{M}b_{k}(j\omega)^{k}X(j\omega)\\
+Y(j\omega)\sum_{k=0}^{N}a_{k}(j\omega)^{k}
+&amp;=
+X(j\omega)\sum_{k=0}^{M}b_{k}(j\omega)^{k}\\
+{Y(j\omega)\over X(j\omega)}
+&amp;=
+{\sum_{k=0}^{M}b_{k}(j\omega)^{k}\over\sum_{k=0}^{N}a_{k}(j\omega)^{k}}
+\end{aligned}
+\]</div>
+<p>由 CTFT 卷积特性有：</p>
+<div class="arithmatex">\[
+Y(j\omega)=X(j\omega)H(j\omega)
+\]</div>
+<p>可得：</p>
+<div class="arithmatex">\[
+H(j\omega)={Y(j\omega)\over X(j\omega)}={\sum_{k=0}^{M}b_{k}(j\omega)^{k}\over\sum_{k=0}^{N}a_{k}(j\omega)^{k}}
+\]</div>
+<p>可见由线性常系数微分方程描述的 LTI 系统的频率响应是一个有理函数。</p>
+<p>若要求 <span class="arithmatex">\(h(t)\)</span> ，也就是系统的单位冲激响应，则往往可以对有理函数（有理分式）形式的 <span class="arithmatex">\(H(j\omega)\)</span> 变形化得到常用变换对的表示形式，再利用常用变换对反变换得到 <span class="arithmatex">\(h(t)\)</span> 。</p>
+<hr />
+<p>反之，若已知一个 LTI 系统的频率响应 <span class="arithmatex">\(H(j\omega)={Y(j\omega)\over X(j\omega)}\)</span> ，则可以列出两侧分别是关于 <span class="arithmatex">\(Y(j\omega)\)</span> 和<span class="arithmatex">\(X(j\omega)\)</span> 的方程，两侧同时进行<strong>傅里叶反变换</strong>，（注意将 <span class="arithmatex">\(j\omega\)</span> 视为一个整体）则可得到描述该 LTI 系统的线性常系数微分方程</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 信号与系统">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                信号与系统
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../DTFT/" class="md-footer__link md-footer__link--next" aria-label="Next: 离散时间信号的傅里叶变换">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                离散时间信号的傅里叶变换
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

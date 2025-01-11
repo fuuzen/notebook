@@ -1,0 +1,2160 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/cryptography/aes-128/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../affine-hill/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>AES-128 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#加密模式处理" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AES-128
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cryptography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    AES-128
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    AES-128
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#加密模式处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      加密模式处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加密模式处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      ECB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CBC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CFB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ofb" class="md-nav__link">
+    <span class="md-ellipsis">
+      OFB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctr" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aes-cipher--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      AES Cipher &amp; Inverse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AES Cipher & Inverse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subbytes--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      SubBytes &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shiftrows--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      ShiftRows &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixcolumns--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      MixColumns &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Expansion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#思考题" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="思考题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      回答
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#附录" class="md-nav__link">
+    <span class="md-ellipsis">
+      附录
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../affine-hill/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿射希尔密码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dlp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DLP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finite-field/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    有限域运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lattice-attack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    格攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rsa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RSA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sha-256/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SHA-256
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vigenere/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    维吉尼亚密码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#加密模式处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      加密模式处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="加密模式处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      ECB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CBC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      CFB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ofb" class="md-nav__link">
+    <span class="md-ellipsis">
+      OFB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctr" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aes-cipher--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      AES Cipher &amp; Inverse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AES Cipher & Inverse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subbytes--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      SubBytes &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shiftrows--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      ShiftRows &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixcolumns--inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      MixColumns &amp; Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Expansion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#思考题" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="思考题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      回答
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#附录" class="md-nav__link">
+    <span class="md-ellipsis">
+      附录
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>AES-128</h1>
+
+<h2 id="加密模式处理">加密模式处理<a class="headerlink" href="#加密模式处理" title="Permanent link">&para;</a></h2>
+<h3 id="ecb">ECB<a class="headerlink" href="#ecb" title="Permanent link">&para;</a></h3>
+<p>The Electronic Codebook Mode</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/YusVWnNSbeFIJ9T.png" width="67%" /></p>
+<h3 id="cbc">CBC<a class="headerlink" href="#cbc" title="Permanent link">&para;</a></h3>
+<p>The Cipher Block Chaining Mode</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/jPJTpYMD4QXai9A.png" width="67%" /></p>
+<h3 id="cfb">CFB<a class="headerlink" href="#cfb" title="Permanent link">&para;</a></h3>
+<p>The Cipher Feedback Mode</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/hV8KyidMoAIbLsc.png" width="67%" /></p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/zhrgjk2tH1aoJSR.png" width="67%" /></p>
+<p>这里只需要考虑 CFB-128bit，也就是 <span class="arithmatex">\(s=b\)</span>，所以上述过程可以简化为如下：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\text{CFB Encryption:}
+&amp;&amp;C_1=P_1\oplus CIPH_K(IV)\\
+&amp;&amp;&amp;C_j=P_j\oplus CIPH_K(C_{j-1}) &amp;&amp; \text{for}\ j=2\cdots n;\\\\
+&amp;\text{CFB Decryption:}
+&amp;&amp;P_1=C_1\oplus CIPH_K(IV)\\
+&amp;&amp;&amp;P_j=C_j\oplus CIPH_K(C_{j-1}) &amp;&amp; \text{for}\ j=2\cdots n;
+\end{aligned}
+\]</div>
+<h3 id="ofb">OFB<a class="headerlink" href="#ofb" title="Permanent link">&para;</a></h3>
+<p>The Output Feedback Mode</p>
+<p>最后一个分组 block 长度可以小于 128 bit，这里假定其长度为 <span class="arithmatex">\(u\)</span>。</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/1iaR5dYprhomtDT.png" /></p>
+<p>我消去 <span class="arithmatex">\(I\)</span>，仅用 <span class="arithmatex">\(O\)</span> 表示密钥流的变化，更加直观：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\text{OFB Encryption:}
+&amp;&amp;O_1=CIPH_K(IV)\\
+&amp;&amp;&amp;O_j=CIPH_K(O_{j-1}) &amp;&amp; \text{for}\ j=2\cdots n;\\
+&amp;&amp;&amp;C_j=P_j\oplus O_{j} &amp;&amp; \text{for}\ j=1,2\cdots n-1;\\
+&amp;&amp;&amp;C_n^*=P_n^*\oplus (O_{j}&gt;&gt;(b-u))\\
+\\
+&amp;\text{OFB Decryption:}
+&amp;&amp;O_1=CIPH_K(IV)\\
+&amp;&amp;&amp;O_j=CIPH_K(O_{j-1}) &amp;&amp; \text{for}\ j=2\cdots n;\\
+&amp;&amp;&amp;P_j=C_j\oplus O_{j} &amp;&amp; \text{for}\ j=1,2\cdots n-1;\\
+&amp;&amp;&amp;P_n^*=C_n^*\oplus (O_{j}&gt;&gt;(b-u))\\
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(b\)</span> 是一个 block 分组的大小，这里就是 128 bit。</p>
+<h3 id="ctr">CTR<a class="headerlink" href="#ctr" title="Permanent link">&para;</a></h3>
+<p>The Counter Mode</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/G59qAkIS3sWyZxu.png" /></p>
+<h2 id="aes-cipher--inverse">AES Cipher &amp; Inverse<a class="headerlink" href="#aes-cipher--inverse" title="Permanent link">&para;</a></h2>
+<p>下图展现了实现加密和解密 AES 的过程，将每一轮每一个变换函数建立了一一对应关系。</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/19/1Gg5RhOty6fKzNi.png" /></p>
+<p>其中除了 Add 操作之外（直接异或即可），包含主要 3 对变换和反变换。另外还需要进行 Expand Key，在 AES-128 中就是将 128 bits 输入 key 计算得到规模为 128x11 bits 的 11 个 key。</p>
+<h3 id="subbytes--inverse">SubBytes &amp; Inverse<a class="headerlink" href="#subbytes--inverse" title="Permanent link">&para;</a></h3>
+<p>这一变换数学上的功能是对每一个字节实现如下变换：</p>
+<ul>
+<li>
+<p>将八位字节视为有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上的元素，进行取逆</p>
+</li>
+<li>
+<p>然后进行如下仿射变换：（<span class="arithmatex">\(b_i\)</span> 表示一个字节从低位开始数的第 <span class="arithmatex">\(i+1\)</span> 位）</p>
+</li>
+</ul>
+<p><img alt="image-20241121133756106" src="https://s2.loli.net/2024/11/21/tC8ZifFRQSvbB1A.png" /></p>
+<p>从结果上来说，上述变换过程及其反变换完全可以通过查表来完成。所以对于 <code>SubBytes</code> 和 <code>InvSubBytes</code> 变换，就是分别将每一个字节经过预先计算好的 AES S-Box 和 AES Inv-S-Box 进行查表置换。</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/1yFmb9ohqrIYZ8l.png" /></p>
+<p>对于一个字节，有 <span class="arithmatex">\(2^8=256\)</span> 种取值，所以两个 Box 的大小都是 256，内容如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">Sbox</span><span class="p">[</span><span class="mi">256</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="mh">0x63</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x77</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x30</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x67</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFE</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x76</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="mh">0xCA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x82</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x59</span><span class="p">,</span><span class="w"> </span><span class="mh">0x47</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAD</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAF</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA4</span><span class="p">,</span><span class="w"> </span><span class="mh">0x72</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC0</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="mh">0xB7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x93</span><span class="p">,</span><span class="w"> </span><span class="mh">0x26</span><span class="p">,</span><span class="w"> </span><span class="mh">0x36</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA5</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE5</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x71</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x31</span><span class="p">,</span><span class="w"> </span><span class="mh">0x15</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x23</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x18</span><span class="p">,</span><span class="w"> </span><span class="mh">0x96</span><span class="p">,</span><span class="w"> </span><span class="mh">0x05</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x07</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x27</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x75</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="mh">0x09</span><span class="p">,</span><span class="w"> </span><span class="mh">0x83</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x52</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x29</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x84</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="mh">0x53</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0xED</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFC</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCB</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x39</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x58</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCF</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="mh">0xD0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAA</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x43</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x33</span><span class="p">,</span><span class="w"> </span><span class="mh">0x85</span><span class="p">,</span><span class="w"> </span><span class="mh">0x45</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA8</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="mh">0x51</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x92</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x38</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF5</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBC</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x21</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF3</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD2</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="mh">0xCD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x13</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x97</span><span class="p">,</span><span class="w"> </span><span class="mh">0x44</span><span class="p">,</span><span class="w"> </span><span class="mh">0x17</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x64</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x19</span><span class="p">,</span><span class="w"> </span><span class="mh">0x73</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="mh">0x60</span><span class="p">,</span><span class="w"> </span><span class="mh">0x81</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x22</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x90</span><span class="p">,</span><span class="w"> </span><span class="mh">0x88</span><span class="p">,</span><span class="w"> </span><span class="mh">0x46</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEE</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x14</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDB</span><span class="p">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="mh">0xE0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x32</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x49</span><span class="p">,</span><span class="w"> </span><span class="mh">0x06</span><span class="p">,</span><span class="w"> </span><span class="mh">0x24</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD3</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x62</span><span class="p">,</span><span class="w"> </span><span class="mh">0x91</span><span class="p">,</span><span class="w"> </span><span class="mh">0x95</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE4</span><span class="p">,</span><span class="w"> </span><span class="mh">0x79</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="mh">0xE7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x37</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x56</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x65</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x08</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="mh">0xBA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x78</span><span class="p">,</span><span class="w"> </span><span class="mh">0x25</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x74</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8A</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="mh">0x70</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x66</span><span class="p">,</span><span class="w"> </span><span class="mh">0x48</span><span class="p">,</span><span class="w"> </span><span class="mh">0x03</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x61</span><span class="p">,</span><span class="w"> </span><span class="mh">0x35</span><span class="p">,</span><span class="w"> </span><span class="mh">0x57</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x86</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9E</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="mh">0xE1</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x98</span><span class="p">,</span><span class="w"> </span><span class="mh">0x11</span><span class="p">,</span><span class="w"> </span><span class="mh">0x69</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x94</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x87</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE9</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x55</span><span class="p">,</span><span class="w"> </span><span class="mh">0x28</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDF</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="mh">0x8C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x89</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x42</span><span class="p">,</span><span class="w"> </span><span class="mh">0x68</span><span class="p">,</span><span class="w"> </span><span class="mh">0x41</span><span class="p">,</span><span class="w"> </span><span class="mh">0x99</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x54</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x16</span><span class="p">,</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">};</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">InvSbox</span><span class="p">[</span><span class="mi">256</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="mh">0x52</span><span class="p">,</span><span class="w"> </span><span class="mh">0x09</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x30</span><span class="p">,</span><span class="w"> </span><span class="mh">0x36</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x38</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBF</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x81</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF3</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFB</span><span class="p">,</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="mh">0x7C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x39</span><span class="p">,</span><span class="w"> </span><span class="mh">0x82</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">,</span><span class="w"> </span><span class="mh">0x87</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x43</span><span class="p">,</span><span class="w"> </span><span class="mh">0x44</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDE</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE9</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCB</span><span class="p">,</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="mh">0x54</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x94</span><span class="p">,</span><span class="w"> </span><span class="mh">0x32</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x23</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x95</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x42</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFA</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4E</span><span class="p">,</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="mh">0x08</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x66</span><span class="p">,</span><span class="w"> </span><span class="mh">0x28</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x24</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x76</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x49</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x25</span><span class="p">,</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="mh">0x72</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x64</span><span class="p">,</span><span class="w"> </span><span class="mh">0x86</span><span class="p">,</span><span class="w"> </span><span class="mh">0x68</span><span class="p">,</span><span class="w"> </span><span class="mh">0x98</span><span class="p">,</span><span class="w"> </span><span class="mh">0x16</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA4</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x65</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x92</span><span class="p">,</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="mh">0x6C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x70</span><span class="p">,</span><span class="w"> </span><span class="mh">0x48</span><span class="p">,</span><span class="w"> </span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFD</span><span class="p">,</span><span class="w"> </span><span class="mh">0xED</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB9</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x15</span><span class="p">,</span><span class="w"> </span><span class="mh">0x46</span><span class="p">,</span><span class="w"> </span><span class="mh">0x57</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x84</span><span class="p">,</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="mh">0x90</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBC</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE4</span><span class="p">,</span><span class="w"> </span><span class="mh">0x58</span><span class="p">,</span><span class="w"> </span><span class="mh">0x05</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x45</span><span class="p">,</span><span class="w"> </span><span class="mh">0x06</span><span class="p">,</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="mh">0xD0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC1</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x03</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x13</span><span class="p">,</span><span class="w"> </span><span class="mh">0x8A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6B</span><span class="p">,</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="mh">0x3A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x91</span><span class="p">,</span><span class="w"> </span><span class="mh">0x11</span><span class="p">,</span><span class="w"> </span><span class="mh">0x41</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x67</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDC</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x97</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCE</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x73</span><span class="p">,</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="mh">0x96</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x74</span><span class="p">,</span><span class="w"> </span><span class="mh">0x22</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE7</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x35</span><span class="p">,</span><span class="w"> </span><span class="mh">0x85</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE2</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x37</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x75</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDF</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6E</span><span class="p">,</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="mh">0x47</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x71</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x29</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x89</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x62</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x18</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1B</span><span class="p">,</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="mh">0xFC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x56</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3E</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4B</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC6</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x79</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDB</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x78</span><span class="p">,</span><span class="w"> </span><span class="mh">0xCD</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF4</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="mh">0x1F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xDD</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x33</span><span class="p">,</span><span class="w"> </span><span class="mh">0x88</span><span class="p">,</span><span class="w"> </span><span class="mh">0x07</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x31</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span><span class="w"> </span><span class="mh">0x59</span><span class="p">,</span><span class="w"> </span><span class="mh">0x27</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5F</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="mh">0x60</span><span class="p">,</span><span class="w"> </span><span class="mh">0x51</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7F</span><span class="p">,</span><span class="w"> </span><span class="mh">0xA9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x19</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7A</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x93</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEF</span><span class="p">,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="mh">0xA0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAE</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2A</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF5</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB0</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEB</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x3C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x83</span><span class="p">,</span><span class="w"> </span><span class="mh">0x53</span><span class="p">,</span><span class="w"> </span><span class="mh">0x99</span><span class="p">,</span><span class="w"> </span><span class="mh">0x61</span><span class="p">,</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="mh">0x17</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBA</span><span class="p">,</span><span class="w"> </span><span class="mh">0x77</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x26</span><span class="p">,</span><span class="w"> </span><span class="mh">0xE1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x69</span><span class="p">,</span><span class="w"> </span><span class="mh">0x14</span><span class="p">,</span><span class="w"> </span><span class="mh">0x63</span><span class="p">,</span><span class="w"> </span><span class="mh">0x55</span><span class="p">,</span><span class="w"> </span><span class="mh">0x21</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0C</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7D</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="p">};</span>
+</code></pre></div>
+<h3 id="shiftrows--inverse">ShiftRows &amp; Inverse<a class="headerlink" href="#shiftrows--inverse" title="Permanent link">&para;</a></h3>
+<p>这一变换比较简单，就是对表示为 4x4 矩阵的 16 字节数据，对第 <span class="arithmatex">\(i\)</span> 行进行 <span class="arithmatex">\(i\)</span> 字节轮转。（<span class="arithmatex">\(0\leq i\leq 3\)</span>）</p>
+<p>所以显然第一行，也就是第 <span class="arithmatex">\(0\)</span> 行进行 <span class="arithmatex">\(0\)</span> 字节轮转是没有实际作用可以省略的。其过程如下图所示：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/4aOSv6ZwFiTQoEf.png" width="67%" /></p>
+<p>逆变换则如下所示：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/Rai4HyTJ16UEkdv.png" width="67%" /></p>
+<p>cpp 使用冒泡的方式处理如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// uint8_t c[16]</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ShiftRows</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">){</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">13</span><span class="p">]);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">10</span><span class="p">]);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">14</span><span class="p">]);</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">11</span><span class="p">]);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">7</span><span class="p">]);</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InvShiftRows</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">){</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">13</span><span class="p">]);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">10</span><span class="p">]);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">14</span><span class="p">]);</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">7</span><span class="p">]);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="n">swap</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">11</span><span class="p">]);</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="mixcolumns--inverse">MixColumns &amp; Inverse<a class="headerlink" href="#mixcolumns--inverse" title="Permanent link">&para;</a></h3>
+<p>对表示为 4x4 矩阵的 16 字节数据，每一列 4 字节向量，视为一个 <span class="arithmatex">\(x=2^8\)</span> 并且系数来自 <span class="arithmatex">\(GF(2^8)\)</span> 的多项式</p>
+<div class="arithmatex">\[
+a(x)=a_3x+a_2x+a_1x+a_0\\a_i\in GF(2^8),\ \ x=2^8
+\]</div>
+<p>AES 使用了一对可逆的多项式，通过对这两个多项式进行模乘实现变换和逆变换：</p>
+<div class="arithmatex">\[
+b(x)=\{\text{0x03}\}x^3+\{\text{0x01}\}x^2+\{\text{0x01}\}x+\{\text{0x02}\}\\
+b^{-1}(x)=\{\text{0x0B}\}x^3+\{\text{0x0D}\}x^2+\{\text{0x09}\}x+\{\text{0x0E}\}
+\]</div>
+<p>于是 <span class="arithmatex">\(a(x)\otimes b(x)\)</span> 就可以表示为有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上的向量与可逆矩阵乘法：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/gaH2SAdtkrPzcop.png" width="67%" /></p>
+<p>同理，<span class="arithmatex">\(a(x)\otimes b^{-1}(x)\)</span> 也表示为有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上的向量与可逆矩阵乘法：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/yg1slXq3QtjI8N9.png" /></p>
+<p>这里有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上的模乘运算如果再通过查表算，就需要 <span class="arithmatex">\(7\times256\)</span> 大小的表，因为两个矩阵总共出现了 7 种不同的系数。在 AES 标准中没有使用查表，而是使用有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上位运算实现的乘 2 模运算 <code>xtime</code> 实现。这个函数运算非常简单，cpp 实现如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">xtime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x80</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mh">0x1B</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">};</span>
+</code></pre></div>
+<p>对于一般的有限域 <span class="arithmatex">\(GF(2^8)\)</span> 上模乘运算 <span class="arithmatex">\(a\otimes b\)</span>，就能用 <code>xtime</code> 表示如下：</p>
+<div class="arithmatex">\[
+a\otimes b=b_7\cdot\text{xtime}^{7}(a)+b_6\cdot\text{xtime}^{6}(a)+\cdots+b_1\cdot\text{xtime}(a)+b_0\cdot a\ \ \ ,\ \ \ b_i\in\{0,1\}
+\]</div>
+<p>然后矩阵运算还可以技巧性的使用中间变量，避免进行重复相同的运算，cpp 实现单独对一个列变换和反变换如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">MixColumn</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">){</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">u</span><span class="p">);</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InvMixColumn</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">){</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">xtime</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]));</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xtime</span><span class="p">(</span><span class="n">xtime</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]));</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="n">MixColumn</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="key-expansion">Key Expansion<a class="headerlink" href="#key-expansion" title="Permanent link">&para;</a></h3>
+<p>过程大致如图所示：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/NglcXtvuFjoJQiM.png" /></p>
+<p><a href="https://csrc.nist.gov/files/pubs/fips/197/final/docs/fips-197.pdf">NIST 的 AES 标准文档 FIPS 197 </a>给出的伪代码如下：</p>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/HlWeJjIm5DCrFwP.png" width="67%" /></p>
+<p>这里关键的几个步骤在于如下 2 个函数：</p>
+<ul>
+<li>
+<p><code>SubWord</code>，对一个 word 的 4 个字节分别进行和 SubBytes 变换一样的操作</p>
+</li>
+<li>
+<p><code>RotWord</code>，对一个 word 的 4 个字节进行和 ShiftRows 变换第二行一样的操作</p>
+</li>
+</ul>
+<p><img alt="" src="https://s2.loli.net/2024/11/21/ow4H3YKnRLfrveg.png" /></p>
+<p>还有一个数组 <code>Rcon</code>，定义为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">Rcon</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0x08</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1B</span><span class="p">,</span><span class="w"> </span><span class="mh">0x36</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6C</span><span class="p">,</span><span class="w"> </span><span class="mh">0xD8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xAB</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4D</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9A</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="mh">0x2F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x5E</span><span class="p">,</span><span class="w"> </span><span class="mh">0xBC</span><span class="p">,</span><span class="w"> </span><span class="mh">0x63</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x97</span><span class="p">,</span><span class="w"> </span><span class="mh">0x35</span><span class="p">,</span><span class="w"> </span><span class="mh">0x6A</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="mh">0xD4</span><span class="p">,</span><span class="w"> </span><span class="mh">0xB3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x7D</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFA</span><span class="p">,</span><span class="w"> </span><span class="mh">0xEF</span><span class="p">,</span><span class="w"> </span><span class="mh">0xC5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x91</span><span class="p">,</span><span class="w"> </span><span class="mh">0x39</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>在 AES-128 中只需要用到前 11 个。</p>
+<h2 id="思考题">思考题<a class="headerlink" href="#思考题" title="Permanent link">&para;</a></h2>
+<h3 id="问题-1">问题 1<a class="headerlink" href="#问题-1" title="Permanent link">&para;</a></h3>
+<p>除了课堂上介绍的五种模式以外，分组加密还有一些其他的工作模式。考虑下面的两个场景，使用什么工作模式可以满足它们的需求？这个工作模式的原理是什么？</p>
+<ul>
+<li>你需要检查密文是否被篡改（不需要单独使用 Hash 函数）。</li>
+<li>你需要加密一块磁盘。磁盘上的数据是以扇区（通常为 512 Bytes）为单位读写的，操作系统可以通过扇区号随机访问扇区。磁盘加密的密文长度必须要和明文相同，不能使用额外的空间。（有兴趣的话，可以尝试使用一下磁盘加密软件，例如开源的 VeraCrypt）</li>
+</ul>
+<h4 id="回答">回答<a class="headerlink" href="#回答" title="Permanent link">&para;</a></h4>
+<p>检查密文是否被篡改，就需要认证功能，分组密码中支持认证的模式被称为 AE 模式，例如：</p>
+<ul>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=XCBC&amp;action=edit&amp;redlink=1">XCBC</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=ACBC&amp;action=edit&amp;redlink=1">ACBC</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Apm_(香港)">APM</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=OCB加密认证模式&amp;action=edit&amp;redlink=1">OCB</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=EAX加密认证模式&amp;action=edit&amp;redlink=1">EAX</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=CWC加密认证模式&amp;action=edit&amp;redlink=1">CWC</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=CCM加密认证模式&amp;action=edit&amp;redlink=1">CCM</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=GCM加密认证模式&amp;action=edit&amp;redlink=1">GCM</a>。</li>
+</ul>
+<p>有的模式也允许为未加密的关联数据进行认证，因此被称为 AEAD（Authenticated-Encryption with Associated-Data。</p>
+<p>对于磁盘加密，要求密文长度与明文相同且不能使用额外的空间，可以使用 ECB、CBC、CTR 、XTS（XEX Tweakable Block Cipher with ciphertext stealing）模式。根据我查阅到资料， XTS 模式是专门设计用于磁盘加密的工作模式，例如 Kingston 等厂商就会在其产品中使用。</p>
+<h3 id="问题-2">问题 2<a class="headerlink" href="#问题-2" title="Permanent link">&para;</a></h3>
+<p>尝试在实验 3-2 中实现全部五种工作模式：ECB、CBC、CFB、OFB、CTR。</p>
+<ul>
+<li>只要实现了对单个分组的加密和解密，实现其他的工作模式也是很简单的！</li>
+<li>选做，不会对分数产生影响。</li>
+</ul>
+<blockquote>
+<p>在前面有各个模式分析，当时我没时间搞这个</p>
+</blockquote>
+<h3 id="问题-3">问题 3<a class="headerlink" href="#问题-3" title="Permanent link">&para;</a></h3>
+<p>尝试使用 x64 CPU 的 AES 指令集（AES-NI）实现 AES-256。</p>
+<ul>
+<li>参考资料：x86/x64 SIMD 命令による AES 暗号処理</li>
+<li>理解 AES-NI 的各个指令的用途。</li>
+<li>上面的链接中有 C++ 编写的示例代码，仅供参考，不要直接提交或使用 GPT 格式化重命名后提交。</li>
+<li>请先用自己实现的版本 AC 后再编写使用 AES-NI 的版本，并在实验报告中附上两个版本的提交 ID。</li>
+<li>不计入思考题分数，但是可以影响性能分。</li>
+</ul>
+<blockquote>
+<p>见附录</p>
+</blockquote>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://csrc.nist.gov/files/pubs/fips/197/final/docs/fips-197.pdf">NIST 的 AES 标准文档 FIPS 197</a></li>
+<li><a href="https://github.com/p4-team/crypto-commons/blob/master/crypto_commons/symmetrical/aes.py">一个叫 crypto_commons 的 python 库中 AES 的实现</a></li>
+<li><a href="https://youtu.be/3MPkc-PFSRI">Youtube 上的一个 AES 图解系列视频</a></li>
+<li><a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf">NIST 的文档 Recommendation for Block Cipher Modes of Operation</a></li>
+</ul>
+<h2 id="附录">附录<a class="headerlink" href="#附录" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>当时忙着一个写数据库的比赛（Mini OceanBase ）没来得及弄密码学了</p>
+</blockquote>
+<p>没来得及完全完成 x64 CPU 的 AES 指令集（AES-NI）实现 AES-256，实际上我在自己实现的时候就已开始想使用 <code>__m128i</code> 一步到位，然后发现这是思考题附加内容，并且使用 AES 指令是真的“一步到位”，非常简单。所以我自己的实现只好退而求其次使用 <code>uint32_t</code> 和 <code>uint8_t</code> 来实现。</p>
+<p>已经初步写好，但好像还是错的，没来得及 debug 了，如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;emmintrin.h&gt;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;immintrin.h&gt;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1">// Number of columns (32-bit words) comprising the State. For this standard, Nb = 4</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="cp">#define Nb 4</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1">// Number of 32-bit words comprising the Cipher Key. For this standard, Nk = 4, 6, or 8</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="cp">#define Nk 4</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1">// Number of rounds, which is a function of Nk and Nb (which is fixed). For this standard, Nr = 10, 12, or 14</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="cp">#define Nr 10</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ecb_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ecb_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cbc_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cbc_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cfb_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cfb_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ofb_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ofb_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ctr_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ctr_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="k">enum</span><span class="w"> </span><span class="nc">MODE</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">    </span><span class="n">ECB_EN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00</span><span class="p">,</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">    </span><span class="n">ECB_DE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">    </span><span class="n">CBC_EN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">    </span><span class="n">CBC_DE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x81</span><span class="p">,</span>
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="w">    </span><span class="n">CFB_EN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span>
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">    </span><span class="n">CFB_DE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x82</span><span class="p">,</span>
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">    </span><span class="n">OFB_EN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x03</span><span class="p">,</span>
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">    </span><span class="n">OFB_DE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x83</span><span class="p">,</span>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="w">    </span><span class="n">CTR_EN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x04</span><span class="p">,</span>
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="w">    </span><span class="n">CTR_DE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x84</span><span class="p">,</span>
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="p">};</span>
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>
+<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a><span class="cp">#ifndef ONLINE_JUDGE</span>
+<a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
+<a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span>
+<a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">;</span>
+<a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a><span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start_time</span><span class="p">,</span><span class="w"> </span><span class="n">end_time</span><span class="p">;</span>
+<a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a><span class="cp">#endif</span>
+<a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a>
+<a id="__codelineno-5-56" name="__codelineno-5-56" href="#__codelineno-5-56"></a>
+<a id="__codelineno-5-57" name="__codelineno-5-57" href="#__codelineno-5-57"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<a id="__codelineno-5-58" name="__codelineno-5-58" href="#__codelineno-5-58"></a><span class="w">    </span><span class="cp">#ifndef ONLINE_JUDGE</span>
+<a id="__codelineno-5-59" name="__codelineno-5-59" href="#__codelineno-5-59"></a><span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;output.bin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wb&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-60" name="__codelineno-5-60" href="#__codelineno-5-60"></a><span class="w">    </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;input.bin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rb&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-61" name="__codelineno-5-61" href="#__codelineno-5-61"></a><span class="w">    </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<a id="__codelineno-5-62" name="__codelineno-5-62" href="#__codelineno-5-62"></a><span class="w">    </span><span class="cp">#endif</span>
+<a id="__codelineno-5-63" name="__codelineno-5-63" href="#__codelineno-5-63"></a>
+<a id="__codelineno-5-64" name="__codelineno-5-64" href="#__codelineno-5-64"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span>
+<a id="__codelineno-5-65" name="__codelineno-5-65" href="#__codelineno-5-65"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">KEY</span><span class="p">;</span>
+<a id="__codelineno-5-66" name="__codelineno-5-66" href="#__codelineno-5-66"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">IV</span><span class="p">;</span>
+<a id="__codelineno-5-67" name="__codelineno-5-67" href="#__codelineno-5-67"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
+<a id="__codelineno-5-68" name="__codelineno-5-68" href="#__codelineno-5-68"></a><span class="w">    </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mode</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">mode</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-69" name="__codelineno-5-69" href="#__codelineno-5-69"></a><span class="w">    </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">KEY</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-70" name="__codelineno-5-70" href="#__codelineno-5-70"></a><span class="w">    </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">IV</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-71" name="__codelineno-5-71" href="#__codelineno-5-71"></a><span class="w">    </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">len</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-72" name="__codelineno-5-72" href="#__codelineno-5-72"></a>
+<a id="__codelineno-5-73" name="__codelineno-5-73" href="#__codelineno-5-73"></a><span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="n">mode</span><span class="p">){</span>
+<a id="__codelineno-5-74" name="__codelineno-5-74" href="#__codelineno-5-74"></a><span class="w">        </span><span class="c1">// case ECB_EN:{ecb_en(KEY, len);}break;</span>
+<a id="__codelineno-5-75" name="__codelineno-5-75" href="#__codelineno-5-75"></a><span class="w">        </span><span class="c1">// case ECB_DE:{ecb_de(KEY, len);}break;</span>
+<a id="__codelineno-5-76" name="__codelineno-5-76" href="#__codelineno-5-76"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CBC_EN</span><span class="p">:{</span><span class="n">cbc_en</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);}</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-5-77" name="__codelineno-5-77" href="#__codelineno-5-77"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CBC_DE</span><span class="p">:{</span><span class="n">cbc_de</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);}</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-5-78" name="__codelineno-5-78" href="#__codelineno-5-78"></a><span class="w">        </span><span class="c1">// case CFB_EN:{cfb_en(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-79" name="__codelineno-5-79" href="#__codelineno-5-79"></a><span class="w">        </span><span class="c1">// case CFB_DE:{cfb_de(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-80" name="__codelineno-5-80" href="#__codelineno-5-80"></a><span class="w">        </span><span class="c1">// case OFB_EN:{ofb_en(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-81" name="__codelineno-5-81" href="#__codelineno-5-81"></a><span class="w">        </span><span class="c1">// case OFB_DE:{ofb_de(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-82" name="__codelineno-5-82" href="#__codelineno-5-82"></a><span class="w">        </span><span class="c1">// case CTR_EN:{ctr_en(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-83" name="__codelineno-5-83" href="#__codelineno-5-83"></a><span class="w">        </span><span class="c1">// case CTR_DE:{ctr_de(KEY, IV, len);}break;</span>
+<a id="__codelineno-5-84" name="__codelineno-5-84" href="#__codelineno-5-84"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-85" name="__codelineno-5-85" href="#__codelineno-5-85"></a>
+<a id="__codelineno-5-86" name="__codelineno-5-86" href="#__codelineno-5-86"></a><span class="w">    </span><span class="cp">#ifndef ONLINE_JUDGE</span>
+<a id="__codelineno-5-87" name="__codelineno-5-87" href="#__codelineno-5-87"></a><span class="w">    </span><span class="n">fclose</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<a id="__codelineno-5-88" name="__codelineno-5-88" href="#__codelineno-5-88"></a><span class="w">    </span><span class="n">fclose</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+<a id="__codelineno-5-89" name="__codelineno-5-89" href="#__codelineno-5-89"></a><span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">freopen</span><span class="p">(</span><span class="s">&quot;time&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;w&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-90" name="__codelineno-5-90" href="#__codelineno-5-90"></a><span class="w">    </span><span class="n">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<a id="__codelineno-5-91" name="__codelineno-5-91" href="#__codelineno-5-91"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">chrono</span><span class="o">::</span><span class="n">nanoseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">);</span>
+<a id="__codelineno-5-92" name="__codelineno-5-92" href="#__codelineno-5-92"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">);</span>
+<a id="__codelineno-5-93" name="__codelineno-5-93" href="#__codelineno-5-93"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">);</span>
+<a id="__codelineno-5-94" name="__codelineno-5-94" href="#__codelineno-5-94"></a><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ns</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ns</span><span class="se">\n</span><span class="s">&quot;</span>
+<a id="__codelineno-5-95" name="__codelineno-5-95" href="#__codelineno-5-95"></a><span class="w">         </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">us</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; us</span><span class="se">\n</span><span class="s">&quot;</span>
+<a id="__codelineno-5-96" name="__codelineno-5-96" href="#__codelineno-5-96"></a><span class="w">         </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ms</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ms&quot;</span><span class="p">;</span>
+<a id="__codelineno-5-97" name="__codelineno-5-97" href="#__codelineno-5-97"></a><span class="w">    </span><span class="n">fclose</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+<a id="__codelineno-5-98" name="__codelineno-5-98" href="#__codelineno-5-98"></a><span class="w">    </span><span class="cp">#endif</span>
+<a id="__codelineno-5-99" name="__codelineno-5-99" href="#__codelineno-5-99"></a>
+<a id="__codelineno-5-100" name="__codelineno-5-100" href="#__codelineno-5-100"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-101" name="__codelineno-5-101" href="#__codelineno-5-101"></a><span class="p">}</span>
+<a id="__codelineno-5-102" name="__codelineno-5-102" href="#__codelineno-5-102"></a>
+<a id="__codelineno-5-103" name="__codelineno-5-103" href="#__codelineno-5-103"></a>
+<a id="__codelineno-5-104" name="__codelineno-5-104" href="#__codelineno-5-104"></a><span class="c1">// uint32_t key[Nk] ---expand---&gt; __m128i w128[Nr+1]</span>
+<a id="__codelineno-5-105" name="__codelineno-5-105" href="#__codelineno-5-105"></a><span class="kt">void</span><span class="w"> </span><span class="nf">KeyExpansion</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w128</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">decrypting</span><span class="p">){</span>
+<a id="__codelineno-5-106" name="__codelineno-5-106" href="#__codelineno-5-106"></a><span class="w">    </span><span class="n">w128</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">;</span>
+<a id="__codelineno-5-107" name="__codelineno-5-107" href="#__codelineno-5-107"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
+<a id="__codelineno-5-108" name="__codelineno-5-108" href="#__codelineno-5-108"></a>
+<a id="__codelineno-5-109" name="__codelineno-5-109" href="#__codelineno-5-109"></a><span class="w">    </span><span class="cp">#define EXPAND(n, RCON) \</span>
+<a id="__codelineno-5-110" name="__codelineno-5-110" href="#__codelineno-5-110"></a><span class="cp">    t  = _mm_slli_si128(key, 4);\</span>
+<a id="__codelineno-5-111" name="__codelineno-5-111" href="#__codelineno-5-111"></a><span class="cp">    t  = _mm_xor_si128(key, t);\</span>
+<a id="__codelineno-5-112" name="__codelineno-5-112" href="#__codelineno-5-112"></a><span class="cp">    t2 = _mm_slli_si128(t, 8);\</span>
+<a id="__codelineno-5-113" name="__codelineno-5-113" href="#__codelineno-5-113"></a><span class="cp">    t  = _mm_xor_si128(t, t2);\</span>
+<a id="__codelineno-5-114" name="__codelineno-5-114" href="#__codelineno-5-114"></a><span class="cp">    key = _mm_aeskeygenassist_si128(key, RCON);\</span>
+<a id="__codelineno-5-115" name="__codelineno-5-115" href="#__codelineno-5-115"></a><span class="cp">    key = _mm_shuffle_epi32(key, 0xFF);\</span>
+<a id="__codelineno-5-116" name="__codelineno-5-116" href="#__codelineno-5-116"></a><span class="cp">    key = _mm_xor_si128(t, key);\</span>
+<a id="__codelineno-5-117" name="__codelineno-5-117" href="#__codelineno-5-117"></a><span class="cp">    w128[n] = key;</span>
+<a id="__codelineno-5-118" name="__codelineno-5-118" href="#__codelineno-5-118"></a>
+<a id="__codelineno-5-119" name="__codelineno-5-119" href="#__codelineno-5-119"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">);</span>
+<a id="__codelineno-5-120" name="__codelineno-5-120" href="#__codelineno-5-120"></a>
+<a id="__codelineno-5-121" name="__codelineno-5-121" href="#__codelineno-5-121"></a><span class="w">    </span><span class="c1">// Go on...</span>
+<a id="__codelineno-5-122" name="__codelineno-5-122" href="#__codelineno-5-122"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">);</span>
+<a id="__codelineno-5-123" name="__codelineno-5-123" href="#__codelineno-5-123"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x04</span><span class="p">);</span>
+<a id="__codelineno-5-124" name="__codelineno-5-124" href="#__codelineno-5-124"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mh">0x08</span><span class="p">);</span>
+<a id="__codelineno-5-125" name="__codelineno-5-125" href="#__codelineno-5-125"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span><span class="p">);</span>
+<a id="__codelineno-5-126" name="__codelineno-5-126" href="#__codelineno-5-126"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">);</span>
+<a id="__codelineno-5-127" name="__codelineno-5-127" href="#__codelineno-5-127"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">);</span>
+<a id="__codelineno-5-128" name="__codelineno-5-128" href="#__codelineno-5-128"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">);</span>
+<a id="__codelineno-5-129" name="__codelineno-5-129" href="#__codelineno-5-129"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1b</span><span class="p">);</span>
+<a id="__codelineno-5-130" name="__codelineno-5-130" href="#__codelineno-5-130"></a><span class="w">    </span><span class="n">EXPAND</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mh">0x36</span><span class="p">);</span>
+<a id="__codelineno-5-131" name="__codelineno-5-131" href="#__codelineno-5-131"></a>
+<a id="__codelineno-5-132" name="__codelineno-5-132" href="#__codelineno-5-132"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">decrypting</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-133" name="__codelineno-5-133" href="#__codelineno-5-133"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<a id="__codelineno-5-134" name="__codelineno-5-134" href="#__codelineno-5-134"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-5-135" name="__codelineno-5-135" href="#__codelineno-5-135"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a id="__codelineno-5-136" name="__codelineno-5-136" href="#__codelineno-5-136"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-5-137" name="__codelineno-5-137" href="#__codelineno-5-137"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+<a id="__codelineno-5-138" name="__codelineno-5-138" href="#__codelineno-5-138"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<a id="__codelineno-5-139" name="__codelineno-5-139" href="#__codelineno-5-139"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
+<a id="__codelineno-5-140" name="__codelineno-5-140" href="#__codelineno-5-140"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">7</span><span class="p">]);</span>
+<a id="__codelineno-5-141" name="__codelineno-5-141" href="#__codelineno-5-141"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">8</span><span class="p">]);</span>
+<a id="__codelineno-5-142" name="__codelineno-5-142" href="#__codelineno-5-142"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesimc_si128</span><span class="p">(</span><span class="n">w128</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+<a id="__codelineno-5-143" name="__codelineno-5-143" href="#__codelineno-5-143"></a><span class="w">        </span><span class="n">w128</span><span class="p">[</span><span class="n">Nr</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="n">Nr</span><span class="p">];</span>
+<a id="__codelineno-5-144" name="__codelineno-5-144" href="#__codelineno-5-144"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-145" name="__codelineno-5-145" href="#__codelineno-5-145"></a><span class="p">}</span>
+<a id="__codelineno-5-146" name="__codelineno-5-146" href="#__codelineno-5-146"></a>
+<a id="__codelineno-5-147" name="__codelineno-5-147" href="#__codelineno-5-147"></a>
+<a id="__codelineno-5-148" name="__codelineno-5-148" href="#__codelineno-5-148"></a><span class="c1">// Add 128-bit k to c</span>
+<a id="__codelineno-5-149" name="__codelineno-5-149" href="#__codelineno-5-149"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">AddRoundKey</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">k</span><span class="p">){</span>
+<a id="__codelineno-5-150" name="__codelineno-5-150" href="#__codelineno-5-150"></a><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_xor_si128</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">);</span>
+<a id="__codelineno-5-151" name="__codelineno-5-151" href="#__codelineno-5-151"></a><span class="p">}</span>
+<a id="__codelineno-5-152" name="__codelineno-5-152" href="#__codelineno-5-152"></a>
+<a id="__codelineno-5-153" name="__codelineno-5-153" href="#__codelineno-5-153"></a>
+<a id="__codelineno-5-154" name="__codelineno-5-154" href="#__codelineno-5-154"></a><span class="c1">// AES Cipher</span>
+<a id="__codelineno-5-155" name="__codelineno-5-155" href="#__codelineno-5-155"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Ciph</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w128</span><span class="p">){</span>
+<a id="__codelineno-5-156" name="__codelineno-5-156" href="#__codelineno-5-156"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_loadu_si128</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-5-157" name="__codelineno-5-157" href="#__codelineno-5-157"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_xor_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-5-158" name="__codelineno-5-158" href="#__codelineno-5-158"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-5-159" name="__codelineno-5-159" href="#__codelineno-5-159"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a id="__codelineno-5-160" name="__codelineno-5-160" href="#__codelineno-5-160"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-5-161" name="__codelineno-5-161" href="#__codelineno-5-161"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+<a id="__codelineno-5-162" name="__codelineno-5-162" href="#__codelineno-5-162"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<a id="__codelineno-5-163" name="__codelineno-5-163" href="#__codelineno-5-163"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
+<a id="__codelineno-5-164" name="__codelineno-5-164" href="#__codelineno-5-164"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">7</span><span class="p">]);</span>
+<a id="__codelineno-5-165" name="__codelineno-5-165" href="#__codelineno-5-165"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">8</span><span class="p">]);</span>
+<a id="__codelineno-5-166" name="__codelineno-5-166" href="#__codelineno-5-166"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenc_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+<a id="__codelineno-5-167" name="__codelineno-5-167" href="#__codelineno-5-167"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesenclast_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="n">Nr</span><span class="p">]);</span>
+<a id="__codelineno-5-168" name="__codelineno-5-168" href="#__codelineno-5-168"></a><span class="w">    </span><span class="n">_mm_storeu_si128</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
+<a id="__codelineno-5-169" name="__codelineno-5-169" href="#__codelineno-5-169"></a><span class="p">}</span>
+<a id="__codelineno-5-170" name="__codelineno-5-170" href="#__codelineno-5-170"></a>
+<a id="__codelineno-5-171" name="__codelineno-5-171" href="#__codelineno-5-171"></a>
+<a id="__codelineno-5-172" name="__codelineno-5-172" href="#__codelineno-5-172"></a>
+<a id="__codelineno-5-173" name="__codelineno-5-173" href="#__codelineno-5-173"></a><span class="c1">// AES Inverse Cipher</span>
+<a id="__codelineno-5-174" name="__codelineno-5-174" href="#__codelineno-5-174"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">EqInvCiph</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w128</span><span class="p">){</span>
+<a id="__codelineno-5-175" name="__codelineno-5-175" href="#__codelineno-5-175"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_loadu_si128</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-5-176" name="__codelineno-5-176" href="#__codelineno-5-176"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_xor_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="n">Nr</span><span class="p">]);</span>
+<a id="__codelineno-5-177" name="__codelineno-5-177" href="#__codelineno-5-177"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+<a id="__codelineno-5-178" name="__codelineno-5-178" href="#__codelineno-5-178"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">8</span><span class="p">]);</span>
+<a id="__codelineno-5-179" name="__codelineno-5-179" href="#__codelineno-5-179"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">7</span><span class="p">]);</span>
+<a id="__codelineno-5-180" name="__codelineno-5-180" href="#__codelineno-5-180"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">6</span><span class="p">]);</span>
+<a id="__codelineno-5-181" name="__codelineno-5-181" href="#__codelineno-5-181"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+<a id="__codelineno-5-182" name="__codelineno-5-182" href="#__codelineno-5-182"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+<a id="__codelineno-5-183" name="__codelineno-5-183" href="#__codelineno-5-183"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<a id="__codelineno-5-184" name="__codelineno-5-184" href="#__codelineno-5-184"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a id="__codelineno-5-185" name="__codelineno-5-185" href="#__codelineno-5-185"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdec_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-5-186" name="__codelineno-5-186" href="#__codelineno-5-186"></a><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_mm_aesdeclast_si128</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">w128</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-5-187" name="__codelineno-5-187" href="#__codelineno-5-187"></a><span class="w">    </span><span class="n">_mm_storeu_si128</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
+<a id="__codelineno-5-188" name="__codelineno-5-188" href="#__codelineno-5-188"></a><span class="p">}</span>
+<a id="__codelineno-5-189" name="__codelineno-5-189" href="#__codelineno-5-189"></a>
+<a id="__codelineno-5-190" name="__codelineno-5-190" href="#__codelineno-5-190"></a>
+<a id="__codelineno-5-191" name="__codelineno-5-191" href="#__codelineno-5-191"></a><span class="c1">// CBC mode encryption</span>
+<a id="__codelineno-5-192" name="__codelineno-5-192" href="#__codelineno-5-192"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cbc_en</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">){</span>
+<a id="__codelineno-5-193" name="__codelineno-5-193" href="#__codelineno-5-193"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">Nr</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<a id="__codelineno-5-194" name="__codelineno-5-194" href="#__codelineno-5-194"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">p_bytes</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<a id="__codelineno-5-195" name="__codelineno-5-195" href="#__codelineno-5-195"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">c_bytes</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<a id="__codelineno-5-196" name="__codelineno-5-196" href="#__codelineno-5-196"></a><span class="w">    </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IV</span><span class="p">;</span>
+<a id="__codelineno-5-197" name="__codelineno-5-197" href="#__codelineno-5-197"></a><span class="w">    </span><span class="n">KeyExpansion</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-5-198" name="__codelineno-5-198" href="#__codelineno-5-198"></a><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">){</span>
+<a id="__codelineno-5-199" name="__codelineno-5-199" href="#__codelineno-5-199"></a><span class="w">        </span><span class="n">len</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-5-200" name="__codelineno-5-200" href="#__codelineno-5-200"></a><span class="w">        </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-201" name="__codelineno-5-201" href="#__codelineno-5-201"></a><span class="w">        </span><span class="n">AddRoundKey</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<a id="__codelineno-5-202" name="__codelineno-5-202" href="#__codelineno-5-202"></a><span class="w">        </span><span class="n">Ciph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span>
+<a id="__codelineno-5-203" name="__codelineno-5-203" href="#__codelineno-5-203"></a><span class="w">        </span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-204" name="__codelineno-5-204" href="#__codelineno-5-204"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-205" name="__codelineno-5-205" href="#__codelineno-5-205"></a><span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="n">p_bytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-5-206" name="__codelineno-5-206" href="#__codelineno-5-206"></a><span class="w">    </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">),</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-207" name="__codelineno-5-207" href="#__codelineno-5-207"></a><span class="w">    </span><span class="n">AddRoundKey</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<a id="__codelineno-5-208" name="__codelineno-5-208" href="#__codelineno-5-208"></a><span class="w">    </span><span class="n">Ciph</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span>
+<a id="__codelineno-5-209" name="__codelineno-5-209" href="#__codelineno-5-209"></a><span class="w">    </span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-210" name="__codelineno-5-210" href="#__codelineno-5-210"></a><span class="p">}</span>
+<a id="__codelineno-5-211" name="__codelineno-5-211" href="#__codelineno-5-211"></a>
+<a id="__codelineno-5-212" name="__codelineno-5-212" href="#__codelineno-5-212"></a>
+<a id="__codelineno-5-213" name="__codelineno-5-213" href="#__codelineno-5-213"></a><span class="c1">// CBC mode decryption, input must be multiple of 128 bits</span>
+<a id="__codelineno-5-214" name="__codelineno-5-214" href="#__codelineno-5-214"></a><span class="kt">void</span><span class="w"> </span><span class="nf">cbc_de</span><span class="p">(</span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="kr">__m128i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">len</span><span class="p">){</span>
+<a id="__codelineno-5-215" name="__codelineno-5-215" href="#__codelineno-5-215"></a><span class="w">    </span><span class="kr">__m128i</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">last_c</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">Nr</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<a id="__codelineno-5-216" name="__codelineno-5-216" href="#__codelineno-5-216"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">p_bytes</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<a id="__codelineno-5-217" name="__codelineno-5-217" href="#__codelineno-5-217"></a><span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">last_c</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">IV</span><span class="p">,</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-5-218" name="__codelineno-5-218" href="#__codelineno-5-218"></a><span class="w">    </span><span class="n">KeyExpansion</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-5-219" name="__codelineno-5-219" href="#__codelineno-5-219"></a><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<a id="__codelineno-5-220" name="__codelineno-5-220" href="#__codelineno-5-220"></a><span class="w">        </span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdin</span><span class="p">);</span>
+<a id="__codelineno-5-221" name="__codelineno-5-221" href="#__codelineno-5-221"></a><span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-5-222" name="__codelineno-5-222" href="#__codelineno-5-222"></a><span class="w">        </span><span class="n">EqInvCiph</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span>
+<a id="__codelineno-5-223" name="__codelineno-5-223" href="#__codelineno-5-223"></a><span class="w">        </span><span class="n">AddRoundKey</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">last_c</span><span class="p">);</span>
+<a id="__codelineno-5-224" name="__codelineno-5-224" href="#__codelineno-5-224"></a><span class="w">        </span><span class="n">last_c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-5-225" name="__codelineno-5-225" href="#__codelineno-5-225"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">){</span>
+<a id="__codelineno-5-226" name="__codelineno-5-226" href="#__codelineno-5-226"></a><span class="w">            </span><span class="n">_mm_storeu_si128</span><span class="p">((</span><span class="kr">__m128i</span><span class="o">*</span><span class="p">)</span><span class="n">p_bytes</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<a id="__codelineno-5-227" name="__codelineno-5-227" href="#__codelineno-5-227"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_bytes</span><span class="p">[</span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+<a id="__codelineno-5-228" name="__codelineno-5-228" href="#__codelineno-5-228"></a><span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">l</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
+<a id="__codelineno-5-229" name="__codelineno-5-229" href="#__codelineno-5-229"></a><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">p_bytes</span><span class="p">[</span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-230" name="__codelineno-5-230" href="#__codelineno-5-230"></a><span class="w">                    </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-231" name="__codelineno-5-231" href="#__codelineno-5-231"></a><span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-5-232" name="__codelineno-5-232" href="#__codelineno-5-232"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-5-233" name="__codelineno-5-233" href="#__codelineno-5-233"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-5-234" name="__codelineno-5-234" href="#__codelineno-5-234"></a><span class="w">            </span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">),</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-235" name="__codelineno-5-235" href="#__codelineno-5-235"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-236" name="__codelineno-5-236" href="#__codelineno-5-236"></a><span class="w">            </span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-5-237" name="__codelineno-5-237" href="#__codelineno-5-237"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-5-238" name="__codelineno-5-238" href="#__codelineno-5-238"></a><span class="w">        </span><span class="n">len</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">Nb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-5-239" name="__codelineno-5-239" href="#__codelineno-5-239"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-240" name="__codelineno-5-240" href="#__codelineno-5-240"></a><span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 密码学">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                密码学
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../affine-hill/" class="md-footer__link md-footer__link--next" aria-label="Next: 仿射希尔密码">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                仿射希尔密码
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2011 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/os/deadlock/">
+      
+      
+        <link rel="prev" href="../concepts/">
+      
+      
+        <link rel="next" href="../fs/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>死锁 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#intro" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              死锁
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Os
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    操作系统绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    死锁
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    死锁
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intro
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁预防" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁预防
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁避免" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁避免
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="死锁避免">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#安全状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全状态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#资源分配图算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源分配图算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#银行家算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      银行家算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="银行家算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁检测与恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁检测与恢复
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="死锁检测与恢复">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#死锁检测" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁检测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#等待图" class="md-nav__link">
+    <span class="md-ellipsis">
+      等待图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#死锁恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁恢复
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-customized-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    给Linux内核增加自定义系统调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内存管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheduling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    经典进程同步问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thread/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ysosv2/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ysosv2
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intro
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁预防" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁预防
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁避免" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁避免
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="死锁避免">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#安全状态" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全状态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#资源分配图算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源分配图算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#银行家算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      银行家算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="银行家算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#死锁检测与恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁检测与恢复
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="死锁检测与恢复">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#死锁检测" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁检测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#等待图" class="md-nav__link">
+    <span class="md-ellipsis">
+      等待图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#死锁恢复" class="md-nav__link">
+    <span class="md-ellipsis">
+      死锁恢复
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>死锁</h1>
+
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
+<p>死锁的必要条件</p>
+<ul>
+<li><strong>互斥</strong>：一次只有一个进程使用一个资源,其他进程不能访问分配给其他进程的资源</li>
+<li><strong>占有等待</strong>(持有且等待)：当一个进程等待其他进程时，继续占有已分配的资源</li>
+<li><strong>非抢占</strong>：不能强行抢占进程已占有的资源</li>
+<li><strong>循环等待</strong>：存在一个闭合的进程链，每个进程至少占有此链中下一个进程所需的一个资源前三个只会导致死锁的可能性，而最后一个<strong>循环等待</strong>是导致死锁的“最终极条件”</li>
+</ul>
+<p>处理死锁的方法：</p>
+<ul>
+<li>确保系统永远不会进入死锁状态</li>
+<li>锁预防，在 OS 设计阶段就设计成不会出现死锁</li>
+<li>死锁避免，在 OS 运行的时候尽量避免死锁产生条件</li>
+<li>允许系统进入死锁状态，然后检测和恢复</li>
+<li>忽略该问题，并假装系统中从未发生死锁</li>
+<li>绝大多数操作系统所采用的的方法</li>
+<li>合理性：死锁的发生实际上是一个小概率性事件</li>
+</ul>
+<h2 id="死锁预防">死锁预防<a class="headerlink" href="#死锁预防" title="Permanent link">&para;</a></h2>
+<p>使死锁的四个必要条件之一无效，破坏任意一个死锁必要条件：</p>
+<ul>
+<li>互斥：通常不能否定互斥条件来预防死锁，必须保留不可共享的资源</li>
+<li>持有且等待：必须保证每当进程请求资源时，它不会占有任何其他资源</li>
+<li>一种实现：在进程开始执行之前请求并分配其所有资源</li>
+<li>另一种实现：仅当进程在未分配任何资源时才允许进程请求资源</li>
+<li>非抢占</li>
+<li>如果持有某些资源的进程请求另一个无法立即分配给它的资源，那么当前持有的所有资源都将被释放(隐式释放)</li>
+<li>被抢占资源被添加到进程正在等待的资源列表中</li>
+<li>只有当进程能够恢复其原有的资源以及它所请求的新资源 时，才会重新启动进程</li>
+<li>循环等待 (最常见)</li>
+<li>强制所有类型的资源进行完全排序，也就是为每个资源 (即互斥锁) 分配一个唯一的编号，并要求每个进程以同一特定顺序 (例如递增) 请求资源</li>
+<li>可以反证这样的做法不存在循环等待</li>
+<li>如果能够<strong>动态获得锁</strong>，那么制定一个加锁顺序并不保证死锁预防，因为并不能保证请求资源的顺序是同一特定顺序</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>动态获得锁：获得锁的函数与输入的参数有关</p>
+</div>
+<p>问题</p>
+<ul>
+<li>一个进程需要多少资源无法精确预测</li>
+<li>副作用是设备使用率低，系统吞吐率低</li>
+</ul>
+<h2 id="死锁避免">死锁避免<a class="headerlink" href="#死锁避免" title="Permanent link">&para;</a></h2>
+<p>死锁避免使用算法动态检查资源分配状态，以确保不存在循环等待条件</p>
+<p>优势：</p>
+<ul>
+<li>无须死锁预防中的抢占和回滚进程</li>
+<li>与死锁预防相比限制较少</li>
+</ul>
+<p>限制：</p>
+<ul>
+<li>必须事先声明每一个进程请求的最大资源；</li>
+<li>所讨论的进程必须是无关的，即他们的执行顺序必须没有任何同步要求的限制；</li>
+<li>分配的资源数量必须是固定的；</li>
+<li>在占有资源时，进程不能退出；</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这些限制使得银行家算法这样的死锁避免算法实际上是不可行的，只能用于理论检测</p>
+</div>
+<h3 id="安全状态">安全状态<a class="headerlink" href="#安全状态" title="Permanent link">&para;</a></h3>
+<p>只有至少存在一个安全序列，系统才处于安全状态</p>
+<p>系统中存在所有进程的序列 <span class="arithmatex">\(&lt;P_1,P_2,\cdots,P_n&gt;\)</span> 在当前分配状态下为安全序列是指:</p>
+<p>对于每个 <span class="arithmatex">\(P_i\)</span> ，<span class="arithmatex">\(P_i\)</span> 请求的资源可以通过 <strong>当前可用资源+所有 <span class="arithmatex">\(P_j(j&lt;i)\)</span> 持有的资源</strong> 来满足。</p>
+<p>即:</p>
+<ul>
+<li>如果 <span class="arithmatex">\(P_i\)</span> 资源需求不能立即可用，则 <span class="arithmatex">\(P_i\)</span> 可以等待所有 <span class="arithmatex">\(P_j\)</span> 完成，释放资源</li>
+<li>当 <span class="arithmatex">\(P_j\)</span> 完成时，<span class="arithmatex">\(P_i\)</span> 可以获得所需的资源、执行、返回分配的资源并终止</li>
+<li>当 <span class="arithmatex">\(P_i\)</span> 终止时，<span class="arithmatex">\(P_{i+1}\)</span> 可以获得它所需的资源，依此类推</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />安全状态一定不是死锁状态，非安全状态只是死锁的必要条件，可能导致死锁，但不是死锁的充分条件。</p>
+</div>
+<p><img alt="safe-unsafe-deadlock" src="../../../assets/cs/os/deadlock/safe-unsafe-deadlock.png" /></p>
+<p>死锁避免两种方法</p>
+<ul>
+<li>在进程某次请求资源的时候，如果为其分配资源后系统进入非安全状态，则拒绝分配</li>
+<li>进程启动拒绝：在进程初始化启动的时候，如果对某种资源，它的最大需求 + 当前所以进程的需求 &gt; 系统总资源量，则拒绝分配</li>
+</ul>
+<h3 id="资源分配图算法">资源分配图算法<a class="headerlink" href="#资源分配图算法" title="Permanent link">&para;</a></h3>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />每种资源都<strong>只有一个</strong>实例（都是唯一）的时候才能依据资源分配图判断死锁是否产生：</p>
+<ul>
+<li>资源分配图中没有环，那么系统就没有进程死锁</li>
+<li>如果有环，可能存在死锁</li>
+</ul>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />必须在系统中预先声明资源；也就是只有当进程 <span class="arithmatex">\(P_i\)</span> 的所有边都为需求边时，才能允许将需求边增加到图中</p>
+<h3 id="银行家算法">银行家算法<a class="headerlink" href="#银行家算法" title="Permanent link">&para;</a></h3>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />每个进程都必须先验地给出最大需求资源的数量</p>
+<h4 id="数据结构">数据结构<a class="headerlink" href="#数据结构" title="Permanent link">&para;</a></h4>
+<p>设 <code>n</code> =进程数，<code>m</code> =资源类型数。</p>
+<p><code>Available</code> : 长度为 <code>m</code> 的向量。如果 <code>Available[j]=k</code> ，则有 k 个资源类型 Rj 的实例可用;</p>
+<p><code>Max</code> : nxm 矩阵，定义每个进程的最大需求。如果 <code>Max[i, j]=k</code> ，那么进程 Pi 最多可以请求 k 个资源类型 Rj 的实例</p>
+<p><code>Allocation</code> : n×m 矩阵,定义每个进程现在分配的每种资 源类型的实例数量。如果<code>Allocation[i,j]=k</code> ，则 Pi 当前被分配给了 Rj 的 k 个实例</p>
+<p><code>Need</code> : nxm 矩阵，表示每个进程还需要的剩余资源。如果 <code>Need[i,j]=k</code> ，那么 Pi 可能还需要 k 个 Rj 实例来完成它的任务 <code>Need[i,j]=Max[i,j]–Allocation[i,j]</code></p>
+<h4 id="算法流程">算法流程<a class="headerlink" href="#算法流程" title="Permanent link">&para;</a></h4>
+<p>判断安全状态：</p>
+<p><code>judge_safe()</code></p>
+<ol>
+<li>Let Work and Finish be vectors of length m and n, respectively.</li>
+</ol>
+<p>Initialize:</p>
+<p>Work = Available</p>
+<p>Finish [i] = false for i = 0, 1, ..., n- 1</p>
+<ol>
+<li>
+<p>Find an i such that both:</p>
+</li>
+<li>
+<p>(a) Finish [i] = false</p>
+</li>
+<li>
+<p>(b) Needi &lt;= Work</p>
+</li>
+</ol>
+<p>If no such i exists, go to step 4</p>
+<ol>
+<li>Work = Work + Allocationi</li>
+</ol>
+<p>Finish[i] = true</p>
+<p>go to step 2</p>
+<ol>
+<li>If Finish [i] ** true for all i, then the system is in a safe state</li>
+</ol>
+<p>判断是否允许某次资源请求：</p>
+<p>Requesti = request vector for process Pi. If Requesti [j] = k then process Pi wants k instances of resource type Rj</p>
+<ol>
+<li>If Requesti &lt;= Needi go to step 2.</li>
+</ol>
+<p>Otherwise, raise error condition, since process has exceeded its maximum claim</p>
+<ol>
+<li>If Requesti &lt;= Available, go to step 3.</li>
+</ol>
+<p>Otherwise Pi must wait, since resources are not available</p>
+<ol>
+<li>
+<p>Pretend to allocate requested resources to Pi by modifying the state as follows:</p>
+</li>
+<li>
+<p>Available = Available – Requesti;</p>
+</li>
+<li>
+<p>Allocationi = Allocationi + Requesti;</p>
+</li>
+<li>
+<p>Needi = Needi – Requesti;</p>
+</li>
+</ol>
+<p>If <code>judge_safe()</code> =&gt; the resources are allocated to Pi</p>
+<p>else =&gt; Pi must wait, and the old resource-allocation state is restored</p>
+<h2 id="死锁检测与恢复">死锁检测与恢复<a class="headerlink" href="#死锁检测与恢复" title="Permanent link">&para;</a></h2>
+<h3 id="死锁检测">死锁检测<a class="headerlink" href="#死锁检测" title="Permanent link">&para;</a></h3>
+<p>允许系统进入死锁状态，死锁检测可以频繁地在每个资源请求发生时进行，也可以检测得少一些，具体取决于发生死锁的可能性。检测出死锁之后进行死锁恢复。</p>
+<p>优点：</p>
+<ul>
+<li>尽早地检测死锁情况</li>
+<li>算法相对简单</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>频繁的检测会耗费相当多的处理器时间</li>
+</ul>
+<p>何时以及多久调用一次取决于:</p>
+<ul>
+<li>死锁可能发生的<strong>频率</strong>有多高?</li>
+<li>需要<strong>回滚</strong>多少个进程?</li>
+</ul>
+<p>如果任意调用检测算法，资源图中可能会有许多循环，因此我们无法判断是哪些死锁进程“导致”了死锁</p>
+<p>死锁检测产生大量的代价，可以周期性检测死锁，或者 CPU 的利用率低于某个阈值时再执行死锁检测</p>
+<h3 id="等待图">等待图<a class="headerlink" href="#等待图" title="Permanent link">&para;</a></h3>
+<p>在资源分配图的基础上，只画出进程，不再画出资源。</p>
+<p>和资源分配图一样，只适用于所有类型的资源都是唯一的，只有一个实例的情况。</p>
+<h3 id="死锁恢复">死锁恢复<a class="headerlink" href="#死锁恢复" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>取消所有</strong>的死锁进程，这是<strong>实际</strong>操作系统最常用的方法</li>
+<li>把每个死锁进程<strong>回滚</strong>到前面定义的某些检查点，并重新启动所有进程，要求在系统中构建回滚和重启机制</li>
+<li><strong>连续取消</strong>死锁进程<strong>直到</strong>不再存在死锁，所取消的进程的顺序应基于某种最小代价原则</li>
+<li><strong>连续抢占资源直到</strong>不再存在死锁，需要使用一种基于代价的选择方法，且需要在抢占后重新调用检测算法</li>
+</ul>
+<p>后两种策略的选择 (受害者) 原则：</p>
+<ul>
+<li>目前为止消耗的处理器时间最少</li>
+<li>目前为止产生的输出最少</li>
+<li>预计剩下的时间最长</li>
+<li>目前为止分配的资源总量最少</li>
+<li>优先级最低</li>
+</ul>
+<p>实际上 OS 的死锁恢复</p>
+<ul>
+<li>重启</li>
+<li>随机 <code>sleep</code></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 操作系统绪论">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                操作系统绪论
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../fs/" class="md-footer__link md-footer__link--next" aria-label="Next: 文件系统">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                文件系统
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

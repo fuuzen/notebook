@@ -1,0 +1,4131 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/os/concepts/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../deadlock/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>操作系统绪论 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#操作系统的定义" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              操作系统绪论
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Os
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    操作系统绪论
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    操作系统绪论
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的功能和目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的功能和目标
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的功能和目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#作为系统资源的管理者" class="md-nav__link">
+    <span class="md-ellipsis">
+      作为系统资源的管理者
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="作为系统资源的管理者">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#提供的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      提供的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#向上层提供方便易用的服务" class="md-nav__link">
+    <span class="md-ellipsis">
+      向上层提供方便易用的服务
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="向上层提供方便易用的服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序接口" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#作为最接近硬件的层次" class="md-nav__link">
+    <span class="md-ellipsis">
+      作为最接近硬件的层次
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的特征
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的特征">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#并发" class="md-nav__link">
+    <span class="md-ellipsis">
+      并发
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共享" class="md-nav__link">
+    <span class="md-ellipsis">
+      共享
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共享">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#互斥共享方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      互斥共享方式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#同时共享方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      同时共享方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#虚拟" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#空分复用技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      空分复用技术
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时分复用技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      时分复用技术
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#异步" class="md-nav__link">
+    <span class="md-ellipsis">
+      异步
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的发展和分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的发展和分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的发展和分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#手工操作阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      手工操作阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#批处理阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      批处理阶段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="批处理阶段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#脱机" class="md-nav__link">
+    <span class="md-ellipsis">
+      脱机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#批处理-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      批处理 bash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单道批处理系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      单道批处理系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多道程序设计" class="md-nav__link">
+    <span class="md-ellipsis">
+      多道程序设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多道批处理系统操作系统开始出现" class="md-nav__link">
+    <span class="md-ellipsis">
+      多道批处理系统（操作系统开始出现）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分时操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      分时操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实时操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      实时操作系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="实时操作系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#硬实时系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬实时系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#软实时系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      软实时系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#网络操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分布式操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#个人计算机操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      个人计算机操作系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统服务" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统服务
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核程序运行在内核态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核程序——运行在内核态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#内核态运行内核程序" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态——运行内核程序
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核态——运行内核程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核态和用户态的切换-变态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态和用户态的切换 (变态)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核态和用户态的切换 (变态)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核态---用户态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态 -&gt; 用户态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用户态---内核态" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户态 -&gt; 内核态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#系统调用" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统调用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统调用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#按功能分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      按功能分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统调用过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统调用过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#计算计组成原理相关基础概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算计组成原理相关基础概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算计组成原理相关基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中断和异常" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断和异常
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="中断和异常">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#其他类型非狭义中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他类型(非狭义)中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-系统的中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 系统的中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#中断向量表" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断向量表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#需要中断的场景举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      需要中断的场景举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多核系统上的中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核系统上的中断
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#陷入指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      陷入指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io-输入输出系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      I/O (输入输出系统)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bus-总线" class="md-nav__link">
+    <span class="md-ellipsis">
+      BUS (总线)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#并行系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      并行系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="并行系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#多核处理器" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核处理器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多处理器系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      多处理器系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多处理器系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#三个优点一个缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      三个优点一个缺点？？？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#非对称多处理器系统-amp" class="md-nav__link">
+    <span class="md-ellipsis">
+      非对称多处理器系统 (AMP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称多处理器系统-smp" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称多处理器系统 (SMP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对称多处理器系统 (SMP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多处理器环境的-3-种内存共享模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多处理器环境的 3 种内存共享模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多处理器环境的 3 种内存共享模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uma" class="md-nav__link">
+    <span class="md-ellipsis">
+      UMA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numa" class="md-nav__link">
+    <span class="md-ellipsis">
+      NUMA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NUMA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coma" class="md-nav__link">
+    <span class="md-ellipsis">
+      COMA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集群系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      集群系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非内核功能如-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      非内核功能（如 GUI）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#大-内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      (大) 内核
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(大) 内核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#对系统资源进行管理的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      对系统资源进行管理的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对系统资源进行管理的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#进程管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      进程管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#存储器管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#设备管理等功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      设备管理等功能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      (微内核)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(微内核)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#时钟管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      时钟管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#中断处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断处理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原语设备驱动cpu-切换等" class="md-nav__link">
+    <span class="md-ellipsis">
+      原语（设备驱动、CPU 切换等）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的引导" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的引导
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双多-模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      双/多 模式操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双/多 模式操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#双模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      双模式操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多重模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      多重模式操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟机" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一类-vmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一类 VMM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二类-vmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二类 VMM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两类-vmm-的对比" class="md-nav__link">
+    <span class="md-ellipsis">
+      两类 VMM 的对比
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deadlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    死锁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-customized-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    给Linux内核增加自定义系统调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内存管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheduling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    经典进程同步问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thread/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ysosv2/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ysosv2
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的功能和目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的功能和目标
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的功能和目标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#作为系统资源的管理者" class="md-nav__link">
+    <span class="md-ellipsis">
+      作为系统资源的管理者
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="作为系统资源的管理者">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#提供的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      提供的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#目标" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#向上层提供方便易用的服务" class="md-nav__link">
+    <span class="md-ellipsis">
+      向上层提供方便易用的服务
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="向上层提供方便易用的服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序接口" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#作为最接近硬件的层次" class="md-nav__link">
+    <span class="md-ellipsis">
+      作为最接近硬件的层次
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的特征
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的特征">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#并发" class="md-nav__link">
+    <span class="md-ellipsis">
+      并发
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共享" class="md-nav__link">
+    <span class="md-ellipsis">
+      共享
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共享">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#互斥共享方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      互斥共享方式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#同时共享方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      同时共享方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#虚拟" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#空分复用技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      空分复用技术
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时分复用技术" class="md-nav__link">
+    <span class="md-ellipsis">
+      时分复用技术
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#异步" class="md-nav__link">
+    <span class="md-ellipsis">
+      异步
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的发展和分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的发展和分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的发展和分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#手工操作阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      手工操作阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#批处理阶段" class="md-nav__link">
+    <span class="md-ellipsis">
+      批处理阶段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="批处理阶段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#脱机" class="md-nav__link">
+    <span class="md-ellipsis">
+      脱机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#批处理-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      批处理 bash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单道批处理系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      单道批处理系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多道程序设计" class="md-nav__link">
+    <span class="md-ellipsis">
+      多道程序设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多道批处理系统操作系统开始出现" class="md-nav__link">
+    <span class="md-ellipsis">
+      多道批处理系统（操作系统开始出现）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分时操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      分时操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实时操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      实时操作系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="实时操作系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#硬实时系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬实时系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#软实时系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      软实时系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#网络操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      网络操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分布式操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      分布式操作系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#个人计算机操作系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      个人计算机操作系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统服务" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统服务
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核程序运行在内核态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核程序——运行在内核态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#内核态运行内核程序" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态——运行内核程序
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核态——运行内核程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核态和用户态的切换-变态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态和用户态的切换 (变态)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="内核态和用户态的切换 (变态)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#内核态---用户态" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核态 -&gt; 用户态
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用户态---内核态" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户态 -&gt; 内核态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#系统调用" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统调用
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统调用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#按功能分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      按功能分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统调用过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统调用过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#计算计组成原理相关基础概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算计组成原理相关基础概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="计算计组成原理相关基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中断和异常" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断和异常
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="中断和异常">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#其他类型非狭义中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他类型(非狭义)中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-系统的中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 系统的中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#中断向量表" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断向量表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#需要中断的场景举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      需要中断的场景举例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多核系统上的中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核系统上的中断
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#陷入指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      陷入指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io-输入输出系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      I/O (输入输出系统)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bus-总线" class="md-nav__link">
+    <span class="md-ellipsis">
+      BUS (总线)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#并行系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      并行系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="并行系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#多核处理器" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核处理器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多处理器系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      多处理器系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多处理器系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#三个优点一个缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      三个优点一个缺点？？？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#非对称多处理器系统-amp" class="md-nav__link">
+    <span class="md-ellipsis">
+      非对称多处理器系统 (AMP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称多处理器系统-smp" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称多处理器系统 (SMP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对称多处理器系统 (SMP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多处理器环境的-3-种内存共享模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多处理器环境的 3 种内存共享模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多处理器环境的 3 种内存共享模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uma" class="md-nav__link">
+    <span class="md-ellipsis">
+      UMA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numa" class="md-nav__link">
+    <span class="md-ellipsis">
+      NUMA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NUMA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#问题_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coma" class="md-nav__link">
+    <span class="md-ellipsis">
+      COMA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#集群系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      集群系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作系统的结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#非内核功能如-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      非内核功能（如 GUI）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#大-内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      (大) 内核
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(大) 内核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#对系统资源进行管理的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      对系统资源进行管理的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对系统资源进行管理的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#进程管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      进程管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#存储器管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储器管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#设备管理等功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      设备管理等功能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微内核" class="md-nav__link">
+    <span class="md-ellipsis">
+      (微内核)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(微内核)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#时钟管理" class="md-nav__link">
+    <span class="md-ellipsis">
+      时钟管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#中断处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      中断处理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原语设备驱动cpu-切换等" class="md-nav__link">
+    <span class="md-ellipsis">
+      原语（设备驱动、CPU 切换等）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#操作系统的引导" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作系统的引导
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双多-模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      双/多 模式操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双/多 模式操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#双模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      双模式操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多重模式操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      多重模式操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟机" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一类-vmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一类 VMM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二类-vmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二类 VMM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两类-vmm-的对比" class="md-nav__link">
+    <span class="md-ellipsis">
+      两类 VMM 的对比
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>操作系统绪论</h1>
+
+<h2 id="操作系统的定义">操作系统的定义<a class="headerlink" href="#操作系统的定义" title="Permanent link">&para;</a></h2>
+<p>实际上操作系统没有普遍接受的定义</p>
+<p>操作系统 （Operating System,OS）是指<strong>控制</strong>和<strong>管理</strong>整个计算机系统的<strong>硬件和软件资源</strong>，并合理地<strong>组织调度</strong>计算机的<strong>工作</strong>和<strong>资源</strong>的<strong>分配</strong>；以提供给<strong>用户</strong>和<strong>其他软件</strong>方便的<strong>接口</strong>和<strong>环境</strong>；它是计算机系统中<strong>最基本的系统软件</strong>。</p>
+<h2 id="操作系统的功能和目标">操作系统的功能和目标<a class="headerlink" href="#操作系统的功能和目标" title="Permanent link">&para;</a></h2>
+<h3 id="作为系统资源的管理者">作为系统资源的管理者<a class="headerlink" href="#作为系统资源的管理者" title="Permanent link">&para;</a></h3>
+<h4 id="提供的功能">提供的功能<a class="headerlink" href="#提供的功能" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>处理机管理</p>
+</li>
+<li>
+<p>存储器管理</p>
+</li>
+<li>
+<p>文件管理</p>
+</li>
+<li>
+<p>设备管理</p>
+</li>
+</ul>
+<h4 id="目标">目标<a class="headerlink" href="#目标" title="Permanent link">&para;</a></h4>
+<p>安全、高效</p>
+<h3 id="向上层提供方便易用的服务">向上层提供方便易用的服务<a class="headerlink" href="#向上层提供方便易用的服务" title="Permanent link">&para;</a></h3>
+<h4 id="gui">GUI<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h4>
+<p>(Graphical User Interface) 图形化用户接口</p>
+<h4 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h4>
+<p>(Command Line Interface) 命令行接口</p>
+<ul>
+<li>联机命令接口=交互式命令接口</li>
+<li>脱机命令接口=批处理命令接口</li>
+</ul>
+<h4 id="程序接口">程序接口<a class="headerlink" href="#程序接口" title="Permanent link">&para;</a></h4>
+<p>可以在程序中进行<strong>系统调用</strong>来使用程序接口。普通用户不能直接使用程序接口，只能通过程序代码<strong>间接</strong>使用。</p>
+<p>软件和程序员才能使用程序接口</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>封装思想：操作系统把一些丑陋的硬件功能封装成简单易用的服务，使用户能更方便地使用计算机，用户无需关心底层硬件的原理，只需要对操作系统发出命令即可</p>
+</div>
+<h3 id="作为最接近硬件的层次">作为最接近硬件的层次<a class="headerlink" href="#作为最接近硬件的层次" title="Permanent link">&para;</a></h3>
+<p>目标：实现<strong>对硬件机器的拓展</strong></p>
+<p>没有任何软件支持的计算机称为<strong>裸机</strong>。在裸机上安装的操作系统，可以提供资源管理功能和方便用户的服务功能，将裸机改造成功能更强、使用更方便的机器</p>
+<p>通常把覆盖了软件的机器成为<strong>扩充机器</strong>，又称之<strong>虚拟机</strong></p>
+<h2 id="操作系统的特征">操作系统的特征<a class="headerlink" href="#操作系统的特征" title="Permanent link">&para;</a></h2>
+<h3 id="并发">并发<a class="headerlink" href="#并发" title="Permanent link">&para;</a></h3>
+<p>并发：指两个或多个事件在同一时间间隔内发生。这些事件<strong>宏观</strong>上是同时发生的，但<strong>微观</strong>上是交替发生的</p>
+<p>操作系统的并发性：计算机系统中“同时”运行着多个程序，这些程序宏观上看是同时运行着的，而微观上看是交替运行的。</p>
+<p>操作系统就是伴随着“多道程序技术”而出现的。因此，操作系统和程序并发是一起诞生的。</p>
+<p>注意（重要考点）：单核 CPU 同一时刻只能执行一个程序，各个程序只能并发地执行多核 CPU 同一时刻可以同时执行多个程序，多个程序可以并行地执行</p>
+<h3 id="共享">共享<a class="headerlink" href="#共享" title="Permanent link">&para;</a></h3>
+<p>共享即资源共享，是指系统中的资源可供内存中多个并发执行的进程共同使用。</p>
+<h4 id="互斥共享方式">互斥共享方式<a class="headerlink" href="#互斥共享方式" title="Permanent link">&para;</a></h4>
+<p>系统中的某些资源，虽然可以提供给多个进程使用，但一个时间段内只允许一个进程访问该资源</p>
+<h4 id="同时共享方式">同时共享方式<a class="headerlink" href="#同时共享方式" title="Permanent link">&para;</a></h4>
+<p>系统中的某些资源，允许一个时间段内由多个进程“同时”对它们进行访问</p>
+<p>所谓的“同时”往往是宏观上的，而在微观上，这些进程可能是交替地对该资源进行访问的（即分时共享）</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><strong>并发</strong> 和 <strong>共享</strong> 的关系是<strong>相互依存，不可分割</strong>的</p>
+</div>
+<p>如果失去并发性，则系统中只有一个程序正在运行，则共享性失去存在的意义;</p>
+<p>如果失去共享性，则不同的程序不能同时访问硬盘资源，就无法实现同时发送文件，也就无法并发</p>
+<h3 id="虚拟">虚拟<a class="headerlink" href="#虚拟" title="Permanent link">&para;</a></h3>
+<p>虚拟是指把一个物理上的实体变为若干个逻辑上的对应物。物理实体（前者）是实际存在的，而逻辑上对应物（后者）是用户感受到的。</p>
+<h4 id="空分复用技术">空分复用技术<a class="headerlink" href="#空分复用技术" title="Permanent link">&para;</a></h4>
+<p>如虚拟存储器技术</p>
+<h4 id="时分复用技术">时分复用技术<a class="headerlink" href="#时分复用技术" title="Permanent link">&para;</a></h4>
+<p>如虚拟处理器</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><strong>并发</strong> 和 <strong>共享</strong> 的关系是<strong>相互依存，不可分割</strong>的</p>
+</div>
+<p>如果失去了并发性，则一个时间段内系统中只需运行一道程序，那么就失去了实现虚拟性的意义了。因此，没有并发性，就谈不上虚拟性</p>
+<h3 id="异步">异步<a class="headerlink" href="#异步" title="Permanent link">&para;</a></h3>
+<p>异步指，在多道程序环境下，允许多个程序并发执行，但由于资源有限，进程的执行不是一贯到底的，而是走走停停，以不可预知的速度向前推进，这就是进程的异步性。</p>
+<h2 id="操作系统的发展和分类">操作系统的发展和分类<a class="headerlink" href="#操作系统的发展和分类" title="Permanent link">&para;</a></h2>
+<h3 id="手工操作阶段">手工操作阶段<a class="headerlink" href="#手工操作阶段" title="Permanent link">&para;</a></h3>
+<p>主要缺点：</p>
+<p>用户独占全机、<strong>人机速度矛盾</strong>导致<strong>资源利用率极低</strong></p>
+<h3 id="批处理阶段">批处理阶段<a class="headerlink" href="#批处理阶段" title="Permanent link">&para;</a></h3>
+<p>引入<strong>脱机</strong>输入/输出技术（用外围机+磁带完成），并由监督程序负责控制作业的输入、输出，通过外围机把程序提前存到磁带里</p>
+<p>目标是追求<strong>吞吐量</strong>，提高<strong>资源利用率</strong>。</p>
+<h4 id="脱机">脱机<a class="headerlink" href="#脱机" title="Permanent link">&para;</a></h4>
+<p>在主机以外的设备上进行输入/输出操作，需要时再送主机处理。</p>
+<h4 id="批处理-bash">批处理 bash<a class="headerlink" href="#批处理-bash" title="Permanent link">&para;</a></h4>
+<p>后端运行的作业，开始运行之后就不再需要任何交互。由于无法交互控制程序，所以还不算真正意义上的操作系统。</p>
+<h4 id="单道批处理系统">单道批处理系统<a class="headerlink" href="#单道批处理系统" title="Permanent link">&para;</a></h4>
+<p>也叫简单批处理系统。已经出现操作系统的一些特征：</p>
+<ul>
+<li>用户态、内核态（monitor）</li>
+<li>时钟</li>
+</ul>
+<hr />
+<p>主要优点：</p>
+<p>缓解了一定程度的人机速度矛盾，资源利用率有所提升。</p>
+<hr />
+<p>主要缺点：</p>
+<p>内存中仅能有一道程序运行，只有该程序运行结束之后才能调入下一道程序。</p>
+<p>CPU 有大量的时间是在空闲等待 1/0 完成。<strong>资源利用率依然很低</strong>。</p>
+<p>没有人机交互功能。</p>
+<h4 id="多道程序设计">多道程序设计<a class="headerlink" href="#多道程序设计" title="Permanent link">&para;</a></h4>
+<p>多道程序的运行环境比单道程序等更加复杂。</p>
+<p>特点：</p>
+<ul>
+<li><strong>多道</strong>——计算机内存中同时存放多道相互独立的程序</li>
+<li><strong>宏观上并行</strong></li>
+<li><strong>微观上串行</strong></li>
+<li><strong>非封闭、非顺序</strong>——引入多道程序后，程序的执行就失去了封闭性和顺序性</li>
+<li><strong>相互制约</strong>——程序执行因为共享资源以及相互协同的原因相互制约</li>
+<li><strong>断续性</strong>——考虑到竞争的公平性，程序的执行是断续的</li>
+</ul>
+<p>多道程序设计的实现需要解决如下问题：</p>
+<ul>
+<li>处理机的分配</li>
+<li>多道程序的内存分配</li>
+<li>I/O 设备的分配</li>
+<li>如何组织和存放大量的程序和数据，以方便用户使用并保证<strong>一致性</strong>和<strong>安全性</strong></li>
+<li>一定需要实现虚拟存储吗？——不一定，早期多道批处理操作系统将所有进程数据全部调入主存</li>
+</ul>
+<p>这些问题的处理也会增加系统开销。</p>
+<p>多道程序设计开始引入<strong>中断</strong>，目的是使<strong>CPU 和 I/O 设备并行运行</strong>，提高资源利用率。</p>
+<h4 id="多道批处理系统操作系统开始出现">多道批处理系统（操作系统开始出现）<a class="headerlink" href="#多道批处理系统操作系统开始出现" title="Permanent link">&para;</a></h4>
+<p>在批处理系统中采用<strong>多道程序设计</strong>就形成了多道批处理系统。</p>
+<p>每次往内存中读入多道程序，操作系统正式诞生，用于支持多道程序并发运行。</p>
+<hr />
+<p>主要优点：</p>
+<p>多道程序<strong>并发</strong>执行，共享计算机资源。<strong>资源利用率大幅提升</strong>，CPU 和其他资源更能保持“忙碌”状态，系统吞吐量增大。</p>
+<hr />
+<p>主要缺点：</p>
+<p>用户响应时间长，仍然<strong>没有人机交互</strong>功能（用户提交自己的作业之后就只能等待计算机处理完成，中间不能控制自己的作业执行。eg：无法调试程序/无法在程序运行过程中输入一些参数）</p>
+<h3 id="分时操作系统">分时操作系统<a class="headerlink" href="#分时操作系统" title="Permanent link">&para;</a></h3>
+<p>计算机以<strong>时间片</strong>为单位<strong>轮流</strong>为各个用户/作业服务，各个用户可通过终端与计算机进行交互。</p>
+<p>目标是追求<strong>时延（latency）</strong></p>
+<hr />
+<p>主要特征：</p>
+<ul>
+<li>同时性、也叫多路性</li>
+<li>交互性</li>
+<li>独立性</li>
+<li>及时性</li>
+</ul>
+<hr />
+<p>主要优点：</p>
+<p>用户请求可以被即时响应，解决了人机交互问题。允许多个用户同时使用一台计算机，并且用户对计算机的操作相互独立，感受不到别人的存在。</p>
+<hr />
+<p>主要缺点：</p>
+<p><strong>不能优先处理一些紧急任务</strong>。操作系统对各个用户/作业都是完全公平的，循环地为每个用户/作业服务一个时间片，不区分任务的紧急性。</p>
+<h3 id="实时操作系统">实时操作系统<a class="headerlink" href="#实时操作系统" title="Permanent link">&para;</a></h3>
+<p>主要优点：</p>
+<p>能够优先响应一些紧急任务，某些紧急任务不需时间片排队。</p>
+<p>在实时操作系统的控制下，计算机系统接收到外部信号后及时进行处理，并且要在<strong>严格的时限内处理完事件</strong>。实时操作系统的主要特点是<strong>及时性</strong>和<strong>可靠性</strong></p>
+<h4 id="硬实时系统">硬实时系统<a class="headerlink" href="#硬实时系统" title="Permanent link">&para;</a></h4>
+<p>必须在绝对严格的规定时间内完成处理</p>
+<p>eg: 导弹控制系统、自动驾驶系统</p>
+<h4 id="软实时系统">软实时系统<a class="headerlink" href="#软实时系统" title="Permanent link">&para;</a></h4>
+<p>能接受偶尔违反时间规定</p>
+<p>如：12306 火车订票系统</p>
+<h3 id="网络操作系统">网络操作系统<a class="headerlink" href="#网络操作系统" title="Permanent link">&para;</a></h3>
+<p>是伴随着计算机网络的发展而诞生的，能把网络中各个计算机有机地结合起来，实现数据传送等功能，<strong>实现网络中各种资源的共享（如文件共享）和各台计算机之间的通信</strong>。（如：Windows NT 就是一种典型的网络操作系统，网站服务器就可以使用）</p>
+<h3 id="分布式操作系统">分布式操作系统<a class="headerlink" href="#分布式操作系统" title="Permanent link">&para;</a></h3>
+<p>主要特点是分布性和并行性。系统中的各台计算机地位相同，任何工作都可以分布在这些计算机上，由它们并行、协同完成这个任务。</p>
+<h3 id="个人计算机操作系统">个人计算机操作系统<a class="headerlink" href="#个人计算机操作系统" title="Permanent link">&para;</a></h3>
+<p>eg: windows、macos</p>
+<h2 id="操作系统服务">操作系统服务<a class="headerlink" href="#操作系统服务" title="Permanent link">&para;</a></h2>
+<ul>
+<li>资源分配</li>
+<li>记账</li>
+<li>日志服务</li>
+</ul>
+<h2 id="内核">内核<a class="headerlink" href="#内核" title="Permanent link">&para;</a></h2>
+<p>内核是操作系统最重要最核心的部分，也是最接近硬件的部分</p>
+<p>甚至可以説，一个操作系統只要有内核就够了（eg:Docker-&gt;仅需 Linux 内核）</p>
+<p>操作系统的功能未必都在内核中，如图形化用户界面 GUI</p>
+<p>由很多内核程序组成了“操作系统内核”，或简称“内核、（Kernel）”</p>
+<h3 id="内核程序运行在内核态">内核程序——运行在内核态<a class="headerlink" href="#内核程序运行在内核态" title="Permanent link">&para;</a></h3>
+<p>微软、苹果有一帮人负责实现操作系统，他们写的是“内核程序”。操作系统内核作为“管理者”，有时会让 CPU 执行一些“特权指令”，如：内存清零指令。这些指令影响重大，只允许“管理者”——即操作系统内核来使用</p>
+<p>普通程序员写的程序就是“应用程序”，应用程序只能使用“非特权指令”，如：加法指令、减法指令等</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>在 CPU 设计和生产的时候就划分了特权指令和非特权指令，因此 CPU 执行一条指令前就能判断出其类型</p>
+</div>
+<p>CPU 中有一个寄存器叫 程序状态字寄存器（PSW），其中有个二进制位，1 表示“内核态”，0 表示“用户态”</p>
+<h3 id="内核态运行内核程序">内核态——运行内核程序<a class="headerlink" href="#内核态运行内核程序" title="Permanent link">&para;</a></h3>
+<p>CPU 有两种状态，“内核态”和“用户态”。处于内核态时，说明此时正在运行的是内核程序，此时可以执行特权指令处于用户态时，说明此时正在运行的是应用程序，此时只能执行非特权指令</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>内核态 = 核心态 = 管态；用户态 = 目态</p>
+</div>
+<h4 id="内核态和用户态的切换-变态">内核态和用户态的切换 (变态)<a class="headerlink" href="#内核态和用户态的切换-变态" title="Permanent link">&para;</a></h4>
+<p>变态的过程是有成本的，要消耗不少时间，频繁地变态会降低系统性能</p>
+<h5 id="内核态---用户态">内核态 -&gt; 用户态<a class="headerlink" href="#内核态---用户态" title="Permanent link">&para;</a></h5>
+<p>执行一条特权指令一一修改 PSW 的标志位为“用户态”，这个动作意味着操作系统将主动让出 CPU 使用权</p>
+<h5 id="用户态---内核态">用户态 -&gt; 内核态<a class="headerlink" href="#用户态---内核态" title="Permanent link">&para;</a></h5>
+<p>由“中断”引发，硬件自动完成变态过程，触发中断信号意味着操作系统将强行夺回 CPU 的使用权。除了非法使用特权指令之外，还有很多事件会触发中断信号。一个共性是，旦凡<strong>需要操作系统介入的地方，都会触发中断信号</strong></p>
+<h2 id="系统调用">系统调用<a class="headerlink" href="#系统调用" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">对象</th>
+<th style="text-align: center;">与系统调用、库函数的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">普通应用程序</td>
+<td style="text-align: center;">可直接进行系统调用，也可使用库函数。 有的库函数涉及系统调用，有的不涉及</td>
+</tr>
+<tr>
+<td style="text-align: center;">编程语言</td>
+<td style="text-align: center;"><strong>向上提供库函数</strong>。有时会将系统调用封装成库函数，以隐藏系统调用的一些细节，使程序员编程更加方便。</td>
+</tr>
+<tr>
+<td style="text-align: center;">操作系统</td>
+<td style="text-align: center;"><strong>向上提供系统调用</strong>，使得上层程序能请求内核的服务</td>
+</tr>
+<tr>
+<td style="text-align: center;">裸机</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>不涉及系统调用的库函数.eg</p>
+<ul>
+<li>“取绝对值”的函数</li>
+</ul>
+<p>涉及系统调用的库函数.eg</p>
+<ul>
+<li>“创建一个新文件”的函数</li>
+</ul>
+<h3 id="按功能分类">按功能分类<a class="headerlink" href="#按功能分类" title="Permanent link">&para;</a></h3>
+<ul>
+<li>设备管理——完成<strong>设备</strong>的 <strong>请求 / 释放 / 启动</strong> 等功能</li>
+<li>文件管理——完成<strong>文件</strong>的 <strong>读 / 写 / 创建 / 删除</strong> 等功能</li>
+<li>进程控制——完成<strong>进程</strong>的 <strong>创建 / 撒销 / 阻塞 / 唤醒</strong> 等功能</li>
+<li>进程通信——完成<strong>进程</strong>之间的 <strong>消息传递 / 信号传递</strong> 等功能</li>
+<li>内存管理——完成<strong>内存</strong>的 <strong>分配 / 回收</strong> 等功能</li>
+</ul>
+<p>应用程序通过系统调用请求操作系统的服务。而系统中的各种共享资源都由操作系统内核统一掌管，<strong>因此凡是与共享资源有关的操作（如存储分配、1/0 操作、文件管理等），都必须通过系统调用的方式向操作系统内核提出服务请求</strong>，由操作系统内核代为完成。这样<strong>可以保证系统的稳定性和安全性</strong>，防止用户进行非法操作。</p>
+<h3 id="系统调用过程">系统调用过程<a class="headerlink" href="#系统调用过程" title="Permanent link">&para;</a></h3>
+<ol>
+<li>传递系统调用参数</li>
+<li>寄存器传递参数</li>
+<li>内存中存储在块或表中的参数，以及作为参数在寄存器中传递的块地址<ul>
+<li>linux 和 solaris 采用这种方式</li>
+</ul>
+</li>
+<li>由程序放置或推送到堆栈上并由操作系统弹出堆栈到参数</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>块和堆栈的方式传递参数大小不受限制</p>
+</div>
+<ol>
+<li>执行陷入指令（用户态）</li>
+<li>执行相应的内请求核程序处理系统调用（内核态）</li>
+<li>返回应用程序</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>陷入指令 = trap 指令 = 访管指令</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>陷入指令</strong>是在<strong>用户态</strong>执行的，执行陷入指令之后立即引发一个<strong>内中断</strong>，使 CPU 进入内核态</p>
+</div>
+<p><strong>发出系统调用请求</strong>是在<strong>用户态</strong>，而<strong>对系统调用的相应处理</strong>在<strong>内核态</strong>下进行</p>
+<h2 id="计算计组成原理相关基础概念">计算计组成原理相关基础概念<a class="headerlink" href="#计算计组成原理相关基础概念" title="Permanent link">&para;</a></h2>
+<h3 id="中断和异常">中断和异常<a class="headerlink" href="#中断和异常" title="Permanent link">&para;</a></h3>
+<p>参考<a href="https://fuuzen.github.io/cs/principles-of-computer-composition/exception-and-interruption/">这个</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>没有中断就没有并发，也就没有操作系统</p>
+</div>
+<p><strong>中断</strong>是让操作系统<strong>内核</strong>夺回 CPU 使用权的<strong>唯一</strong>途径，使 CPU 由用户态变为内核态</p>
+<table>
+<thead>
+<tr>
+<th><strong>通用概念</strong></th>
+<th><strong>产生 原因</strong></th>
+<th><strong>AArch64</strong></th>
+<th><strong>x86-64</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中断</td>
+<td>硬件 异步</td>
+<td>异步异常 (重置/中断)</td>
+<td>中断 (可屏蔽/不可屏蔽)</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>软件 同步</td>
+<td>同步异常 (终止/异常指令)</td>
+<td>异常 (Fault/Trap/Abort)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="中断" src="../../../assets/cs/os/concepts/%E4%B8%AD%E6%96%AD.png" /></p>
+<p>（广义上的中断包括）Interrupt Handlers used in all 3 scenarios :</p>
+<ul>
+<li>HW -&gt; CPU -&gt; Kernel: Classic HW Interrupt (狭义上的中断)</li>
+<li>User -&gt; Kernel: SW Interrupt</li>
+<li>CPU -&gt; Kernel: Exception</li>
+</ul>
+<h4 id="其他类型非狭义中断">其他类型(非狭义)中断<a class="headerlink" href="#其他类型非狭义中断" title="Permanent link">&para;</a></h4>
+<ul>
+<li>SW Interrupt</li>
+<li>Interrupts caused by the execution of a software instruction: <code>INT&lt;interrupt_number&gt;</code></li>
+<li>Used by the system call interrupt()</li>
+<li>Initiated by the running (user level) process</li>
+<li>Cause current processing to be interrupted and transfers control to the corresponding interrupt handler in the kernel</li>
+<li>Exceptions</li>
+<li>Initiated by processor hardware itself</li>
+<li>Example: divide by zero</li>
+<li>Cause a transfer of control to the kernel to handle the exception (like a software interrupt)</li>
+</ul>
+<h4 id="linux-系统的中断">Linux 系统的中断<a class="headerlink" href="#linux-系统的中断" title="Permanent link">&para;</a></h4>
+<ul>
+<li>在中断处理中做尽量少的事</li>
+<li>推迟非关键行为</li>
+</ul>
+<p>结构：</p>
+<ul>
+<li>
+<p>Top half ：马上做，找到 handler</p>
+</li>
+<li>
+<p>最小的、公共行为</p>
+<ul>
+<li>保存寄存器、屏蔽其他中断</li>
+<li>恢复寄存器，返回原来场景</li>
+</ul>
+<p>最重要:调用合适的由硬件驱动提供的中断处理 handler</p>
+<p>因为中断被屏蔽，所以不要做太多事情(时间、空间)</p>
+<p>使用将请求放入队列，或者设置标志位将其他处理推迟到 bottom half</p>
+<p>现代处理器中，多个 I/O 设备共享一个 IRQ 和中断向量 v 多个 ISR (interrupt service routines)可以结合在一个向量上
+调用每个设备对应该 IRQ 的 ISR</p>
+</li>
+<li>
+<p>Bottom half :推迟处理 (softirq, tasklets, 工作队列，内核线程)</p>
+</li>
+<li>
+<p>提供一些推迟完成任务的机制</p>
+</li>
+<li>
+<p>softirqs</p>
+</li>
+<li>tasklets (建立在 softirqs 之上)</li>
+<li>工作队列</li>
+<li>内核线程</li>
+</ul>
+<p>这些工作可以被中断</p>
+<p><img alt="linux中断" src="../../../assets/cs/os/concepts/linux%E4%B8%AD%E6%96%AD.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>中断处理没有进程上下文！</p>
+</div>
+<p>中断(和异常相比)和具体的某条指令无关</p>
+<p>也和中断时正在跑的进程、用户程序无关</p>
+<p>中断处理 handler 不能睡眠!</p>
+<p>中断处理的一些约束条件：</p>
+<ul>
+<li>不能睡眠</li>
+<li>或者调用可能会睡眠的任务</li>
+<li>不能调用 schedule()调度</li>
+<li>不能释放信号或调用可能睡眠的操作</li>
+<li>不能和用户地址空间交换数据</li>
+</ul>
+<h4 id="中断向量表">中断向量表<a class="headerlink" href="#中断向量表" title="Permanent link">&para;</a></h4>
+<p>每一个处理器有一个中断向量表，由操作系统内核建立，指向处理不同时间的中断处理程序入口</p>
+<p>结构：</p>
+<p><img alt="中断向量表" src="../../../assets/cs/os/concepts/%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F%E8%A1%A8.png" /></p>
+<h4 id="需要中断的场景举例">需要中断的场景举例<a class="headerlink" href="#需要中断的场景举例" title="Permanent link">&para;</a></h4>
+<p>Hardware devices may need asynchronous and immediate service. For example:</p>
+<ul>
+<li>Timer interrupt: Timers and time-dependent activities need to be updated with the passage of time at precise intervals</li>
+<li>Network interrupt: The network card interrupts the CPU when data arrives from the network</li>
+<li>I/O device interrupt: I/O devices (such as mouse and keyboard) issue hardware interrupts when they have input (e.g., a new character or mouse click)</li>
+</ul>
+<h4 id="多核系统上的中断">多核系统上的中断<a class="headerlink" href="#多核系统上的中断" title="Permanent link">&para;</a></h4>
+<p>Howareinterruptshandledonmulticoremachines?</p>
+<ul>
+<li>On x86 systems each CPU gets its own local Advanced Programmable Interrupt Controller (APIC). They are wired in a way that allows routing device interrupts to any selected local APIC.</li>
+<li>The OS can program the APICs to determine which interrupts get routed to which CPUs.</li>
+<li>The default (unless OS states otherwise) is to route all interrupts to processor 0</li>
+</ul>
+<h3 id="陷入指令">陷入指令<a class="headerlink" href="#陷入指令" title="Permanent link">&para;</a></h3>
+<p>执行“陷入指令”，意味着应用程序主动地将 CPU 控制权还给操作系统内核。“系统调用”就是通过陷入指令完成的</p>
+<h3 id="io-输入输出系统">I/O (输入输出系统)<a class="headerlink" href="#io-输入输出系统" title="Permanent link">&para;</a></h3>
+<h3 id="bus-总线">BUS (总线)<a class="headerlink" href="#bus-总线" title="Permanent link">&para;</a></h3>
+<h2 id="并行系统">并行系统<a class="headerlink" href="#并行系统" title="Permanent link">&para;</a></h2>
+<h3 id="多核处理器">多核处理器<a class="headerlink" href="#多核处理器" title="Permanent link">&para;</a></h3>
+<h3 id="多处理器系统">多处理器系统<a class="headerlink" href="#多处理器系统" title="Permanent link">&para;</a></h3>
+<p>又称并行系统、紧耦合系统</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>区分 <strong>多处理器系统</strong> 和 <strong>多核系统</strong> ，实际计算机往往既是多核的也是多处理器的</p>
+</div>
+<p>多核和多处理器系统都用于加速计算过程。多核包含在单个 CPU 中的多个核或处理单元。多处理器由多个 CPU 组成。多核处理器不需要像多处理器那样复杂的配置。相反，多处理器更可靠并且能够运行许多程序。</p>
+<h4 id="三个优点一个缺点">三个优点一个缺点？？？<a class="headerlink" href="#三个优点一个缺点" title="Permanent link">&para;</a></h4>
+<p>老师出的作业题 😅 难道本来是想问多道批处理系统？而且那个也是单处理器系统啊）</p>
+<ul>
+<li>增加吞吐量，并行处理？</li>
+<li>规模经济，降低成本，比多核处理器便宜？</li>
+<li>增加可靠性？</li>
+<li>？？？</li>
+</ul>
+<h4 id="非对称多处理器系统-amp">非对称多处理器系统 (AMP)<a class="headerlink" href="#非对称多处理器系统-amp" title="Permanent link">&para;</a></h4>
+<p>非对称多处理是指一种计算机结构，其中有多个处理器，但它们并不都是一样的。这意味着，一个 CPU 可能正在处理操作系统代码，而另一个 CPU 正在执行输入和输出工作。它使用两个或更多的处理器由一个<strong>主处理器</strong>处理。所有的 CPU 都是相互连接的，但<strong>不是自我调度的</strong>。它用于根据任务的优先级和重要性将特定任务安排到一个 CPU。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>非对称处理器的应用场景：被用于嵌入式系统，在这些系统中，特定任务需要并发执行，但系统不需要像对称多处理系统那样的通用计算能力</p>
+</div>
+<h4 id="对称多处理器系统-smp">对称多处理器系统 (SMP)<a class="headerlink" href="#对称多处理器系统-smp" title="Permanent link">&para;</a></h4>
+<p>SMP（Sysmmetric Multi-Processor System，对称多处理器），它由多个具有对称关系的处理器组成。所谓对称，即处理器之间<strong>没有主从之分</strong>。SMP 架构使得一台计算机不再由单个 CPU 组成，而是由两个或更多的处理器连接到一个<strong>共享的主存储器</strong>上，并能够共同执行任务。这些处理器通常是相同的，能够运行分配给它们的任何任务。这可以提高性能，因为任务可以在处理器之间分配，使其更快完成。</p>
+<p>对称多处理将多个 CPU 应用于一个任务，以<strong>并行</strong>和更快的方式完成。因此，在对称多处理系统中，两个或更多的 CPU 被连接到一个共享的主存储器。同时，所有这些 CPU 都可以完全访问输入和输出设备。在对称多处理系统中，操作系统认为所有的处理器都是<strong>平等</strong>的。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>对称处理器 (SMP) 架构同时也是 UMA 架构</p>
+</div>
+<p>SMP 是一个紧密耦合的多处理器系统，它有一组独立运行的相同的 CPU。每个 CPU 处理不同的程序，执行不同的数据集。对称多处理系统共享公共资源，如输入设备、输出设备、内存等。</p>
+<h5 id="问题">问题<a class="headerlink" href="#问题" title="Permanent link">&para;</a></h5>
+<p>所有处理器相同，没有考虑不同任务要求处理器的差异性</p>
+<h3 id="多处理器环境的-3-种内存共享模型">多处理器环境的 3 种内存共享模型<a class="headerlink" href="#多处理器环境的-3-种内存共享模型" title="Permanent link">&para;</a></h3>
+<h4 id="uma">UMA<a class="headerlink" href="#uma" title="Permanent link">&para;</a></h4>
+<p>UMA（Uniform Memory Access，一致性存储器访问)，实际上就是 <strong>SMP</strong> 。其中，<em>*</em><em>一致性</em><em>指的就是在任意时刻，多个处理器只能为内存的每个数据保存或共享一个唯一的数值</em><em>。它的结构特征就是</em><em>多处理器共享一个集中式存储器</em>*，每个处理器访问存储器所需的时间一致，工作负载能够均匀的分配到所有可用处理器上，极大地提高了整个系统的数据处理能力。但是，如果多个处理器同时请求访问共享资源时，就会引发资源竞争，需要软硬件实现加锁机制来解决这个问题。</p>
+<p>因此，这样的架构设计无法拥有良好的处理器数量扩展性，因为共享内存的资源竞态总是存在的，处理器利用率最好的情况只能停留在 2 到 4 颗。</p>
+<h4 id="numa">NUMA<a class="headerlink" href="#numa" title="Permanent link">&para;</a></h4>
+<p>NUMA（Non-Uniform Memory Access，非一致性存储器访问）架构优化了 SMP 架构扩展性差以及存储器带宽窄的问题。采用了分布式存储器，将处理器和存储器划分为<strong>不同的节点</strong>（NUMA Node），每个节点都包含了若干的处理器与内存资源。多节点的设计有效提高了存储器的带宽和处理器的扩展性。</p>
+<p>另一方面，NUMA 节点的处理器可以访问到整体存储器。按照节点内外，内存被分为：</p>
+<ul>
+<li>节点内部的本地内存</li>
+<li>节点外部的远程内存</li>
+</ul>
+<p>当处理器访问本地内存时，走的是内部总线，当处理器访问远程内存时，走的是主板上的 QPI 互联模块。访问前者的速度要远快于后者，NUMA（非一致性存储器访问）因此而得名。</p>
+<h5 id="问题_1">问题<a class="headerlink" href="#问题_1" title="Permanent link">&para;</a></h5>
+<p>各个处理器访问自己的内存速度<strong>很快</strong>，但如果出现需要跨处理器访存，即访问另一处理器的内存时会非常<strong>缓慢</strong></p>
+<h4 id="coma">COMA<a class="headerlink" href="#coma" title="Permanent link">&para;</a></h4>
+<p>Cache-only Memory Access (COMA) 是 ccNUMA(Cache Coherent NUMA, 缓存一致性 NUMA) 的一种演变。COMA 可以看成是专用的 NUMA，将 NUMA 中的分布式内存用高速缓存来取代。全局地址空间由高速缓存组成。访问远端的高速缓存借助分布式高速缓存目录进行。</p>
+<h3 id="集群系统">集群系统<a class="headerlink" href="#集群系统" title="Permanent link">&para;</a></h3>
+<p>类似多处理系统，集群系统时多个机器，每台机器有自己的操作系统，并行工作。</p>
+<ul>
+<li>Usually sharing storage via a storage-area network (SAN)</li>
+<li>
+<p>Provides a high-availability service which survives failures</p>
+</li>
+<li>
+<p>Asymmetric clustering has one machine in hot-standby mode</p>
+</li>
+<li>
+<p>Symmetric clustering has multiple nodes running applications, monitoring each other</p>
+</li>
+<li>
+<p>Some clusters are for high-performance computing (HPC)</p>
+</li>
+<li>
+<p>Applications must be written to use parallelization</p>
+</li>
+<li>
+<p>Some have distributed lock manager (DLM) to avoid conflicting operations</p>
+</li>
+</ul>
+<h2 id="操作系统的结构">操作系统的结构<a class="headerlink" href="#操作系统的结构" title="Permanent link">&para;</a></h2>
+<p>不同结构操作系统举例：</p>
+<ul>
+<li>大内核/宏内核/单内核： Windows、Android、iOS、UNIX、Linux、MacOS</li>
+<li>微内核：Windows NT、Mach、Fuchsia、鸿蒙</li>
+<li>模块化：Solaris</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>操作系统体系结构</th>
+<th>区别</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大内核 / 宏内核 / 单内核</td>
+<td>将操作系统的主要功能模块都作为系统内核，运行在核心态</td>
+<td>高性能</td>
+<td>内核代码庞大，结构混乱，难以维护</td>
+</tr>
+<tr>
+<td>微内核</td>
+<td>只把最基本的功能保留在内核</td>
+<td>内核功能少，结构清晰，方便维护</td>
+<td>需要频繁地在核心态和用户态之间切换，性能低</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>特性、思想</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分层结构</td>
+<td>内核分多层，每层可单向调用更低一层提供的接</td>
+<td>1. 便于调试和验证，自底向上逐层调试验证</td>
+<td>1. 仅可调用相邻低层，难以合理定义各层的边界</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>2. 效率低，不可跨层调用，系统调用执行时间长</td>
+<td>2. 效率低，不可跨层调用，系统调用执行时间长</td>
+</tr>
+<tr>
+<td>模块化</td>
+<td>将内核划分为多个模块，各模块之间相互协作。内核 = 主模块 ＋ 可加载内核模块</td>
+<td>1. 模块间逻辑清晰易于维护，确定模块间接口后即可多模块同时开发</td>
+<td>1. 模块间的接口定义未必合理、实用</td>
+</tr>
+<tr>
+<td></td>
+<td>主模块：只负责核心功能，如进程调度、内存管</td>
+<td>2. 支持动态加载新的内核模块（如：安装设备驱动程序、安装新的文件系统模块到内核），增强 OS 适应性</td>
+<td>2. 模块间相互依赖，更难调试和验证</td>
+</tr>
+<tr>
+<td></td>
+<td>可加载内核模块：可以动态加载新模块到内核，而无需重新编译整个内核</td>
+<td>3.任何模块都可以直接调用其他模块，无需采用消息传递进行通信，效率高</td>
+<td></td>
+</tr>
+<tr>
+<td>宏内核(大内核)</td>
+<td>所有的系统功能都放在内核里（大内核结构的 OS 通常也采用了"模块化”的设计思想）</td>
+<td>性能高，内核内部各种功能都可以直接相互调用</td>
+<td>1. 内核庞大功能复杂，难以维护</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>2. 大内核中某个功能模块出错，就可能导致整个 系统崩溃</td>
+</tr>
+<tr>
+<td>微内核</td>
+<td>只把中断、原语、进程通信等最核心的功能放入内核。进程管理、文件管理、设备管理等功能以用户进程的形式运行在用户态</td>
+<td>1. 内核小功能少、易于维护，内核可靠性高</td>
+<td>1. 性能低，需要频繁的切换 用户态/核心态。用户态下的各功能模块不可以直接相互调用，只能通过内核的"消息传递"来间接通信</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>2. 内核外的某个功能模块出错不会导致整个系统 崩溃</td>
+<td>2. 用户态下的各功能模块不可以直接相互调用，只能通过内核的"消息传递"来间接通信</td>
+</tr>
+<tr>
+<td>外核(exokernel)</td>
+<td>内核负责进程调度、进程通信等功能，外核负责为用户进程分配未经抽象的硬件资源，且由外核负责保证资源使用安全</td>
+<td>1. 外核可直接给用户进程分配"不虚拟、不抽象"的硬件资源，使用户进程可以更灵活的使用硬件</td>
+<td>1. 降低了系统的一致性</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>2. 减少了虚拟硬件资源的“映射层”，提升效率</td>
+<td>2. 使系统变得更复杂</td>
+</tr>
+</tbody>
+</table>
+<h3 id="非内核功能如-gui">非内核功能（如 GUI）<a class="headerlink" href="#非内核功能如-gui" title="Permanent link">&para;</a></h3>
+<p>操作系统的非内核功能运行在<strong>用户态</strong></p>
+<h3 id="大-内核">(大) 内核<a class="headerlink" href="#大-内核" title="Permanent link">&para;</a></h3>
+<p>内核是操作系统最基本、最核心的部分。</p>
+<p>实现操作系统内核功能的那些程序就是内核程序。</p>
+<p>操作系统内核需要运行在<strong>内核态</strong></p>
+<h4 id="对系统资源进行管理的功能">对系统资源进行管理的功能<a class="headerlink" href="#对系统资源进行管理的功能" title="Permanent link">&para;</a></h4>
+<p><strong>大内核</strong>结构中运行在<strong>内核态</strong>，所以大内核结构操作系统变态不那么频繁</p>
+<p><strong>微内核</strong>结构中运行在<strong>用户态</strong>，所以微内核结构操作系统变态更加频繁</p>
+<h5 id="进程管理">进程管理<a class="headerlink" href="#进程管理" title="Permanent link">&para;</a></h5>
+<h5 id="存储器管理">存储器管理<a class="headerlink" href="#存储器管理" title="Permanent link">&para;</a></h5>
+<h5 id="设备管理等功能">设备管理等功能<a class="headerlink" href="#设备管理等功能" title="Permanent link">&para;</a></h5>
+<h4 id="微内核">(微内核)<a class="headerlink" href="#微内核" title="Permanent link">&para;</a></h4>
+<h5 id="时钟管理">时钟管理<a class="headerlink" href="#时钟管理" title="Permanent link">&para;</a></h5>
+<p>实现计时功能</p>
+<h5 id="中断处理">中断处理<a class="headerlink" href="#中断处理" title="Permanent link">&para;</a></h5>
+<p>负责实现中断机制</p>
+<h5 id="原语设备驱动cpu-切换等">原语（设备驱动、CPU 切换等）<a class="headerlink" href="#原语设备驱动cpu-切换等" title="Permanent link">&para;</a></h5>
+<p>是一种特殊的程序，具有如下特点：</p>
+<ul>
+<li>处于操作系统最底层，是最接近硬件的部分</li>
+<li>这种程序的运行具有原子性——其运行只能一气呵成，不可中断</li>
+<li>运行时间较短、调用频繁</li>
+</ul>
+<h2 id="操作系统的引导">操作系统的引导<a class="headerlink" href="#操作系统的引导" title="Permanent link">&para;</a></h2>
+<p><img alt="操作系统引导过程" src="../../../assets/cs/os/concepts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC%E8%BF%87%E7%A8%8B.png" /></p>
+<p>操作系统引导过程</p>
+<ol>
+<li>CPU 从一个<strong>特定主存地址</strong>开始，取指令，执行 ROM 中的引导程序（先进行硬件自检，再开机）</li>
+<li>将磁盘的第一块——主引导记录 读入内存，执行磁盘引导程序，扫描分区表</li>
+<li>从活动分区（又称主分区，即安装了操作系统的分区）读入分区引导记录，执行其中的程序</li>
+<li>从根目录下找到完整的操作系统初始化程序（即启动管理器）并执行，完成“开机”的一系列动作</li>
+<li>加载内核<ul>
+<li>BIOS</li>
+<li>UEFI，逐渐取代 BIOS，加载更简洁</li>
+<li>GRUB，更加复杂，可以选择加载不同的内核</li>
+</ul>
+</li>
+<li>启动系统守护进程（在内核之外提供的服务）</li>
+<li>启动内核中断驱动（硬件和软件）<ol>
+<li>启动设备的硬件中断</li>
+<li>启动软件中断（异常或陷阱）<ul>
+<li>软件错误（例如，除零）</li>
+<li>操作系统服务请求-系统调用</li>
+<li>故障处理：其他进程问题包括无限循环、进程相互修改,甚至修改操作系统；</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>不同体系结构下，不同 OS 启动也有不同：</p>
+<p>x86 需要兼顾“历史包袱”，需要兼容 32 位</p>
+<p>ARM</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>完整的操作系统初始化程序（即启动管理器）可在根目录下找到</p>
+</div>
+<p>Eg : windows 操作系统完整的开机初始化程序在 <code>根目录/Windows/Boot</code> 下</p>
+<h2 id="双多-模式操作">双/多 模式操作<a class="headerlink" href="#双多-模式操作" title="Permanent link">&para;</a></h2>
+<h3 id="双模式操作">双模式操作<a class="headerlink" href="#双模式操作" title="Permanent link">&para;</a></h3>
+<p>即经典的内核态、用户态两个模式</p>
+<h3 id="多重模式操作">多重模式操作<a class="headerlink" href="#多重模式操作" title="Permanent link">&para;</a></h3>
+<p>两模式扩展到多模式，典型场景是<strong>虚拟化</strong>；</p>
+<p>支持虚拟化技术的 CPU 有一种单独模式，用于表示虚拟机管理器 VMM；</p>
+<p>这种模式的特权多于用户，但少于内核；</p>
+<p><img alt="多重模式执行" src="../../../assets/cs/os/concepts/%E5%A4%9A%E9%87%8D%E6%A8%A1%E5%BC%8F%E6%89%A7%E8%A1%8C.png" /></p>
+<h2 id="虚拟机">虚拟机<a class="headerlink" href="#虚拟机" title="Permanent link">&para;</a></h2>
+<p>虚拟机：使用虚拟化技术，将一台物理机器虚拟化多台虚拟机器（Virtual Machine, VM），每个虚拟机器都可以独立运行一个操作系统</p>
+<p>同义术语：</p>
+<ul>
+<li>虚拟机管理程序</li>
+<li>虚拟机监控程序</li>
+<li>Virtual Machine Monitor</li>
+<li>Hypervisor</li>
+</ul>
+<p>当源 CPU 类型不同于目标类型（例如 PowerPC 到 Intel x86）时使用<strong>仿真</strong></p>
+<p>当计算机语言未编译本机代码时进行<strong>解释</strong></p>
+<h3 id="第一类-vmm">第一类 VMM<a class="headerlink" href="#第一类-vmm" title="Permanent link">&para;</a></h3>
+<p>直接运行在硬件上</p>
+<p><img alt="第一类VMM" src="../../../assets/cs/os/concepts/%E7%AC%AC%E4%B8%80%E7%B1%BBVMM.png" /></p>
+<p>KVM（Kernel-based Virtual Machine）是一种基于硬件虚拟化扩展的完全虚拟化技术。使用 KVM，虚拟机可以在真实硬件上运行，并获得对硬件的直接访问。每个 KVM 虚拟机都被视为一个独立的虚拟计算机，具有自己的虚拟硬件，包括虚拟的 CPU、内存、磁盘和网络接口等。</p>
+<p>WSL（Windows Subsystem for Linux）是一项由 Microsoft 开发的技术，旨在在 Windows 操作系统上运行本地的 Linux 环境。WSL 提供了一个兼容层，允许在 Windows 上运行原生的 Linux 二进制文件（如命令行工具、实用程序和应用程序）。在 WSL 中，并没有采用传统的虚拟化技术来创建完全虚拟化的虚拟机。相反，WSL 利用 Windows 操作系统的内核功能，通过在用户模式和内核模式之间进行转换，提供了对 Linux 系统调用的兼容支持。</p>
+<h3 id="第二类-vmm">第二类 VMM<a class="headerlink" href="#第二类-vmm" title="Permanent link">&para;</a></h3>
+<p>运行在宿主操作系统上</p>
+<p><img alt="第二类VMM.png" src="../../../assets/cs/os/concepts/%E7%AC%AC%E4%BA%8C%E7%B1%BBVMM.png" /></p>
+<p>LXC（Linux Containers）是一种操作系统级虚拟化技术，也被称为容器化。使用 LXC，虚拟机实际上是在宿主机的操作系统内运行的，共享宿主机的内核。这些虚拟机被称为容器，它们与宿主机共享相同的内核和一些系统资源。相比于 KVM，LXC 提供了更轻量级的虚拟化解决方案，更适合运行基于 Linux 的应用程序。</p>
+<p>VMware：完全虚拟化</p>
+<p>VirtualBox：“半虚拟化”</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>PVE 中的虚拟机就是 KVM 技术实现，而容器 CT 就是 LXC 技术实现</p>
+</div>
+<h3 id="两类-vmm-的对比">两类 VMM 的对比<a class="headerlink" href="#两类-vmm-的对比" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>第一类 VMM</th>
+<th>第二类 VMM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对物理资源的控制权</td>
+<td>直接运行在硬件之上，能直接控制和分配物理资 源</td>
+<td>运行在 Host OS 之上，依赖于 Host OS 为其分配物理资源</td>
+</tr>
+<tr>
+<td>资源分配方式</td>
+<td>在安装 Guest OS 时，VMM 要在原本的硬盘上自行分配存储空间，类似于“外核”的分配方式，分配未经抽象的物理硬件</td>
+<td>GuestOS 拥有自己的虚拟磁盘，该盘实际上是 Host OS 文件系统中的一个大文件。GuestOS 分配到的内存是虚拟内存</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>性能更好</td>
+<td>性能更差，需要 HostOS 作为“中介"</td>
+</tr>
+<tr>
+<td>可支持的虚拟机数量</td>
+<td>更多，不需要和 Host OS 竞争资源，相同的硬件资源可以支持更多的虚拟机</td>
+<td>更少，Host OS 本身需要使用物理资源，Host OS 上运行的其他进程也需要物理资源</td>
+</tr>
+<tr>
+<td>虚拟机的可迁移性</td>
+<td>更差</td>
+<td>更好，只需导出虚拟机镜像文件即可迁移到另一台 HostOS 上，商业化应用更广泛</td>
+</tr>
+<tr>
+<td>运行模式</td>
+<td>第一类 VMM 运行在最高特权级（Ring O），可以执行最高特权的指令；上层操作系统内核运行在次高特权级（Ring 1）；上层操作系统非内核程序程序运行在次高特权级（Ring 1）</td>
+<td>第二类 VMM 部分运行在用户态、部分运行在内核态。GuestOS 发出的系统调用会被 VMM 截获，并转化为 VMM 对 HostOS 的系统调用</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 操作系统">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                操作系统
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../deadlock/" class="md-footer__link md-footer__link--next" aria-label="Next: 死锁">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                死锁
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

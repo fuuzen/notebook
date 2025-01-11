@@ -1,0 +1,4030 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/principles-of-computer-composition/yatcpu/lab-reports/lab2/">
+      
+      
+        <link rel="prev" href="../lab1/">
+      
+      
+        <link rel="next" href="../lab3/">
+      
+      
+      <link rel="icon" href="../../../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>lab2 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#测试用例及其波形图分析" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              lab2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Principles of computer composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic-indicators-of-computer-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机性能的基本指标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据通路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dram-refresh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DRAM刷新
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exception-and-interruption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常和中断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../instruction-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指令系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../operation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../virtual-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../von-neumann-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冯·诺伊曼体系结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_13" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Yatcpu
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8_13" id="__nav_2_8_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_8_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8_13">
+            <span class="md-nav__icon md-icon"></span>
+            Yatcpu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chisel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chisel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_13_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_8_13_3" id="__nav_2_8_13_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab reports
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_8_13_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8_13_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lab reports
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lab1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    lab2
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    lab2
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#测试用例及其波形图分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例及其波形图分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例及其波形图分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boardsaygoodbyetest" class="md-nav__link">
+    <span class="md-ellipsis">
+      BoardSayGoodbyeTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BoardSayGoodbyeTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executetest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ExecuteTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExecuteTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrci-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrci 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrsi-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrsi 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrw-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrw 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrs-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrs 指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序的方法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clintcsrtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLINTCSRTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLINTCSRTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无跳转的情况下处理中断请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      无跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#跳转的情况下处理中断请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不响应中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      不响应中断
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无跳转的情况下处理中断请求_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      无跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无跳转的情况下处理中断请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mepc310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mepc[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcause310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mcause[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="退出中断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#跳转的情况下处理中断请求_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="跳转的情况下处理中断请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mepc310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mepc[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcause310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mcause[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不响应中断_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      不响应中断
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不响应中断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_clint_access_bundle_mstatus310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_clint_access_bundle_mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt_enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      interrupt_enable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_flag310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_flag[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timertest" class="md-nav__link">
+    <span class="md-ellipsis">
+      TimerTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TimerTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#写-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      写 limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#写-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      写 enabled
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      enabled
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simpletraptest" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimpleTrapTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SimpleTrapTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#填空涉及到的信号分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      填空涉及到的信号分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#在完成实验的过程中遇到的关于实验指导不明确或者其他问题或者改进的建议" class="md-nav__link">
+    <span class="md-ellipsis">
+      在完成实验的过程中，遇到的关于实验指导不明确或者其他问题，或者改进的建议。
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lab3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lab4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#测试用例及其波形图分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例及其波形图分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例及其波形图分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boardsaygoodbyetest" class="md-nav__link">
+    <span class="md-ellipsis">
+      BoardSayGoodbyeTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BoardSayGoodbyeTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executetest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ExecuteTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ExecuteTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrci-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrci 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrsi-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrsi 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrw-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrw 指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行-csrrs-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行 csrrs 指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序的方法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_funct320_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_funct3[2:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_opcode60_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_opcode[6:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zimm310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      zimm[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_reg1_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_reg1_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_read_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_read_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_csr_reg_write_data310_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_csr_reg_write_data[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clintcsrtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLINTCSRTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLINTCSRTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无跳转的情况下处理中断请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      无跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#跳转的情况下处理中断请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不响应中断" class="md-nav__link">
+    <span class="md-ellipsis">
+      不响应中断
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无跳转的情况下处理中断请求_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      无跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无跳转的情况下处理中断请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mepc310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mepc[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcause310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mcause[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="退出中断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#跳转的情况下处理中断请求_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      跳转的情况下处理中断请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="跳转的情况下处理中断请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_handler_address310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_handler_address[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mepc310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mepc[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcause310_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      mcause[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mstatus310_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#退出中断_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      退出中断
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不响应中断_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      不响应中断
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不响应中断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io_clint_access_bundle_mstatus310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_clint_access_bundle_mstatus[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt_enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      interrupt_enable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_flag310" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_flag[31:0]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_interrupt_assert_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      io_interrupt_assert
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timertest" class="md-nav__link">
+    <span class="md-ellipsis">
+      TimerTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TimerTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试用例的功能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#写-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      写 limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#写-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      写 enabled
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="执行不同指令时候对应的部件的关键信号的变化情况">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      enabled
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simpletraptest" class="md-nav__link">
+    <span class="md-ellipsis">
+      SimpleTrapTest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SimpleTrapTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的功能_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的功能
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从什么层面测试-cpu_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      从什么层面测试 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#加载测试程序指令的方法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载测试程序指令的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试用例的执行结果_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试用例的执行结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输出波形图_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出波形图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#执行不同指令时候对应的部件的关键信号的变化情况_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      执行不同指令时候对应的部件的关键信号的变化情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#填空涉及到的信号分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      填空涉及到的信号分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#在完成实验的过程中遇到的关于实验指导不明确或者其他问题或者改进的建议" class="md-nav__link">
+    <span class="md-ellipsis">
+      在完成实验的过程中，遇到的关于实验指导不明确或者其他问题，或者改进的建议。
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>lab2</h1>
+
+<p>:::primary
+<a href="/computer-science/principles-of-computer-composition/yatcpu/yatcpu-report/">YatCPU</a> - - - <a href="/computer-science/principles-of-computer-composition/yatcpu/lab-reports/lab1/">lab1</a> - - - <a href="/computer-science/principles-of-computer-composition/yatcpu/lab-reports/lab2/">lab2</a> - - - <a href="/computer-science/principles-of-computer-composition/yatcpu/lab-reports/lab3/">lab3</a> - - - <a href="/computer-science/principles-of-computer-composition/yatcpu/lab-reports/lab4/">lab4</a></p>
+<h2 id="测试用例及其波形图分析">测试用例及其波形图分析<a class="headerlink" href="#测试用例及其波形图分析" title="Permanent link">&para;</a></h2>
+<h3 id="boardsaygoodbyetest">BoardSayGoodbyeTest<a class="headerlink" href="#boardsaygoodbyetest" title="Permanent link">&para;</a></h3>
+<p>src/test/scala/riscv/BoardTest.scala</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/BoardSayGoodbyeTest.png" /></p>
+<p>其中<code>Top</code>模块来自：</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/board_test_import_top.png" /></p>
+<p>测试执行程序来自 csrc/say_goodbye.c ：</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/say_goodbye.c.png" /></p>
+<h4 id="测试用例的功能">测试用例的功能<a class="headerlink" href="#测试用例的功能" title="Permanent link">&para;</a></h4>
+<p>测试能否正常执行打印 "Never gonna give you up~ Never gonna let you down~\nNever gonna run around and~ desert you~" ，用于烧板后测试能否实现打印，即测试 CPU 包括 lab1 的功能以及能否实现中断处理</p>
+<h4 id="从什么层面测试-cpu">从什么层面测试 CPU<a class="headerlink" href="#从什么层面测试-cpu" title="Permanent link">&para;</a></h4>
+<p>从完整性的层面测试 CPU ，若 CPU 可以打印，说明 CPU 具备了中断处理的能力</p>
+<p>但并没有测试 CPU 的正确性，只是进行了<code>poke</code>和<code>step</code>，但没有对任何信号进行<code>expect</code>检查。实际验证需要烧板手动测试能否打印。</p>
+<h4 id="加载测试程序的方法">加载测试程序的方法<a class="headerlink" href="#加载测试程序的方法" title="Permanent link">&para;</a></h4>
+<p>利用定义在<code>src/main/scala/board/z710/Top.scala</code>中的模块<code>Top</code>，用 RISC-V 程序<code>src/main/resources/say_goodbye.asmbin</code> 初始化进行仿真</p>
+<h4 id="测试用例的执行结果">测试用例的执行结果<a class="headerlink" href="#测试用例的执行结果" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/result1.png" /></p>
+<h4 id="输出波形图">输出波形图<a class="headerlink" href="#输出波形图" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd1.png" /></p>
+<h4 id="执行不同指令时候对应的部件的关键信号的变化情况">执行不同指令时候对应的部件的关键信号的变化情况<a class="headerlink" href="#执行不同指令时候对应的部件的关键信号的变化情况" title="Permanent link">&para;</a></h4>
+<p>由 clock 信号变化可以看出时钟周期为 2 ps</p>
+<p>测试中循环执行了 200 次<code>step(1000)</code>，即 200000 个时钟周期，输出的波形图总时长为 400001 ps ，除去半个用于 reset 的时钟周期之外恰好 200000 个时钟周期。</p>
+<p>波形图中 CPU 内信号一直在不断变化，且按照一定序列无限循环周期变化，说明程序进入了死循环</p>
+<p>Timer 模块中的 count 不断自增，但到仿真结束为止页没达到 limit 信号的值 05F5E100H ，所以一直没有进入中断</p>
+<h3 id="executetest">ExecuteTest<a class="headerlink" href="#executetest" title="Permanent link">&para;</a></h3>
+<p>src/test/scala/riscv/singlecycle/ExecuteTest.scala</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/ExecuteTest.png" /></p>
+<h4 id="测试用例的功能_1">测试用例的功能<a class="headerlink" href="#测试用例的功能_1" title="Permanent link">&para;</a></h4>
+<p>该测试用例用于检查 Execute 模块的正确性，包括：</p>
+<h5 id="执行-csrrci-指令">执行 csrrci 指令<a class="headerlink" href="#执行-csrrci-指令" title="Permanent link">&para;</a></h5>
+<p>测试指令 csrci ，即立即数读后清除控制状态寄存器 ( csr ) 指令，测试其是否将控制状态寄存器 csr 的值与按位取反后的 5 位的零扩展立即数 zimm 按位与的结果写入 csr</p>
+<h5 id="执行-csrrsi-指令">执行 csrrsi 指令<a class="headerlink" href="#执行-csrrsi-指令" title="Permanent link">&para;</a></h5>
+<p>测试指令 csrrsi ，即立即数读后设置控制状态寄存器 ( csr ) 指令，测试其是否将控制状态寄存器 csr 的值与 5 位的零扩展立即数 zimm 按位或的结果写入 csr</p>
+<h5 id="执行-csrrw-指令">执行 csrrw 指令<a class="headerlink" href="#执行-csrrw-指令" title="Permanent link">&para;</a></h5>
+<p>测试指令 csrrw ，即读后写控制状态寄存器 ( csr ) 指令，测试其是否将对应寄存器中的值写入 csr</p>
+<h5 id="执行-csrrs-指令">执行 csrrs 指令<a class="headerlink" href="#执行-csrrs-指令" title="Permanent link">&para;</a></h5>
+<p>测试指令 csrrs ，即读后置位控制状态寄存器 ( csr ) 指令，测试其是否将控制状态寄存器 csr 的值与对应寄存器中的值按位或的结果写入 csr</p>
+<h4 id="从什么层面测试-cpu_1">从什么层面测试 CPU<a class="headerlink" href="#从什么层面测试-cpu_1" title="Permanent link">&para;</a></h4>
+<p>从 CPU 执行处理层面测试了 CPU，主要测试这个阶段对中断相关的 csr 指令的执行处理</p>
+<h4 id="加载测试程序的方法_1">加载测试程序的方法<a class="headerlink" href="#加载测试程序的方法_1" title="Permanent link">&para;</a></h4>
+<p>利用定义在<code>src/main/scala/riscv/core/Execute.scala</code> 中的模块<code>Execute</code>，不使用任何 RISC-V 程序初始化进行仿真，直接仿真测试</p>
+<h4 id="测试用例的执行结果_1">测试用例的执行结果<a class="headerlink" href="#测试用例的执行结果_1" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/result2.png" /></p>
+<h4 id="输出波形图_1">输出波形图<a class="headerlink" href="#输出波形图_1" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd2.png" /></p>
+<h4 id="执行不同指令时候对应的部件的关键信号的变化情况_1">执行不同指令时候对应的部件的关键信号的变化情况<a class="headerlink" href="#执行不同指令时候对应的部件的关键信号的变化情况_1" title="Permanent link">&para;</a></h4>
+<p>测试主要使用了下图中的指令：</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/opcode1110011.png" /></p>
+<h5 id="指令">指令<a class="headerlink" href="#指令" title="Permanent link">&para;</a></h5>
+<p>测试执行了 1 个时钟周期</p>
+<h6 id="io_funct320">io_funct3[2:0]<a class="headerlink" href="#io_funct320" title="Permanent link">&para;</a></h6>
+<p>该信号为 111B ，与 io_opcode 一起指示 ALU 执行 CPU 执行 csr 类型指令 csrrci</p>
+<h6 id="io_opcode60">io_opcode[6:0]<a class="headerlink" href="#io_opcode60" title="Permanent link">&para;</a></h6>
+<p>该信号为 1110011B ，与 io_funct3 一起指示 CPU 执行 csr 类型指令 csrrci</p>
+<h6 id="zimm310">zimm[31:0]<a class="headerlink" href="#zimm310" title="Permanent link">&para;</a></h6>
+<p>零扩展的 5 位立即数，来自指令，值为 8</p>
+<h6 id="io_reg1_data310">io_reg1_data[31:0]<a class="headerlink" href="#io_reg1_data310" title="Permanent link">&para;</a></h6>
+<p>从寄存器读取的值，直接来自 <code>c.io.reg1_data.poke(0x1880L.U)</code> ，值为 1880H</p>
+<h6 id="io_csr_reg_read_data310">io_csr_reg_read_data[31:0]<a class="headerlink" href="#io_csr_reg_read_data310" title="Permanent link">&para;</a></h6>
+<p>从 csr 寄存器读取的值，直接来自 <code>c.io.csr_reg_data.poke(0x1888L.U)</code> ，值为 1888H</p>
+<h6 id="io_csr_reg_write_data310">io_csr_reg_write_data[31:0]<a class="headerlink" href="#io_csr_reg_write_data310" title="Permanent link">&para;</a></h6>
+<p>写入 csr 寄存器的值，在 csrrci 指令中该值等于 io_csr_reg_read_data &amp; ~zimm ，结果为 1880H ，与波形图结果一致，说明执行正确</p>
+<h5 id="指令_1">指令<a class="headerlink" href="#指令_1" title="Permanent link">&para;</a></h5>
+<p>测试执行了 1 个时钟周期</p>
+<h6 id="io_funct320_1">io_funct3[2:0]<a class="headerlink" href="#io_funct320_1" title="Permanent link">&para;</a></h6>
+<p>该信号为 110B ，与 io_opcode 一起指示 ALU 执行 CPU 执行 csr 类型指令 csrrsi</p>
+<h6 id="io_opcode60_1">io_opcode[6:0]<a class="headerlink" href="#io_opcode60_1" title="Permanent link">&para;</a></h6>
+<p>该信号为 1110011B ，与 io_funct3 一起指示 CPU 执行 csr 类型指令 csrrsi</p>
+<h6 id="zimm310_1">zimm[31:0]<a class="headerlink" href="#zimm310_1" title="Permanent link">&para;</a></h6>
+<p>零扩展的 5 位立即数，来自指令，值为 8</p>
+<h6 id="io_reg1_data310_1">io_reg1_data[31:0]<a class="headerlink" href="#io_reg1_data310_1" title="Permanent link">&para;</a></h6>
+<p>从寄存器读取的值，直接来自 <code>c.io.reg1_data.poke(0x1880L.U)</code> ，值为 1880H</p>
+<h6 id="io_csr_reg_read_data310_1">io_csr_reg_read_data[31:0]<a class="headerlink" href="#io_csr_reg_read_data310_1" title="Permanent link">&para;</a></h6>
+<p>从 csr 寄存器读取的值，直接来自 <code>c.io.csr_reg_data.poke(0x1880L.U)</code> ，值为 1880H</p>
+<h6 id="io_csr_reg_write_data310_1">io_csr_reg_write_data[31:0]<a class="headerlink" href="#io_csr_reg_write_data310_1" title="Permanent link">&para;</a></h6>
+<p>写入 csr 寄存器的值，在 csrrsi 指令中该值等于 io_csr_reg_read_data | zimm ，结果为 1880H ，与波形图结果一致，说明执行正确</p>
+<h5 id="指令_2">指令<a class="headerlink" href="#指令_2" title="Permanent link">&para;</a></h5>
+<p>测试执行了 1 个时钟周期</p>
+<h6 id="io_funct320_2">io_funct3[2:0]<a class="headerlink" href="#io_funct320_2" title="Permanent link">&para;</a></h6>
+<p>该信号为 001B ，与 io_opcode 一起指示 ALU 执行 CPU 执行 csr 类型指令 csrrsw</p>
+<h6 id="io_opcode60_2">io_opcode[6:0]<a class="headerlink" href="#io_opcode60_2" title="Permanent link">&para;</a></h6>
+<p>该信号为 1110011B ，与 io_funct3 一起指示 CPU 执行 csr 类型指令 csrrsw</p>
+<h6 id="zimm310_2">zimm[31:0]<a class="headerlink" href="#zimm310_2" title="Permanent link">&para;</a></h6>
+<p>零扩展的 5 位立即数，来自指令，值为 AH</p>
+<h6 id="io_reg1_data310_2">io_reg1_data[31:0]<a class="headerlink" href="#io_reg1_data310_2" title="Permanent link">&para;</a></h6>
+<p>从寄存器读取的值，直接来自 <code>c.io.reg1_data.poke(0x1888L.U)</code> ，值为 1888H</p>
+<h6 id="io_csr_reg_read_data310_2">io_csr_reg_read_data[31:0]<a class="headerlink" href="#io_csr_reg_read_data310_2" title="Permanent link">&para;</a></h6>
+<p>从 csr 寄存器读取的值，直接来自 <code>c.io.csr_reg_data.poke(0.U)</code> ，值为 0</p>
+<h6 id="io_csr_reg_write_data310_2">io_csr_reg_write_data[31:0]<a class="headerlink" href="#io_csr_reg_write_data310_2" title="Permanent link">&para;</a></h6>
+<p>写入 csr 寄存器的值，在 csrrsi 指令中该值等于 io_reg1_data ，结果为 1888H ，与波形图结果一致，说明执行正确</p>
+<h5 id="指令_3">指令<a class="headerlink" href="#指令_3" title="Permanent link">&para;</a></h5>
+<p>测试执行了 1 个时钟周期</p>
+<h6 id="io_funct320_3">io_funct3[2:0]<a class="headerlink" href="#io_funct320_3" title="Permanent link">&para;</a></h6>
+<p>该信号为 010B ，与 io_opcode 一起指示 ALU 执行 CPU 执行 csr 类型指令 csrrs</p>
+<h6 id="io_opcode60_3">io_opcode[6:0]<a class="headerlink" href="#io_opcode60_3" title="Permanent link">&para;</a></h6>
+<p>该信号为 1110011B ，与 io_funct3 一起指示 CPU 执行 csr 类型指令 csrrs</p>
+<h6 id="zimm310_3">zimm[31:0]<a class="headerlink" href="#zimm310_3" title="Permanent link">&para;</a></h6>
+<p>零扩展的 5 位立即数，来自指令，值为 0</p>
+<h6 id="io_reg1_data310_3">io_reg1_data[31:0]<a class="headerlink" href="#io_reg1_data310_3" title="Permanent link">&para;</a></h6>
+<p>从寄存器读取的值，直接来自 <code>c.io.reg1_data.poke(0.U)</code> ，值为 0</p>
+<h6 id="io_csr_reg_read_data310_3">io_csr_reg_read_data[31:0]<a class="headerlink" href="#io_csr_reg_read_data310_3" title="Permanent link">&para;</a></h6>
+<p>从 csr 寄存器读取的值，直接来自 <code>c.io.csr_reg_data.poke(0x1888L.U)</code> ，值为 1888H</p>
+<h6 id="io_csr_reg_write_data310_3">io_csr_reg_write_data[31:0]<a class="headerlink" href="#io_csr_reg_write_data310_3" title="Permanent link">&para;</a></h6>
+<p>写入 csr 寄存器的值，在 csrrs 指令中该值等于 io_csr_reg_read_data | io_reg1_data ，结果为 1888H ，与波形图结果一致，说明执行正确</p>
+<h3 id="clintcsrtest">CLINTCSRTest<a class="headerlink" href="#clintcsrtest" title="Permanent link">&para;</a></h3>
+<p>src/test/scala/riscv/singlecycle/CLINTCSRTest.scala</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/CLINTCSRTest.2.png" /></p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/CLINTCSRTest.1.png" /></p>
+<h4 id="测试用例的功能_2">测试用例的功能<a class="headerlink" href="#测试用例的功能_2" title="Permanent link">&para;</a></h4>
+<p>测试了 CLINT 模块和 CSR 模块的正确性，测试了以下几种情况：</p>
+<h5 id="无跳转的情况下处理中断请求">无跳转的情况下处理中断请求<a class="headerlink" href="#无跳转的情况下处理中断请求" title="Permanent link">&para;</a></h5>
+<p>此时应该进入中断：</p>
+<ul>
+<li>将 PC 设为中断处理程序入口</li>
+<li>写入 CSR 寄存器</li>
+<li>将 MIE 置 0</li>
+<li>将 PC 的值存入 MEPC ，实际上为中断发生的指令的下一条指令的地址</li>
+<li>写入恰当的中断原因存入 MCAUSE</li>
+</ul>
+<h5 id="跳转的情况下处理中断请求">跳转的情况下处理中断请求<a class="headerlink" href="#跳转的情况下处理中断请求" title="Permanent link">&para;</a></h5>
+<p>此时应该进入中断，处理与上一种情况相同，但是存入 MEPC 的值不是 PC 而是跳转目标地址</p>
+<h5 id="退出中断">退出中断<a class="headerlink" href="#退出中断" title="Permanent link">&para;</a></h5>
+<ul>
+<li>将 PC 设为 MEPC</li>
+<li>写入 CSR 寄存器</li>
+<li>将 MIE 置为 MPIE</li>
+</ul>
+<h5 id="不响应中断">不响应中断<a class="headerlink" href="#不响应中断" title="Permanent link">&para;</a></h5>
+<p>当 MPIE 位为 0 时，禁用中断</p>
+<h4 id="从什么层面测试-cpu_2">从什么层面测试 CPU<a class="headerlink" href="#从什么层面测试-cpu_2" title="Permanent link">&para;</a></h4>
+<p>从中断处理层面测试，主要测试对不同情况 CPU 能否正确决定是否响应中断、响应中断时是否正确处理中断、能否正确退出中断</p>
+<h4 id="加载测试程序指令的方法">加载测试程序指令的方法<a class="headerlink" href="#加载测试程序指令的方法" title="Permanent link">&para;</a></h4>
+<p>利用定义在<code>src/main/scala/riscv/core/CLINT.scala</code>中的模块 CLINT 和定义在<code>src/main/scala/riscv/core/CSR.scala</code>中的模块 CSR ，不使用任何 RISC-V 程序初始化进行仿真，直接仿真测试</p>
+<h4 id="测试用例的执行结果_2">测试用例的执行结果<a class="headerlink" href="#测试用例的执行结果_2" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/result3.png" /></p>
+<h4 id="输出波形图_2">输出波形图<a class="headerlink" href="#输出波形图_2" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd3.0.png" /></p>
+<h4 id="执行不同指令时候对应的部件的关键信号的变化情况_2">执行不同指令时候对应的部件的关键信号的变化情况<a class="headerlink" href="#执行不同指令时候对应的部件的关键信号的变化情况_2" title="Permanent link">&para;</a></h4>
+<h5 id="无跳转的情况下处理中断请求_1">无跳转的情况下处理中断请求<a class="headerlink" href="#无跳转的情况下处理中断请求_1" title="Permanent link">&para;</a></h5>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd3.1.png" /></p>
+<h6 id="io_interrupt_assert">io_interrupt_assert<a class="headerlink" href="#io_interrupt_assert" title="Permanent link">&para;</a></h6>
+<p>该信号决定 PC 是否跳转，在输入的 interrupt_flag 信号拉高的同时也拉高，表示进入中断，跳转到中断处理程序</p>
+<h6 id="io_interrupt_handler_address310">io_interrupt_handler_address[31:0]<a class="headerlink" href="#io_interrupt_handler_address310" title="Permanent link">&para;</a></h6>
+<p>该信号在输入的 interrupt_flag 信号拉高的同时变为 00001144H ，表示中断处理程序入口地址，从下一条指令开始进入中断</p>
+<h6 id="mepc310">mepc[31:0]<a class="headerlink" href="#mepc310" title="Permanent link">&para;</a></h6>
+<p>该信号在进入中断后的下一时钟周期变为 1904H ，等于原 PC 值 1900H + 4 ，表示原本 PC 所在指令的下一条指令地址</p>
+<h6 id="mcause310">mcause[31:0]<a class="headerlink" href="#mcause310" title="Permanent link">&para;</a></h6>
+<p>该信号主要由引起中断的 io.interrupt_flag 信号决定，在进入中断后的下一时钟周期变为 80000007H ，表示 timer 引起中断</p>
+<h6 id="mstatus310">mstatus[31:0]<a class="headerlink" href="#mstatus310" title="Permanent link">&para;</a></h6>
+<p>该信号在进入中断后的下一时钟周期由 00001888H 变为 00001880H ，表示 MPIE 被置 0 ，禁用中断</p>
+<h5 id="退出中断_1">退出中断<a class="headerlink" href="#退出中断_1" title="Permanent link">&para;</a></h5>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd3.2.png" /></p>
+<h6 id="io_interrupt_assert_1">io_interrupt_assert<a class="headerlink" href="#io_interrupt_assert_1" title="Permanent link">&para;</a></h6>
+<p>该信号决定 PC 是否跳转，在输入的 io_instruction 变为 30200073H 的同时拉高，即遇到 mret 信号拉高，表示退出中断，跳转到中断前原程序</p>
+<h6 id="io_interrupt_handler_address310_1">io_interrupt_handler_address[31:0]<a class="headerlink" href="#io_interrupt_handler_address310_1" title="Permanent link">&para;</a></h6>
+<p>该信号在退出中断的同时保持 00001904H 不变，为 PC 跳转提供目标地址</p>
+<h6 id="mstatus310_1">mstatus[31:0]<a class="headerlink" href="#mstatus310_1" title="Permanent link">&para;</a></h6>
+<p>该信号在退出中断后的下一时钟周期由 00001880H 变为 00001888H ，表示 MPIE 被置 1 ，启用中断</p>
+<h5 id="跳转的情况下处理中断请求_1">跳转的情况下处理中断请求<a class="headerlink" href="#跳转的情况下处理中断请求_1" title="Permanent link">&para;</a></h5>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd3.3.png" /></p>
+<h6 id="io_interrupt_assert_2">io_interrupt_assert<a class="headerlink" href="#io_interrupt_assert_2" title="Permanent link">&para;</a></h6>
+<p>在输入的 interrupt_flag 信号拉高的同时也高，表示进入中断，跳转到中断处理程序</p>
+<p>由于上一个时钟周期控制器在退出中断，所以上一个时钟周期 PC 也发生跳转，该信号也为 1 ，所以波形图中表现为连续高电位</p>
+<h6 id="io_interrupt_handler_address310_2">io_interrupt_handler_address[31:0]<a class="headerlink" href="#io_interrupt_handler_address310_2" title="Permanent link">&para;</a></h6>
+<p>该信号在输入的 interrupt_flag 信号拉高的同时变为 00001144H ，表示中断处理程序入口地址，从下一条指令开始进入中断</p>
+<h6 id="mepc310_1">mepc[31:0]<a class="headerlink" href="#mepc310_1" title="Permanent link">&para;</a></h6>
+<p>该信号在进入中断后的下一时钟周期变为 1990H ，等于原跳转指令对应的跳转目标地址，表示原本 PC 所在指令所要跳转的指令地址</p>
+<h6 id="mcause310_1">mcause[31:0]<a class="headerlink" href="#mcause310_1" title="Permanent link">&para;</a></h6>
+<p>该信号主要由引起中断的 io.interrupt_flag 信号决定，在进入中断后的下一时钟周期变为 8000000BH ，表示外部引起中断</p>
+<h6 id="mstatus310_2">mstatus[31:0]<a class="headerlink" href="#mstatus310_2" title="Permanent link">&para;</a></h6>
+<p>该信号在进入中断后的下一时钟周期由 00001888H 变为 00001880H ，表示 MPIE 被置 0 ，禁用中断</p>
+<h5 id="退出中断_2">退出中断<a class="headerlink" href="#退出中断_2" title="Permanent link">&para;</a></h5>
+<p>再次退出中断，与 情况一致</p>
+<h5 id="不响应中断_1">不响应中断<a class="headerlink" href="#不响应中断_1" title="Permanent link">&para;</a></h5>
+<p>原本测试程序无法显示该处波形，需要加一条<code>c.clock.step()</code> 才能显示出波形</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd3.5.png" /></p>
+<h6 id="io_clint_access_bundle_mstatus310">io_clint_access_bundle_mstatus[31:0]<a class="headerlink" href="#io_clint_access_bundle_mstatus310" title="Permanent link">&para;</a></h6>
+<p>该信号由<code>c.io.csr_regs_write_data.poke(0x1880L.U)</code> 输入，表示写入 mstatus 的值。其中低位第三位为 0 ，即 MPIE = 0 ，禁用中断</p>
+<h6 id="interrupt_enable">interrupt_enable<a class="headerlink" href="#interrupt_enable" title="Permanent link">&para;</a></h6>
+<p>在输入的 io_clint_access_bundle_mstatus 信号变为 1880H 的同时拉低，表示禁用中断</p>
+<h6 id="io_interrupt_flag310">io_interrupt_flag[31:0]<a class="headerlink" href="#io_interrupt_flag310" title="Permanent link">&para;</a></h6>
+<p>由输入<code>c.io.interrupt_flag.poke(1.U)</code> 拉高该信号，表示中断请求</p>
+<h6 id="io_interrupt_assert_3">io_interrupt_assert<a class="headerlink" href="#io_interrupt_assert_3" title="Permanent link">&para;</a></h6>
+<p>io_interrupt_flag 拉高的同时，该信号为低电位，表示拒绝中断请求</p>
+<h3 id="timertest">TimerTest<a class="headerlink" href="#timertest" title="Permanent link">&para;</a></h3>
+<p>src/test/scala/riscv/singlecycle/TimerTest.scala</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/TimerTest.png" /></p>
+<h4 id="测试用例的功能_3">测试用例的功能<a class="headerlink" href="#测试用例的功能_3" title="Permanent link">&para;</a></h4>
+<p>测试了 Timer 模块能否正确处理信号</p>
+<h5 id="写-limit">写 limit<a class="headerlink" href="#写-limit" title="Permanent link">&para;</a></h5>
+<p>检测 Timer 模块能否实现正确的写入到 limit 变量操作</p>
+<h5 id="写-enabled">写 enabled<a class="headerlink" href="#写-enabled" title="Permanent link">&para;</a></h5>
+<p>检测 Timer 模块能否实现正确的写入到 enabled 变量操作，以及根据变量输出正确的中断信号</p>
+<h4 id="从什么层面测试-cpu_3">从什么层面测试 CPU<a class="headerlink" href="#从什么层面测试-cpu_3" title="Permanent link">&para;</a></h4>
+<p>从外围设备层面测试 CPU 的正确性，准确来说测试 peripheral 设备 Timer 的正确性</p>
+<h4 id="加载测试程序指令的方法_1">加载测试程序指令的方法<a class="headerlink" href="#加载测试程序指令的方法_1" title="Permanent link">&para;</a></h4>
+<p>利用定义在<code>src/main/scala/riscv/core/peripheral/Timer.scala</code>中的模块 Timer，不使用任何 RISC-V 程序初始化进行仿真，直接仿真测试</p>
+<h4 id="测试用例的执行结果_3">测试用例的执行结果<a class="headerlink" href="#测试用例的执行结果_3" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/result4.png" /></p>
+<h4 id="输出波形图_3">输出波形图<a class="headerlink" href="#输出波形图_3" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd4.png" /></p>
+<h4 id="执行不同指令时候对应的部件的关键信号的变化情况_3">执行不同指令时候对应的部件的关键信号的变化情况<a class="headerlink" href="#执行不同指令时候对应的部件的关键信号的变化情况_3" title="Permanent link">&para;</a></h4>
+<h5 id="limit">limit<a class="headerlink" href="#limit" title="Permanent link">&para;</a></h5>
+<p>io_bundle_write_data 变为 00990315H 时，io_bundkle_address 值为 4，表示写入 limit 的地址，写入数据为 00990315 ， limit 的值也在写入操作的下一个时钟周期由初始值变为 00990315H ，可见写操作正确执行</p>
+<h5 id="enabled">enabled<a class="headerlink" href="#enabled" title="Permanent link">&para;</a></h5>
+<p>io_bundle_write_data 变为 0 时，io_bundkle_address 值为 8，表示写入 enable 的地址，写入数据为 0 ，enabled 信号关闭不允许启用中断，enabled 的值也在写入操作的下一个时钟周期由 1 变为 0 ，可见写操作正确执行</p>
+<h3 id="simpletraptest">SimpleTrapTest<a class="headerlink" href="#simpletraptest" title="Permanent link">&para;</a></h3>
+<p>src/test/scala/riscv/singlecycle/SimpleTrapTest.scala</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/SimpleTrapTest.png" /></p>
+<p>csrc/simpletest.c</p>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/simpletest.c.png" /></p>
+<h4 id="测试用例的功能_4">测试用例的功能<a class="headerlink" href="#测试用例的功能_4" title="Permanent link">&para;</a></h4>
+<p>测试了 CPU 能否完整的运行一个中断处理程序，并退出中断</p>
+<h4 id="从什么层面测试-cpu_4">从什么层面测试 CPU<a class="headerlink" href="#从什么层面测试-cpu_4" title="Permanent link">&para;</a></h4>
+<p>从 CPU 整体功能层面测试了 CPU ，测试了 CPU 处理自陷的功能</p>
+<h4 id="加载测试程序指令的方法_2">加载测试程序指令的方法<a class="headerlink" href="#加载测试程序指令的方法_2" title="Permanent link">&para;</a></h4>
+<p>利用定义在<code>src/test/scala/riscv/singlecycle/CPUTest.scala</code>中的模块<code>TestTopModule</code> ，模拟一个简单的计算机，连接了 CPU 、Memory、InstructionRom 、ROMLoader 几个模块。用 RISC-V 程序<code>src/main/resources/simpletest.asmbin</code> 初始化进行仿真</p>
+<h4 id="测试用例的执行结果_4">测试用例的执行结果<a class="headerlink" href="#测试用例的执行结果_4" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/result5.png" /></p>
+<h4 id="输出波形图_4">输出波形图<a class="headerlink" href="#输出波形图_4" title="Permanent link">&para;</a></h4>
+<p><img alt="avatar" src="../../../../../assets/yatcpu/lab2/vcd5.png" /></p>
+<h4 id="执行不同指令时候对应的部件的关键信号的变化情况_4">执行不同指令时候对应的部件的关键信号的变化情况<a class="headerlink" href="#执行不同指令时候对应的部件的关键信号的变化情况_4" title="Permanent link">&para;</a></h4>
+<p>测试总共执行了 2007 个时钟周期，在前 1000 多个时钟周期测试了 simpletest.asmbin 的程序，即将数据 DEADBEEFH 存到内存地址为 4 的内存空间。后 1000 多个时钟周期产生了一个中断请求信号，完整执行了一遍 simpletest.asmbin 自定义的中断处理程序。中断处理程序将数据 2022 重新写入内存地址为 4 的内存空间覆盖原来的数据，因此测试程序最后从该地址读取的数据为 2022 ，表明中断处理程序正确执行</p>
+<p>波形图表现为前后两段信号不断变化的区间，分别代表 simpletest.asmbin 的 main 函数程序和中断处理程序 trap_handler 的执行。由波形图可见中断处理程序结束后顺利退出了中断</p>
+<h2 id="填空涉及到的信号分析">填空涉及到的信号分析<a class="headerlink" href="#填空涉及到的信号分析" title="Permanent link">&para;</a></h2>
+<p>(src/main/scala/riscv/)</p>
+<p>主要在填空代码处以注释的形式进行了分析</p>
+<h2 id="在完成实验的过程中遇到的关于实验指导不明确或者其他问题或者改进的建议">在完成实验的过程中，遇到的关于实验指导不明确或者其他问题，或者改进的建议。<a class="headerlink" href="#在完成实验的过程中遇到的关于实验指导不明确或者其他问题或者改进的建议" title="Permanent link">&para;</a></h2>
+<p><del>使用实验板上的数码管、视频输出等外设，输出一个完整程序的运行结果，或者参考硬件调试一节的内容，用硬件波形的方法捕获程序运行结果。给出你的 CPU 可以正确在实验板上运行程序的照片或者硬件调试器波形截图。</del></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../lab1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: lab1">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                lab1
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lab3/" class="md-footer__link md-footer__link--next" aria-label="Next: lab3">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                lab3
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

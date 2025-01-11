@@ -1,0 +1,2410 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/algebra/ring/">
+      
+      
+        <link rel="prev" href="../prime-max-ideal/">
+      
+      
+        <link rel="next" href="../../cryptography/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>环 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#环的相关定义" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              环
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coset-of-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    子群的陪集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../group-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    群论基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homomorphism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    群的同态与同构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../normal-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正规子群与商群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../permutation-group/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    置换群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prime-max-ideal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    素理想与极大理想
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    环
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    环
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#环的相关定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      环的相关定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="环的相关定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      整环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#除环" class="md-nav__link">
+    <span class="md-ellipsis">
+      除环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#域" class="md-nav__link">
+    <span class="md-ellipsis">
+      域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常用环" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整数环及其子环" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数环及其子环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-剩余类环及其子环" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 剩余类环及其子环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有理数域" class="md-nav__link">
+    <span class="md-ellipsis">
+      有理数域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#高斯整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯整环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯整环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#类高斯整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      类高斯整环
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全矩阵环" class="md-nav__link">
+    <span class="md-ellipsis">
+      全矩阵环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多项式环" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式环
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用理想
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#和" class="md-nav__link">
+    <span class="md-ellipsis">
+      和
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交" class="md-nav__link">
+    <span class="md-ellipsis">
+      交
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积" class="md-nav__link">
+    <span class="md-ellipsis">
+      积
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#和交积保持理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      和交积保持理想
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#主理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      主理想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主理想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理结论" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理结论
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用理想的主理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用理想的主理想
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#商环" class="md-nav__link">
+    <span class="md-ellipsis">
+      商环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="商环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#运算的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算的定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运算的定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#乘法" class="md-nav__link">
+    <span class="md-ellipsis">
+      乘法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#构成环" class="md-nav__link">
+    <span class="md-ellipsis">
+      构成环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#商环定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      商环定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#环同态" class="md-nav__link">
+    <span class="md-ellipsis">
+      环同态
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="环同态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathbbz_m到mathbbz_n的同态" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\mathbb{Z}_m\)到\(\mathbb{Z}_n\)的同态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#环扩张" class="md-nav__link">
+    <span class="md-ellipsis">
+      环扩张
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#素域" class="md-nav__link">
+    <span class="md-ellipsis">
+      素域
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#环的相关定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      环的相关定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="环的相关定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      整环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#除环" class="md-nav__link">
+    <span class="md-ellipsis">
+      除环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#域" class="md-nav__link">
+    <span class="md-ellipsis">
+      域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常用环" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#整数环及其子环" class="md-nav__link">
+    <span class="md-ellipsis">
+      整数环及其子环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#模-m-剩余类环及其子环" class="md-nav__link">
+    <span class="md-ellipsis">
+      模 m 剩余类环及其子环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有理数域" class="md-nav__link">
+    <span class="md-ellipsis">
+      有理数域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#高斯整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯整环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高斯整环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#类高斯整环" class="md-nav__link">
+    <span class="md-ellipsis">
+      类高斯整环
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全矩阵环" class="md-nav__link">
+    <span class="md-ellipsis">
+      全矩阵环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多项式环" class="md-nav__link">
+    <span class="md-ellipsis">
+      多项式环
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      理想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用理想
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#和" class="md-nav__link">
+    <span class="md-ellipsis">
+      和
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交" class="md-nav__link">
+    <span class="md-ellipsis">
+      交
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积" class="md-nav__link">
+    <span class="md-ellipsis">
+      积
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#和交积保持理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      和交积保持理想
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#主理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      主理想
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主理想">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理结论" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理结论
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常用理想的主理想" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用理想的主理想
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#商环" class="md-nav__link">
+    <span class="md-ellipsis">
+      商环
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="商环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#运算的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      运算的定义
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运算的定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      加法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#乘法" class="md-nav__link">
+    <span class="md-ellipsis">
+      乘法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#构成环" class="md-nav__link">
+    <span class="md-ellipsis">
+      构成环
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#商环定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      商环定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#环同态" class="md-nav__link">
+    <span class="md-ellipsis">
+      环同态
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="环同态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathbbz_m到mathbbz_n的同态" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\mathbb{Z}_m\)到\(\mathbb{Z}_n\)的同态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#环扩张" class="md-nav__link">
+    <span class="md-ellipsis">
+      环扩张
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特征" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#素域" class="md-nav__link">
+    <span class="md-ellipsis">
+      素域
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>环</h1>
+
+<h2 id="环的相关定义">环的相关定义<a class="headerlink" href="#环的相关定义" title="Permanent link">&para;</a></h2>
+<p>设 <span class="arithmatex">\(R\)</span> 是非空集合，如果在 <span class="arithmatex">\(R\)</span> 上定义了两个二元运算 “<span class="arithmatex">\(+\)</span>”（称为加法）和 “ <span class="arithmatex">\(\cdot\)</span> ”（称为乘法），且满足：</p>
+<ul>
+<li>（1） <span class="arithmatex">\(R\)</span> 关于加法 <span class="arithmatex">\(+\)</span> 构成交换群（即加群）</li>
+<li>（2） <span class="arithmatex">\(R\)</span> 关于乘法 <span class="arithmatex">\(\cdot\)</span> 构成<strong>半群</strong>，即乘法满足结合律：<span class="arithmatex">\(\forall a,b,c\in R,\ \ a\cdot(b\cdot c)=(a\cdot b)\cdot c\)</span>；</li>
+<li>（3） <strong>乘法 <span class="arithmatex">\(\cdot\)</span> 对加法有左右分配律</strong>：</li>
+</ul>
+<div class="arithmatex">\[
+\forall a,b,c\in R\\
+a\cdot(b+c)=a\cdot b+a\cdot c\\
+(b+c)\cdot a=b\cdot a+c\cdot a
+\]</div>
+<p>则称代数 <span class="arithmatex">\((R,+,\ \cdot\ )\)</span> 是环（ring）。在通过上下文能明确运算时，通常直接称 <span class="arithmatex">\(R\)</span> 为环。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>有教材要求环乘法必须有单位元，也有教材要求环乘法必须满足交换律等</p>
+</div>
+<p>对环 <span class="arithmatex">\((R,+,\ \cdot\ )\)</span> ，<span class="arithmatex">\((R\ ,+)\)</span>是交换群，称为环 <span class="arithmatex">\(R\)</span> 的加法群，其单位元通常用 0 表示，称为环 <span class="arithmatex">\(R\)</span> 的零元，元素 <span class="arithmatex">\(a\)</span> 的加法逆元记为 <span class="arithmatex">\(-a\)</span> ，称为 <span class="arithmatex">\(a\)</span> 的负元。</p>
+<p>通过负元引入环的减法，即 <span class="arithmatex">\(a-b\)</span> 定义为 <span class="arithmatex">\(a+(-b)\)</span>。</p>
+<ul>
+<li>环乘法是否满足交换律</li>
+<li>若环 <span class="arithmatex">\(R\)</span> 的乘法也满足交换律，则称为交换环 (commutative ring)</li>
+<li>是否有单位元</li>
+<li>若环 <span class="arithmatex">\(R\)</span> 的乘法有单位元，则称为有单位元环，环乘法的单位元通常记为 <span class="arithmatex">\(e\)</span> 或 <span class="arithmatex">\(1\)</span> ，并称为环 <span class="arithmatex">\(R\)</span> 的单位元</li>
+<li>环乘法当环 <span class="arithmatex">\(R\)</span> 有单位元 <span class="arithmatex">\(e\)</span> 时，考虑环的元素是否有逆元</li>
+<li>若对 <span class="arithmatex">\(a\in R\)</span> ，存在 <span class="arithmatex">\(b\in R\)</span> ，使得 <span class="arithmatex">\(ab=ba=e\)</span> ，则称 <span class="arithmatex">\(a\)</span> 是可逆元，或称为环 <span class="arithmatex">\(R\)</span> 的<strong>单位</strong>(unit)，并称 <span class="arithmatex">\(b\)</span> 是 <span class="arithmatex">\(a\)</span> 的逆元。当然这时 <span class="arithmatex">\(b\)</span> 也是可逆元，且 <span class="arithmatex">\(a\)</span> 是 <span class="arithmatex">\(b\)</span> 的逆元</li>
+<li>所有可逆元关于环乘法构成群，称为 <span class="arithmatex">\(R\)</span> 的<strong>单位群</strong> (group of units)，记为 <span class="arithmatex">\(U(R)\)</span>。</li>
+<li>环乘法是否有零因子</li>
+<li>对环 <span class="arithmatex">\(R\)</span> 的两个非零元素 <span class="arithmatex">\(a,b\)</span> ，若 <span class="arithmatex">\(a\cdot b=0\)</span> ，则称 <span class="arithmatex">\(a\)</span> 是<strong>左零因子</strong> (left zero-divisor)，b 是<strong>右零因子</strong> (right zero-divisor)。左零因子和右零因子统称为<strong>零因子</strong></li>
+<li>若环 <span class="arithmatex">\(R\)</span> 的所有非零元素都不是左零因子或右零因子，则称 <span class="arithmatex">\(R\)</span> 为无零因子环。</li>
+</ul>
+<p>当集合 <span class="arithmatex">\(R\)</span> 只有一个元素 <span class="arithmatex">\(0\)</span> ，定义 <span class="arithmatex">\(R\)</span> 的加法运算和乘法运算：<span class="arithmatex">\(0+0=0,\ 0\cdot 0=0\)</span>，则 <span class="arithmatex">\((\{0\},+,\ \cdot\ )\)</span> 构成环，这个环称为<strong>零环</strong>。在这个环中，<strong>零元也是单位元</strong>，而<strong>零元也是可逆元</strong>。</p>
+<p>零环过于简单，通常在对环进行讨论时都将零环排除在外。因此在提到环时，总是默认环至少有两个元素，这时零元不可能是单位元，也不可能是可逆元。</p>
+<h3 id="整环">整环<a class="headerlink" href="#整环" title="Permanent link">&para;</a></h3>
+<ul>
+<li>有单位元</li>
+<li>无零因子</li>
+<li>(乘法) 可交换</li>
+</ul>
+<p>的环称为<strong>整环</strong> (integral <strong>domain</strong>)</p>
+<hr />
+<p>证明一个环是整环：</p>
+<div class="arithmatex">\[
+\forall a,b\in R,\ \ ab=0\Rightarrow a=0\or b=0
+\]</div>
+<h3 id="除环">除环<a class="headerlink" href="#除环" title="Permanent link">&para;</a></h3>
+<ul>
+<li>有单位元</li>
+<li>至少有两个元素</li>
+<li>每个非零元都可逆 (乘法)</li>
+<li>（无零因子，可逆元都不是零因子）</li>
+</ul>
+<p>的环称为<strong>除环</strong> (division ring)</p>
+<h3 id="域">域<a class="headerlink" href="#域" title="Permanent link">&para;</a></h3>
+<p>交换除环称为<strong>域</strong>(field) (比较常用)，也即需满足：</p>
+<ul>
+<li>有单位元</li>
+<li>至少有两个元素</li>
+<li>每个非零元都可逆 (乘法)</li>
+<li>(乘法) 可交换</li>
+<li>（无零因子，可逆元都不是零因子）</li>
+</ul>
+<blockquote>
+<p>可逆元都不是零因子（为什么？），因此域都是整环！</p>
+</blockquote>
+<p>非交换除环也称<strong>体</strong> (skew field) (比较少用)</p>
+<h2 id="常用环">常用环<a class="headerlink" href="#常用环" title="Permanent link">&para;</a></h2>
+<h3 id="整数环及其子环">整数环及其子环<a class="headerlink" href="#整数环及其子环" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>整数集 <span class="arithmatex">\(\mathbb Z\)</span> 关于普通加法 <span class="arithmatex">\(+\)</span> 和普通乘法 <span class="arithmatex">\(\cdot\)</span> 构成环，称为整数环</p>
+</li>
+<li>
+<p>整数环 <span class="arithmatex">\(\mathbb Z\)</span> 是<strong>交换环</strong>，(乘法) 零元是 0，单位元是 1</p>
+</li>
+<li>
+<p>只有 1 和 -1 是可逆元，因此整数环的单位群是 <span class="arithmatex">\((\{1, -1\},\ \cdot\ )\)</span>；</p>
+</li>
+<li>
+<p>整数环的每个非零整数都不是零因子，因此<strong>整数环是整环</strong></p>
+</li>
+<li>
+<p>固定整数 <span class="arithmatex">\(d\)</span> ，集合 <span class="arithmatex">\(d\mathbb Z=\{kd|k\in \mathbb Z\}\)</span> 关于普通加法 <span class="arithmatex">\(+\)</span> 和普通乘法 <span class="arithmatex">\(\cdot\)</span> 也构成交换环</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(d≠1\)</span> 时，环 <span class="arithmatex">\(d\mathbb Z\)</span> 没有单位元。显然环 <span class="arithmatex">\(d\mathbb Z\)</span> 也是无零因子环</p>
+</li>
+<li>
+<p>具体来说，所有偶数构成的集合 <span class="arithmatex">\(2\mathbb Z\)</span> 关于普通加法和普通乘法构成无单位元、无零因子的交换环。</p>
+</li>
+</ul>
+<h3 id="模-m-剩余类环及其子环">模 m 剩余类环及其子环<a class="headerlink" href="#模-m-剩余类环及其子环" title="Permanent link">&para;</a></h3>
+<p>固定整数 <span class="arithmatex">\(m≥2\)</span> ，模 <span class="arithmatex">\(m\)</span> 剩余类 <span class="arithmatex">\(\mathbb Z_m=\{\overline{0},\overline{1},\cdots,\overline{m-1}\}\)</span> 关于模 <span class="arithmatex">\(m\)</span> 加 <span class="arithmatex">\(⊕_m\)</span> 和模 <span class="arithmatex">\(m\)</span> 乘 <span class="arithmatex">\(⊗_m\)</span> 构成环，称为模 <span class="arithmatex">\(m\)</span> 剩余类环 (residue class ring)</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(\overline 0\)</span> 表示整除 <span class="arithmatex">\(m\)</span> 余 0 的所有整数构成的集合，<span class="arithmatex">\(\mathbb Z_m\)</span> 的元素是集合</p>
+</li>
+<li>
+<p>模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(\mathbb Z\)</span> 是有单位元交换环，零元是 0，有单位元 1</p>
+</li>
+<li>
+<p>对于 <span class="arithmatex">\(a\in \mathbb Z_m\)</span> ，如果 <span class="arithmatex">\(a\)</span> 与 <span class="arithmatex">\(m\)</span> 互质，则 <span class="arithmatex">\(a\)</span> 关于模 <span class="arithmatex">\(m\)</span> 乘有逆元，因此单位群是 <span class="arithmatex">\(U(m)\)</span> 群</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(m\)</span> 是质数 <span class="arithmatex">\(p\)</span> 时，<span class="arithmatex">\(\mathbb Z_p=\{0\}\cup U(p)\)</span> ，关于 <span class="arithmatex">\(⊕_p\)</span> 和 <span class="arithmatex">\(⊗_p\)</span> 构成有单位元、每个非零元都可逆的交换环，也即这时 <span class="arithmatex">\(\mathbb Z_p\)</span> 是域</p>
+</li>
+<li>
+<p>当 <span class="arithmatex">\(m\)</span> 不是质数时，若 <span class="arithmatex">\(m=kd(2≤k≤m,2≤k≤m)\)</span> ，则 <span class="arithmatex">\(k\)</span> 和 <span class="arithmatex">\(d\)</span> 都是模 <span class="arithmatex">\(m\)</span> 剩余类环的零因子，这时就不是无零因子环，当然也不是整环</p>
+</li>
+</ul>
+<h3 id="有理数域">有理数域<a class="headerlink" href="#有理数域" title="Permanent link">&para;</a></h3>
+<p>有理数集 <span class="arithmatex">\(Q\)</span> 关于普通加法 <span class="arithmatex">\(+\)</span> 和普通乘法 <span class="arithmatex">\(\cdot\)</span> 构成环</p>
+<ul>
+<li>
+<p>有单位元 1，是交换环，而且每个非零有理数 <span class="arithmatex">\(r\)</span> 都有逆 <span class="arithmatex">\(1/r\)</span>；</p>
+</li>
+<li>
+<p>单位群是所有非零有理数集 <span class="arithmatex">\(\mathbb Q^*\)</span> 关于普通乘法构成的群 <span class="arithmatex">\((\mathbb Q^*,\ \cdot\ )\)</span></p>
+</li>
+<li>
+<p>因此通常直接称有理数集 <span class="arithmatex">\(\mathbb Q\)</span> 为有理数域</p>
+</li>
+</ul>
+<p>实数集 <span class="arithmatex">\(\mathbb R\)</span> 和复数集 <span class="arithmatex">\(\mathbb C\)</span> 关于普通加法 <span class="arithmatex">\(+\)</span> 和普通乘法 <span class="arithmatex">\(\cdot\)</span> 也都构成域，分别称为实数域 <span class="arithmatex">\(\mathbb R\)</span> 和复数域 <span class="arithmatex">\(\mathbb C\)</span>：</p>
+<ul>
+<li>
+<p>单位群分别是所有非零实数集 <span class="arithmatex">\(\mathbb R^*\)</span> 和非零复数集 <span class="arithmatex">\(\mathbb C^*\)</span> 关于普通乘法构成的群</p>
+</li>
+<li>
+<p>复数域 <span class="arithmatex">\(\mathbb C\)</span> 的零元是实数 0，单位元是实数 1，而复数乘法的逆为：<span class="arithmatex">\((a+bi)^{-1}=\frac{a-bi}{a^2+b^2}\)</span>。</p>
+</li>
+</ul>
+<h3 id="高斯整环">高斯整环<a class="headerlink" href="#高斯整环" title="Permanent link">&para;</a></h3>
+<p><img alt="高斯整环" src="../../assets/math/discrete-math/algebra/ring/高斯整环.png" /></p>
+<h4 id="类高斯整环">类高斯整环<a class="headerlink" href="#类高斯整环" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>看起来和高斯整环很像，我乱起的名字，不是很重要</p>
+</blockquote>
+<p><img alt="类高斯整环1" src="../../assets/math/discrete-math/algebra/ring/类高斯整环1.png" /></p>
+<p><img alt="类高斯整环2" src="../../assets/math/discrete-math/algebra/ring/类高斯整环2.png" /></p>
+<h3 id="全矩阵环">全矩阵环<a class="headerlink" href="#全矩阵环" title="Permanent link">&para;</a></h3>
+<p><img alt="全矩阵环" src="../../assets/math/discrete-math/algebra/ring/全矩阵环.png" /></p>
+<h3 id="多项式环">多项式环<a class="headerlink" href="#多项式环" title="Permanent link">&para;</a></h3>
+<p><img alt="多项式环1" src="../../assets/math/discrete-math/algebra/ring/多项式环1.png" /><img alt="多项式环2" src="../../assets/math/discrete-math/algebra/ring/多项式环2.png" /></p>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<p><img alt="多项式环举例" src="../../assets/math/discrete-math/algebra/ring/多项式环举例.png" /></p>
+<h2 id="理想">理想<a class="headerlink" href="#理想" title="Permanent link">&para;</a></h2>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(R\)</span> 的非空子集。若 I 满足：</p>
+<ol>
+<li><span class="arithmatex">\(\forall r_1,r_2\in I\)</span>，有 <span class="arithmatex">\(r_1-r_2\in I\)</span>；</li>
+<li><span class="arithmatex">\(\forall r\in I,\ \forall s\in R,\ \ rs,sr\in I\)</span>；</li>
+</ol>
+<p>则称 <span class="arithmatex">\(I\)</span> 为环 <span class="arithmatex">\(R\)</span> 的<strong>理想</strong> (ideal)，记为 <span class="arithmatex">\(I⊲R\)</span>，若 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(R\)</span> 的真子集，则称 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(R\)</span> 的<strong>真理想</strong> (proper ideal)。</p>
+<p>理想是子环：显然如果 <span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(R\)</span> 的理想，则 <span class="arithmatex">\(I\)</span> 必定是 <span class="arithmatex">\(R\)</span> 的子环；</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /> 当然子环不一定是理想 <img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+</div>
+<p><span class="arithmatex">\(R\)</span> 的单个零元构成的集合 <span class="arithmatex">\(\{0\}\)</span>（称为<strong>零理想</strong>）和 <span class="arithmatex">\(R\)</span> 本身都是 <span class="arithmatex">\(R\)</span> 的理想，这两个理想称为 <span class="arithmatex">\(R\)</span> 的<strong>平凡理想</strong>。因此 <span class="arithmatex">\(R\)</span> 的非平凡理想就是非零真理想</p>
+<h3 id="常用理想">常用理想<a class="headerlink" href="#常用理想" title="Permanent link">&para;</a></h3>
+<p>整数环 <span class="arithmatex">\(Z\)</span> 的所有理想是 <span class="arithmatex">\(dZ=\{dz|z\in Z\},\ d=0,1,\cdots\)</span>；</p>
+<p>模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(Z_m\)</span> 的所有理想是 <span class="arithmatex">\(dZ_m=\{dz|z\in Z_m\},\ d=0, 1, \cdots, m-1\)</span>；</p>
+<hr />
+<p><strong>证明</strong></p>
+<p>理想是子环，而 <span class="arithmatex">\(Z\)</span> 的每个子环都具有形式 <span class="arithmatex">\(dZ\)</span> ，而且对任意子环 <span class="arithmatex">\(dZ\)</span> ，对任意 <span class="arithmatex">\(dz\in dZ\)</span> ，以及 <span class="arithmatex">\(s\in Z\)</span> ，显然有 <span class="arithmatex">\(dzs, sdz\in dZ\)</span> ，因此每个子环 <span class="arithmatex">\(dZ\)</span> 都是 <span class="arithmatex">\(Z\)</span> 的理想</p>
+<p>类似可得到模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(Z_m\)</span> 的所有理想是 <span class="arithmatex">\(dZ_m, d=0, 1, \cdots, m-1\)</span>。</p>
+<h3 id="运算">运算<a class="headerlink" href="#运算" title="Permanent link">&para;</a></h3>
+<h4 id="和">和<a class="headerlink" href="#和" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(I,J\)</span> 都是 <span class="arithmatex">\(R\)</span> 的理想，<span class="arithmatex">\(I+J\)</span> 称为理想 <span class="arithmatex">\(I\)</span> 和 <span class="arithmatex">\(J\)</span> 的<strong>和</strong>：</p>
+<div class="arithmatex">\[
+I+J=\{a+b\in R|a\in I, b\in J\}
+\]</div>
+<h4 id="交">交<a class="headerlink" href="#交" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(I\cap J\)</span> 称为 <span class="arithmatex">\(I\)</span> 和 <span class="arithmatex">\(J\)</span> 的<strong>交</strong>：</p>
+<div class="arithmatex">\[
+I\cap J=\{x\in R|x\in I,x\in J\}
+\]</div>
+<h4 id="积">积<a class="headerlink" href="#积" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(IJ\)</span> 称为理想 <span class="arithmatex">\(I\)</span> 和 <span class="arithmatex">\(J\)</span> 的<strong>积</strong>：</p>
+<div class="arithmatex">\[
+IJ=\{a_1b_1+a_2b_2+\cdots+a_nb_n|n\in\mathbb N^*,a_k\in I,b_k\in J\}
+\]</div>
+<h4 id="和交积保持理想">和交积保持理想<a class="headerlink" href="#和交积保持理想" title="Permanent link">&para;</a></h4>
+<p>若 <span class="arithmatex">\(I\)</span> 和 <span class="arithmatex">\(J\)</span> 都是环 <span class="arithmatex">\(R\)</span> 的理想，则 <span class="arithmatex">\(I+J\)</span> ， <span class="arithmatex">\(I\cap J\)</span> ，<span class="arithmatex">\(IJ\)</span> 也是环 <span class="arithmatex">\(R\)</span> 的理想</p>
+<p>环的任意有限多个理想的和仍是理想，而任意有限或无限多个理想的交仍是理想</p>
+<h3 id="主理想">主理想<a class="headerlink" href="#主理想" title="Permanent link">&para;</a></h3>
+<h4 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(a\)</span> 是 <span class="arithmatex">\(R\)</span> 的元素，记所有包含 <span class="arithmatex">\(a\)</span> 的理想构成的集合为：</p>
+<div class="arithmatex">\[
+\sum=\{I\lhd R|a\in I\}
+\]</div>
+<p>至少有 <span class="arithmatex">\(R\in\sum\)</span> ，所以 <span class="arithmatex">\(\sum\)</span> 非空。令：</p>
+<div class="arithmatex">\[
+\langle a\rangle=\bigcap_{I\in\sum}I
+\]</div>
+<p>则 <span class="arithmatex">\(\langle a\rangle\)</span> 是理想，而且是包含 <span class="arithmatex">\(a\)</span> 的最小理想。这个理想称由 <span class="arithmatex">\(a\)</span> 生成的<strong>主理想</strong>（principal ideal），<span class="arithmatex">\(a\)</span> 为其<strong>生成元</strong>。</p>
+<h4 id="定理结论">定理结论<a class="headerlink" href="#定理结论" title="Permanent link">&para;</a></h4>
+<p>环 <span class="arithmatex">\(R\)</span> 的由 <span class="arithmatex">\(a\)</span> 生成的主理想满足：</p>
+<div class="arithmatex">\[
+\langle a\rangle=\big\{
+\big(\sum_{i=1}^{n}x_iay_i\big)
++xa+ay+ma\big|x_i,y_i,x,y\in R,n\in\mathbb Z^+,m\in\mathbb Z
+\big\}
+\]</div>
+<p>若 <span class="arithmatex">\(R\)</span> <strong>有单位元</strong>，则：</p>
+<div class="arithmatex">\[
+\langle a\rangle=\big\{
+\big(\sum_{i=1}^{n}x_iay_i\big)
+\big|x_i,y_i\in R
+\big\}\
+\]</div>
+<p>若 <span class="arithmatex">\(R\)</span> 是<strong>交换环</strong>，则：</p>
+<div class="arithmatex">\[
+\langle a\rangle=\big\{
+xa+ma\big|x\in R,m\in\mathbb Z
+\big\}
+\]</div>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />若 <span class="arithmatex">\(R\)</span> 是<strong>有单位元的交换环</strong>，则：</p>
+<div class="arithmatex">\[
+\langle a\rangle=aR=\big\{
+ar\big|r\in R
+\big\}
+\]</div>
+<h4 id="常用理想的主理想">常用理想的主理想<a class="headerlink" href="#常用理想的主理想" title="Permanent link">&para;</a></h4>
+<ul>
+<li>整数环 <span class="arithmatex">\(\mathbb Z\)</span> 的每个理想 <span class="arithmatex">\(d\mathbb Z\)</span> 都是主理想，即是 <span class="arithmatex">\(\langle d\rangle\)</span> ；</li>
+<li>模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(\mathbb Z_m\)</span> 的每个理想 <span class="arithmatex">\(d\mathbb Z_m\)</span> 也都是主理想，即也是 <span class="arithmatex">\(\langle d\rangle\)</span> ；</li>
+</ul>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(a_1,a_2,\cdots,a_n\in R\)</span>，则：</p>
+<div class="arithmatex">\[
+\langle a_1,a_2,\cdots,a_n\rangle=\langle a_1\rangle+\langle a_2\rangle+\cdots+\langle a_n\rangle
+\]</div>
+<p>也是 <span class="arithmatex">\(R\)</span> 的理想，并且是包含 <span class="arithmatex">\(a_1,a_2,\cdots,a_n\)</span> 的最小理想！称为由 <span class="arithmatex">\(a_1,a_2,\cdots,a_n\)</span> 生成的理想。</p>
+<p>整数环 <span class="arithmatex">\(\mathbb Z\)</span> 由 <span class="arithmatex">\(a_1,a_2\)</span> 生成的理想是<span class="arithmatex">\(\langle\gcd(a_1,a_2)\rangle\)</span>；</p>
+<h2 id="商环">商环<a class="headerlink" href="#商环" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>环关于理想的商环</p>
+</blockquote>
+<h3 id="定义_2">定义<a class="headerlink" href="#定义_2" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\((R,+,\ \cdot\ )\)</span> 的一个理想，则 <span class="arithmatex">\((I,+)\)</span> 是 <span class="arithmatex">\((R,+)\)</span> 的正规子群，它所有（关于加群）的陪集构成集合 <span class="arithmatex">\(R/I＝\{x+I|x\in R\}\)</span> 、记<strong>陪集 <span class="arithmatex">\(x+I\)</span> 为 <span class="arithmatex">\(\overline x\)</span></strong> 。</p>
+<h4 id="运算的定义">运算的定义<a class="headerlink" href="#运算的定义" title="Permanent link">&para;</a></h4>
+<h5 id="加法">加法<a class="headerlink" href="#加法" title="Permanent link">&para;</a></h5>
+<p>在集合 <span class="arithmatex">\(R/I\)</span> 上可定义加法 <span class="arithmatex">\(+\)</span>：</p>
+<div class="arithmatex">\[
+\forall \overline x,\overline y\in R/I,\\
+\overline{x}+\overline{y}=\overline{x+y}\Longleftrightarrow (x+I)+(y+I)=(x+y)+I
+\]</div>
+<p>这里 <span class="arithmatex">\(\overline{x}+\overline{y}\)</span> 中的 <span class="arithmatex">\(+\)</span> 是要定义的加法，即后面所说商环中的加法，而 <span class="arithmatex">\(\overline{x+y}\)</span> 中的 <span class="arithmatex">\(+\)</span> 是环 <span class="arithmatex">\(R\)</span> 中的加法。</p>
+<p>根据正规子群的性质，该定义是合适的。</p>
+<h5 id="乘法">乘法<a class="headerlink" href="#乘法" title="Permanent link">&para;</a></h5>
+<p>在集合 <span class="arithmatex">\(R/I\)</span> 上可定义乘法 <span class="arithmatex">\(\times\)</span>：</p>
+<div class="arithmatex">\[
+\forall \overline x,\overline y\in R/I,\\
+\overline{x}\cdot\overline{y}=\overline{x\cdot y}\Longleftrightarrow (x+I)\cdot(y+I)=(x\cdot y)+I
+\]</div>
+<p>这里 <span class="arithmatex">\(\overline{x}\cdot\overline{y}\)</span> 中的 $\cdot $ 是要定义的乘法，即后面所说商环中的乘法，而 <span class="arithmatex">\(\overline{x\cdot y}\)</span> 中的 $\cdot $ 是环 <span class="arithmatex">\(R\)</span> 中的乘法。</p>
+<hr />
+<p>由于这定义在等价类（陪集）上，因此需要证明该定义是合适的，即与选择的代表无关，即：</p>
+<div class="arithmatex">\[
+\overline{x_1}=\overline{x_2}\ \land\overline{y_1}=\overline{y_2}
+\Rightarrow
+\overline{x_1\cdot y_1}=\overline{x_2\cdot y_2}
+\]</div>
+<p><img alt="商环乘法合适定义证明" src="../../assets/math/discrete-math/algebra/ring/商环乘法合适定义证明.png" /></p>
+<h4 id="构成环">构成环<a class="headerlink" href="#构成环" title="Permanent link">&para;</a></h4>
+<p><img alt="商环构成环证明1" src="../../assets/math/discrete-math/algebra/ring/商环构成环证明1.png" /></p>
+<p><img alt="商环构成环证明2" src="../../assets/math/discrete-math/algebra/ring/商环构成环证明2.png" /></p>
+<h4 id="商环定义">商环定义<a class="headerlink" href="#商环定义" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(I\)</span> 是理想，则<strong>环的加群</strong>关于<strong>理想的商群</strong> <span class="arithmatex">\(R/I\)</span> 也<strong>构成环</strong>（基于上面定义的加法和乘法），称为环 <span class="arithmatex">\(R\)</span> <strong>关于理想 <span class="arithmatex">\(I\)</span> 的商环</strong>（quotient ring），仍记为 <span class="arithmatex">\(R/I\)</span> 。</p>
+<div class="arithmatex">\[
+R/I=\{x+I|x\in R\}
+\]</div>
+<p>基本性质：</p>
+<ul>
+<li><span class="arithmatex">\(\overline{a}=a+I\)</span>；</li>
+<li>商环的（加法）零元：<span class="arithmatex">\(\overline{0}=0+I\)</span>；</li>
+<li>商环的（加法）单位元：<span class="arithmatex">\(\overline{e}=e+I\)</span>；</li>
+</ul>
+<h2 id="环同态">环同态<a class="headerlink" href="#环同态" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>环的同态就是与环的加法与乘法都可交换的函数</p>
+</div>
+<p>设 <span class="arithmatex">\((R,+,\cdot)\)</span> 和 <span class="arithmatex">\((R',\oplus,\otimes)\)</span> 是环，<span class="arithmatex">\(\varphi:R\to R'\)</span> 是 <span class="arithmatex">\(R\)</span> 到 <span class="arithmatex">\(R'\)</span> 的函数，若对 <span class="arithmatex">\(\forall a,b\in R\)</span> 有：</p>
+<div class="arithmatex">\[
+\varphi(a+b)=\varphi(a)\oplus\varphi(b)\\
+\varphi(a\cdot b)=\varphi(a)\otimes\varphi(b)
+\]</div>
+<p>则称 <span class="arithmatex">\(\varphi\)</span> 是 <span class="arithmatex">\(R\)</span> 到 <span class="arithmatex">\(R'\)</span> 的<strong>同态</strong>。</p>
+<ul>
+<li><span class="arithmatex">\(\varphi\)</span> 是单函数，则称为<strong>单同态</strong></li>
+<li><span class="arithmatex">\(\varphi\)</span> 是满函数，则称为<strong>满同态</strong></li>
+<li><span class="arithmatex">\(\varphi\)</span> 是双函数，则称为<strong>同构</strong>，记为：<span class="arithmatex">\(R\cong R'\)</span>。</li>
+</ul>
+<p>设 <span class="arithmatex">\(R\)</span> 和 <span class="arithmatex">\(R'\)</span> 是两个环，定义函数 <span class="arithmatex">\(φ:R→R^′\)</span>：<span class="arithmatex">\(∀a\in R,φ(a)= 0\)</span>，这里 0 是 <span class="arithmatex">\(R'\)</span> 的零元，则容易验证 <span class="arithmatex">\(φ\)</span> 是同态，这个同态称为<strong>零同态</strong> (zero homomorphism)</p>
+<p>设 <span class="arithmatex">\(R\)</span> 是环，<span class="arithmatex">\(I\)</span> 是 <span class="arithmatex">\(R\)</span> 的理想，则很自然地有同态 <span class="arithmatex">\(ρ:R→R/I\)</span> ，<span class="arithmatex">\(∀a\in R,ρ(a)=\overline a\)</span>，这里 <span class="arithmatex">\(\overline a\)</span> 是 <span class="arithmatex">\(a\)</span> 所在的等价类，即 <span class="arithmatex">\(a+I\)</span> 。这个同态称为商环 <span class="arithmatex">\(R/I\)</span> 的<strong>自然同态</strong> (natural morphism)</p>
+<p>零同态、自然同态都是满同态。</p>
+<p>自然同态一个例子：</p>
+<ul>
+<li>整数环 <span class="arithmatex">\(\mathbb Z\)</span> 到模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(\mathbb Z_m\)</span> 有很自然的满同态 <span class="arithmatex">\(φ:\mathbb Z→\mathbb Z_m\)</span>，<span class="arithmatex">\(∀z\in \mathbb Z, φ(z)=z\bmod m\)</span></li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>零同态全部映射到零元，单同态给出子代数，满同态给出商代数</p>
+</div>
+<p>环同态保持：</p>
+<ul>
+<li>加法单位元</li>
+<li>子环</li>
+</ul>
+<p>不保持：</p>
+<ul>
+<li>理想</li>
+</ul>
+<h3 id="mathbbz_m到mathbbz_n的同态"><span class="arithmatex">\(\mathbb{Z}_m\)</span>到<span class="arithmatex">\(\mathbb{Z}_n\)</span>的同态<a class="headerlink" href="#mathbbz_m到mathbbz_n的同态" title="Permanent link">&para;</a></h3>
+<p><img alt="zm到zn的同态符号约定" src="../../assets/math/discrete-math/algebra/ring/zm到zn的同态符号约定.png" /></p>
+<p><span class="arithmatex">\(\varphi:\mathbb{Z}_m\to\mathbb{Z}_n\)</span> 是 <span class="arithmatex">\(\mathbb{Z}_m\)</span> 到 <span class="arithmatex">\(\mathbb{Z}_n\)</span> 的同态，当且仅当：</p>
+<ul>
+<li><span class="arithmatex">\(\varphi(\overline1)=[a]\)</span>；（环同态由该值决定）</li>
+<li><span class="arithmatex">\(\varphi(\overline{x})=x[a]\)</span>；（乘法陪集）</li>
+<li><span class="arithmatex">\(m[a]=[0]\)</span>；</li>
+<li><span class="arithmatex">\([a]^2=[a]\)</span>；（<span class="arithmatex">\([a]\)</span> 是 <span class="arithmatex">\(\mathbb{Z}_m\)</span> 的幂等元）</li>
+</ul>
+<h2 id="环扩张">环扩张<a class="headerlink" href="#环扩张" title="Permanent link">&para;</a></h2>
+<p>环的扩张定理，也称为挖补定理</p>
+<p><img alt="环扩张定理" src="../../assets/math/discrete-math/algebra/ring/环扩张定理.jpg" /></p>
+<p>如图，<span class="arithmatex">\(R\)</span> 和 <span class="arithmatex">\(S'\)</span> 是 2 个没有公共元素的环，存在 <span class="arithmatex">\(R\)</span> 到 <span class="arithmatex">\(S'\)</span> 的单同态：</p>
+<div class="arithmatex">\[
+\psi:R\to S'
+\]</div>
+<p>并且：<span class="arithmatex">\(\psi(R)=S\)</span>。</p>
+<p>那么 <span class="arithmatex">\(R\)</span> 可以扩张为 <span class="arithmatex">\(R'\)</span> ，满足：</p>
+<ul>
+<li><span class="arithmatex">\(R'-R=S'-S\)</span>；</li>
+<li><span class="arithmatex">\(S'\cong R'\)</span>；</li>
+</ul>
+<p>设 <span class="arithmatex">\(R\)</span> 是一个没有单位元的环，则存在一个有单位元的环 <span class="arithmatex">\(R'\)</span> ，使得 <span class="arithmatex">\(R\)</span> 是 <span class="arithmatex">\(R'\)</span> 的子环。</p>
+<h2 id="特征">特征<a class="headerlink" href="#特征" title="Permanent link">&para;</a></h2>
+<p>设 <span class="arithmatex">\(R\)</span> 是环。若存在最小正整数 <span class="arithmatex">\(n\)</span> 使得对所有 <span class="arithmatex">\(a\in R\)</span> 有 <span class="arithmatex">\(na=0\)</span> ，则称 <span class="arithmatex">\(n\)</span> 为环 <span class="arithmatex">\(R\)</span> 的<strong>特征</strong>。如果不存在这样的正整数，则称 <span class="arithmatex">\(R\)</span> 的特征为 0。环 R 的特征记为 <strong>Char <span class="arithmatex">\(R\)</span></strong>。</p>
+<p>数域 <span class="arithmatex">\(\mathbb Z, \mathbb Q, \mathbb R, \mathbb C\)</span> 的特征都是 0，而模 <span class="arithmatex">\(m\)</span> 剩余类环 <span class="arithmatex">\(\mathbb Z_m\)</span> 的特征是 <span class="arithmatex">\(m\)</span>。</p>
+<p>【定理】设 <span class="arithmatex">\(R\)</span> 是有单位元 <span class="arithmatex">\(e\)</span> 的环。若 <span class="arithmatex">\(e\)</span> 关于加法的阶为无穷大，则 Char <span class="arithmatex">\(R=0\)</span>，否则 Char <span class="arithmatex">\(R=|e|\)</span>，这里 <span class="arithmatex">\(|e|\)</span> 在环的加群中的阶。</p>
+<p>证明 若 <span class="arithmatex">\(e\)</span> 的加法的阶为无穷大，则不存在正整数 <span class="arithmatex">\(n\)</span> 使得 <span class="arithmatex">\(ne=0\)</span> ，从而 Char <span class="arithmatex">\(R= 0\)</span>，否则，若 <span class="arithmatex">\(|e|=n\)</span> ，则 <span class="arithmatex">\(ne=0\)</span> ，从而对任意 <span class="arithmatex">\(a\in R\)</span> ，<span class="arithmatex">\(na=n(ea)=(ne)a=0\)</span>。</p>
+<p>整环的特征是 0 或是一个素数，进而域的特征也只能是 0 或是素数。</p>
+<blockquote>
+<p>根据 <span class="arithmatex">\(R\)</span> 的特征构造 <span class="arithmatex">\(\mathbb Z\)</span> 到 <span class="arithmatex">\(R\)</span> 的同态</p>
+</blockquote>
+<p>【定理】设 <span class="arithmatex">\(R\)</span> 是有单位元 <span class="arithmatex">\(e\)</span> 的环，定义函数 <span class="arithmatex">\(φ:\mathbb Z→R\)</span>，<span class="arithmatex">\(∀n\in \mathbb Z, φ(n)=ne\)</span>，则 <span class="arithmatex">\(φ\)</span> 是环 <span class="arithmatex">\(\mathbb Z\)</span> 到 <span class="arithmatex">\(R\)</span> 的同态。</p>
+<p>【推论】设 <span class="arithmatex">\(R\)</span> 是有单位元 <span class="arithmatex">\(e\)</span> 的环。</p>
+<ol>
+<li>
+<p>如果 <span class="arithmatex">\(R\)</span> 的特征为 <span class="arithmatex">\(n&gt;0\)</span>，则 <span class="arithmatex">\(R\)</span> 包含一个与 <span class="arithmatex">\(\mathbb Z_n\)</span> 同构的子环；</p>
+</li>
+<li>
+<p>如果 <span class="arithmatex">\(R\)</span> 的特征为 0 ，则 <span class="arithmatex">\(R\)</span> 包含一个与 <span class="arithmatex">\(\mathbb Z\)</span> 同构的子环。</p>
+</li>
+<li>所以特征为 0 的环一定是无穷环</li>
+</ol>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />每个有限域的阶必为素数的幂，即有限域的阶可表示为 <span class="arithmatex">\(p^n\)</span> ( <span class="arithmatex">\(p\)</span> 是素数、<span class="arithmatex">\(n\)</span> 是正整数)，该有限域通常称为 Galois 域 (Galois Fields)，记为 <span class="arithmatex">\(GF(p^n)\)</span>。</p>
+<p>【推论】设 <span class="arithmatex">\(F\)</span> 是域。</p>
+<p>1.如果 <span class="arithmatex">\(F\)</span> 的特征为 0 ，则 <span class="arithmatex">\(F\)</span> 包含一个与有理数域同构的子域；</p>
+<p>2.如果 <span class="arithmatex">\(R\)</span> 的特征是素数 <span class="arithmatex">\(p\)</span> ，则 <span class="arithmatex">\(F\)</span> 包含一个与模 <span class="arithmatex">\(p\)</span> 剩余类环 <span class="arithmatex">\(\mathbb Z_p\)</span> 同构的子域。</p>
+<h2 id="素域">素域<a class="headerlink" href="#素域" title="Permanent link">&para;</a></h2>
+<p>若域 <span class="arithmatex">\(F\)</span> 不包含任何真子域，则称 F 是素域 (prime field)。</p>
+<p>特征为素数 <span class="arithmatex">\(p\)</span> 的<strong>交换环</strong>中：</p>
+<div class="arithmatex">\[
+(a\pm b)^{p^n}=a^{p^n}+b^{p^n}
+\]</div>
+<hr />
+<p>证明思路</p>
+<p>交换环中也有二项式定理，以此证明 <span class="arithmatex">\((a\pm b)^{p}=a^{p}+b^{p}\)</span> ，然后数学归纳法即可。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../prime-max-ideal/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 素理想与极大理想">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                素理想与极大理想
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../cryptography/" class="md-footer__link md-footer__link--next" aria-label="Next: 密码学">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                密码学
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

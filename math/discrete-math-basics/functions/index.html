@@ -1,0 +1,2963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/discrete-math-basics/functions/">
+      
+      
+        <link rel="prev" href="../difference-equations/">
+      
+      
+        <link rel="next" href="../operations-of-sets-and-relations/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>离散数学基础:函数 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#函数" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              离散数学基础:函数
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Discrete math basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:代数系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../counting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:排列组合计数问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../difference-equations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:递推关系式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    离散数学基础:函数
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:函数
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#像" class="md-nav__link">
+    <span class="md-ellipsis">
+      像
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原像" class="md-nav__link">
+    <span class="md-ellipsis">
+      原像
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义域-or-域" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义域 or 域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#陪域" class="md-nav__link">
+    <span class="md-ellipsis">
+      陪域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#像集" class="md-nav__link">
+    <span class="md-ellipsis">
+      像集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="像集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#值域" class="md-nav__link">
+    <span class="md-ellipsis">
+      值域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#逆像集" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆像集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆像集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#恒等函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      恒等函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="恒等函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#空函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      空函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="空函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特征函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#自然映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="自然映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#函数集" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#偏函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="偏函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#备注" class="md-nav__link">
+    <span class="md-ellipsis">
+      备注
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#单函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      单函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#满函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      满函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="满函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      双函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#函数的复合" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数的复合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数的复合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#逆函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#左逆" class="md-nav__link">
+    <span class="md-ellipsis">
+      左逆
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="左逆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#左逆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      左逆
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="左逆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations-of-sets-and-relations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:集合与关系的运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../permutaion-and-combination/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:排列与组合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../principles-of-counting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:组合计数基本原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../problem1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    等价关系经典计数问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散数学基础:关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#像" class="md-nav__link">
+    <span class="md-ellipsis">
+      像
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原像" class="md-nav__link">
+    <span class="md-ellipsis">
+      原像
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义域-or-域" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义域 or 域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#陪域" class="md-nav__link">
+    <span class="md-ellipsis">
+      陪域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#像集" class="md-nav__link">
+    <span class="md-ellipsis">
+      像集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="像集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#值域" class="md-nav__link">
+    <span class="md-ellipsis">
+      值域
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#逆像集" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆像集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆像集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#恒等函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      恒等函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="恒等函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#空函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      空函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="空函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#特征函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特征函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#自然映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="自然映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#函数集" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#偏函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      偏函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="偏函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#备注" class="md-nav__link">
+    <span class="md-ellipsis">
+      备注
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#单函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      单函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#满函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      满函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="满函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      双函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#函数的复合" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数的复合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="函数的复合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#记号_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      记号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#逆函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="逆函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#左逆" class="md-nav__link">
+    <span class="md-ellipsis">
+      左逆
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="左逆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#左逆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      左逆
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="左逆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#描述_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>离散数学基础:函数</h1>
+
+<p><img alt="函数" src="../../../assets/math/discrete-math-basics/函数.png" /></p>
+<h2 id="函数">函数<a class="headerlink" href="#函数" title="Permanent link">&para;</a></h2>
+<p>(全函数)</p>
+<h3 id="描述">描述<a class="headerlink" href="#描述" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\text{集合A到B的函数，是}A\times \text{笛卡尔积的一类子集}\\
+&amp;\text{集合A到A的函数也称为A上的函数}\\
+&amp;\text{定义域的每个元素都存在陪域的唯一元素与之对应}
+\end{aligned}
+\]</div>
+<h3 id="记号">记号<a class="headerlink" href="#记号" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f:A\to B
+\end{aligned}
+\]</div>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;f\in P(A\times B) \ or\ f \subseteq A\times B ,\\ &amp;\forall a\in A,\ \exists!b\in B,\ &lt;a,b&gt;\in f
+\end{aligned}
+\]</div>
+<h3 id="像">像<a class="headerlink" href="#像" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{b是a在函数f下的像}
+\]</div>
+<h3 id="原像">原像<a class="headerlink" href="#原像" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{a是b在函数f下的原像}
+\]</div>
+<h3 id="定义域-or-域">定义域 or 域<a class="headerlink" href="#定义域-or-域" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+A
+\]</div>
+<h3 id="陪域">陪域<a class="headerlink" href="#陪域" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+B
+\]</div>
+<h2 id="像集">像集<a class="headerlink" href="#像集" title="Permanent link">&para;</a></h2>
+<h3 id="描述_1">描述<a class="headerlink" href="#描述_1" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{A的子集S在f下的像集，是f的陪域B的子集}
+\]</div>
+<h3 id="记号_1">记号<a class="headerlink" href="#记号_1" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f(S)
+\end{aligned}
+\]</div>
+<h3 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f(S)&amp;=\{f(x)\in B|x\in S\}\\
+&amp;=\{y\in B|\exists x\in S,y=f(x)\}\\
+&amp;\subseteq B
+\end{aligned}
+\]</div>
+<h3 id="值域">值域<a class="headerlink" href="#值域" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f(A)=\boldsymbol{ran}(f)
+\end{aligned}
+\]</div>
+<h2 id="逆像集">逆像集<a class="headerlink" href="#逆像集" title="Permanent link">&para;</a></h2>
+<h3 id="描述_2">描述<a class="headerlink" href="#描述_2" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{B的子集T在f下的逆像集，是f的域A的子集}
+\]</div>
+<h3 id="记号_2">记号<a class="headerlink" href="#记号_2" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f^{-1}(T)
+\end{aligned}
+\]</div>
+<h3 id="定义_2">定义<a class="headerlink" href="#定义_2" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f^{-1}(T)=\{x\in A|f(x)\in T\}\subseteq A
+\end{aligned}
+\]</div>
+<h2 id="恒等函数">恒等函数<a class="headerlink" href="#恒等函数" title="Permanent link">&para;</a></h2>
+<h3 id="描述_3">描述<a class="headerlink" href="#描述_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}&amp;\text{任意非空集A上的恒等关系}\Delta_A\text{是A的恒等函数}\\&amp;
+\text{来自恒等关系}
+\end{aligned}
+\]</div>
+<h3 id="记号_3">记号<a class="headerlink" href="#记号_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \boldsymbol{id}_A=\Delta_A
+\end{aligned}
+\]</div>
+<h3 id="定义_3">定义<a class="headerlink" href="#定义_3" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f^{-1}(T)=\{x\in A|f(x)\in T\}\subseteq A
+\end{aligned}
+\]</div>
+<h2 id="空函数">空函数<a class="headerlink" href="#空函数" title="Permanent link">&para;</a></h2>
+<h3 id="描述_4">描述<a class="headerlink" href="#描述_4" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}&amp;
+\text{以空集为定义域的函数都是空函数，}\\&amp;
+\text{当函数陪域为空集时定义域也只能是空集，}\\&amp;
+\text{从而函数也是空函数，否则不满足函数定义}\\&amp;
+\text{来自空关系}
+\end{aligned}
+\]</div>
+<h3 id="定义_4">定义<a class="headerlink" href="#定义_4" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;f:A\to B,\\
+&amp;A=\varnothing\to f\text{是空函数}\\
+&amp;B=\varnothing\to A=\varnothing\to f\text{是空函数}
+\end{aligned}
+\]</div>
+<h2 id="特征函数">特征函数<a class="headerlink" href="#特征函数" title="Permanent link">&para;</a></h2>
+<h3 id="描述_5">描述<a class="headerlink" href="#描述_5" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\text{子集S的特征函数是}\\
+&amp;\text{全集U的任意子集S到}\boldsymbol{2}=\{\boldsymbol{0},\boldsymbol{1}\}\text{的函数}
+\end{aligned}
+\]</div>
+<h3 id="记号_4">记号<a class="headerlink" href="#记号_4" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \chi_s :U\to \boldsymbol{2}
+\end{aligned}
+\]</div>
+<h3 id="定义_5">定义<a class="headerlink" href="#定义_5" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}     \chi_s (x)=\left\{\begin{aligned}
+            \boldsymbol{1}\\
+            \boldsymbol{0}
+        \end{aligned}\right.
+        &amp;&amp;&amp;&amp;
+        \begin{aligned}
+        x\in S\\
+        x\not\in S
+        \end{aligned}
+\end{aligned}
+\]</div>
+<h2 id="自然映射">自然映射<a class="headerlink" href="#自然映射" title="Permanent link">&para;</a></h2>
+<h3 id="描述_6">描述<a class="headerlink" href="#描述_6" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;R\text{是非空集A上的等价关系，}\\
+&amp;\text{商集A/R的自然映射是A到A/R的函数},\\
+&amp;\text{将A的任意元素a映射到它所在的等价类}[a]_R
+\end{aligned}
+\]</div>
+<h3 id="记号_5">记号<a class="headerlink" href="#记号_5" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \rho :A\to A/R
+\end{aligned}
+\]</div>
+<h3 id="定义_6">定义<a class="headerlink" href="#定义_6" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \rho(a)=[a]_R
+\end{aligned}
+\]</div>
+<h2 id="函数集">函数集<a class="headerlink" href="#函数集" title="Permanent link">&para;</a></h2>
+<p>(函数族)</p>
+<h3 id="描述_7">描述<a class="headerlink" href="#描述_7" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{所有从集合A到集合B的函数的集合}
+\]</div>
+<h3 id="记号_6">记号<a class="headerlink" href="#记号_6" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} B^A
+\end{aligned}
+\]</div>
+<h2 id="偏函数">偏函数<a class="headerlink" href="#偏函数" title="Permanent link">&para;</a></h2>
+<h3 id="描述_8">描述<a class="headerlink" href="#描述_8" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;与全函数的区别在于：\\
+&amp;定义域的每个元素至多存在陪域的一个元素与之对应
+\end{aligned}
+\]</div>
+<h3 id="记号_7">记号<a class="headerlink" href="#记号_7" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f:A\rightharpoonup B
+\end{aligned}
+\]</div>
+<h3 id="定义_7">定义<a class="headerlink" href="#定义_7" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;f\in P(A\times B) \ or\ f \subseteq A\times B ,\ \ \forall a\in A,\\&amp;
+(\exists!b\in B,\ &lt;a,b&gt;\in f)\lor(!\exists b\in B,\ &lt;a,b&gt;\in f)
+\end{aligned}
+\]</div>
+<h3 id="备注">备注<a class="headerlink" href="#备注" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{本门课程里的函数默认是全函数}
+\]</div>
+<h2 id="单函数">单函数<a class="headerlink" href="#单函数" title="Permanent link">&para;</a></h2>
+<p>(一对一函数)</p>
+<h3 id="描述_9">描述<a class="headerlink" href="#描述_9" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}\text{陪域的每个元素至多存在定义域的一个元素与之对应}
+\end{aligned}
+\]</div>
+<h3 id="定义_8">定义<a class="headerlink" href="#定义_8" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\forall x,y\in A,\ \ x\neq y\to f(x)\neq f(y)
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\forall x,y\in A,\ \ f(x)=f(y)\to x=y
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned} f\text{存在左逆}
+\end{aligned}
+\]</div>
+<h2 id="满函数">满函数<a class="headerlink" href="#满函数" title="Permanent link">&para;</a></h2>
+<p>(映上函数)</p>
+<h3 id="描述_10">描述<a class="headerlink" href="#描述_10" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}\text{陪域的每个元素至少存在定义域的一个元素与之对应}
+\end{aligned}
+\]</div>
+<h3 id="定义_9">定义<a class="headerlink" href="#定义_9" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \boldsymbol{ran}(f)=B
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\forall y\in B,\ \ \exists x\in A,\ \ f(x)=y
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned} f\text{存在右逆}
+\end{aligned}
+\]</div>
+<h2 id="双函数">双函数<a class="headerlink" href="#双函数" title="Permanent link">&para;</a></h2>
+<p>(一一对应)</p>
+<h3 id="描述_11">描述<a class="headerlink" href="#描述_11" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} \text{陪域的每个元素都有定义域唯一一个元素与之对应}
+\end{aligned}
+\]</div>
+<h3 id="定义_10">定义<a class="headerlink" href="#定义_10" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f\text{既是单函数又是满函数}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp; f:A\to B\text{是双函数}\\\Leftrightarrow&amp;
+\exists g:B\to A\ ,\ g\circ f=\boldsymbol{id}_A\ ,\ f\circ g=\boldsymbol{id}_B\\\Leftrightarrow&amp;
+\exists f^{-1},f^{-1}\circ f=\boldsymbol{id}_A\ ,\ f\circ f^{-1}=\boldsymbol{id}_B
+\end{aligned}
+\]</div>
+<h2 id="函数的复合">函数的复合<a class="headerlink" href="#函数的复合" title="Permanent link">&para;</a></h2>
+<h3 id="描述_12">描述<a class="headerlink" href="#描述_12" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;\text{函数}f:A\to B\text{和}g:B\to C\text{的复合}\\&amp;
+\text{与关系的复合是一致的，是二元运算}
+\end{aligned}
+\]</div>
+<h3 id="记号_8">记号<a class="headerlink" href="#记号_8" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} (g\circ f)(x)=g(f(x))
+\end{aligned}
+\]</div>
+<h3 id="定义_11">定义<a class="headerlink" href="#定义_11" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} (g\circ f)(x)=g(f(x))
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned} g\circ f&amp;=\{&lt;x,y&gt;|\exists z(&lt;x,z&gt;\in f\land&lt;z,y&gt;\in g)\}\\
+&amp;=\{&lt;x,y&gt;|\exists z(f(x)=z\land g(z)=y)\}\\
+&amp;=\{&lt;x,y&gt;|g(f(x))=y\}
+\end{aligned}
+\]</div>
+<h3 id="性质">性质<a class="headerlink" href="#性质" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}&amp; 关系复合不满足交换律
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp;\text{关系复合满足结合律}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp; f\text{和}g\text{是单函数}\to g\circ f\text{是单函数}\to f\text{是单函数}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp; f\text{和}g\text{是满函数}\to g\circ f\text{是满函数}\to g\text{是满函数}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp; f\text{和}g\text{是双函数}\to g\circ f\text{是双函数}\to f\text{是单函数且}g\text{是满函数}
+\end{aligned}
+\]</div>
+<h2 id="逆函数">逆函数<a class="headerlink" href="#逆函数" title="Permanent link">&para;</a></h2>
+<h3 id="描述_13">描述<a class="headerlink" href="#描述_13" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}\text{双函数}f\text{作为关系的逆关系}f^{-1}\text{是}f\text{的逆函数}
+\end{aligned}
+\]</div>
+<h3 id="定义_12">定义<a class="headerlink" href="#定义_12" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} f^{-1}&amp;
+=\{&lt;y,x&gt;\in B\times A|&lt;x,y&gt;\in f\}\\&amp;
+=\{&lt;y,x&gt;|f(x)=y\}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+\begin{aligned}&amp; f^{-1}:B\to A\text{是双函数}f\text{的逆函数}\\\Leftrightarrow&amp;
+f^{-1}\circ f=\boldsymbol{id}_A\ ,\ f\circ f^{-1}=\boldsymbol{id}_B
+\end{aligned}
+\]</div>
+<h2 id="左逆">左逆<a class="headerlink" href="#左逆" title="Permanent link">&para;</a></h2>
+<h3 id="描述_14">描述<a class="headerlink" href="#描述_14" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} g:B\to A\text{是函数}f\text{的左逆，满足：}
+\end{aligned}
+\]</div>
+<h3 id="定义_13">定义<a class="headerlink" href="#定义_13" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;g\circ f=\boldsymbol{id}_A
+\end{aligned}
+\]</div>
+<h2 id="左逆_1">左逆<a class="headerlink" href="#左逆_1" title="Permanent link">&para;</a></h2>
+<h3 id="描述_15">描述<a class="headerlink" href="#描述_15" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} g:B\to A\text{是函数}f\text{的右逆，满足：}
+\end{aligned}
+\]</div>
+<h3 id="定义_14">定义<a class="headerlink" href="#定义_14" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned} &amp;f\circ g=\boldsymbol{id}_B
+\end{aligned}
+\]</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../difference-equations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 离散数学基础:递推关系式">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                离散数学基础:递推关系式
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../operations-of-sets-and-relations/" class="md-footer__link md-footer__link--next" aria-label="Next: 离散数学基础:集合与关系的运算">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                离散数学基础:集合与关系的运算
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

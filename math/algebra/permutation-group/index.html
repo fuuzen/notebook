@@ -1,0 +1,1703 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/algebra/permutation-group/">
+      
+      
+        <link rel="prev" href="../normal-subgroup/">
+      
+      
+        <link rel="next" href="../prime-max-ideal/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>置换群 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#置换群的定义" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              置换群
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algebra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coset-of-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    子群的陪集
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../group-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    群论基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homomorphism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    群的同态与同构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../normal-subgroup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正规子群与商群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    置换群
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    置换群
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#置换群的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群的定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#置换群的构成" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群的构成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="置换群的构成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#置换乘法" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换乘法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#恒等置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      恒等置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#逆置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称群" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#轮换" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="轮换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#置换的对换表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换的对换表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="置换的对换表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#奇偶性" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#交错群" class="md-nav__link">
+    <span class="md-ellipsis">
+      交错群
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prime-max-ideal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    素理想与极大理想
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#置换群的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群的定义
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#置换群的构成" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换群的构成
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="置换群的构成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#置换乘法" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换乘法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#恒等置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      恒等置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#逆置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      逆置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称群" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称群
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#轮换" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="轮换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#轮换性质-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      轮换性质 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#置换的对换表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      置换的对换表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="置换的对换表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#奇偶性" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇偶性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#交错群" class="md-nav__link">
+    <span class="md-ellipsis">
+      交错群
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>置换群</h1>
+
+<h2 id="置换群的定义">置换群的定义<a class="headerlink" href="#置换群的定义" title="Permanent link">&para;</a></h2>
+<p>设 <span class="arithmatex">\(S=\{1,2,\cdots,n\}\)</span> ； S 上的任意<strong>双函数</strong> <span class="arithmatex">\(\sigma:S\to S\)</span> 称为 S 上的一个 <strong>n 元置换</strong> (permutation)，记为：</p>
+<div class="arithmatex">\[
+\sigma=
+\begin{pmatrix}
+1 &amp; 2 &amp; \cdots &amp; n \\
+\sigma(1) &amp; \sigma(2) &amp; \cdots &amp; \sigma(n)
+\end{pmatrix}
+\quad
+\]</div>
+<h2 id="置换群的构成">置换群的构成<a class="headerlink" href="#置换群的构成" title="Permanent link">&para;</a></h2>
+<h3 id="置换乘法">置换乘法<a class="headerlink" href="#置换乘法" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(\sigma,\tau\)</span> 都是 S 上的 n 元置换，则 <span class="arithmatex">\(\sigma,\tau\)</span> 作为<strong>函数的复合</strong> <span class="arithmatex">\(\sigma\circ\tau\)</span> 和 <span class="arithmatex">\(\tau\circ\sigma\)</span> 也是 n 元置换，称为 <span class="arithmatex">\(\sigma,\tau\)</span> 的<strong>乘积</strong>，记为 <strong><span class="arithmatex">\(\sigma\tau\)</span></strong> 和 <strong><span class="arithmatex">\(\tau\sigma\)</span></strong></p>
+<ul>
+<li><span class="arithmatex">\(στ(i)=σ(τ(i))\)</span>；</li>
+<li><span class="arithmatex">\(τσ(i)=τ(σ(i))\)</span>；</li>
+</ul>
+<h3 id="恒等置换">恒等置换<a class="headerlink" href="#恒等置换" title="Permanent link">&para;</a></h3>
+<p>记为 e ，为 S 上的恒等函数。显然它是置换乘法的<strong>单位元</strong>。</p>
+<h3 id="逆置换">逆置换<a class="headerlink" href="#逆置换" title="Permanent link">&para;</a></h3>
+<p>对于某个置换 <span class="arithmatex">\(\sigma\)</span>：</p>
+<div class="arithmatex">\[
+\sigma=
+\begin{pmatrix}
+1 &amp; 2 &amp; \cdots &amp; n \\
+\sigma(1) &amp; \sigma(2) &amp; \cdots &amp; \sigma(n)
+\end{pmatrix}
+\quad
+\]</div>
+<p><span class="arithmatex">\(\sigma\)</span>​ 关于(置换)乘法的<strong>逆置换</strong>是：</p>
+<div class="arithmatex">\[
+\sigma=
+\begin{pmatrix}
+\sigma(1) &amp; \sigma(2) &amp; \cdots &amp; \sigma(n)\\
+1 &amp; 2 &amp; \cdots &amp; n
+\end{pmatrix}
+\quad
+\]</div>
+<h3 id="对称群">对称群<a class="headerlink" href="#对称群" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(S\)</span> 上的<strong>所有 n 元置换关于置换乘法构成群</strong>，这个群称 <strong>n 元对称群</strong>（symmetric group），并记为 <span class="arithmatex">\(S_n\)</span> , <span class="arithmatex">\(S_n\)</span> 的任意子群都称作 <strong>n 元置换群</strong>（permutation group）。</p>
+<h2 id="轮换">轮换<a class="headerlink" href="#轮换" title="Permanent link">&para;</a></h2>
+<p>若 S 上的 n 元置换 <span class="arithmatex">\(\sigma\)</span> 满足：</p>
+<div class="arithmatex">\[
+\sigma(i_1)=i_2,\ \ \ \sigma(i_2)=i_3,\ \cdots\ ,\ \sigma(i_{k-1})=i_k,\ \ \ \sigma(i_k)=i_1
+\]</div>
+<p>其中 <span class="arithmatex">\(i_j\in S,\ \ \ j=1,\cdots,k\)</span> ；且满足<strong>其他元素不变</strong>，则称 <span class="arithmatex">\(\sigma\)</span> 为 S 上的 k 阶轮换（cycle），记为：</p>
+<div class="arithmatex">\[
+\sigma=(i_1\ i_2\ \cdots\ i_k)
+\]</div>
+<p>特别地有：</p>
+<ul>
+<li>2 阶轮换也叫做<strong>对换</strong></li>
+<li>1 阶轮换 <span class="arithmatex">\((1)\)</span> 就是恒等置换</li>
+</ul>
+<p><span class="arithmatex">\(\sigma=(i_1\ i_2\ \cdots\ i_r)\)</span> 和 <span class="arithmatex">\(\tau=(j_1\ j_2\ \cdots\ j_s)\)</span> 是两个轮换，如果对任意的 <span class="arithmatex">\(k=1,2,\cdots,r\)</span> 及任意的 <span class="arithmatex">\(l=1,2,\cdots,s\)</span> 都有 <span class="arithmatex">\(i_k\neq j_l\)</span> ，称 <span class="arithmatex">\(\sigma\)</span> 和 <span class="arithmatex">\(\tau\)</span> 是<strong>两个不相交的轮换</strong>， <span class="arithmatex">\(\sigma\)</span> 和 <span class="arithmatex">\(\tau\)</span> <strong>不相交</strong></p>
+<h3 id="轮换性质-1">轮换性质 1<a class="headerlink" href="#轮换性质-1" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(σ\in S_n\)</span> 是 n 阶置换，证明：<span class="arithmatex">\(σ(i_1\ i_2\ \cdots\ i_k)σ^{-1}= (σ(i_1)\ σ(i_2 )\ \cdots\ σ(i_k ))\)</span></p>
+<p><img alt="轮换性质1证明" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质1证明.png" /></p>
+<h3 id="轮换性质-2">轮换性质 2<a class="headerlink" href="#轮换性质-2" title="Permanent link">&para;</a></h3>
+<p><strong>不相交轮换的可交换性</strong></p>
+<p>任意两个不相交轮换的乘积可交换，即若 σ 和 τ 是两个不相交的轮换，则 <span class="arithmatex">\(στ=τσ\)</span></p>
+<p><img alt="轮换性质2eg" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质2eg.png" /></p>
+<h3 id="轮换性质-3">轮换性质 3<a class="headerlink" href="#轮换性质-3" title="Permanent link">&para;</a></h3>
+<p><strong>置换的轮换表示</strong></p>
+<p>每个置换都可表示为一些<strong>不相交轮换的乘积</strong></p>
+<p><img alt="轮换性质3eg" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质3eg.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>通常省略轮换表示中的一阶轮换，例如这里可以直接记为：<span class="arithmatex">\(σ=(1\ 5\ 2\ 3\ 6)(7\ 8)\)</span></p>
+</div>
+<h2 id="置换的对换表示">置换的对换表示<a class="headerlink" href="#置换的对换表示" title="Permanent link">&para;</a></h2>
+<p>任意置换都可表示成对换的乘积，因为任意轮换都可表示成对换的乘积</p>
+<p>设 <span class="arithmatex">\(\sigma=(i_1\ i_2\ \cdots\ i_k)\)</span> 是 <span class="arithmatex">\(S=\{1,2,\cdots,n\}\)</span> 上的 k 阶轮换，则：</p>
+<div class="arithmatex">\[
+\sigma=(i_1\ i_2)(i_2\ i_3)\cdots(i_{k-1}\ i_k)
+\]</div>
+<p><img alt="轮换性质4证明" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质4证明.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>置换的<strong>轮换表示</strong>中的轮换是<strong>不交</strong>的，而<strong>对换表示</strong>式中的对换是<strong>允许有交</strong>的</li>
+</ul>
+</div>
+<ul>
+<li>轮换表示式在某种意义下（不考虑因子次序和 1 轮换个数）是惟一的，但<strong>对换表示式</strong>是<strong>不惟一</strong>的</li>
+</ul>
+<p><img alt="轮换性质4eg1" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质4eg1.png" /></p>
+<p><img alt="轮换性质4eg2" src="../../assets/math/discrete-math/algebra/group-basics/轮换性质4eg2.png" /></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />一般地，k 阶轮换 <span class="arithmatex">\((i_1\ i_2\ i_3\ \cdots i_k)\)</span> 也等于 <span class="arithmatex">\((i_1\ i_k)(i_1\ i_{k-1} )\cdots(i_1\ i_2)\)</span></p>
+</div>
+<h3 id="奇偶性">奇偶性<a class="headerlink" href="#奇偶性" title="Permanent link">&para;</a></h3>
+<p>一个置换表为对换的乘积，所用的对换个数的<strong>奇偶性是惟一</strong>的。</p>
+<ul>
+<li>可表示成偶数个对换的乘积的置换称为偶置换(even permutation)</li>
+<li>
+<p>可表示成奇数个对换的乘积的置换称为奇置换(odd permutation)</p>
+</li>
+<li>
+<p>任何两个偶置换的积是偶置换；</p>
+</li>
+<li>两个奇置换的积是偶置换；</li>
+<li>
+<p>一个偶置换与一个奇置换的积是奇置换；</p>
+</li>
+<li>
+<p>一个偶置换的逆置换仍然是偶置换；</p>
+</li>
+<li>一个奇置换的逆仍然是奇置换；</li>
+</ul>
+<p>当 <span class="arithmatex">\(n&gt;1\)</span> 时，在全体 n 元置换中，奇置换与偶置换各有 <span class="arithmatex">\(\frac{n!}{2}\)</span> 个</p>
+<h2 id="交错群">交错群<a class="headerlink" href="#交错群" title="Permanent link">&para;</a></h2>
+<p>在 n 元对称群 S_n 中，全体偶置换构成 S_n 的子群称这个子群称为 n 元交错群 (alternative group)。</p>
+<p><img alt="交错群eg" src="../../assets/math/discrete-math/algebra/group-basics/交错群eg.png" /></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(f_1\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_2\)</span></td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_3\)</span></td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_4\)</span></td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_5\)</span></td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f_6\)</span></td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><span class="arithmatex">\(S_3\)</span> 中的偶置换包括 <span class="arithmatex">\((1)\)</span>（表示成 0 个对换的乘积）、<span class="arithmatex">\((1\ 2\ 3)=(1\ 2)(2\ 3)\)</span> 和 <span class="arithmatex">\((1\ 3\ 2)=(1\ 3)(3\ 2)\)</span> ，这些偶置换构成了 3 元交错群 <span class="arithmatex">\(A_3 = \{(1), (1\ 2\ 3), (1\ 3\ 2)\} = \{f_1, f_5, f_6 \}\)</span>。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../normal-subgroup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 正规子群与商群">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                正规子群与商群
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../prime-max-ideal/" class="md-footer__link md-footer__link--next" aria-label="Next: 素理想与极大理想">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                素理想与极大理想
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

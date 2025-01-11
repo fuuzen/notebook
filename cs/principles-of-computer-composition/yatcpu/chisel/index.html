@@ -1,0 +1,2732 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/principles-of-computer-composition/yatcpu/chisel/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../lab-reports/lab1/">
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Chisel - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scala" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chisel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Principles of computer composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-indicators-of-computer-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机性能的基本指标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据通路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dram-refresh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DRAM刷新
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exception-and-interruption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常和中断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../instruction-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指令系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../virtual-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../von-neumann-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冯·诺伊曼体系结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_13" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Yatcpu
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8_13" id="__nav_2_8_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_8_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8_13">
+            <span class="md-nav__icon md-icon"></span>
+            Yatcpu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chisel
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chisel
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scala" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scala
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scala">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scalatest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ScalaTest
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chisel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chisel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chisel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seq
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vec
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array" class="md-nav__link">
+    <span class="md-ellipsis">
+      Array
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexedseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      IndexedSeq
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信号转换的实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号转换的实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号转换的实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muxlookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      MuxLookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#运算符" class="md-nav__link">
+    <span class="md-ellipsis">
+      ##运算符
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log2up" class="md-nav__link">
+    <span class="md-ellipsis">
+      log2Up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bundle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncreadmem" class="md-nav__link">
+    <span class="md-ellipsis">
+      SyncReadMem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumeration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orgscalatest" class="md-nav__link">
+    <span class="md-ellipsis">
+      org.scalatest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiseltest" class="md-nav__link">
+    <span class="md-ellipsis">
+      chiseltest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiselscalatesttester" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChiselScalatestTester
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChiselScalatestTester">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      test 方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#描述语言" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述语言
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自定义描述语言" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义描述语言
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#函数定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../lab-reports/lab1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Lab reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scala" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scala
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scala">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scalatest" class="md-nav__link">
+    <span class="md-ellipsis">
+      ScalaTest
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chisel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chisel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chisel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seq
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vec
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#array" class="md-nav__link">
+    <span class="md-ellipsis">
+      Array
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexedseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      IndexedSeq
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信号转换的实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号转换的实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号转换的实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#muxlookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      MuxLookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#运算符" class="md-nav__link">
+    <span class="md-ellipsis">
+      ##运算符
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log2up" class="md-nav__link">
+    <span class="md-ellipsis">
+      log2Up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bundle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncreadmem" class="md-nav__link">
+    <span class="md-ellipsis">
+      SyncReadMem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumeration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#测试_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orgscalatest" class="md-nav__link">
+    <span class="md-ellipsis">
+      org.scalatest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiseltest" class="md-nav__link">
+    <span class="md-ellipsis">
+      chiseltest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiselscalatesttester" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChiselScalatestTester
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChiselScalatestTester">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      test 方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#描述语言" class="md-nav__link">
+    <span class="md-ellipsis">
+      描述语言
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自定义描述语言" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义描述语言
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#函数定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Chisel</h1>
+
+<h2 id="scala">Scala<a class="headerlink" href="#scala" title="Permanent link">&para;</a></h2>
+<h3 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
+<p>在 Scala 中，import 语句用于引入其他类、对象或特质，以便在当前作用域中可以直接访问它们的成员。下面是一些关于 Scala 中 import 的常见用法：</p>
+<ol>
+<li>基本用法</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 导入单个类</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ListBuffer</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// 导入整个包</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="n">_</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// 重命名导入的类/对象/特质</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">import</span><span class="w"> </span><span class="nn">java</span><span class="p">.</span><span class="nn">util</span><span class="p">.{</span><span class="nc">ArrayList</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">JArrayList</span><span class="p">,</span><span class="w"> </span><span class="nc">HashMap</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nc">JHashMap</span><span class="p">}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">// 隐藏某个成员</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">import</span><span class="w"> </span><span class="nn">java</span><span class="p">.</span><span class="nn">util</span><span class="p">.{</span><span class="nc">Random</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">}</span><span class="w"> </span><span class="c1">// 隐藏java.util.Random</span>
+</code></pre></div>
+<ol>
+<li>导入对象的成员</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">java</span><span class="p">.</span><span class="nn">awt</span><span class="p">.</span><span class="nc">Color</span><span class="p">.</span><span class="n">_</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">val</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RED</span><span class="w"> </span><span class="c1">// 直接访问Color对象的成员RED</span>
+</code></pre></div>
+<ol>
+<li>静态导入</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">java</span><span class="p">.</span><span class="nn">lang</span><span class="p">.</span><span class="nc">Math</span><span class="p">.</span><span class="n">_</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">val</span><span class="w"> </span><span class="n">maxNum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="c1">// 直接使用Math类的静态方法max</span>
+</code></pre></div>
+<h3 id="测试">测试<a class="headerlink" href="#测试" title="Permanent link">&para;</a></h3>
+<h4 id="scalatest">ScalaTest<a class="headerlink" href="#scalatest" title="Permanent link">&para;</a></h4>
+<p>要使用 ScalaTest 进行测试可以按照以下基本步骤进行操作：</p>
+<p>导入必要的包和类：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="nn">org</span><span class="p">.</span><span class="nn">scalatest</span><span class="p">.</span><span class="nn">flatspec</span><span class="p">.</span><span class="nc">AnyFlatSpec</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="nn">org</span><span class="p">.</span><span class="nn">scalatest</span><span class="p">.</span><span class="nn">matchers</span><span class="p">.</span><span class="nn">should</span><span class="p">.</span><span class="nc">Matchers</span>
+</code></pre></div>
+<p>创建测试类并扩展相应的测试风格特质：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyTest</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">AnyFlatSpec</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="nc">Matchers</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="c1">// 在这里编写测试代码</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>在这个例子中，我们创建了一个名为"MyTest"的测试类，并将其扩展为 AnyFlatSpec 和 Matchers。AnyFlatSpec 是 ScalaTest 提供的一种测试规范风格，而 Matchers 允许你使用自然语言风格编写断言。</p>
+<p>编写测试代码：
+在测试类中，你可以编写各种测试方法来验证你的代码行为是否符合预期，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">it</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="s">&quot;return the correct result&quot;</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="c1">// 编写测试代码来验证某个函数或者方法的行为</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFunction</span><span class="p">()</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="p">(</span><span class="n">expectedResult</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>在这个例子中，我们使用"it should"来描述测试的行为，然后使用"in"关键字定义测试代码块。在测试代码块中，我们调用了一个名为"myFunction"的函数，并使用"should equal"断言来验证其返回值是否等于"expectedResult"。</p>
+<p>运行测试：\
+使用<strong>构建工具</strong>（如 sbt）来运行测试。在 sbt 中，你可以执行以下命令来运行测试：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sbt<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<p>这将会执行所有的测试，并输出测试结果。</p>
+<h2 id="chisel">Chisel<a class="headerlink" href="#chisel" title="Permanent link">&para;</a></h2>
+<p>在 Scala 中，Chisel 是一个常用于硬件设计的领域特定语言（DSL），它提供了许多有用的库和工具，一些常用的库包括：</p>
+<ol>
+<li>chisel3：这是 Chisel 的核心库，它定义了 Chisel 的语法和 API。</li>
+<li>firrtl：这是 Chisel 的前端，用于将 Chisel 代码转换为可执行的 RTL 代码。</li>
+<li>chisel-iotesters：这是一个用于测试 Chisel 模块的库，它提供了一些常见的测试工具和模拟器。</li>
+<li>treadle：这是一个开源的 Verilog 仿真器，可以与 Chisel 代码一起使用进行仿真和调试。</li>
+<li>chisel-testers2：这是一个测试框架，用于编写和运行 Chisel 测试。</li>
+<li>chisel-formal：这是一个用于形式验证的库，可用于对 Chisel 模块进行形式化验证。</li>
+<li>chisel-fluent：这是一个用于创建可重用组件库的库，使得在不同的项目中可以轻松地重用 Chisel 模块。</li>
+</ol>
+<p>在 chisel3 库中，常用的一些子库包括：</p>
+<ol>
+<li>chisel3：Chisel3 核心库，定义了 Chisel 的语法和 API。</li>
+<li>chisel3.util：提供了一些常见的工具和实用函数，如位宽转换、数据选择器、优先级编码器等。</li>
+<li>chisel3.experimental：包含一些实验性质的功能和模块，可能还处于开发或测试阶段。</li>
+<li>chisel3.testers：提供了对 Chisel 模块进行测试的相关工具和框架，用于验证设计的正确性。</li>
+<li>chisel3.tester：一个用于编写和运行 Chisel 测试的测试框架，支持生成测试向量、执行仿真等操作。</li>
+<li>chisel3.stage：用于将 Chisel 生成的硬件描述转换为 Verilog 或 FIRRTL 格式的工具。</li>
+<li>chisel3.formal：用于形式验证的库，可以对 Chisel 模块进行形式化验证。</li>
+</ol>
+<p>有的时候不知道为什么<code>import chisel._</code>了还是有些函数或运算符编译反馈<code>not found</code>或者 warnning，解决办法是“更具体地 import”，比如:\
+遇到编译报错：<code>not found value Cat</code>
+可以在文件开头加上<code>import chisel.util.Cat</code>来解决</p>
+<h3 id="数据类型">数据类型<a class="headerlink" href="#数据类型" title="Permanent link">&para;</a></h3>
+<h4 id="seq">Seq<a class="headerlink" href="#seq" title="Permanent link">&para;</a></h4>
+<p>Seq (Sequence) 是一个表示序列的数据类型。它用于定义一系列连续的元素，并提供了一些方法来操作和访问这些元素。</p>
+<p>Seq 可以包含任意类型的元素，例如整数、布尔值或自定义的 Chisel 数据类型。通过使用<strong>Seq.apply</strong>方法或使用<strong>逗号分隔的元素列表</strong>，可以<strong>创建一个 Seq 实例</strong>。</p>
+<p>以下是一个使用 Seq 的示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>import chisel3._
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>class MyModule extends Module {
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    val data = Output(Vec(4, UInt(8.W)))
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  })
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  val mySeq = Seq(1.U, 2.U, 3.U, 4.U) // 创建一个包含4个UInt元素的Seq
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  io.data := mySeq
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>}
+</code></pre></div>
+<p>在上面的示例中，我们创建了一个名为 mySeq 的 Seq，其中包含了 4 个 UInt 类型的元素。然后，我们将这个 mySeq 赋值给模块的输出端口 io.data，以便在仿真或生成的电路中使用。</p>
+<p>除了基本的创建和赋值操作之外，Seq 还提供了许多方法来操作和查询序列，例如 <strong>length（获取序列的长度）、apply（按索引获取元素）、map（对序列中的每个元素进行映射操作）</strong> 等。可以根据具体的需求选择适当的方法来操作 Seq。</p>
+<p>下面是三个示例，分别演示了如何使用 Seqlength、Seq.apply 和 Seq.map 方法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>import chisel3._
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>class MyModule extends Module {
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    val dataIn = Input(Vec(4, UInt(8.W)))
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    val dataOut = Output(UInt(8.W))
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  })
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  val mySeq = Seq(1.U, 2.U, 3.U, 4.U) // 创建一个包含4个UInt元素的Seq
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  // 使用length方法获取序列的长度，并将结果输出到io.dataOut端口
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  io.dataOut := mySeq.length.U
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  // 使用apply方法按索引获取序列中的元素，并将结果输出到io.dataOut端口
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  io.dataOut := mySeq(2)
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>  // 使用map方法对序列中的每个元素进行加1操作，并将结果输出到io.dataOut端口
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>  io.dataOut := mySeq.map(_ + 1.U)(2)
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>  // 将输入端口io.dataIn中的数据存入Seq中，并使用foreach方法打印Seq中的所有元素
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>  val inputSeq = Seq(io.dataIn(0), io.dataIn(1), io.dataIn(2), io.dataIn(3))
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>  inputSeq.foreach(x =&gt; println(s&quot;Element: $x&quot;))
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>}
+</code></pre></div>
+<p>在上面的示例中，我们首先创建了一个名为 mySeq 的 Seq，其中包含了 4 个 UInt 类型的元素。然后，我们分别使用 length、apply 和 map 方法来操作这个序列，并将结果输出到模块的输出端口 io.dataOut。最后，我们还展示了如何将输入端口 io.dataIn 中的数据存入 Seq 中，并使用 foreach 方法打印序列中的所有元素。</p>
+<h4 id="vec">Vec<a class="headerlink" href="#vec" title="Permanent link">&para;</a></h4>
+<p>Vec （Vector） 是一个用于表示固定大小的向量的类型。它可以存储多个<strong>相同类型</strong>的元素，并提供一些便捷的操作方法。</p>
+<p>以下是一个使用 Vec 的简单例子：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>import chisel3._
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>class ExampleModule extends Module {
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    val dataIn = Input(Vec(4, UInt(8.W)))
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    val dataOut = Output(UInt(32.W))
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  })
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  // 创建一个包含4个8位无符号整数的Vec
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  val myVec = VecInit(Seq(1.U, 2.U, 3.U, 4.U))
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>  // 从Vec中读取数据，地址为io.dataIn(2)，输出到io.dataOut
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>  io.dataOut := myVec(io.dataIn(2))
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>}
+</code></pre></div>
+<p>在上面的例子中，我们首先使用 VecInit 函数创建了一个包含 4 个 8 位无符号整数的 Vec，并将其命名为 myVec。VecInit 函数接受一个序列作为参数，用于指定初始值。在这个例子中，我们使用 Seq 声明了一个包含四个元素的序列，每个元素都是一个 8 位的无符号整数。</p>
+<p>然后，我们通过 io.dataIn(2) 获取输入端口 io.dataIn 中索引为 2 的元素作为读取的地址，使用 myVec 进行索引操作，并将结果输出到 io.dataOut 端口。</p>
+<p>需要注意的是，Vec 的索引从 0 开始，因此在上述例子中，io.dataIn(2) 表示 io.dataIn 中的第三个元素。同时，需要确保索引操作的范围在 Vec 的大小范围之内，否则会导致运行时错误。</p>
+<h4 id="array">Array<a class="headerlink" href="#array" title="Permanent link">&para;</a></h4>
+<p>在 Chisel 中，您可以使用 Scala 的 Array 类型来表示和操作固定大小的存储器或缓冲区等数据结构。下面是一个使用 Array 的简单示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>import chisel3._
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>class MyModule extends Module {
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    val in = Input(UInt(8.W))
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    val out = Output(UInt(8.W))
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  })
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  val myArray = Mem(4, UInt(8.W)) // 创建一个包含4个8位元素的Array
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  when(io.in &lt; 4.U) {
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    myArray(io.in) := io.in * 2.U // 访问并更新Array中的元素
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  }
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>  io.out := myArray(2.U) // 从Array中获取元素并将其输出
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>}
+</code></pre></div>
+<p>在这个例子中，我们使用 Mem 函数创建了一个包含 4 个 8 位元素的 Array。使用()操作符来访问和更新 Array 中的元素。最后，我们从 Array 中获取第三个元素并将其作为输出。</p>
+<p>需要注意的是，Chisel 中的 Array 类型与 Scala 中的 Array 类型有所不同。在 Chisel 中，Array 类型通常用于表示硬件电路的存储器或缓冲区，而不是通用的运行时数组。因此，对 Array 的操作会生成与之对应的硬件电路。</p>
+<h4 id="indexedseq">IndexedSeq<a class="headerlink" href="#indexedseq" title="Permanent link">&para;</a></h4>
+<p>IndexedSeq 是 Scala 标准库中的一种数据类型，用于表示一组具有固定顺序的元素，可以通过索引访问。在 Chisel 中，您可以使用 IndexedSeq 来表示固定大小的存储器或缓冲区等数据结构。</p>
+<p>以下是一个使用 IndexedSeq 的简单示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>import chisel3._
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>class MyModule extends Module {
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    val in = Input(UInt(8.W))
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    val out = Output(UInt(8.W))
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  })
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>  val myMem = IndexedSeq.fill(4)(0.U(8.W)) // 创建一个包含4个8位元素的IndexedSeq
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  when(io.in &lt; 4.U) {
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    myMem(io.in) := io.in * 2.U // 访问并更新IndexedSeq中的元素
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  }
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>  io.out := myMem(2.U) // 从IndexedSeq中获取元素并将其输出
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>}
+</code></pre></div>
+<p>在这个例子中，我们创建了一个包含 4 个 8 位元素的 IndexedSeq，并使用 io.in 信号作为索引来访问和更新该索引处的元素。最后，我们从 IndexedSeq 中获取第三个元素并将其作为输出。</p>
+<h3 id="信号转换的实现">信号转换的实现<a class="headerlink" href="#信号转换的实现" title="Permanent link">&para;</a></h3>
+<h4 id="mux">Mux<a class="headerlink" href="#mux" title="Permanent link">&para;</a></h4>
+<p>在 Chisel 中，mux 函数用于选择两个输入中的一个，并将其作为输出。它的语法如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mux(condition: Bool, trueOutput: T, falseOutput: T): T
+</code></pre></div>
+<p>其中，condition 是一个<strong>布尔</strong>类型的条件，如果为 true，则选择 trueOutput 作为输出，否则选择 falseOutput 作为输出。</p>
+<p>以下是一个简单的例子，展示了如何使用 mux 函数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>import chisel3._
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>class MuxExample extends Module {
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    val sel = Input(Bool())
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    val in0 = Input(UInt(4.W))
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    val in1 = Input(UInt(4.W))
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    val out = Output(UInt(4.W))
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  })
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>  io.out := mux(io.sel, io.in1, io.in0)
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>}
+</code></pre></div>
+<p>在这个例子中，当输入 sel 为 true 时，输出 in1，否则输出 in0。</p>
+<h4 id="muxlookup">MuxLookup<a class="headerlink" href="#muxlookup" title="Permanent link">&para;</a></h4>
+<p>它可以根据输入的索引值来选择对应的数据，并返回所选数据。</p>
+<p>在 MuxLookup 的输入的三个参数中:\
+第一个参数是选择的<strong>索引值</strong>，\
+第二个参数是<strong>默认值</strong>（如果索引值<strong>不匹配时</strong>的默认返回值），\
+第三个参数是一个<strong>数组</strong>，其中包含索引值与对应数据的映射关系。</p>
+<p>下面是一个简单的示例，演示了如何在 Chisel 中使用 MuxLookup：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>import chisel3._
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>class MyModule extends Module {
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    val index = Input(UInt(2.W))
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    val data0 = Input(UInt(8.W))
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    val data1 = Input(UInt(8.W))
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    val data2 = Input(UInt(8.W))
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    val result = Output(UInt(8.W))
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  })
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  // 使用 MuxLookup 进行多路选择
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>  io.result := MuxLookup(io.index, 0.U,
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    Array(
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>      0.U -&gt; io.data0,
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>      1.U -&gt; io.data1,
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>      2.U -&gt; io.data2
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>    )
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>  )
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>}
+</code></pre></div>
+<p>在这个例子中，我们定义了一个名为 MyModule 的模块，该模块有一个名为 index 的输入，以及三个数据输入 data0、data1 和 data2。我们使用 MuxLookup 来根据 index 的值选择相应的数据，并将结果输出到 result。</p>
+<h4 id="cat">Cat<a class="headerlink" href="#cat" title="Permanent link">&para;</a></h4>
+<p>在 Chisel 中，Cat 函数用于将多个信号或者数字连接成一个宽信号，其语法为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Cat(signals: Bits*)
+</code></pre></div>
+<p>其中 signals 是需要拼接的信号，可以是 Bits 或者 UInt 类型。</p>
+<p>例如，假设有两个 UInt 类型的信号 a 和 b，我们可以使用 Cat 函数将它们拼接成一个宽度为 2*W 的 UInt 类型的信号 c，其中 W 是 a 和 b 的宽度，代码如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>val a = UInt(3.W)
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>val b = UInt(5.W)
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>val c = Cat(a, b)
+</code></pre></div>
+<p>这里 c 的宽度为 2*W，即 8 位。Cat 函数会先将 a 的 3 位和 b 的 5 位分别拼接起来，得到一个 8 位的信号。如果需要改变信号的顺序，可以在 signals 中按照需要的顺序传入信号。</p>
+<p>除了 UInt 类型的信号，Cat 函数也可以用于拼接 Bits 类型的信号，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>val a = &quot;b1101&quot;.U(4.W)
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>val b = &quot;b1010&quot;.U(4.W)
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>val c = Cat(a, b)
+</code></pre></div>
+<p>这里 a 和 b 都是 4 位的二进制信号，并且使用 U 方法进行初始化。Cat 函数将 a 和 b 拼接起来得到一个 8 位的二进制信号。</p>
+<p>需要注意的是，在使用 Cat 函数时，传入的信号宽度必须匹配，否则会出现编译错误。</p>
+<p>Cat 函数可以连接三个及以上信号。在 Chisel 中，Cat 函数可以接受任意数量的参数，每个参数都是一个需要拼接的信号。下面是一个使用 Cat 函数拼接三个信号的例子：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>val a = UInt(3.W)
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>val b = UInt(5.W)
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>val c = UInt(2.W)
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>val d = Cat(a, b, c)
+</code></pre></div>
+<p>这里我们定义了三个无符号整数信号 a、b 和 c，分别为 3 位、5 位和 2 位。然后我们使用 Cat 函数将它们拼接起来，得到一个 10 位的无符号整数信号 d。</p>
+<p>需要注意的是，使用 Cat 函数拼接多个信号时，每个信号的位宽必须相同，否则会出现编译错误。如果需要拼接不同位宽的信号，可以使用 ZeroExt 或者 SignExt 函数将其扩展到相同的位宽再进行拼接。</p>
+<h5 id="运算符">##运算符<a class="headerlink" href="#运算符" title="Permanent link">&para;</a></h5>
+<p>在 Chisel 中，除了字符串之外，Cat 函数和##运算符是等效的，它们都用于连接不同的信号或值。</p>
+<p>Cat 函数用于连接多个信号或值，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>val result = Cat(sig1, sig2, sig3)
+</code></pre></div>
+<p>这将把 sig1、sig2 和 sig3 连接成一个更长的信号。</p>
+<p>##运算符也可以用于连接信号或值，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>val result = sig1 ### sig2 ### sig3
+</code></pre></div>
+<p>这将以与 Cat 函数相同的方式连接 sig1、sig2 和 sig3。上面两种实现方式是等价的。</p>
+<h4 id="log2up">log2Up<a class="headerlink" href="#log2up" title="Permanent link">&para;</a></h4>
+<p>log2Up 是一个用于计算以 2 为底的对数的函数。它返回一个整数，表示将给定的输入值取整后最接近且大于等于其对数的结果。</p>
+<p>具体而言，log2Up 函数用于确定将 x 个元素分为若干组时，所需的组数。例如，如果有 9 个元素需要分为若干组，则可以使用 log2Up(9)来计算所需的组数，结果为 4，因为 2^4=16，其中 16 是大于等于 9 的最小的 2 的幂。</p>
+<p>以下是一个使用 log2Up 的示例代码片段：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>import chisel3._
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>class ExampleModule extends Module {
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    val input = Input(UInt(8.W))
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    val output = Output(UInt(log2Up(9).W))
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>  })
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  io.output := io.input
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>}
+</code></pre></div>
+<p>在上面的示例中，log2Up(9)用于指定输出信号的宽度，以确保可以容纳最多 9 个元素的索引。</p>
+<h3 id="module">Module<a class="headerlink" href="#module" title="Permanent link">&para;</a></h3>
+<p>Module（模块）：
+在 Chisel 中，Module 是用于描述数字电路中的模块或组件的关键概念。它类似于 Verilog 中的 module，用于定义数字电路中的各种组件，比如寄存器、ALU 等。Module 中可以包含其他 Module 或 Bundle，并且可以实例化其他 Module。</p>
+<h4 id="bundle">Bundle<a class="headerlink" href="#bundle" title="Permanent link">&para;</a></h4>
+<p>Bundle（捆绑包）：
+在 Chisel 中，Bundle 是用于描述数字电路中信号线集合的概念。它类似于 Verilog 中的 wire 或者 reg，用于定义一组信号线或接口。通常情况下，我们会将相关的信号线打包成一个 Bundle，以便更好地组织和管理这些信号线。</p>
+<h4 id="mem">Mem<a class="headerlink" href="#mem" title="Permanent link">&para;</a></h4>
+<p>在 Chisel 中，Mem 是一个表示内存的抽象数据类型。它可以用来创建和操作存储器。你可以使用 Mem 来定义不同类型和大小的存储器，并对其进行读写操作。这使得在硬件描述中对存储器进行建模变得更加方便和灵活。</p>
+<p>当使用 Chisel 中的 Mem 时，你可以像下面这样定义一个简单的存储器：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>import chisel3._
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>class MyModule extends Module {
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    val address = Input(UInt(5.W))
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    val dataIn = Input(UInt(8.W))
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    val dataOut = Output(UInt(8.W))
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>  })
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>  val memory = Mem(32, UInt(8.W)) // 创建一个包含32个8位元素的存储器
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>  when (io.dataIn **= 1.U) {
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    memory.write(io.address, 42.U) // 将42写入指定地址
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>  }
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>  io.dataOut := memory.read(io.address) // 从指定地址读取数据并输出
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>}
+</code></pre></div>
+<p>在这个例子中，我们创建了一个名为 memory 的 Mem 实例，它有 32 个 8 位元素。然后根据输入的 address 和 dataIn 执行写操作，根据输入的 address 执行读操作，并将读取的数据输出到 dataOut。这个例子展示了如何在 Chisel 中使用 Mem 来创建、写入和读取存储器。</p>
+<h4 id="syncreadmem">SyncReadMem<a class="headerlink" href="#syncreadmem" title="Permanent link">&para;</a></h4>
+<p>SyncReadMem 是 Chisel 中的一个内存模块，可以用于存储和读取数据。它与标准的 Mem 模块相比，具有更高的时序保证和更低的资源消耗。</p>
+<p>以下是一个使用 SyncReadMem 的简单例子：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>import chisel3._
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>class ExampleModule extends Module {
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>  val io = IO(new Bundle {
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    val address = Input(UInt(8.W))
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    val dataOut = Output(UInt(32.W))
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>  })
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>  // 创建一个地址宽度为8位，数据宽度为32位的 SyncReadMem
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>  val myMemory = SyncReadMem(256, UInt(32.W))
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>  // 向内存中写入数据，地址从io.address获取，数据为0xdeadbeef
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>  myMemory.write(io.address, 0xdeadbeef.U)
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>  // 从内存中读取数据，地址从io.address获取，输出到io.dataOut
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>  io.dataOut := myMemory.read(io.address)
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>}
+</code></pre></div>
+<p>在上面的例子中，我们首先创建了一个宽度为 8 位、深度为 256 的 SyncReadMem，并将其命名为 myMemory。然后，我们使用 write 函数向内存中写入数据。write 函数的第一个参数是要写入的地址，第二个参数是要写入的数据。在这个例子中，我们使用输入端口 io.address 作为要写入的地址，写入的数据为 0xdeadbeef。最后，我们使用 read 函数从内存中读取数据，并将读取的数据输出到 io.dataOut 端口。</p>
+<p>需要注意的是，SyncReadMem 中写入和读取的地址必须是 UInt 类型，且宽度必须与创建 SyncReadMem 时指定的地址宽度相同。而要写入的数据和从内存中读取的数据必须是与创建 SyncReadMem 时指定的数据宽度相同的 UInt 类型。</p>
+<h4 id="enumeration">Enumeration<a class="headerlink" href="#enumeration" title="Permanent link">&para;</a></h4>
+<h3 id="测试_1">测试<a class="headerlink" href="#测试_1" title="Permanent link">&para;</a></h3>
+<h4 id="orgscalatest">org.scalatest<a class="headerlink" href="#orgscalatest" title="Permanent link">&para;</a></h4>
+<p>org.scalatest 是 Scala 的一个功能强大的测试框架，它提供了多种测试风格和断言方法，可以针对各种类型的测试场景来编写测试套件。该框架支持多种测试运行器，例如 JUnit、TestNG 等，并允许你以多种方式运行测试，例如通过 sbt、Maven、Gradle 或者独立运行测试类或套件。它支持多种测试风格，包括 FlatSpec、FunSpec、WordSpec、FeatureSpec 等。</p>
+<h4 id="chiseltest">chiseltest<a class="headerlink" href="#chiseltest" title="Permanent link">&para;</a></h4>
+<p>ChiselTest 则是 Chisel 的一个测试框架，它专门针对硬件设计而设计，提供了一组工具和库，用于编写和运行测试套件以验证硬件设计的功能和正确性。它与 Chisel 硬件描述语言紧密绑定，可以方便地使用 Chisel 模块来建模和测试硬件电路。同时，它还提供了仿真运行器和硬件设备运行器，以便在不同的平台上运行测试。</p>
+<h4 id="chiselscalatesttester">ChiselScalatestTester<a class="headerlink" href="#chiselscalatesttester" title="Permanent link">&para;</a></h4>
+<p>ChiselScalatestTester 是一个用于进行 Chisel 设计的 Scala 测试的工具包。它可以帮助你编写测试代码并运行 Chisel 设计的单元测试。</p>
+<p>以下是使用 ChiselScalatestTester 的基本步骤：</p>
+<ol>
+<li>在你的项目中添加 ChiselScalatestTester 的依赖。你可以在项目的构建文件（如 build.sbt）中添加以下代码：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">libraryDependencies</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;edu.berkeley.cs&quot;</span><span class="w"> </span><span class="o">%%</span><span class="w"> </span><span class="s">&quot;chiseltest&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="s">&quot;0.3.2&quot;</span>
+</code></pre></div>
+<ol>
+<li>创建一个继承自 ChiselFlatSpec 或 ChiselScalatestTester 的测试类。例如：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>import chisel3._
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>import chiseltest._
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>import org.scalatest._
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>class MyModuleSpec extends FlatSpec with ChiselScalatestTester {
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  // 测试代码将写在这里
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>}
+</code></pre></div>
+<p>测试代码有以下几种实现：</p>
+<h5 id="test-方法">test 方法<a class="headerlink" href="#test-方法" title="Permanent link">&para;</a></h5>
+<p>在测试类中定义你的测试。你可以使用 test 方法来定义一个测试。例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>test(&quot;MyModule should do something&quot;) {
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>  // 这里是测试代码
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>  // 创建一个测试模块的实例
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>  val dut = Module(new MyModule())
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>  // 在时钟上升沿之前设置输入信号
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>  dut.io.input.poke(0.U)
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>  // 在时钟上升沿时触发输入信号
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>  dut.clock.step()
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>  dut.io.input.poke(1.U)
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>  // 在时钟上升沿之后检查输出信号
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>  dut.clock.step()
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>  dut.io.output.expect(1.U)
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>}
+</code></pre></div>
+<p>在测试中，你可以使用 poke 方法来设置输入信号的值，使用 expect 方法来检查输出信号的值。使用 clock.step() 方法来推进时钟。</p>
+<p>运行测试。你可以使用 ScalaTest 提供的运行器来执行测试。例如，你可以使用 sbt 来运行测试：
+sbt test
+以上是使用 ChiselScalatestTester 的基本步骤。你可以根据自己的需求编写更复杂的测试代码。还可以参考 Chisel 官方文档和 ChiselScalatestTester 的文档获取更多详细信息。</p>
+<h5 id="描述语言">描述语言<a class="headerlink" href="#描述语言" title="Permanent link">&para;</a></h5>
+<p>behavior of 和 it should 是 ScalaTest 中的 DSL（领域特定语言），用于组织和描述测试用例。</p>
+<p>behavior of 用于定义一个测试套件，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>behavior of &quot;MyModule&quot;
+</code></pre></div>
+<p>这里定义了一个名为 "MyModule" 的测试套件。你可以在这个测试套件中定义若干个测试用例。</p>
+<p>it should 用于定义一个测试用例，例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>it should &quot;perform some operation correctly&quot; in {
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>  // Test code goes here
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>}
+</code></pre></div>
+<p>这里定义了一个名为 "perform some operation correctly" 的测试用例。在 in 关键字之后，你可以编写测试代码，包括调用 Chisel 模块的方法并验证其输出是否符合预期。</p>
+<p>需要注意的是，<code>behavior of</code> 和 <code>it should</code> 都是 ScalaTest 中的 DSL，实际上它们只是一些方法调用的语法糖，它们并没有直接与 ChiselScalatestTester 或者 Chisel 本身相关联。因此，你可以根据需要进行灵活使用，例如可以自定义测试用例的描述语言或者不使用 behavior of 而是将测试用例作为独立的函数来定义。</p>
+<h5 id="自定义描述语言">自定义描述语言<a class="headerlink" href="#自定义描述语言" title="Permanent link">&para;</a></h5>
+<p>如果你想自定义测试用例的描述语言，可以使用 ScalaTest 中的 describe 方法和 should 方法。例如：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>import org.scalatest._
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>class MyModuleSpec extends FlatSpec with Matchers {
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>  &quot;MyModule&quot; should &quot;perform some operation correctly&quot; in {
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    // Test code goes here
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>  }
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>}
+</code></pre></div>
+<p>在这个例子中，我们<strong>使用 FlatSpec 样式的测试框架，而不是 ChiselScalatestTeste</strong>r。在测试代码中，我们使用了 should 方法来描述测试用例的预期行为。这个描述语言与 behavior of 和 it should 大致相同，只是使用了不同的关键字。</p>
+<h5 id="函数定义">函数定义<a class="headerlink" href="#函数定义" title="Permanent link">&para;</a></h5>
+<p>如果你想将测试用例定义为独立的函数，可以像下面这样编写代码：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>import org.scalatest._
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>class MyModuleSpec extends FlatSpec with Matchers {
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  &quot;MyModule&quot; should &quot;perform some operation correctly&quot; in {
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    performSomeOperation() shouldBe true
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>  }
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>  def performSomeOperation(): Boolean = {
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    // Test code goes here
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    true
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>  }
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>}
+</code></pre></div>
+<p>在这个例子中，我们定义了一个名为 performSomeOperation 的独立函数，并在测试用例中调用它。这种方式可以使测试代码更加清晰，同时也方便测试用例的复用。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: YatCPU 实验报告">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                YatCPU 实验报告
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lab-reports/lab1/" class="md-footer__link md-footer__link--next" aria-label="Next: lab1">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                lab1
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

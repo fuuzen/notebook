@@ -1,0 +1,2118 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/data-structure-and-algorithm/hash/">
+      
+      
+        <link rel="prev" href="../graph/">
+      
+      
+        <link rel="next" href="../heap-sort/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>哈希表 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#哈希表--散列表" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              哈希表
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data structure and algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../b-tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    B-树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary-tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二叉树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../critical-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关键路径问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    哈希表
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    哈希表
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#哈希表--散列表" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表 / 散列表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哈希查找--散列查找" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希查找 / 散列查找
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哈希映射函数--散列函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希映射函数 / 散列函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="哈希映射函数 / 散列函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#原始-hash-函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      原始 hash 函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="原始 hash 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接定址法" class="md-nav__link">
+    <span class="md-ellipsis">
+      直接定址法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#数字分析法" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字分析法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#平方取中法" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方取中法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折叠法" class="md-nav__link">
+    <span class="md-ellipsis">
+      折叠法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#除留余数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      除留余数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#随机数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机数法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲突处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲突处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="冲突处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#开放定址法" class="md-nav__link">
+    <span class="md-ellipsis">
+      开放定址法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="开放定址法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性探测法" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性探测法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二次探测法-平方探测法-变体很多需要看题" class="md-nav__link">
+    <span class="md-ellipsis">
+      二次探测法 (平方探测法) (变体很多,需要看题)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪随机探测法" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪随机探测法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#再哈希法" class="md-nav__link">
+    <span class="md-ellipsis">
+      再哈希法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#链定址法拉链法" class="md-nav__link">
+    <span class="md-ellipsis">
+      链定址法(拉链法)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#建立公共溢出区" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立公共溢出区
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈希表的删除操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表的删除操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈希表查找分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表查找分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#代码例题" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码例题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heap-sort/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    堆排序
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minimum-spanning-tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最小生成树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pre-in-post-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前缀、中缀、后缀表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../radix-sort/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基排序
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack-queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    栈与队列
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#哈希表--散列表" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表 / 散列表
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哈希查找--散列查找" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希查找 / 散列查找
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#哈希映射函数--散列函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希映射函数 / 散列函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="哈希映射函数 / 散列函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#原始-hash-函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      原始 hash 函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="原始 hash 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接定址法" class="md-nav__link">
+    <span class="md-ellipsis">
+      直接定址法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#数字分析法" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字分析法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#平方取中法" class="md-nav__link">
+    <span class="md-ellipsis">
+      平方取中法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#折叠法" class="md-nav__link">
+    <span class="md-ellipsis">
+      折叠法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#除留余数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      除留余数法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#随机数法" class="md-nav__link">
+    <span class="md-ellipsis">
+      随机数法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#冲突处理" class="md-nav__link">
+    <span class="md-ellipsis">
+      冲突处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="冲突处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#开放定址法" class="md-nav__link">
+    <span class="md-ellipsis">
+      开放定址法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="开放定址法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性探测法" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性探测法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二次探测法-平方探测法-变体很多需要看题" class="md-nav__link">
+    <span class="md-ellipsis">
+      二次探测法 (平方探测法) (变体很多,需要看题)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伪随机探测法" class="md-nav__link">
+    <span class="md-ellipsis">
+      伪随机探测法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#再哈希法" class="md-nav__link">
+    <span class="md-ellipsis">
+      再哈希法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#链定址法拉链法" class="md-nav__link">
+    <span class="md-ellipsis">
+      链定址法(拉链法)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#建立公共溢出区" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立公共溢出区
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈希表的删除操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表的删除操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈希表查找分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希表查找分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#代码例题" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码例题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>哈希表</h1>
+
+<h2 id="哈希表--散列表">哈希表 / 散列表<a class="headerlink" href="#哈希表--散列表" title="Permanent link">&para;</a></h2>
+<p>应用哈希函数，由记录的关键字确定记录在表中的地址，并将记录放入此地址，这样构成的表叫哈希表</p>
+<h2 id="哈希查找--散列查找">哈希查找 / 散列查找<a class="headerlink" href="#哈希查找--散列查找" title="Permanent link">&para;</a></h2>
+<p>利用哈希函数进行查找的过程叫哈希查找</p>
+<h2 id="哈希映射函数--散列函数">哈希映射函数 / 散列函数<a class="headerlink" href="#哈希映射函数--散列函数" title="Permanent link">&para;</a></h2>
+<p>在记录的关键字与记录的存储地址之间建立的一种对应关系叫哈希函数</p>
+<h3 id="原始-hash-函数">原始 hash 函数<a class="headerlink" href="#原始-hash-函数" title="Permanent link">&para;</a></h3>
+<p>简单一点的 hash 算法就是直接取模(除留余数法)。</p>
+<p>高级一点的 hash 算法会模乘以一个大素数来将源数据的分布规律变得不那么显著，也就是说，不管输入的是一串分布很紧凑的数字序列还是很稀疏的数字序列，生成的结果都是非常分散的数字序列。</p>
+<p>linux 内核代码里面的这个 hash 要更高一级，包含 2 个特征：\
+最接近 32 位或者者 64 位上限黄金分割点的素数，\
+只要要最少的移位和求和就能生成。\
+这个素数定义如下：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">/* 2^31 + 2^29 - 2^25 + 2^22 - 2^19 - 2^16 + 1 */</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#define GOLDEN_RATIO_PRIME_32 0x9e370001UL</span>
+</code></pre></div>
+<p>前者确保即便是 1，2 这样的小数也会被乘溢出，被轻易打散。素数非常大还可以使无论输入如何，生成的哈希值的高位都是足够随机的，有助于改善生成哈希值高位总是相近的问题。</p>
+<p>后者确保任何一个整数乘这个大素数的时候都可以通过最少的移位和求和就可得到乘积，不用傻傻的真的相乘。</p>
+<h4 id="直接定址法">直接定址法<a class="headerlink" href="#直接定址法" title="Permanent link">&para;</a></h4>
+<p>取关键字或关键字的某个线性函数作哈希地址，即<span class="arithmatex">\(H(key)=key\)</span>或<span class="arithmatex">\(H(key)=a·key+b\)</span>(a,b 为常数)</p>
+<p>特点:直接定址法所得地址集合与关键字集合大小相等，不会发生冲突，但实际中很少使用。</p>
+<h4 id="数字分析法">数字分析法<a class="headerlink" href="#数字分析法" title="Permanent link">&para;</a></h4>
+<p>对关键字进行分析，取关键字的若干位或组合作为哈希地址。</p>
+<p>适用于关键字位数比哈希地址位数大，且可能出现的关键字事先知道的情况。</p>
+<h4 id="平方取中法">平方取中法<a class="headerlink" href="#平方取中法" title="Permanent link">&para;</a></h4>
+<p>将关键字平方后取中间几位作为哈希地址。一个数平方后中间几位和数的每一位都有关，则由随机分布的关键字得到的散列地址也是随机的。散列函数所取的位数由散列表的长度决定。</p>
+<p>适于不知道全部关键字情况，是一种较为常用的方法</p>
+<h4 id="折叠法">折叠法<a class="headerlink" href="#折叠法" title="Permanent link">&para;</a></h4>
+<p>将关键字分割成位数相同的几部分(最后一部分可以不同)，然后取这几部分的叠加和作为哈希地址。</p>
+<p>数位叠加有移位叠加和间界叠加两种：</p>
+<ul>
+<li>移位叠加:将分割后的几部分低位对齐相加。</li>
+<li>间界叠加:从一端到另一端沿分割界来回折迭，然后对齐相加。</li>
+</ul>
+<p>适于关键字位数很多，且每一位上数字分布大致均匀情况。</p>
+<h4 id="除留余数法">除留余数法<a class="headerlink" href="#除留余数法" title="Permanent link">&para;</a></h4>
+<p>取关键字被某个不大于哈希表表长 m 的数 p 除后所得余数作哈希地址，即:
+<span class="arithmatex">\(H(key)=key\ \% \ p\ (p\leq m)\)</span>
+是一种简单、常用的哈希函数构造方法。</p>
+<p>利用这种方法的关键是 p 的选取，p 选的不好，容易产生同义词。p 的选取的分析:</p>
+<ul>
+<li>选取<span class="arithmatex">\(p=2^i\ (p\leq m)\)</span>:运算便于用移位来实现，但等于将关键字的高位忽略而仅留下低位二进制数。高位不同而低位相同的 关键字是同义词。</li>
+<li>选取<span class="arithmatex">\(p=q\times f\ (q、f 都是质因数，p\leq m)\)</span>:则所有含有 q 或 f 因子的关键字的散列地址均是 q 或 f 的倍数。</li>
+<li>选取<span class="arithmatex">\(p\)</span>为素数或<span class="arithmatex">\(p=q\times f\ (q、f是质数且均大于20，p\leq m)\)</span>:常用的选取方法，能减少冲突出现的可能性。</li>
+</ul>
+<h4 id="随机数法">随机数法<a class="headerlink" href="#随机数法" title="Permanent link">&para;</a></h4>
+<p>取关键字的随机函数值作哈希地址，即<span class="arithmatex">\(H(key) = random(key)\)</span></p>
+<p>当散列表中关键字长度不等时，该方法比较合适。</p>
+<h3 id="冲突处理">冲突处理<a class="headerlink" href="#冲突处理" title="Permanent link">&para;</a></h3>
+<h4 id="开放定址法">开放定址法<a class="headerlink" href="#开放定址法" title="Permanent link">&para;</a></h4>
+<p>当冲突发生时，形成某个探测序列；按此序列逐个探测散列表中的其他地址，直到找到给定的关键字或一个空地址(开放的地址)为止，将发生冲突的记录放到该地址中。散列地址的计算公式是：</p>
+<p><span class="arithmatex">\(H_i(key)=(H(key)+d_i) \% m, i=1, 2, ..., k (k \leq m-1)\)</span></p>
+<p>其中：\
+<span class="arithmatex">\(H(key)\)</span>：哈希函数;\
+<span class="arithmatex">\(m\)</span>：散列表长度;\
+<span class="arithmatex">\(d_i\)</span>：第 i 次探测时的增量序列；\
+<span class="arithmatex">\(H_i(key)\)</span>：经第 i 次探测后得到的散列地址。</p>
+<p>核心在于探测序列<span class="arithmatex">\(d_i\)</span>，即如何形成探测序列。</p>
+<h5 id="线性探测法">线性探测法<a class="headerlink" href="#线性探测法" title="Permanent link">&para;</a></h5>
+<p>将散列表<span class="arithmatex">\(T[0 ...m-1]\)</span>看成循环向量。当发生冲突时，从初次发生冲突的 位置依次向后探测其他的地址。</p>
+<p>增量序列为:<span class="arithmatex">\(d_i=1, 2, 3, ..., m-1\)</span></p>
+<p>设初次发生冲突的地址是 h，则依次探测 <span class="arithmatex">\(T[h+1],T[h+2]...,\)</span>直到<span class="arithmatex">\(T[m-1]\)</span> 之后又循环到表头，再次探测<span class="arithmatex">\(T[0]，T[1]...\)</span>，直到 T[h-1]$。探测过程终止的情况是:</p>
+<ul>
+<li>探测到的地址为空:表中没有记录。</li>
+<li>若是查找则失败;</li>
+<li>若是插入则将记录写入到该地址;</li>
+<li>探测到的地址有给定的关键字:</li>
+<li>若是查找则成功;</li>
+<li>若是插入则失败;</li>
+<li>直到<span class="arithmatex">\(T[h-1]\)</span>之后回到<span class="arithmatex">\(T[h]\)</span>:</li>
+<li>仍未探测到空地址或给定的关键字，散列表满。</li>
+</ul>
+<p>优点：只要空间未满，总能找到空闲的位置存放新插入的数据，能充分利用整个表的空间。</p>
+<p>问题：例如原本有两个 cluster 数据，随着哈希表不断扩充，两个 cluster 会逐渐聚集为一个更大的 cluster，产生数据聚集的问题。</p>
+<p>循环上限<span class="arithmatex">\(d_i\)</span>的<span class="arithmatex">\(i\)</span>最大为<span class="arithmatex">\(n\)</span>.</p>
+<h5 id="二次探测法-平方探测法-变体很多需要看题">二次探测法 (平方探测法) (变体很多,需要看题)<a class="headerlink" href="#二次探测法-平方探测法-变体很多需要看题" title="Permanent link">&para;</a></h5>
+<p>原始<span class="arithmatex">\(d_i\)</span>：<span class="arithmatex">\(d_i = i^2\)</span></p>
+<p>原始序列：<span class="arithmatex">\(d_i = 1^2, 2^2, 3^2 ...\)</span></p>
+<p>改进<span class="arithmatex">\(d_i\)</span>：<span class="arithmatex">\(d_i = (-1)^{i-1}\cdot\left\lfloor\frac{i+1}{2}\right\rfloor^2\)</span></p>
+<p>改进序列：<span class="arithmatex">\(di = 1^2, -1^2, 2^2, -2^2, 3^2, -3^2 ...\)</span></p>
+<p>循环上限：<span class="arithmatex">\(d_i\)</span>的<span class="arithmatex">\(i\)</span>最大为<span class="arithmatex">\(n\)</span>，有时可以是<span class="arithmatex">\(\frac{n}{2}\)</span></p>
+<p>二次探测针对线性探测法的“聚集”问题进行了改进，避免了“聚集”现象产生。</p>
+<p>原始<span class="arithmatex">\(d_i\)</span>在不断扩充哈希表时会导致一半的空间用不上，改进的<span class="arithmatex">\(d_i\)</span>针对这一问题进行了改进。</p>
+<p>优点：探测序列跳跃式地散列到整个表中，不易产生“冲突聚集”现象。</p>
+<p>问题：不能保证探测到散列表的所有地址，不能充分利用整个表的空间。(“表满不了”)</p>
+<h5 id="伪随机探测法">伪随机探测法<a class="headerlink" href="#伪随机探测法" title="Permanent link">&para;</a></h5>
+<p>增量序列使用一个伪随机函数来生成一个落在闭区间[1,m-1]的随机序列。</p>
+<h4 id="再哈希法">再哈希法<a class="headerlink" href="#再哈希法" title="Permanent link">&para;</a></h4>
+<p>这种方法是同时构造多个不同的哈希函数：</p>
+<p><span class="arithmatex">\(H_i=RH_i（key），i=1，2,3，...,n\)</span></p>
+<p><span class="arithmatex">\(RH_i\)</span>：一组不同的哈希函数，第 1 次发生冲突时用<span class="arithmatex">\(RH_1\)</span>计算，第 2 次发生冲突时用<span class="arithmatex">\(RH_2\)</span>计算，以此类推直到某个<span class="arithmatex">\(H_i\)</span>不再发生冲突为止。</p>
+<p>优点：不易产生聚集</p>
+<p>问题：增加了计算时间</p>
+<h4 id="链定址法拉链法">链定址法(拉链法)<a class="headerlink" href="#链定址法拉链法" title="Permanent link">&para;</a></h4>
+<p>将所有关键字为同义词(散列地址相同)的记录存储在一个单链表中，并用一维数组存放链表的头指针</p>
+<p>设散列表长为 m，定义一个一维指针数组:<code>RecNode *linkhash[m]</code> ，其中 <code>RecNode</code> 是结点类型，每个分量的初值为空。</p>
+<p>凡是散列地址为 k 的记录都插入到以 <code>linkhash[k]</code> 为头指针的链表中，插入位置可以在表头或表尾或按关键字排序插入。</p>
+<p>注意：若某一位置已存储的冲突元素有 4 个，查找失败需要比较 5 次，包括最后一次空指针。</p>
+<h4 id="建立公共溢出区">建立公共溢出区<a class="headerlink" href="#建立公共溢出区" title="Permanent link">&para;</a></h4>
+<p>这种方法的基本思想是：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表.(注意：在这个方法里面是把元素分开两个表来存储)</p>
+<h3 id="哈希表的删除操作">哈希表的删除操作<a class="headerlink" href="#哈希表的删除操作" title="Permanent link">&para;</a></h3>
+<p>不能抹除该位置的元素，而是需要一个特殊字符"special key"取代原来的位置，代表这里原本有元素但是被删除了。</p>
+<h3 id="哈希表查找分析">哈希表查找分析<a class="headerlink" href="#哈希表查找分析" title="Permanent link">&para;</a></h3>
+<p>由于“冲突”的存在，哈希表效率的评价仍然需要 ASL。</p>
+<p>哈希表的 填满因子 / 装载因子 <span class="arithmatex">\(\lambda\)</span> ( 或<span class="arithmatex">\(\alpha\)</span> ) 定义：</p>
+<div class="arithmatex">\[
+\lambda=\frac{已经插入的元素数}{哈希表长度}
+\]</div>
+<p>The expected number <span class="arithmatex">\(U(2)\)</span> of probes in an unsuccessful search is:</p>
+<div class="arithmatex">\[
+U(\lambda)=\sum_{k=1}^{\infty}k\lambda^{k-1}(1-\lambda)=\frac{1}{1-\lambda}
+\]</div>
+<p>So the expected number of probes for successful searches (AVL) is:</p>
+<div class="arithmatex">\[
+S(\lambda)=\frac{1}{\lambda}\int_{0}^{\lambda}{U(\lambda)dx}=\frac{1}{\lambda}ln\frac{1}{1-\lambda}
+\]</div>
+<p>线性探测法的平均查找长度是：</p>
+<div class="arithmatex">\[
+S_{nl成功}≈\frac{1}{2}\times(1+\frac{1}{1-\lambda})\\
+S_{nl失败}≈\frac{1}{2}\times(1+\frac{1}{(1-\lambda)^2})
+\]</div>
+<p>二次/平方探测法的平均查找长度是：</p>
+<div class="arithmatex">\[
+S_{nl成功}≈-\frac{1}{\lambda}\times ln(1-\lambda)\\
+S_{nl失败}≈\frac{1}{\lambda}
+\]</div>
+<p>链地址法解决冲突的平均查找长度是：</p>
+<div class="arithmatex">\[
+S_{nl成功}≈1+\frac{\lambda}{2}\\
+S_{nl失败}≈\lambda+e^{-\lambda}
+\]</div>
+<h2 id="代码例题">代码例题<a class="headerlink" href="#代码例题" title="Permanent link">&para;</a></h2>
+<p>假设构建哈希表使用线性探查法解决冲突，试计算每次查找的关键字比较次数。</p>
+<ol>
+<li>可能的关键字为正整数；</li>
+<li>使用哈希函数 h(k,M)= k % M, M 为哈希表的长度；</li>
+<li>因为 0 不是关键字，所以，假定用 0 表示空单元；</li>
+<li>为了区分空单元和删除后的“空单元”，给每个单元添加一个布尔型标识，表示该单元是否空；空单元设置为 true，非空设置为 false;</li>
+<li>假定删除关键字时，只将标识置为 true,关键字域不变。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Key</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">typedef</span><span class="w"> </span><span class="n">pair</span><span class="o">&lt;</span><span class="n">Key</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;</span><span class="w">  </span><span class="n">Cell</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">//a cell consists of a key and a flag of bool. If the cell is empty, the second component is set to true, otherwise false.</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">typedef</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Cell</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Table</span><span class="p">;</span><span class="w"> </span><span class="c1">//type of a hash table</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">//hash function, where M should be the hash table size.</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kt">size_t</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="n">Key</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">){</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">M</span><span class="p">;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1">//它返回线性探查法解决冲突查找是否成功、查找终止的下标以及关键字的比较次数</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">pair</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lookup</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Table</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Key</span><span class="w"> </span><span class="n">k</span><span class="p">){</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">M</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">hi</span><span class="o">=</span><span class="n">h</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">M</span><span class="p">),</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">M</span><span class="p">;</span><span class="o">++</span><span class="n">j</span><span class="p">){</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="n">i</span><span class="o">=</span><span class="p">(</span><span class="n">hi</span><span class="o">+</span><span class="n">j</span><span class="p">)</span><span class="o">%</span><span class="n">M</span><span class="p">;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">        </span><span class="o">++</span><span class="n">count</span><span class="p">;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="o">**</span><span class="mi">0</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="o">**</span><span class="n">k</span><span class="o">&amp;&amp;!</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">)</span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">),</span><span class="n">count</span><span class="p">);</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">make_pair</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">),</span><span class="n">count</span><span class="p">);</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../graph/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                图
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../heap-sort/" class="md-footer__link md-footer__link--next" aria-label="Next: 堆排序">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                堆排序
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

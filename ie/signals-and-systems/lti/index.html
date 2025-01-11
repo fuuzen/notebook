@@ -1,0 +1,2713 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/signals-and-systems/lti/">
+      
+      
+        <link rel="prev" href="../duality/">
+      
+      
+        <link rel="next" href="../signals-concepts/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>卷积と线性时不变系统 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#卷积和" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              卷积と线性时不变系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../de/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signals and systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    周期信号的傅里叶级数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通信系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散/连续时间傅里叶系数/变换的对偶关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#卷积和" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积和
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积和">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特殊离散-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊离散 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊离散 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#延时器" class="md-nav__link">
+    <span class="md-ellipsis">
+      延时器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#累加器" class="md-nav__link">
+    <span class="md-ellipsis">
+      累加器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积积分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积积分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特殊连续-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊连续 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊连续 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#积分器" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积和与卷积积分的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积和与卷积积分的性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积和与卷积积分的性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交换律" class="md-nav__link">
+    <span class="md-ellipsis">
+      交换律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分配律" class="md-nav__link">
+    <span class="md-ellipsis">
+      分配律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#结合律" class="md-nav__link">
+    <span class="md-ellipsis">
+      结合律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#级联可交换" class="md-nav__link">
+    <span class="md-ellipsis">
+      级联可交换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微分积分及时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分、积分及时移特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="微分、积分及时移特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#差分求和及时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分、求和及时移特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="差分、求和及时移特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#差分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#求和特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      求和特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lti-系统的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      LTI 系统的性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LTI 系统的性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#记忆性" class="md-nav__link">
+    <span class="md-ellipsis">
+      记忆性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可逆性" class="md-nav__link">
+    <span class="md-ellipsis">
+      可逆性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#因果性" class="md-nav__link">
+    <span class="md-ellipsis">
+      因果性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#稳定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃响应" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃响应
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#用微分和差分方程描述的因果-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      用微分和差分方程描述的因果 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用微分和差分方程描述的因果 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性常系数微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常系数微分方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常系数差分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常系数差分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#方框图表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      方框图表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方框图表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#差分方程描述系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分方程描述系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微分方程描述系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分方程描述系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积定义奇异函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积定义奇异函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积定义奇异函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激信号u_0t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位冲激信号\(u_0(t)\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位冲激信号\(u_0(t)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偶函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时间尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激偶u_1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位冲激偶\(u_1(t)\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位冲激偶\(u_1(t)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#积分性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积分意义下的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分意义下的定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltat的积分u_-1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\delta(t)\)的积分\(u_{-1}(t)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位斜坡函数u_-2t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位斜坡函数\(u_{-2}(t)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积定义推广" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积定义推广
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信号基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#卷积和" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积和
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积和">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特殊离散-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊离散 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊离散 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#延时器" class="md-nav__link">
+    <span class="md-ellipsis">
+      延时器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#累加器" class="md-nav__link">
+    <span class="md-ellipsis">
+      累加器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积积分
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积积分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#计算_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特殊连续-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊连续 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特殊连续 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#积分器" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积和与卷积积分的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积和与卷积积分的性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积和与卷积积分的性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#交换律" class="md-nav__link">
+    <span class="md-ellipsis">
+      交换律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分配律" class="md-nav__link">
+    <span class="md-ellipsis">
+      分配律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#结合律" class="md-nav__link">
+    <span class="md-ellipsis">
+      结合律
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#级联可交换" class="md-nav__link">
+    <span class="md-ellipsis">
+      级联可交换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微分积分及时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分、积分及时移特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="微分、积分及时移特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#微分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#差分求和及时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分、求和及时移特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="差分、求和及时移特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#差分特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#求和特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      求和特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lti-系统的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      LTI 系统的性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LTI 系统的性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#记忆性" class="md-nav__link">
+    <span class="md-ellipsis">
+      记忆性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可逆性" class="md-nav__link">
+    <span class="md-ellipsis">
+      可逆性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#因果性" class="md-nav__link">
+    <span class="md-ellipsis">
+      因果性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#稳定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃响应" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃响应
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#用微分和差分方程描述的因果-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      用微分和差分方程描述的因果 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用微分和差分方程描述的因果 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性常系数微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常系数微分方程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常系数差分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常系数差分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#方框图表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      方框图表示
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="方框图表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#差分方程描述系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      差分方程描述系统
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#微分方程描述系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      微分方程描述系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#卷积定义奇异函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积定义奇异函数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="卷积定义奇异函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激信号u_0t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位冲激信号\(u_0(t)\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位冲激信号\(u_0(t)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偶函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时间尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激偶u_1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位冲激偶\(u_1(t)\)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位冲激偶\(u_1(t)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#积分性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#积分意义下的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      积分意义下的定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltat的积分u_-1t" class="md-nav__link">
+    <span class="md-ellipsis">
+      \(\delta(t)\)的积分\(u_{-1}(t)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位斜坡函数u_-2t" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位斜坡函数\(u_{-2}(t)\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积定义推广" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积定义推广
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>卷积と线性时不变系统</h1>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Linear Time Invariant 线性时不变</p>
+</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><strong>基本信号</strong>应具有以下特点：</p>
+</div>
+<ul>
+<li>本身尽可能简单，并且用它们的线性组合能够表示尽可能广泛的信号</li>
+<li>LTI 系统对这种信号的响应易于计算且有利于对系统的深入理解</li>
+</ul>
+<p>两类有用的基本信号：</p>
+<ul>
+<li>复指数信号</li>
+<li>单位冲激信号</li>
+</ul>
+<p>本章主要考虑以单位冲激信号为基本信号进行信号与系统分析</p>
+<p><img alt="summary" src="../../../assets/ie/signals-and-systems/lti/summary.png" /></p>
+<h2 id="卷积和">卷积和<a class="headerlink" href="#卷积和" title="Permanent link">&para;</a></h2>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<p>对于任意一个离散时间系统：</p>
+<p><img alt="离散时间系统" src="../../../assets/ie/signals-and-systems/lti/%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E7%B3%BB%E7%BB%9F.png" /></p>
+<p>设离散时间系统为 LTI 的，定义<strong>单位脉冲响应</strong> <span class="arithmatex">\(h[n]\)</span> 为以单位冲激信号 <span class="arithmatex">\(\delta[n]\)</span> 为输入时的输出：</p>
+<div class="arithmatex">\[
+\delta[n]\to h[n]
+\]</div>
+<p>由 LTI 时不变性有：</p>
+<div class="arithmatex">\[
+\delta[n-k]\to h[n-k]
+\]</div>
+<p>由 LTI 线性有：</p>
+<div class="arithmatex">\[
+x[n]=\sum_{k=-\infty}^{+\infty}x[k]\delta[n-k]\to y[n]=\sum_{k=-\infty}^{+\infty}x[k]h[n-k]
+\]</div>
+<p>这种求得系统响应的运算关系称为<strong>卷积和</strong>，即离散时间 LTI 系统的响应可以用卷积和表示为:</p>
+<div class="arithmatex">\[
+y[n]=x[n]*h[n]=\sum_{k=-\infty}^{+\infty}x[k]h[n-k]
+\]</div>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />更一般的形式：</p>
+<div class="arithmatex">\[
+x[n-n_0-n_1]=x[n-n_0]*h[n-n_1]
+\]</div>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />只要得到了 LTI 系统对 <span class="arithmatex">\(\delta[n]\)</span> 的 响 应 <span class="arithmatex">\(h[n]\)</span> ——单位脉冲响应，就可以得到 LTI 系统对任何输入信号 <span class="arithmatex">\(x[n]\)</span> 的响应。</p>
+<p>换言之，一个 LTI 系统可以完全由它的单位脉冲响应 <span class="arithmatex">\(h[n]\)</span> 来表征。</p>
+<h3 id="特殊离散-lti-系统">特殊离散 LTI 系统<a class="headerlink" href="#特殊离散-lti-系统" title="Permanent link">&para;</a></h3>
+<h4 id="延时器">延时器<a class="headerlink" href="#延时器" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+h[n]=\delta[n-n_0]
+\]</div>
+<p>具有该单位脉冲响应的系统一般情况下存在多种可能性，但是对应的 LTI 系统只有一个：</p>
+<div class="arithmatex">\[
+y[n]=x[n-n_0]=x[n]*\delta[n-n_0]
+\]</div>
+<h4 id="累加器">累加器<a class="headerlink" href="#累加器" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+h[n]=\sum_{k=-\infty}^{n}\delta[k]=u[n]
+\]</div>
+<p>对应的 LTI 系统：</p>
+<div class="arithmatex">\[
+y[n]=x[n]*u[n]=\sum_{k=-\infty}^{n}x[k]
+\]</div>
+<h3 id="计算">计算<a class="headerlink" href="#计算" title="Permanent link">&para;</a></h3>
+<p>选择 <span class="arithmatex">\(n\)</span> 值并固定，求和项视为 <span class="arithmatex">\(k\)</span> 的函数，步骤如下：</p>
+<ol>
+<li>将 <span class="arithmatex">\(x[n]\)</span> 与 <span class="arithmatex">\(h[n]\)</span> 变为 <span class="arithmatex">\(x[k]\)</span> 与 <span class="arithmatex">\(h[k]\)</span> ，以 <span class="arithmatex">\(k\)</span> 为求和变量</li>
+<li>将 <span class="arithmatex">\(h[k]\)</span> <strong>翻转</strong>变为 <span class="arithmatex">\(h[-k]\)</span>；</li>
+<li>将 <span class="arithmatex">\(h[-k]\)</span> <strong>平移</strong> <span class="arithmatex">\(n\)</span>，变为 <span class="arithmatex">\(h[n - k]\)</span>；</li>
+<li>将 <span class="arithmatex">\(x[k]\)</span> 和 <span class="arithmatex">\(h[n-k]\)</span> 相乘；</li>
+<li>对乘积 <span class="arithmatex">\(x[k]h[n-k]\)</span> 在 <span class="arithmatex">\(k\in \mathbb{Z}\)</span> 取和；</li>
+<li>一般都转化为只对非 0 区间积分。注意非 0 区间上下限！！！</li>
+<li>改变 <span class="arithmatex">\(n\)</span> 值并重复 3–5 步，直到 <span class="arithmatex">\(n\)</span> 超过了 <span class="arithmatex">\(x[n]\)</span> <strong>非零部分定义域</strong></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>注意很多题目最后答案会加上一个 <span class="arithmatex">\(u(n)\)</span> ，是因为只求定义域在 <span class="arithmatex">\([0,+\infty)\)</span> 的部分</p>
+</div>
+<h2 id="卷积积分">卷积积分<a class="headerlink" href="#卷积积分" title="Permanent link">&para;</a></h2>
+<h3 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>类似积分思想，转化为无限多的离散和的极限</p>
+</div>
+<p>用冲激信号表示连续时间信号：</p>
+<p>将输入信号 <span class="arithmatex">\(x(t)\)</span> 近似表示为移位、放缩后的脉冲之和</p>
+<p><img alt="脉冲和近似表示输入信号" src="../../../assets/ie/signals-and-systems/lti/%E8%84%89%E5%86%B2%E5%92%8C%E8%BF%91%E4%BC%BC%E8%A1%A8%E7%A4%BA%E8%BE%93%E5%85%A5%E4%BF%A1%E5%8F%B7.png" /></p>
+<div class="arithmatex">\[
+x_{\Delta}(t)=x(k\Delta)\ ,\ k\Delta\lt t\lt(k+1)\Delta
+\]</div>
+<p>阶梯近似表达过程：</p>
+<p>设连续时间系统为 LTI 的，定义（名字待补，与卷积和中的<strong>单位脉冲响应</strong>对应） <span class="arithmatex">\(h_{\Delta}(n)\)</span> 为以单位冲激信号 <span class="arithmatex">\(\delta_{\Delta}(n)\)</span> 为输入时的输出：</p>
+<div class="arithmatex">\[
+\delta_{\Delta}(n)\to h_{\Delta}(n)
+\]</div>
+<p><img alt="阶梯近似表达" src="../../../assets/ie/signals-and-systems/lti/%E9%98%B6%E6%A2%AF%E8%BF%91%E4%BC%BC%E8%A1%A8%E8%BE%BE1.png" /></p>
+<p>由 LTI 时不变性有：</p>
+<div class="arithmatex">\[
+\delta_{\Delta}(n-k\Delta)\to h_{\Delta}(n-k\Delta)
+\]</div>
+<p>由 LTI 线性齐次性尺度调整：</p>
+<div class="arithmatex">\[
+x(k\Delta)\delta_{\Delta}(n-k\Delta)\to x(k\Delta)h_{\Delta}(n-k\Delta)
+\]</div>
+<p><img alt="阶梯近似表达2" src="../../../assets/ie/signals-and-systems/lti/%E9%98%B6%E6%A2%AF%E8%BF%91%E4%BC%BC%E8%A1%A8%E8%BE%BE2.png" /></p>
+<p>由 LTI 线性叠加性有：</p>
+<div class="arithmatex">\[
+\sum_{k=-\infty}^{+\infty}x(k\Delta)\delta_{\Delta}(n-k\Delta)\Delta\to \sum_{k=-\infty}^{+\infty}x(k\Delta)h_{\Delta}(n-k\Delta)\Delta\\
+x_{\Delta}(t)\to y_{\Delta}(t)
+\]</div>
+<p>当 Δ → 0 时 :</p>
+<ul>
+<li><span class="arithmatex">\(x_Δ(t) → x(t)\)</span></li>
+<li><span class="arithmatex">\(y_Δ(t) → y(t)\)</span></li>
+<li><span class="arithmatex">\(kΔ → \tau\)</span></li>
+<li><span class="arithmatex">\(Δ → d\tau\)</span></li>
+<li><span class="arithmatex">\(\delta_Δ(t - kΔ) → \delta(t - \tau)\)</span></li>
+<li><span class="arithmatex">\(h_Δ(t - kΔ) → h(t - \tau)\)</span></li>
+<li><span class="arithmatex">\(\sum\to\int\)</span></li>
+</ul>
+<p>从而得到：</p>
+<div class="arithmatex">\[
+x(t)=\int_{-\infty}^{+\infty}x(\tau)\delta(t-\tau)d\tau=x(t)*\delta(t)\\
+y(t)=\int_{-\infty}^{+\infty}x(\tau)h(t-\tau)d\tau=x(t)*h(t)
+\]</div>
+<ul>
+<li>其中第一个式子意义是：用位移的单位冲激信号表示任意的连续时间信号</li>
+<li>其中第一个式子意义是：用卷积积分表示连续时间 LTI 系统的响应</li>
+</ul>
+<p>阶梯近似图解过程：</p>
+<p><img alt="阶梯近似图解过程" src="../../../assets/ie/signals-and-systems/lti/%E9%98%B6%E6%A2%AF%E8%BF%91%E4%BC%BC%E5%9B%BE%E8%A7%A3%E8%BF%87%E7%A8%8B.png" /></p>
+<h3 id="计算_1">计算<a class="headerlink" href="#计算_1" title="Permanent link">&para;</a></h3>
+<p>求卷积积分 <span class="arithmatex">\(x(t) * h(t) = \int_{-∞}^{+∞}x(\tau)h(t - \tau)d\tau\)</span> 的过程与卷积和计算过程相似。卷积积分的计算步骤如下：</p>
+<ol>
+<li>将 <span class="arithmatex">\(x(t)\)</span> 与 <span class="arithmatex">\(h(t)\)</span> 变为 <span class="arithmatex">\(x(\tau)\)</span> 与 <span class="arithmatex">\(h(\tau)\)</span> ，以 <span class="arithmatex">\(\tau\)</span> 为积分变量；</li>
+<li>将 <span class="arithmatex">\(h(\tau)\)</span> <strong>翻转</strong>变为 <span class="arithmatex">\(h(-\tau)\)</span>；</li>
+<li>将 <span class="arithmatex">\(h(-\tau)\)</span> <strong>平移</strong> <span class="arithmatex">\(t\)</span> ，变为 <span class="arithmatex">\(h(t - \tau)\)</span>；</li>
+<li>将 <span class="arithmatex">\(x(\tau)\)</span> 和 <span class="arithmatex">\(h(t-\tau)\)</span> 相乘；</li>
+<li>求区间 <span class="arithmatex">\((-\infty,+\infty)\)</span> 上乘积 <span class="arithmatex">\(x(\tau)h(t-\tau)\)</span> 下的面积；</li>
+<li>一般都转化为只对非 0 区间积分。注意非 0 区间上下限！！！</li>
+<li>改变 <span class="arithmatex">\(t\)</span> 值并重复 3–5 步。</li>
+</ol>
+<h3 id="特殊连续-lti-系统">特殊连续 LTI 系统<a class="headerlink" href="#特殊连续-lti-系统" title="Permanent link">&para;</a></h3>
+<h4 id="积分器">积分器<a class="headerlink" href="#积分器" title="Permanent link">&para;</a></h4>
+<p>单位冲激信号为输入下系统的响应为：</p>
+<div class="arithmatex">\[
+h(t)=u(t)
+\]</div>
+<p>对任意激励信号 <span class="arithmatex">\(x(t)\)</span> ，系统响应为：</p>
+<div class="arithmatex">\[
+y(t)=x(t)*h(t)=\int_{-\infty}^{+\infty}x(\tau)h(t-\tau)d\tau = \int_{-\infty}^{t}x(\tau)d\tau
+\]</div>
+<h2 id="卷积和与卷积积分的性质">卷积和与卷积积分的性质<a class="headerlink" href="#卷积和与卷积积分的性质" title="Permanent link">&para;</a></h2>
+<h3 id="交换律">交换律<a class="headerlink" href="#交换律" title="Permanent link">&para;</a></h3>
+<p>变量替换：</p>
+<div class="arithmatex">\[
+x[n]*h[n]=\sum_{k=-\infty}^{+\infty}x[k]h[n-k]=\sum_{l=-\infty}^{+\infty}x[n-l]h[l]=h[n]*x[n]
+\]</div>
+<div class="arithmatex">\[
+x(n)*h(n)=\int_{-\infty}^{+\infty}x(\tau)h(t-\tau)d\tau=\int_{-\infty}^{+\infty}x(t-\tau')h(\tau')d\tau'=h(t)*x(t)
+\]</div>
+<p><img alt="交换律" src="../../../assets/ie/signals-and-systems/lti/%E4%BA%A4%E6%8D%A2%E5%BE%8B.png" /></p>
+<div class="arithmatex">\[
+s[n]=u[n]*h[n]=h[n]*u[n]=\sum_{k=-\infty}^{n}h[k]
+\]</div>
+<p>利用 <span class="arithmatex">\(u[n]\)</span> 是累加器的单位脉冲响应以及交换律可以得到：</p>
+<p>该系统的单位脉冲响应是 <span class="arithmatex">\(h[n]\)</span> ， <span class="arithmatex">\(u[n]\)</span> 单位阶跃信号作为输入，则其单位阶跃响应 <span class="arithmatex">\(s[n]\)</span> 等价于 以 <span class="arithmatex">\(h[n]\)</span> 作为输入时，累加器的响应</p>
+<h3 id="分配律">分配律<a class="headerlink" href="#分配律" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x[n] * (h_1[n] + h_2[n]) = x[n] * h_1[n] + x[n] * h_2[n]\\
+x(t) * (h_1(t) + h_2(t)) = x(t) * h_1(t) + x(t) * h_2(t)
+\]</div>
+<p><img alt="分配律" src="../../../assets/ie/signals-and-systems/lti/%E5%88%86%E9%85%8D%E5%BE%8B.png" /></p>
+<h3 id="结合律">结合律<a class="headerlink" href="#结合律" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+(x[n] * h_1 [n] ) * h_2[n] = x[n] * (h_1 [n] * h_2[n])\\
+(x(t) * h_1 (t) ) * h_2(t) = x(t) * (h_1(t)* h_2 (t))
+\]</div>
+<p><img alt="结合律" src="../../../assets/ie/signals-and-systems/lti/%E7%BB%93%E5%90%88%E5%BE%8B.png" /></p>
+<p>级联的 LTI 系统其总的单位冲激(脉冲)响应等于各子系统单位冲激(脉冲)响应的卷积</p>
+<h3 id="级联可交换">级联可交换<a class="headerlink" href="#级联可交换" title="Permanent link">&para;</a></h3>
+<p>卷积运算满足结合律和交换律，因此，系统级联的先后次序可以调换。</p>
+<div class="arithmatex">\[
+x[n] * h_1[n] * h_2[n] = x[n] * h_2[n] * h_1[n]\\
+x(t) * h_1(t) * h_2(t) = x(t) * h_2(t) * h_1(t)
+\]</div>
+<p><img alt="级联可交换" src="../../../assets/ie/signals-and-systems/lti/%E7%BA%A7%E8%81%94%E5%8F%AF%E4%BA%A4%E6%8D%A2.png" /></p>
+<p>级联次序可交换的前提条件:</p>
+<ul>
+<li>系统是 LTI 的</li>
+<li>所有涉及到的卷积运算必须收敛</li>
+</ul>
+<h3 id="微分积分及时移特性">微分、积分及时移特性<a class="headerlink" href="#微分积分及时移特性" title="Permanent link">&para;</a></h3>
+<p>卷积积分满足微分、积分及时移特性。若 <span class="arithmatex">\(x(t)*h(t)=y(t)\)</span>，则：</p>
+<h4 id="微分特性">微分特性<a class="headerlink" href="#微分特性" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x'(t) * h(t) = x(t) * h'(t) = y'(t)
+\]</div>
+<div class="arithmatex">\[
+x^{(m)}(t) * h^{(n)}(t) = y^{(m+n)}(t)
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>对 <span class="arithmatex">\(t\)</span> 求导而不是对 <span class="arithmatex">\(\tau\)</span> 求导</p>
+</div>
+<h4 id="积分特性">积分特性<a class="headerlink" href="#积分特性" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{aligned}
+\big(\int_{-\infty}^{t}x(\tau)d\tau\big)*h(t)&amp;= \int_{-\infty}^{+\infty}\big(\int_{-\infty}^{\tau_1}x(\tau)d\tau\big)h(t-\tau_1)d\tau_1\\
+&amp;=x(t)*\big(\int_{-\infty}^{t}h(\tau)d\tau\big)\\
+&amp;=\int_{-\infty}^{t}y(\tau)d\tau
+\end{aligned}
+\]</div>
+<h4 id="时移特性">时移特性<a class="headerlink" href="#时移特性" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t - t_0) * h(t-t_1) = x(t-t_1) * h(t - t_0) = y(t - t_0-t_1)
+\]</div>
+<h3 id="差分求和及时移特性">差分、求和及时移特性<a class="headerlink" href="#差分求和及时移特性" title="Permanent link">&para;</a></h3>
+<p>卷积和满足差分、求和及时移特性。若 x[n] * h[n] = y[n]，则：</p>
+<h4 id="差分特性">差分特性<a class="headerlink" href="#差分特性" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x[n]- x[n- 1] * h[n]= x[n]* (h[n]- h[n - 1])= y[n] - y[n - 1]
+\]</div>
+<h4 id="求和特性">求和特性<a class="headerlink" href="#求和特性" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+(\sum_{k=-∞}^{n}x[k] )* h[n] = x[n] * (\sum_{k=-∞}^{n}h[k] )=\sum_{k=-∞}^{n}y[k]
+\]</div>
+<h4 id="时移特性_1">时移特性<a class="headerlink" href="#时移特性_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x[t - t_0] * h[t-t_1] = x[t-t_1]* h[t - t_0]= y[t - t_0-t_1]
+\]</div>
+<h2 id="lti-系统的性质">LTI 系统的性质<a class="headerlink" href="#lti-系统的性质" title="Permanent link">&para;</a></h2>
+<h3 id="记忆性">记忆性<a class="headerlink" href="#记忆性" title="Permanent link">&para;</a></h3>
+<p>对于离散时间 LTI 系统：</p>
+<div class="arithmatex">\[
+y[n]=\sum_{k=-\infty}^{+\infty}x[k]h[n-k]
+\]</div>
+<p>如果系统是无记忆的，则在任何时刻 <span class="arithmatex">\(n\)</span> ，<span class="arithmatex">\(y[n]\)</span> 都只能和 <span class="arithmatex">\(n\)</span> 时刻的输入有关，等式右边的和式中只能有 <span class="arithmatex">\(k=n\)</span> 时的一项非零，即必须有 <span class="arithmatex">\(h[n-k]=0\)</span>，<span class="arithmatex">\(k≠n\)</span>，也即：</p>
+<div class="arithmatex">\[
+h[n] = 0 ,\ \ \ n\neq0
+\]</div>
+<p>所以，离散时间无记忆系统的单位脉冲响应为：</p>
+<div class="arithmatex">\[
+h[n]=k\delta[n]
+\]</div>
+<p>即为离散时间系统<strong>无记忆</strong>的<strong>充要条件</strong>。</p>
+<p>类似地，连续时间系统无记忆的充要条件为：</p>
+<div class="arithmatex">\[
+h(t)=k\delta(t)
+\]</div>
+<p>当 <span class="arithmatex">\(k=1\)</span> 时系统是恒等系统。</p>
+<h3 id="可逆性">可逆性<a class="headerlink" href="#可逆性" title="Permanent link">&para;</a></h3>
+<p>如果 LTI 系统是可逆的，则其逆系统也是 LTI 系统。</p>
+<p><strong>互逆</strong>的两个系统的满足（<strong>充要条件</strong>）<strong>卷积和等于单位冲激信号</strong>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h(t) * g(t) =\delta(t)\\
+h[n] * g[n] =\delta[n]
+\end{aligned}
+\]</div>
+<p>从而有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)*h(t)*g(t)=x(t)*\delta(t)=x(t)\\
+x[t]*h[n]*g[n]=x[t]*\delta[n]=x[t]
+\end{aligned}
+\]</div>
+<p><img alt="可逆性" src="../../../assets/ie/signals-and-systems/lti/%E5%8F%AF%E9%80%86%E6%80%A7.png" /></p>
+<p>例如：延时器是可逆的 LTI 系统，h(t) = \delta(t - t0)，其逆系统是 g(t) = \delta(t + t0)，显然有：</p>
+<div class="arithmatex">\[
+h(t) * g(t) = (t - t_0) * \delta(t + t_0) = \delta(t)
+\]</div>
+<p>又如：累加器是可逆的 LTI 系统，其 h[n] = u[n]，其逆系统是 g[n] = \delta[n] - \delta[n - 1]，显然也有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+h[n] * g[n] &amp;= u[n] * (\delta[n] - \delta[n - 1])\\
+&amp;= u[n] - u[n - 1] = \delta[n]
+\end{aligned}
+\]</div>
+<h3 id="因果性">因果性<a class="headerlink" href="#因果性" title="Permanent link">&para;</a></h3>
+<p>对于离散时间 LTI 系统：</p>
+<div class="arithmatex">\[
+y[n]=\sum_{k=-\infty}^{+\infty}x[k]h[n-k]
+\]</div>
+<p>因果性意味着上式等号右边和式中所有 k &gt; n 的项都必须为零，即 h[n - k] = 0，k &gt; n，也即：</p>
+<div class="arithmatex">\[
+h[n] = 0,\ \ \ n &lt; 0
+\]</div>
+<p>同理对连续时间因果系统有：</p>
+<div class="arithmatex">\[
+h(t) = 0, \ \ \ t &lt; 0
+\]</div>
+<p>即为 LTI 系统具有因果性的<strong>充要条件</strong></p>
+<p>对于线性系统而言，因果性与初始松弛条件等价。所谓系统满足初始松弛条件是指该系统具有如下表现：对于任意时刻，只要该时刻之前系统的输入为 0，则该时刻之前系统的输出也必然为 0。</p>
+<p>（参考教材习题 1.44(a)）</p>
+<p>– 该等价性的前提是系统为线性的。否则不一定成立。例如 y n = 2x n + 3 是因果的，但显然不满足初始松弛条件。</p>
+<h3 id="稳定性">稳定性<a class="headerlink" href="#稳定性" title="Permanent link">&para;</a></h3>
+<p>稳定性意味着有界输入必然产生有界输出。以离散时间 LTI 系统为例，设 |x[n]| 有界，| x[n - k]| ≤ A。有:</p>
+<div class="arithmatex">\[
+|y[n]| = |\sum_{k=-∞}^{+∞}h[k]x[n - k]|
+≤ \sum_{k=-∞}^{+∞} |h[k]| |x[n - k]| ≤ A \sum_{k=-∞}^{+∞}|h[k]|
+\]</div>
+<p>离散 LTI 系统稳定的<strong>充分必要</strong>条件为：</p>
+<div class="arithmatex">\[
+\sum_{n=-\infty}^{+\infty}|h[n]|\lt +\infty
+\]</div>
+<p>类似地有连续 LTI 系统稳定的<strong>充分必要</strong>条件为：</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}|h(t)|dt \lt +\infty
+\]</div>
+<h3 id="单位阶跃响应">单位阶跃响应<a class="headerlink" href="#单位阶跃响应" title="Permanent link">&para;</a></h3>
+<p>在工程实际中，也常用单位阶跃响应来描述 LTI 系统。单位阶跃响应就是系统对 u(t) 或 u[n] 所产生的响应，记为 s(t)或 s[n]。因此有:</p>
+<div class="arithmatex">\[
+s[n] = u[n] * h[n] = \sum_{k=-∞}^n h[k]
+\]</div>
+<div class="arithmatex">\[
+h[n] = s[n] - s[n - 1]
+\]</div>
+<div class="arithmatex">\[
+s(t) = u(t) * h(t) = \int_{-\infty}^{t}h(\tau)d\tau
+\]</div>
+<div class="arithmatex">\[
+h(t) =\frac{ds(t)}{dt}= s'(t)
+\]</div>
+<h2 id="用微分和差分方程描述的因果-lti-系统">用微分和差分方程描述的因果 LTI 系统<a class="headerlink" href="#用微分和差分方程描述的因果-lti-系统" title="Permanent link">&para;</a></h2>
+<p>在工程实际中有相当普遍的一类系统，其数学模型可以用线性常系数微分方程或线性常系数差分方程来描述。</p>
+<p>在时域内分析这类 LTI 系统，就是要求解线性常系数微分方程或差分方程。</p>
+<h3 id="线性常系数微分方程">线性常系数微分方程<a class="headerlink" href="#线性常系数微分方程" title="Permanent link">&para;</a></h3>
+<p>一般情况 <span class="arithmatex">\(N\geq M\)</span> , N 阶非其次常系数微分方程的一般形式：</p>
+<div class="arithmatex">\[
+\sum_{k=0}^{N}a_k\frac{d^ky(t)}{dt^k}=\sum_{k=0}^{M}b_k\frac{d^ky(t)}{dt^k}
+\]</div>
+<p>其中 a<sub>k</sub>, b<sub>k</sub> 均为常数</p>
+<p>求解该微分方程（求 y( t ) 的显式表达）的步骤：</p>
+<ol>
+<li>求出<strong>齐次解</strong>（<strong>通解</strong>）y<sub>h</sub>(t) ，也称为系统的<strong>自然响应</strong>、<strong>自由响应</strong></li>
+<li>建立特征方程求出特征根 𝜆<sub>k</sub></li>
+<li>根据特征根得到齐次解形式</li>
+<li>根据附加条件确定齐次解形式中的待定常数 C<sub>k</sub></li>
+<li>求<strong>特解</strong> y<sub>𝑝</sub>(t)，也称系统的<strong>受迫响应</strong>、<strong>强迫响应</strong>，其形式与输入信号有关</li>
+<li>根据输入信号形式得到特解形式</li>
+<li>将输入信号与特解代入微分方程确定特解形式中的待定常数</li>
+<li>得到完全解 y(t) = y<sub>h</sub>(t) + y<sub>𝑝</sub>(t)</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>附加条件常给出为<strong>初始松弛条件</strong>，即 <span class="arithmatex">\(t\lt 0\)</span> 时若 <span class="arithmatex">\(x(t)=0\)</span> 则有 <span class="arithmatex">\(y(t)=0\)</span> ，或 <span class="arithmatex">\(n\lt 0\)</span> 时若 <span class="arithmatex">\(x[n]=0\)</span> 则有 <span class="arithmatex">\(y[n]=0\)</span></p>
+</div>
+<p>对于线性系统，初始松弛条件与满足因果性是等价的</p>
+<p>解题时，可以直接认为就是有 <span class="arithmatex">\(y(0)=0\)</span> 或 <span class="arithmatex">\(x[0]=0\)</span></p>
+<h3 id="线性常系数差分方程">线性常系数差分方程<a class="headerlink" href="#线性常系数差分方程" title="Permanent link">&para;</a></h3>
+<p>一般情况 <span class="arithmatex">\(N\geq M\)</span>，<span class="arithmatex">\(N\)</span> 阶非其次常系数差分方程的<strong>一般形式</strong>：</p>
+<div class="arithmatex">\[
+\sum_{k=0}^{N}a_k y[n-k]=\sum_{k=0}^{M}b_k x[n-k]
+\]</div>
+<p>其中 a<sub>k</sub>, b<sub>k</sub> 均为常数</p>
+<p>还可以将其改写为<strong>(正向)递归形式</strong>：</p>
+<div class="arithmatex">\[
+y[n]=\frac{1}{a_0}(\sum_{k=0}^{M}b_k x[n-k]-\sum_{k=0}^{N}a_k y[n-k])
+\]</div>
+<p>还可将差分方程改写<strong>反向递归求解形式</strong>：</p>
+<div class="arithmatex">\[
+y[n-N]=\frac{1}{a_N}(\sum_{k=0}^{M}b_k x[n-k]-\sum_{k=0}^{N-1}a_k y[n-k])
+\]</div>
+<p>当 <span class="arithmatex">\(a_k =0,k\neq 0\)</span> 时，差分方程变为一个卷积和的形式即<strong>非递归方程</strong>：</p>
+<div class="arithmatex">\[
+y[n]=\sum_{k=0}^{M}\frac{b_k}{a_0}x[n-k]=\sum_{-\infty}^{+\infty}h[n]\ x[n-k]
+\]</div>
+<p>其中：</p>
+<div class="arithmatex">\[
+h[n]=
+\begin{cases}
+\frac{b_n}{a_0},\ \ 0\leq n\leq M \\
+0,\ \ \ \ \text{others}
+\end{cases}
+\]</div>
+<ul>
+<li>由于 h[n] 是有限长的，当 <span class="arithmatex">\(a_k =0,k\neq 0\)</span> 时<strong>非递归</strong>方程描述的系统称为<strong>有限脉冲响应</strong>（ Finite Impulse Response，FIR）系统</li>
+<li>
+<p>而其他情况下<strong>递归</strong>方程描述的系统结合初始松弛条件具有无限长的单位脉冲响应，因而称为<strong>无限脉冲响应</strong>（Infinite Impulse Response，IIR）系统</p>
+</li>
+<li>
+<p>与微分方程类似，差分方程的<strong>齐次解</strong>（<strong>通解</strong>）与输入信号的形式无关，称为系统的<strong>自然响应</strong>或<strong>自由响应</strong></p>
+</li>
+<li><strong>特解</strong>具有与输入信号相同的函数形式，称为<strong>受迫响应</strong>或<strong>强迫响应</strong></li>
+</ul>
+<p>具有<strong>非零起始状态</strong>的线性常系数微分或差分方程对应<strong>增量线性系统</strong>，其响应由两部分组成：</p>
+<ul>
+<li>零输入响应，与输入信号无关，属于自然响应</li>
+<li>零状态响应，既与输入信号有关，也与系统特性有关，它包含了一部分受迫响应，也包含有一部分自然响应</li>
+</ul>
+<h2 id="方框图表示">方框图表示<a class="headerlink" href="#方框图表示" title="Permanent link">&para;</a></h2>
+<h3 id="差分方程描述系统">差分方程描述系统<a class="headerlink" href="#差分方程描述系统" title="Permanent link">&para;</a></h3>
+<p>对于正向递归形式的 LTI 系统差分方程，其方程中包括三种基本运算：</p>
+<ul>
+<li>移位（延迟）——对应延迟器</li>
+<li>乘系数——对应数乘器</li>
+<li>相加——对应加法器</li>
+</ul>
+<p>令：</p>
+<div class="arithmatex">\[
+w[n]=\sum_{k=0}^{M}b_k x[n-k]
+\]</div>
+<p>正向递归形式可写为：</p>
+<div class="arithmatex">\[
+y[n]=\frac{1}{a_0}(w[n]-\sum_{k=0}^{N}a_k y[n-k])
+\]</div>
+<p><img alt="差分-直接I型" src="../../../assets/ie/signals-and-systems/lti/%E5%B7%AE%E5%88%86-%E7%9B%B4%E6%8E%A5I%E5%9E%8B.png" /></p>
+<p>将其级联起来，就成为线性常系数差分方程描述的系统，它具有与差分方程完全相同的运算功能。可以调换级联次序，并将移位单元合并，于是得到<strong>直接 II 型</strong></p>
+<p><img alt="差分-直接II型" src="../../../assets/ie/signals-and-systems/lti/%E5%B7%AE%E5%88%86-%E7%9B%B4%E6%8E%A5II%E5%9E%8B.png" /></p>
+<h3 id="微分方程描述系统">微分方程描述系统<a class="headerlink" href="#微分方程描述系统" title="Permanent link">&para;</a></h3>
+<p>微分方程也包括三种基本运算：</p>
+<ul>
+<li>微分</li>
+<li>乘系数</li>
+<li>相加</li>
+</ul>
+<p>但微分器不仅在工程实现上有困难，而且对误差及噪声极为敏感，因此，通常使用积分器而不用微分器</p>
+<p>N 阶微分方程两边同时积分 N 次，即可得到对应 N 阶积分方程：</p>
+<div class="arithmatex">\[
+\sum_{k=0}^{N}a_k\ y_{(N-k)}(t)=\sum_{k=0}^{M}b_k\ x_{(N-k)}(t)
+\]</div>
+<p>对此积分方程完全按照差分方程的办法有其递归方程：</p>
+<div class="arithmatex">\[
+y(t)=\frac{1}{a_0}(\sum_{k=0}^{M}b_k x_{(N-k)}(t)-\sum_{k=0}^{N}a_k y_{(N-k)}(t))
+\]</div>
+<p>令：</p>
+<div class="arithmatex">\[
+w(t)=\sum_{k=0}^{M}b_k x_{(N-k)}(t)
+\]</div>
+<p>可得：</p>
+<div class="arithmatex">\[
+y(t)=\frac{1}{a_0}(w(t)-\sum_{k=0}^{N}a_k y_{(N-k)}(t))
+\]</div>
+<p><img alt="积分-直接I型" src="../../../assets/ie/signals-and-systems/lti/%E7%A7%AF%E5%88%86-%E7%9B%B4%E6%8E%A5I%E5%9E%8B.png" /></p>
+<p>通过交换级联次序，合并积分器可得<strong>直接 Ⅱ 型</strong>：</p>
+<p><img alt="积分-直接II型" src="../../../assets/ie/signals-and-systems/lti/%E7%A7%AF%E5%88%86-%E7%9B%B4%E6%8E%A5II%E5%9E%8B.png" /></p>
+<h2 id="卷积定义奇异函数">卷积定义奇异函数<a class="headerlink" href="#卷积定义奇异函数" title="Permanent link">&para;</a></h2>
+<h3 id="单位冲激信号u_0t">单位冲激信号<span class="arithmatex">\(u_0(t)\)</span><a class="headerlink" href="#单位冲激信号u_0t" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(\delta(t)=\frac{d}{dt}u(t)\)</span> 定义下的单位冲激。这是不严密的，因为 <span class="arithmatex">\(u(t)\)</span> 在 t=0 处不连续。</p>
+</div>
+<p>进而采用极限的观点，将 <span class="arithmatex">\(\delta(t)\)</span> 视为 <span class="arithmatex">\(\delta_Δ (t)\)</span>在 <span class="arithmatex">\(Δ → 0\)</span> 时的极限。但这种定义或描述\delta(t)的方法在数学上仍然是不严格的，因为存在无穷多个不同的函数在 <span class="arithmatex">\(Δ → 0\)</span> 时都表现为与<span class="arithmatex">\(\delta_Δ (t)\)</span> 有相同的特性。</p>
+<p><img alt="极限定义举例1" src="../../../assets/ie/signals-and-systems/lti/%E6%9E%81%E9%99%90%E5%AE%9A%E4%B9%89%E4%B8%BE%E4%BE%8B1.png" /></p>
+<p><img alt="极限定义举例2" src="../../../assets/ie/signals-and-systems/lti/%E6%9E%81%E9%99%90%E5%AE%9A%E4%B9%89%E4%B8%BE%E4%BE%8B2.png" /></p>
+<p>上述现象出现的原因在于\delta(t)是一个理想化的非常规函数，被称为奇异函数，通常采用卷积或积分运算下表现的特性来定义奇异函数</p>
+<p>从系统的角度，将 <span class="arithmatex">\(\delta(t)\)</span> 定义为<strong>恒等系统</strong>的<strong>单位冲激响应</strong>，也就是通过卷积定义 <span class="arithmatex">\(\delta(t)\)</span> ，对任意 <span class="arithmatex">\(x(t)\)</span>， <span class="arithmatex">\(\delta(t)\)</span> 应满足：</p>
+<div class="arithmatex">\[
+x(t)=x(t)*\delta (t)
+\]</div>
+<p>::: primary
+单位冲激函数相当于卷积运算系统的单位元
+根据定义可以得出 <span class="arithmatex">\(\delta(t)\)</span> 的如下性质:</p>
+<div class="arithmatex">\[
+1=1*\delta (t) = \int_{-\infty}^{+\infty}\delta(\tau)d\tau
+\]</div>
+<p>卷积定义还有一个等价版本——<strong>积分定义</strong>：</p>
+<div class="arithmatex">\[
+g(t)=g(t)*\delta(t)=\int_{-\infty}^{+\infty}g(t-\tau)\delta(\tau)d\tau\\
+g(0)=\int_{-\infty}^{+\infty}g(t)\delta(\tau)d\tau
+\]</div>
+<h4 id="偶函数">偶函数<a class="headerlink" href="#偶函数" title="Permanent link">&para;</a></h4>
+<p>单位冲激信号 <span class="arithmatex">\(\delta(t)\)</span> 是偶函数：</p>
+<div class="arithmatex">\[
+\delta(t)=\delta(-t)
+\]</div>
+<p>证明：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{-\infty}^{+\infty}\delta(-t)f(t)dt &amp;=\int_{-\infty}^{+\infty}\delta(\tau)f(-\tau)d(-\tau)\\
+&amp;=\int_{-\infty}^{+\infty}\delta(\tau)f(-\tau)d\tau\\
+&amp;=f(0)
+\end{aligned}
+\]</div>
+<h4 id="时间尺度变换">时间尺度变换<a class="headerlink" href="#时间尺度变换" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\delta(at)=\frac{1}{|a|}\delta(t)
+\]</div>
+<p>验证信号下方面积：</p>
+<p>当 <span class="arithmatex">\(a\gt 0\)</span> 时 :</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}\delta(a\tau)d\tau=\frac{1}{a}\int_{-\infty}^{+\infty}\delta(a\tau)d(a\tau)=\frac{1}{a}=\frac{1}{|a|}
+\]</div>
+<p>当 <span class="arithmatex">\(a\lt 0\)</span> 时 :</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{-\infty}^{+\infty}\delta(a\tau)d\tau
+&amp;= \frac{1}{a}\int_{-\infty}^{+\infty}\delta(a\tau)d(a\tau)\\
+&amp;= \frac{1}{a}\int_{+\infty}^{-\infty}\delta(t)dt \\
+&amp;= -\frac{1}{a}\int_{-\infty}^{+\infty}\delta(t)dt \\
+&amp;= -\frac{1}{a} \\
+&amp;= |\frac{1}{a}|
+\end{aligned}
+\]</div>
+<h3 id="单位冲激偶u_1t">单位冲激偶<span class="arithmatex">\(u_1(t)\)</span><a class="headerlink" href="#单位冲激偶u_1t" title="Permanent link">&para;</a></h3>
+<p>系统角度定义为<strong>理想微分器</strong>的<strong>单位冲激响应</strong>，即 <span class="arithmatex">\(\delta(t)\)</span> 的微分：</p>
+<div class="arithmatex">\[
+u_1(t)=\frac{d}{dt}\delta(t)
+\]</div>
+<p><img alt="微分器" src="../../../assets/ie/signals-and-systems/lti/%E5%BE%AE%E5%88%86%E5%99%A8.png" /></p>
+<p><img alt="单位冲激偶" src="../../../assets/ie/signals-and-systems/lti/%E5%8D%95%E4%BD%8D%E5%86%B2%E6%BF%80%E5%81%B6.png" /></p>
+<p>卷积定义，从 LTI 系统分析的角度有：</p>
+<div class="arithmatex">\[
+x(t)*u_1
+(t)=\frac{d}{dt}x(t)
+\]</div>
+<p>该信号可视为短脉冲求导的理想化结果。</p>
+<p><img alt="短脉冲求导的理想化" src="../../../assets/ie/signals-and-systems/lti/%E7%9F%AD%E8%84%89%E5%86%B2%E6%B1%82%E5%AF%BC%E7%9A%84%E7%90%86%E6%83%B3%E5%8C%96.png" /></p>
+<h4 id="积分性质">积分性质<a class="headerlink" href="#积分性质" title="Permanent link">&para;</a></h4>
+<p>令输入 <span class="arithmatex">\(x(t)=1\)</span> 有：</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}u_1(\tau)d\tau=\int_{-\infty}^{+\infty}x(t-\tau)u_1(\tau)d\tau=x(t)*u_1(t)=\frac{d}{dt}x(t)=0
+\]</div>
+<h4 id="积分意义下的定义">积分意义下的定义<a class="headerlink" href="#积分意义下的定义" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}g(\tau-t)u_1(\tau)d\tau=g(-t)*u_1(t)=-\frac{d}{dt}g(-t)
+\]</div>
+<p>令 <span class="arithmatex">\(t=0\)</span> 有：</p>
+<div class="arithmatex">\[
+-g'(0)=\int_{-\infty}^{+\infty}g(\tau)u_1(\tau)d\tau
+\]</div>
+<p>该积分即可作为 <span class="arithmatex">\(u_1(t)\)</span> 在积分意义下的定义</p>
+<h3 id="deltat的积分u_-1t"><span class="arithmatex">\(\delta(t)\)</span>的积分<span class="arithmatex">\(u_{-1}(t)\)</span><a class="headerlink" href="#deltat的积分u_-1t" title="Permanent link">&para;</a></h3>
+<p>从系统的角度，定义 <span class="arithmatex">\(u_{-1}(t)\)</span> 是<strong>理想积分器</strong>的<strong>单位冲激响应</strong></p>
+<div class="arithmatex">\[
+u_{-1}(t)=\int_{-\infty}^{t}\delta(\tau)d\tau=u(t)
+\]</div>
+<p>运算定义为：</p>
+<div class="arithmatex">\[
+x(t)*u_{-1}(t)=\int_{-\infty}^{t}x(\tau)d\tau
+\]</div>
+<h3 id="单位斜坡函数u_-2t">单位斜坡函数<span class="arithmatex">\(u_{-2}(t)\)</span><a class="headerlink" href="#单位斜坡函数u_-2t" title="Permanent link">&para;</a></h3>
+<p>系统的角度，可以定义为：（卷积）</p>
+<div class="arithmatex">\[
+u_{-2}(t)=u_{-1}(t)*u_{-1}(t)=\int_{-\infty}^{t}u(t)dt=tu(t)
+\]</div>
+<p>运算定义为二重积分：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)*u_{-2}(t)
+&amp;= x(t)*u_{-2}(t)\\
+&amp;= x(t)*u_{-1}(t)*u_{-1}(t) \\
+&amp;= \big(\int_{-\infty}^{t}u(\sigma)d\sigma\large)*u_{-1}(t) \\
+&amp;= \int_{-\infty}^{t}\big(\int_{-\infty}^{\tau}u(\sigma)d\sigma\big)d\tau \\
+&amp;= \int_{-\infty}^{t}\int_{-\infty}^{\tau}u(\sigma)\ d\sigma d\tau
+\end{aligned}
+\]</div>
+<h3 id="卷积定义推广">卷积定义推广<a class="headerlink" href="#卷积定义推广" title="Permanent link">&para;</a></h3>
+<p>例如 <span class="arithmatex">\(u_2(t)\)</span> 可以定义为：<span class="arithmatex">\(u_2(t)=u_1(t)*u_1(t)\)</span> :</p>
+<div class="arithmatex">\[
+x(t)*u_2(t)=\frac{d^2}{dt^2}x(t)=x(t)*u_1(t)*u_1(t)
+\]</div>
+<p>以此类推：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+u_2(t) &amp;= u_1(t)*u_1(t) \\
+u_2(t) &amp;= u_1(t)*u_1(t)*u_1(t)\\
+&amp;......\\
+u_k(t)\over &amp;{=\over} {u_1(t)*u_1(t)*...*u_1(t)\over \text{k个}}
+\end{aligned}
+\]</div>
+<p>单位阶跃函数的高阶积分推广:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+u_{-3}(t) &amp;= u_{-1}(t)*u_{-1}(t)*u_{-1}(t)=\frac{1}{2}t^2 u(t) \\
+u_{-4}(t) &amp;= u_{-1}(t)*u_{-1}(t)*u_{-1}(t)*u_{-1}(t)=\frac{1}{6}t^3 u(t)\\
+&amp;......\\
+u_{-k}(t)\over &amp;{=\over} {u_{-1}(t)*u_{-1}(t)*...*u_{-1}(t)\over \text{k个}}{=\over}{\frac{t^{k-1}}{(k-1)!}u(t)\over}
+\end{aligned}
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>实际上， \delta(t)的各次积分已经是常规函数了</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../duality/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 离散/连续时间傅里叶系数/变换的对偶关系">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                离散/连续时间傅里叶系数/变换的对偶关系
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../signals-concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: 信号基本概念">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                信号基本概念
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

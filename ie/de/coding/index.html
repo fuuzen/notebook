@@ -1,0 +1,1762 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/de/coding/">
+      
+      
+        <link rel="prev" href="../bool-algebra/">
+      
+      
+        <link rel="next" href="../combinatorial-logic/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>码制 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#编码的概念" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              码制
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            De
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bool-algebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逻辑代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    码制
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    码制
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#编码的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码的概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二进制编码" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制编码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二进制编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#补码的扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      补码的扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反码的加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      反码的加法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无符号数原码---补码" class="md-nav__link">
+    <span class="md-ellipsis">
+      无符号数：原码 -&gt; 补码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无符号数：原码 -> 补码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法一" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法二" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#负数补码---原码" class="md-nav__link">
+    <span class="md-ellipsis">
+      负数：补码 -&gt; 原码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负数：补码 -> 原码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法一_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法二_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#浮点数" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮点数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#十进制数的二进制代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      十进制数的二进制代码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十进制数的二进制代码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcd8421" class="md-nav__link">
+    <span class="md-ellipsis">
+      BCD/8421
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#格雷码" class="md-nav__link">
+    <span class="md-ellipsis">
+      格雷码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="格雷码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#编码特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码特点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四维格雷码表" class="md-nav__link">
+    <span class="md-ellipsis">
+      四维格雷码表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二进制码与格雷码的映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制码与格雷码的映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#格雷码应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      格雷码应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ascii-码" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASCII 码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#校验" class="md-nav__link">
+    <span class="md-ellipsis">
+      校验
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combinatorial-logic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组合逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../digital-process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数模转换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gate-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    门电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrated-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    集成电路(CMOS&TTL)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequential-circuit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时序逻辑电路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shift-register/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移位寄存器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../signals-and-systems/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#编码的概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码的概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二进制编码" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制编码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二进制编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#补码的扩展" class="md-nav__link">
+    <span class="md-ellipsis">
+      补码的扩展
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反码的加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      反码的加法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无符号数原码---补码" class="md-nav__link">
+    <span class="md-ellipsis">
+      无符号数：原码 -&gt; 补码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无符号数：原码 -> 补码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法一" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法二" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#负数补码---原码" class="md-nav__link">
+    <span class="md-ellipsis">
+      负数：补码 -&gt; 原码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="负数：补码 -> 原码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法一_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法二_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#浮点数" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮点数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#十进制数的二进制代码" class="md-nav__link">
+    <span class="md-ellipsis">
+      十进制数的二进制代码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十进制数的二进制代码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcd8421" class="md-nav__link">
+    <span class="md-ellipsis">
+      BCD/8421
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#格雷码" class="md-nav__link">
+    <span class="md-ellipsis">
+      格雷码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="格雷码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#编码特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      编码特点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四维格雷码表" class="md-nav__link">
+    <span class="md-ellipsis">
+      四维格雷码表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二进制码与格雷码的映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      二进制码与格雷码的映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#格雷码应用" class="md-nav__link">
+    <span class="md-ellipsis">
+      格雷码应用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ascii-码" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASCII 码
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#校验" class="md-nav__link">
+    <span class="md-ellipsis">
+      校验
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>码制</h1>
+
+<h2 id="编码的概念">编码的概念<a class="headerlink" href="#编码的概念" title="Permanent link">&para;</a></h2>
+<p>广义的编码指的就是将信息从一种形式转换为另一种规范的形式；</p>
+<p>对于数字电路，就是将现实世界中的各种物理信息转换为离散的电压序列，来表示、处理和分析信息；</p>
+<p>事实上，进位计数制也是一种编码，用不同进制数来表示“量”；</p>
+<p>将<strong>数制</strong>与<strong>码制</strong>分开介绍，首先单独讲解数制是因为数制的一个重要的特点是其编码后能够参与算术运算；而一般来说<strong>码制</strong>是对<strong>非数值信息</strong>的表示；</p>
+<p>教材中的缩写术语：</p>
+<ul>
+<li>MSB: Most Significant Bit，最高位</li>
+<li>LSB: Least Significant Bit，最低位</li>
+</ul>
+<h2 id="二进制编码">二进制编码<a class="headerlink" href="#二进制编码" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>无符号二进制编码只能表示 0 和正数，这里接下来讨论的都是<strong>有符号</strong>数。</p>
+</blockquote>
+<p>（有符号）二进制数：在前面增加一个符号位，0 表示正数，1 表示负数；引入符号位后，一个二进制数的最高位是符号位，符号位的 0 / 1 不代表大小，只是代表正负</p>
+<p>有符号二进制数的三种编码表示：</p>
+<ul>
+<li>
+<p>原码——Sign Magnitude Representation</p>
+</li>
+<li>
+<p>正数和 0：普通的二进制数表示</p>
+</li>
+<li>
+<p>负数：绝对值的二进制数表示加上负号</p>
+</li>
+<li>
+<p>反码——One's Complement</p>
+</li>
+<li>
+<p>正数和 0： = 原码</p>
+</li>
+<li>
+<p>负数：原码所有数字位取反</p>
+</li>
+<li>
+<p>补码——Two's Complement</p>
+</li>
+<li>正数和 0： = 原码</li>
+<li>负数：=反码+1</li>
+</ul>
+<p><span class="arithmatex">\(n\)</span> 位补码 <span class="arithmatex">\(B_{n-1} B_{n-2} B_{n-3}... B_{0}\)</span> 统一表示：</p>
+<div class="arithmatex">\[
+B_{n-1}\cdot(-2^{n-1})+B_{n-2}\cdot2^{n-2}+B_{n-3}\cdot2^{n-3}+...+B_{0}\cdot2^{0}
+\]</div>
+<p><span class="arithmatex">\(n\)</span> 位原码 <span class="arithmatex">\(B_{n-1} B_{n-2} B_{n-3}... B_{0}\)</span> 统一表示：</p>
+<div class="arithmatex">\[
+B_{n-1}\cdot2^{n-1}+B_{n-2}\cdot2^{n-2}+B_{n-3}\cdot2^{n-3}+...+B_{0}\cdot2^{0}
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>补码的补码即为原码</p>
+</div>
+<p>关于原码、反码、补码的易错点：</p>
+<ul>
+<li>反码取反是指对数字位取反，不改变符号位！</li>
+<li>例如 -7 即 1111 的反码是 1000，不是 0000 ！</li>
+<li>补码是不对称的，例如补码为 1000 代表-8 ，而不代表-0 ！ 即同样位数的二进制补码，负数会比正数“多一个”；</li>
+<li>补码的“加 1”指的是在最低位加 1 的二进制加法运算，不是指数值 1，即如果含有小数部分，1 是加在整体的最右边；</li>
+</ul>
+<p>利用二进制补码运算求解带符号数的加法运算：</p>
+<ol>
+<li>分析需要使用多少个数字位；（培养思维习惯！不能忽略！）</li>
+<li>用带符号位的二进制数表示，求解每个二进制数的补码；</li>
+<li>对补码进行加法运算，再对结果求补码，即为最终结果；</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>注意最后一步，对补码进行加法运算时，数字位最高位产生的进位要进到符号位上去！（教材中描述的“舍弃产生的进位”指的是舍弃符号位产生的进位）</p>
+</div>
+<h3 id="补码的扩展">补码的扩展<a class="headerlink" href="#补码的扩展" title="Permanent link">&para;</a></h3>
+<p>将一个 <code>n</code> 位补码扩展到 <code>n+k</code> 位，只需将最高位符号位复制 <code>k</code> 个前置。</p>
+<h3 id="反码的加法">反码的加法<a class="headerlink" href="#反码的加法" title="Permanent link">&para;</a></h3>
+<p>若最高位产生进位，需要<strong>循环进位</strong>，即最低位“进一位”（<code>+1</code>）。</p>
+<h3 id="无符号数原码---补码">无符号数：原码 -&gt; 补码<a class="headerlink" href="#无符号数原码---补码" title="Permanent link">&para;</a></h3>
+<h4 id="方法一">方法一：<a class="headerlink" href="#方法一" title="Permanent link">&para;</a></h4>
+<p>原码<strong>全部</strong>取反，再 <code>+1</code></p>
+<h4 id="方法二">方法二：<a class="headerlink" href="#方法二" title="Permanent link">&para;</a></h4>
+<p>从右向左找到第一个 <code>1</code>，这个 <code>1</code> 前面的<strong>所有</strong>位取反</p>
+<p>若没有 <code>1</code>，也就是 <code>0</code>，原码=补码</p>
+<h3 id="负数补码---原码">负数：补码 -&gt; 原码<a class="headerlink" href="#负数补码---原码" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>这里只讨论负数的转换，正数不需要转换</p>
+</div>
+<h4 id="方法一_1">方法一：<a class="headerlink" href="#方法一_1" title="Permanent link">&para;</a></h4>
+<p>补码 <code>-1</code> ，再取反</p>
+<h4 id="方法二_1">方法二：<a class="headerlink" href="#方法二_1" title="Permanent link">&para;</a></h4>
+<p>从右向左找到第一个 <code>1</code>，这个 <code>1</code> 前面的位取反（<strong>符号位也要变为 0</strong>）</p>
+<p>若没有 <code>1</code>，也就是 <code>0</code>，原码=补码</p>
+<h3 id="浮点数">浮点数<a class="headerlink" href="#浮点数" title="Permanent link">&para;</a></h3>
+<p>IEEE754 标准的 32 位浮点数：</p>
+<table>
+<thead>
+<tr>
+<th>Sign</th>
+<th>Exponent</th>
+<th>Mantissa(Fraction)</th>
+<th>表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 位</td>
+<td>8 位</td>
+<td>23 位</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>511</td>
+<td>0</td>
+<td><span class="arithmatex">\(\pm\infty\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td>511</td>
+<td>none zero</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+Number=(-1)^{S}(1+F)2^{E-127}
+\]</div>
+<p>公式中 <span class="arithmatex">\(F\)</span> 的小数点在最高位前面，将 <span class="arithmatex">\(E\)</span> 视为无符号二进制数。</p>
+<h2 id="十进制数的二进制代码">十进制数的二进制代码<a class="headerlink" href="#十进制数的二进制代码" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>十进制代码用四位二进制数（最多可表示 <span class="arithmatex">\(2^4=16\)</span> 个）来表示 <code>0</code>~<code>9</code>，没有 <code>10</code> <img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+</div>
+<p><img alt="常见十进制代码" src="../../../assets/ie/de/coding/%E5%B8%B8%E8%A7%81%E5%8D%81%E8%BF%9B%E5%88%B6%E4%BB%A3%E7%A0%81.png" /></p>
+<p>8421、2421、5211 每个数字指的是每个位的权；</p>
+<h3 id="bcd8421">BCD/8421<a class="headerlink" href="#bcd8421" title="Permanent link">&para;</a></h3>
+<p>8421 码也叫<strong>BCD 码</strong>(Binary Coded Decimal)。可以视为一种压缩编码（相比 <code>int</code> 和 <code>char</code>）。</p>
+<p><strong>余 3 码</strong>是在 BCD 码即 8421 码的基础上 <code>+3</code>，即用 <code>3</code>~<code>12</code> 对应的二进制数来表示 <code>0</code>~<code>9</code>；</p>
+<p><strong>余 3 循环码</strong>是取格雷码中的 <code>3</code>~<code>12</code>；</p>
+<h3 id="格雷码">格雷码<a class="headerlink" href="#格雷码" title="Permanent link">&para;</a></h3>
+<p>教材中的格雷码特指的是四位格雷码，即用四位代码来表示 <code>0</code>～<code>15</code> 共十六种状态；</p>
+<h4 id="编码特点">编码特点：<a class="headerlink" href="#编码特点" title="Permanent link">&para;</a></h4>
+<ul>
+<li>每一位的状态变化都按一定的顺序循环，以 4 位格雷码为例：</li>
+<li><code>0110</code>（最低位）</li>
+<li><code>00111100</code></li>
+<li><code>0000111111110000</code></li>
+<li><code>0000000011111111</code>（最高位）
+    （四位 16 个，只循环半个周期）</li>
+</ul>
+<p>其他位数的格雷码表依次类推，自右向左每一位状态循环中连续的 <code>0</code> 和 <code>1</code> 数目加倍。
+按表中顺序变化时，相邻的代码只有一位改变状态，这是格雷码最大的特点和优点；（应用：减少代码转换过程中的过渡噪声）</p>
+<h4 id="四维格雷码表">四维格雷码表<a class="headerlink" href="#四维格雷码表" title="Permanent link">&para;</a></h4>
+<p>需要熟练掌握！重点是熟悉编码的规则和特点</p>
+<p><img alt="四维格雷码表" src="../../../assets/ie/de/coding/%E5%9B%9B%E7%BB%B4%E6%A0%BC%E9%9B%B7%E7%A0%81%E8%A1%A8.png" /></p>
+<h4 id="二进制码与格雷码的映射">二进制码与格雷码的映射<a class="headerlink" href="#二进制码与格雷码的映射" title="Permanent link">&para;</a></h4>
+<p>二进制码转换成格雷码：</p>
+<ul>
+<li>最高位相同</li>
+<li>二进制码从左到右，将相邻 <code>A</code>，<code>B</code> 两位<strong>异或</strong>（无进位加法），得到格雷码对应的 <code>B</code> 位</li>
+</ul>
+<p>格雷码转换成二进制码：</p>
+<ul>
+<li>最高位相同</li>
+<li>格雷码从左到右，将二进制码上一位 <code>A</code>，格雷码当前位 <code>B</code> 两位<strong>异或</strong>，得到二进制码对应的 <code>B</code> 位</li>
+</ul>
+<h4 id="格雷码应用">格雷码应用<a class="headerlink" href="#格雷码应用" title="Permanent link">&para;</a></h4>
+<p>旋转编码器（Rotate Encoder）</p>
+<h3 id="ascii-码">ASCII 码<a class="headerlink" href="#ascii-码" title="Permanent link">&para;</a></h3>
+<p>美国信息交换标准代码，用 7 位二进制代码（共 128 个）来表示信息，广泛应用于计算机和通信领域中；</p>
+<p><img alt="ascii" src="../../../assets/ie/de/coding/ascii.jpg" /></p>
+<p>在线查询：</p>
+<ul>
+<li><a href="https://www.runoob.com/w3cnote/ascii.html">菜鸟教程</a></li>
+<li><a href="https://tool.oschina.net/commons?type=4">OSchina</a></li>
+</ul>
+<h2 id="校验">校验<a class="headerlink" href="#校验" title="Permanent link">&para;</a></h2>
+<ul>
+<li>奇校验</li>
+<li>在二进制串的<strong>末尾</strong>增加一位 <code>1</code> 或 <code>0</code>，使得整个新二进制的 <code>1</code> 的个数为奇数</li>
+<li>偶校验</li>
+<li>在二进制串的<strong>末尾</strong>增加一位 <code>1</code> 或 <code>0</code>，使得整个新二进制的 <code>1</code> 的个数为偶数</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../bool-algebra/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 逻辑代数">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                逻辑代数
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../combinatorial-logic/" class="md-footer__link md-footer__link--next" aria-label="Next: 组合逻辑电路">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                组合逻辑电路
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

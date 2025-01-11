@@ -1,0 +1,2185 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/uncentain-knowledge-presentation-and-resolution/">
+      
+      
+        <link rel="prev" href="../search/">
+      
+      
+        <link rel="next" href="../../data-structure-and-algorithm/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>不确定性知识表示与推理 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#概率图模型" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              不确定性知识表示与推理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概率图模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基础知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝叶斯网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝叶斯网络
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#盘式记法" class="md-nav__link">
+    <span class="md-ellipsis">
+      盘式记法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一元语言模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一元语言模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一元混合语言模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一元混合语言模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率潜在语义分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率潜在语义分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#潜在狄利克雷分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      潜在狄利克雷分配
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#构建步骤" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-分离" class="md-nav__link">
+    <span class="md-ellipsis">
+      D-分离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#具体例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体例子
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型的推理" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型的推理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概率图模型的推理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#变量消元算法ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量消元算法(VE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="变量消元算法(VE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#因子及相关操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子及相关操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法理解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信念传播算法bp" class="md-nav__link">
+    <span class="md-ellipsis">
+      信念传播算法(BP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信念传播算法(BP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#因子图-bp" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子图 BP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型的学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型的学习
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概率图模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基础知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#贝叶斯网络" class="md-nav__link">
+    <span class="md-ellipsis">
+      贝叶斯网络
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="贝叶斯网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#盘式记法" class="md-nav__link">
+    <span class="md-ellipsis">
+      盘式记法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一元语言模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一元语言模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一元混合语言模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一元混合语言模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#概率潜在语义分析" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率潜在语义分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#潜在狄利克雷分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      潜在狄利克雷分配
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#构建步骤" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-分离" class="md-nav__link">
+    <span class="md-ellipsis">
+      D-分离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#具体例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      具体例子
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型的推理" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型的推理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="概率图模型的推理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#变量消元算法ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量消元算法(VE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="变量消元算法(VE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#因子及相关操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子及相关操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算法理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      算法理解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信念传播算法bp" class="md-nav__link">
+    <span class="md-ellipsis">
+      信念传播算法(BP)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信念传播算法(BP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#因子图-bp" class="md-nav__link">
+    <span class="md-ellipsis">
+      因子图 BP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#概率图模型的学习" class="md-nav__link">
+    <span class="md-ellipsis">
+      概率图模型的学习
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>不确定性知识表示与推理</h1>
+
+<p>按照所用知识的确定性，可以分为确定性和不确定性推理：</p>
+<ul>
+<li><strong>确定性推理</strong>是建立在经典逻辑基础上的，经典逻辑的基础之一就是集合论。这在很多实际情况中是很难做到的，如高、矮、胖、瘦就很难精确地分开；</li>
+<li><strong>不确定性推理</strong>就是从不确定性初始证据出发，通过运用不确定性的知识，最终推出具有一定程度的不确定性但却是合理或者近乎合理的结论的思维过程。</li>
+</ul>
+<p>常识（common sense）具有不确定性。一个常识可能有众多的例外，一个常识可能是一种尚无理论依据或者缺乏充分验证的经验。常识往往对环境有极强的依存性。</p>
+<p>不确定知识表示和推理方法：</p>
+<ul>
+<li>确定性理论</li>
+<li>用<strong>可信度</strong>表示不确定性</li>
+<li>证据理论</li>
+<li>用<strong>信任函数</strong>度量不确定性</li>
+<li>模糊逻辑和模糊推理</li>
+<li><strong>模糊集合论</strong>应用于近似或模糊推理，形成了可能性理论</li>
+<li><strong>模糊逻辑</strong>可以看作是多值逻辑的扩展。模糊推理是在一组可能不精确的前提下推出一个可能不精确的结论</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<ul>
+<li>概率论处理的是由随机性引起的不确定性；</li>
+</ul>
+</div>
+<ul>
+<li>可能性理论处理的是由模糊性引起的不确定性</li>
+</ul>
+<h2 id="概率图模型">概率图模型<a class="headerlink" href="#概率图模型" title="Permanent link">&para;</a></h2>
+<h3 id="基础知识">基础知识<a class="headerlink" href="#基础知识" title="Permanent link">&para;</a></h3>
+<p>这是概率论与图论结合的产物，为统计推理和学习提供了一个统一的灵活框架</p>
+<ul>
+<li>节点表示变量节点</li>
+<li>之间的边表示局部变量间的概率依赖关系</li>
+<li>局部变量分布的连乘积表示系统的联合概率分布</li>
+</ul>
+<p>该表示框架不仅避免了对复杂系统的联合概率分布直接进行建模，而且易于引入先验知识</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>概率图模型统一了目前广泛应用的许多统计模型和方法:</p>
+</div>
+<ul>
+<li>马尔科夫随机场（MRF）</li>
+<li>条件随机场（CRF）</li>
+<li>隐马尔科夫模型（HMM）</li>
+<li>多元高斯模型</li>
+<li>卡尔曼滤波、粒子滤波、变分推理\cdots \cdots</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>概率论基础【回顾】</p>
+</div>
+<ul>
+<li>频率论学派</li>
+<li>事件的概率是当我们无限次重复试验时，事件发生次数的比值<ul>
+<li>投掷硬币、掷骰子等</li>
+</ul>
+</li>
+<li>贝叶斯学派</li>
+<li>将事件的概率视为一种主观置信度<ul>
+<li>我认为明天下雨的概率是 30%；他认为明天下雨的概率是 80%</li>
+</ul>
+</li>
+</ul>
+<p>基础：</p>
+<ul>
+<li>乘法/链式法则 求 联合概率</li>
+<li>加法法则</li>
+<li>贝叶斯定理：<span class="arithmatex">\(\text{后验概率}=\frac{\text{先验概率}\times\text{似然度}}{\text{标准化常量}}\)</span></li>
+</ul>
+<p>三个概念：</p>
+<ul>
+<li>联合概率分布</li>
+<li>边缘概率分布</li>
+<li>最大后验概率状态</li>
+</ul>
+<h3 id="分类">分类<a class="headerlink" href="#分类" title="Permanent link">&para;</a></h3>
+<p>贝叶斯网络以外不作重点，那基本是不考了</p>
+<ul>
+<li>有向图模型 Directed graphs</li>
+<li><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />贝叶斯网络</li>
+<li>隐马尔科夫模型</li>
+<li>卡尔曼滤波</li>
+<li>无向图模型 Undirected graphs</li>
+<li>马尔可夫随机场</li>
+<li>条件随机场</li>
+<li>因子图模型 Factor graphs</li>
+</ul>
+<h3 id="贝叶斯网络">贝叶斯网络<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#贝叶斯网络" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(a,b\)</span> 相互独立：<span class="arithmatex">\(a\perp\llap{\perp}b\)</span>；</p>
+</div>
+<p><span class="arithmatex">\(a,b\)</span> 在给定 <span class="arithmatex">\(c\)</span> 的条件下相互独立（条件独立）：<span class="arithmatex">\(a\perp\llap{\perp}b|c\)</span>；</p>
+<h4 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h4>
+<p>贝叶斯网络（Bayesian Network，简称 BN）是不确定知识表示与推理的一种有效方法，属于有向图模型，它由这些组成：</p>
+<ul>
+<li>一个有向无环图（Directed Acyclic Graph, DAG）</li>
+<li>一系列条件概率表（衡量了上述关系的强度）</li>
+</ul>
+<p>令 <em>G</em> 为定义在 <span class="arithmatex">\(\{X_1,X_2,\cdots,X_N\}\)</span> 上的一个贝叶斯网络，其联合概率分布可以表示为<strong>各个节点的条件概率分布的乘积</strong> ：</p>
+<div class="arithmatex">\[
+p(X)=\prod_{i}p_i(X_i|Par_G(X_i))
+\]</div>
+<p>联合概率分布结构化分解，原本表示 <span class="arithmatex">\(n\)</span> 个二元随机变量的联合分布需要 <span class="arithmatex">\(2^n-1\)</span> 个参数，用贝叶斯网络建模，假设每个节点最多有 <span class="arithmatex">\(k\)</span> 个父节点，所需要的参数最多为 <span class="arithmatex">\(n\ 2^k\)</span> ，所需参数大幅减少</p>
+<hr />
+<p>贝叶斯网络举例</p>
+<p>节点定义：</p>
+<ul>
+<li>试题难度（Difficulty）</li>
+<li>智力（Intelligence）</li>
+<li>考试等级（SAT）</li>
+<li>高考成绩（Grade）</li>
+<li>是否得到推荐信（Letter）</li>
+</ul>
+<p><img alt="贝叶斯网络" src="../../../assets/cs/ai/uncentain-knowledge-presentation-and-resolution/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C.png" /></p>
+<h4 id="盘式记法">盘式记法<a class="headerlink" href="#盘式记法" title="Permanent link">&para;</a></h4>
+<p>贝叶斯网络的一种简洁的表示方法，其将相互独立的、由相同机制生成的多个变量放在一个方框（盘）内，并在方框中标出类似变量重复出现的个数。方框可以嵌套，且通常用阴影标注出可观察到的变量</p>
+<p><img alt="盘式记法" src="../../../assets/cs/ai/uncentain-knowledge-presentation-and-resolution/%E7%9B%98%E5%BC%8F%E8%AE%B0%E6%B3%95.png" /></p>
+<h4 id="举例">举例<a class="headerlink" href="#举例" title="Permanent link">&para;</a></h4>
+<h5 id="一元语言模型">一元语言模型<a class="headerlink" href="#一元语言模型" title="Permanent link">&para;</a></h5>
+<p>假设文本中每个词都和其他词独立，和它的上下文无关。通过一元语言模型，我们可以计算一个序列的概率，从而判断该序列是否符合自然语言的语法和语义规则。</p>
+<h5 id="一元混合语言模型">一元混合语言模型<a class="headerlink" href="#一元混合语言模型" title="Permanent link">&para;</a></h5>
+<p>假设给定文本主题（z）的前提下，该文本中的每个词都和其他词条件独立。其中，z 为隐变量。</p>
+<h5 id="概率潜在语义分析">概率潜在语义分析<a class="headerlink" href="#概率潜在语义分析" title="Permanent link">&para;</a></h5>
+<h5 id="潜在狄利克雷分配">潜在狄利克雷分配<a class="headerlink" href="#潜在狄利克雷分配" title="Permanent link">&para;</a></h5>
+<h4 id="构建步骤">构建步骤<a class="headerlink" href="#构建步骤" title="Permanent link">&para;</a></h4>
+<ul>
+<li>步骤 1：</li>
+</ul>
+<p>在某种变量顺序下，对所有变量的联合概率应用链式法则</p>
+<p>$$
+  Pr(X_1,\cdots ,X_n)=Pr(X_n|X_1,\cdots ,X_{n-1})Pr(X_{n-1}|X_1,\cdots ,X_{n-2})\cdots Pr(X_1)
+  $$</p>
+<ul>
+<li>步骤 2：</li>
+</ul>
+<p>对于每个变量 <span class="arithmatex">\(X_i\)</span> ，考虑该变量的条件集合 ${X_1,\cdots,X_{i-1}} $，采用如下方法递归地判断条件集合中的每个变量 <span class="arithmatex">\(X_j\)</span> 是否可以删除：</p>
+<p>如果给定其余变量的集合，<span class="arithmatex">\(X_i\)</span> 和 <span class="arithmatex">\(X_j\)</span> 是条件独立的，则将 <span class="arithmatex">\(X_i\)</span> 从 <span class="arithmatex">\(X_j\)</span> 的条件集合中删除。</p>
+<p>经过这一步骤，可以得到下式:</p>
+<p>$$
+  Pr(X_1,\cdots,X_n)=Pr(X_n|Par(X_n))Pr(X_{n-1}|Par(X_{n-1}))\cdots Pr(X_1)
+  $$</p>
+<ul>
+<li>步骤 3：</li>
+</ul>
+<p>基于上述公式，构建一个有向无环图。其中，对于每个用节点表示的变量 <span class="arithmatex">\(X_i\)</span> ，其父节点为 <span class="arithmatex">\(Par(X_i)\)</span> 中的变量集合。</p>
+<ul>
+<li>步骤 4：</li>
+</ul>
+<p>为每个家庭（即变量及其父节点集合）确定条件概率表的取值</p>
+<h4 id="d-分离">D-分离<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#d-分离" title="Permanent link">&para;</a></h4>
+<p>对于一个有向无环图，D-分离（D-Separation）是一种用来判断其变量是否条件独立的图形化方法。在基于贝叶斯网络的不确定性知识推理中，采用 D-分离方法可以简化概率计算，提高运行速度</p>
+<p>D-分离可用于判断任意两个节点的相关性和独立性。</p>
+<ul>
+<li>若存在一条路径将这两个节点（直接）连通，则称这两个节点是<strong>有向连接</strong>（d-connected）的，即这两个节点是<strong>相关的</strong></li>
+<li>若不存在这样的路径将这两个节点连通，则这两个节点不是有向连接的，则称这两个节点是<strong>有向分离</strong>的（d-separated），即这两个节点<strong>相互独立</strong></li>
+</ul>
+<p>定义：路径 𝑝 被限定集 𝑍 阻塞（block）当且仅当：</p>
+<ul>
+<li>路径 𝑝 含有链结构 A→𝐵→C 或分连结构 A←𝐵→C 且中间节点 𝐵 在 𝑍 中</li>
+<li>或者路径 𝑝 含有汇连结构 A→𝐵←C 且汇连节点 𝐵 及其后代都不在 𝑍 中</li>
+</ul>
+<p>定义：若 𝑍 阻塞了节点 X 和节点 𝑌 之间的每一条路径，则称给定 𝑍 时，X 和 𝑌 是 D-分离，即给定 𝑍 时，X 和 𝑌 条件独立</p>
+<p>引理：父节点已知时，该节点与其所有非后代的节点（ non-descendants）满足 D-separated</p>
+<p>定理：父节点已知时，该节点与其所有非后代的节点（ non-descendants）条件独立</p>
+<h4 id="具体例子">具体例子<a class="headerlink" href="#具体例子" title="Permanent link">&para;</a></h4>
+<ul>
+<li>单一：Naive Bayes（朴素贝叶斯）</li>
+<li>混合：GMM （混合高斯模型）</li>
+<li>
+<p>加入时间维度</p>
+</li>
+<li>
+<p>Markov Chain</p>
+</li>
+<li>
+<p>Gaussian Process（无限维高斯分布）</p>
+</li>
+<li>
+<p>连续：Gaussian Bayesian Network</p>
+</li>
+<li>混合模型与时间结合起来：动态模型</li>
+<li>HMM（离散）</li>
+<li>Karman Filter（连续[高斯]、线性）</li>
+<li>Particle Filter（非高斯、非线性）</li>
+</ul>
+<p>总的来说，用两句话总结这些模型：从单一到混合、从有限到无限</p>
+<p>两个角度：空间（随机变量的取值从离散到连续）、时间（加入时间维度，从某一时刻延长到无限时间）</p>
+<h2 id="概率图模型的推理">概率图模型的推理<a class="headerlink" href="#概率图模型的推理" title="Permanent link">&para;</a></h2>
+<p>（贝叶斯网络为主）</p>
+<h3 id="变量消元算法ve">变量消元算法(VE)<a class="headerlink" href="#变量消元算法ve" title="Permanent link">&para;</a></h3>
+<p>变量消除（Variable Elimination，VE）基本思想：通过从联合概率分别逐步消除变量，来求边缘概率</p>
+<p>给定一个贝叶斯网络的一系列条件概率表 <span class="arithmatex">\(\mathbf F\)</span>，查询变量 <span class="arithmatex">\(Q\)</span>，证据变量的取值 <span class="arithmatex">\(\mathbf E=e\)</span> ，剩余变量 <span class="arithmatex">\(\mathbf Z\)</span> ，需要计算 <span class="arithmatex">\(Pr(Q|\mathbf E)\)</span></p>
+<h4 id="因子及相关操作">因子及相关操作<a class="headerlink" href="#因子及相关操作" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(f(\mathbf{X},\mathbf{Y})\)</span> 指代涉及变量集合 <span class="arithmatex">\(\mathbf{X}\cup\mathbf{Y}\)</span> 的因子，如条件概率表中的 <span class="arithmatex">\(Pr(C|A)\)</span> 可以用因子 <span class="arithmatex">\(f(C,A)\)</span> 或者 <span class="arithmatex">\(f(A,C)\)</span> 来表示；</p>
+<ul>
+<li>
+<p>限制：给定 <span class="arithmatex">\(f(X,\mathbf{Y})\)</span> 且 <span class="arithmatex">\(X=a\)</span> ，则 <span class="arithmatex">\(f_{X=a}=h(\mathbf{Y})=f(a,\mathbf{Y})\)</span>；</p>
+</li>
+<li>
+<p>相乘：给定 <span class="arithmatex">\(f(\mathbf{X},\mathbf{Y})\)</span> 和 <span class="arithmatex">\(g(\mathbf{Y},\mathbf{Z})\)</span> ，则</p>
+</li>
+</ul>
+<p>$$
+  h(\mathbf{X},\mathbf{Y},\mathbf{Z})=f(\mathbf{X},\mathbf{Y})\times g(\mathbf{Y},\mathbf{Z})
+  $$</p>
+<ul>
+<li>求和：给定 <span class="arithmatex">\(f(X,\mathbf{Y})\)</span> ，则该因子在变量 <span class="arithmatex">\(X\)</span> 上求和将得到</li>
+</ul>
+<p>$$
+  h(\mathbf{Y})=\sum_{x\in Dom(X)}f(x,\mathbf{Y})
+  $$</p>
+<h4 id="算法流程">算法流程<a class="headerlink" href="#算法流程" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>对于任意因子 <span class="arithmatex">\(f\in\mathbf F\)</span> ，如果该因子涉及 <span class="arithmatex">\(E\)</span> 中的一个或多个变量，则将其替换为限制后的因子 <span class="arithmatex">\(f_{\mathbf E=e}\)</span></p>
+</li>
+<li>
+<p>给定一个消元顺序，对于变量 <span class="arithmatex">\(Z_j\in\mathbf Z\)</span>：</p>
+</li>
+<li>
+<p>令 <span class="arithmatex">\(f_1,f_2,\cdots,f_k\)</span> 为 <span class="arithmatex">\(\mathbf F\)</span> 中包含 <span class="arithmatex">\(Z_j\)</span> 的所有因子；</p>
+</li>
+<li>
+<p>将这些因子相乘并在 <span class="arithmatex">\(Z_j\)</span> 上求和后得到新的因子：</p>
+<div class="arithmatex">\[
+g_j=\sum_{Z_j}f_1\times f_2\times\cdots\times f_k
+\]</div>
+</li>
+<li>
+<p>从 <span class="arithmatex">\(\mathbf F\)</span> 中删除 <span class="arithmatex">\(f_1,f_2,\cdots,f_k\)</span> ，并将 <span class="arithmatex">\(g_j\)</span> 加入到 <span class="arithmatex">\(\mathbf F\)</span> 中</p>
+</li>
+<li>
+<p>剩下的因子将只涉及查询变量 <span class="arithmatex">\(Q\)</span>，对这些因子相乘并归一化后得到 <span class="arithmatex">\(Pr(Q|\mathbf E)\)</span> 。</p>
+</li>
+</ul>
+<h4 id="算法理解">算法理解<a class="headerlink" href="#算法理解" title="Permanent link">&para;</a></h4>
+<p>第一种角度是理解为乘法对加法的分配律</p>
+<p>第二种角度是 message 的传播过程，也就是<strong>局部的消息传递</strong></p>
+<h3 id="信念传播算法bp">信念传播算法(BP)<a class="headerlink" href="#信念传播算法bp" title="Permanent link">&para;</a></h3>
+<p>信念传播算法（Belief Propagation， BP），基于<strong>局部的消息传递</strong>，可以视为 VE 算法 + 缓存 的推广：BP = VE + Caching</p>
+<ul>
+<li>在树状图模型上能收敛，且能达到精确推理</li>
+<li>但在一般图模型上，BP 为近似推理算法</li>
+</ul>
+<p><img alt="BP" src="../../../assets/cs/ai/uncentain-knowledge-presentation-and-resolution/BP.png" /></p>
+<div class="arithmatex">\[
+m_{b\to a}(x_a)=\sum_{b}\varphi_{ab}\cdot\varphi_{b}\cdot m_{c\to b}(x_b)\cdot m_{d\to b}(x_b)
+\]</div>
+<p>称 <span class="arithmatex">\(\varphi_{b}\cdot m_{c\to b}(x_b)\cdot m_{d\to b}(x_b)\)</span> 为<strong>信念</strong> (belief)</p>
+<ul>
+<li><span class="arithmatex">\(\varphi_{b}\)</span> 来自 <span class="arithmatex">\(b\)</span> 自己；</li>
+<li><span class="arithmatex">\(m_{c\to b}(x_b)\cdot m_{d\to b}(x_b)\)</span> 来自 <span class="arithmatex">\(b\)</span> 的 children</li>
+</ul>
+<p>一般化形式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+m_{j\to i}(x_i)
+&amp;=\sum_{x_j}\varphi_{ij}\cdot\varphi_{j}\prod_{k\in\text{NB}(j)-i}m_{k\to j}(x_j)\\
+P(x_i)
+&amp;=\varphi_i\prod_{j\in\text{NB}(i)}m_{j\to i}(x_i)\\
+&amp;=\varphi_i\prod_{j\in\text{NB}(i)}\sum_{x_j}\varphi_{ij}\cdot\varphi_{j}\prod_{k\in\text{NB}(j)-i}m_{k\to j}(x_j)
+\end{aligned}
+\]</div>
+<h4 id="因子图-bp">因子图 BP<a class="headerlink" href="#因子图-bp" title="Permanent link">&para;</a></h4>
+<h2 id="概率图模型的学习">概率图模型的学习<a class="headerlink" href="#概率图模型的学习" title="Permanent link">&para;</a></h2>
+<p>（不考）</p>
+<p>条件概率表的学习方法：</p>
+<ul>
+<li>极大似然</li>
+<li>期望最大化</li>
+</ul>
+<p>贝叶斯网络结构学习常用方法：</p>
+<ul>
+<li>基于约束的结构学习 （constraint-based structure learning）：将贝叶斯网络看作是一种独立关系的表示。尝试对数据中的条件依赖和条件独立关系进行检验，找到能够对这些依赖和独立关系给出最好解释的某个网络。</li>
+<li>基于得分的结构学习 （score-based structure learning）：定义模型对观测数据拟合程度的得分函数，通过最大化得分函数完成结构学习。</li>
+<li>结构斯然得分</li>
+<li>贝叶斯得分</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../search/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 搜索技术">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                搜索技术
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../data-structure-and-algorithm/" class="md-footer__link md-footer__link--next" aria-label="Next: 数据结构与算法">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                数据结构与算法
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2799 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/signals-and-systems/signals-concepts/">
+      
+      
+        <link rel="prev" href="../lti/">
+      
+      
+        <link rel="next" href="../systems-concepts/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>信号基本概念 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#能量功率-信号" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              信号基本概念
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../de/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    De
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Signals and systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signals and systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散时间信号的傅里叶变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    周期信号的傅里叶级数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通信系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散/连续时间傅里叶系数/变换的对偶关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    信号基本概念
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    信号基本概念
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#能量功率-信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      能量/功率 信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="能量/功率 信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#能量信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      能量信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#功率信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      功率信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#信号的分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的分解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号的分解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偶部与奇部" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶部与奇部
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实部与虚部" class="md-nav__link">
+    <span class="md-ellipsis">
+      实部与虚部
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连续离散-时间-信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续/离散 (时间) 信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续/离散 (时间) 信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#周期信号定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期信号定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续时间信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续时间信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续时间信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#普通连续信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通连续信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="普通连续信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#实指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (实)指数信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#复指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      复指数信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复指数信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连续复指数信号的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续复指数信号的周期性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#成谐波关系的连续复指数信号集" class="md-nav__link">
+    <span class="md-ellipsis">
+      成谐波关系的连续复指数信号集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般连续复指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般连续复指数信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#抽样信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      抽样信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#高斯函数钟形信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯函数“钟形信号”
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奇异信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇异信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="奇异信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位斜坡信号-ramp" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位斜坡信号 (ramp)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#符号函数-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数 (signal)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位阶跃信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位延迟阶跃信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位延迟阶跃信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#物理意义" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理意义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与斜坡信号的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      与斜坡信号的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (单位)冲激信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(单位)冲激信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#物理定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#狄拉克定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      狄拉克定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#广义函数定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      广义函数定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#取样性" class="md-nav__link">
+    <span class="md-ellipsis">
+      取样性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变化特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变化特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与普通函数相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      与普通函数相乘
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与阶跃信号的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      与阶跃信号的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激偶信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (单位)冲激偶信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(单位)冲激偶信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与普通函数相乘_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      与普通函数相乘
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#筛选特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      筛选特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变化特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变化特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#离散时间信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散时间信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="离散时间信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本离散信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本离散信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本离散信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位阶跃序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位序列-δk-转化为单位阶跃序列-εk" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位序列 δ(k) 转化为单位阶跃序列 ε(k)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃序列-εk转化为单位序列-δk" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃序列 ε(k)转化为单位序列 δ(k)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单边指数序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单边指数序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正弦序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正弦序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散正弦序列的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散正弦序列的周期性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#复指数序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      复指数序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复指数序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散复指数序列的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散复指数序列的周期性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#成谐波关系的离散复指数信号集" class="md-nav__link">
+    <span class="md-ellipsis">
+      成谐波关系的离散复指数信号集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#信号的基本运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的基本运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号的基本运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#平移与反转" class="md-nav__link">
+    <span class="md-ellipsis">
+      平移与反转
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续信号的求导与积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续信号的求导与积分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#离散信号的差分与求和" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散信号的差分与求和
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信号的运算的综合运" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的运算的综合运⽤
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z变换
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#能量功率-信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      能量/功率 信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="能量/功率 信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#能量信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      能量信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#功率信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      功率信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#信号的分解" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的分解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号的分解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#偶部与奇部" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶部与奇部
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#实部与虚部" class="md-nav__link">
+    <span class="md-ellipsis">
+      实部与虚部
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连续离散-时间-信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续/离散 (时间) 信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续/离散 (时间) 信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#周期信号定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      周期信号定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续时间信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续时间信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连续时间信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#普通连续信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通连续信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="普通连续信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#实指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (实)指数信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正弦信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#复指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      复指数信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复指数信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连续复指数信号的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续复指数信号的周期性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#成谐波关系的连续复指数信号集" class="md-nav__link">
+    <span class="md-ellipsis">
+      成谐波关系的连续复指数信号集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般连续复指数信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般连续复指数信号
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#抽样信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      抽样信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#高斯函数钟形信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      高斯函数“钟形信号”
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#奇异信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      奇异信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="奇异信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位斜坡信号-ramp" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位斜坡信号 (ramp)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#符号函数-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      符号函数 (signal)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位阶跃信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位延迟阶跃信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位延迟阶跃信号
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#物理意义" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理意义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与斜坡信号的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      与斜坡信号的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (单位)冲激信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(单位)冲激信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#物理定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#狄拉克定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      狄拉克定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#广义函数定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      广义函数定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#取样性" class="md-nav__link">
+    <span class="md-ellipsis">
+      取样性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变化特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变化特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与普通函数相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      与普通函数相乘
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与阶跃信号的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      与阶跃信号的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位冲激偶信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      (单位)冲激偶信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(单位)冲激偶信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#与普通函数相乘_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      与普通函数相乘
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#筛选特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      筛选特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变化特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变化特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#离散时间信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散时间信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="离散时间信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本离散信号" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本离散信号
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本离散信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单位阶跃序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单位序列-δk-转化为单位阶跃序列-εk" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位序列 δ(k) 转化为单位阶跃序列 ε(k)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单位阶跃序列-εk转化为单位序列-δk" class="md-nav__link">
+    <span class="md-ellipsis">
+      单位阶跃序列 ε(k)转化为单位序列 δ(k)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单边指数序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      单边指数序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正弦序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      正弦序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正弦序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散正弦序列的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散正弦序列的周期性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#复指数序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      复指数序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复指数序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#离散复指数序列的周期性" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散复指数序列的周期性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#成谐波关系的离散复指数信号集" class="md-nav__link">
+    <span class="md-ellipsis">
+      成谐波关系的离散复指数信号集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#信号的基本运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的基本运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信号的基本运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#平移与反转" class="md-nav__link">
+    <span class="md-ellipsis">
+      平移与反转
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连续信号的求导与积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      连续信号的求导与积分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#离散信号的差分与求和" class="md-nav__link">
+    <span class="md-ellipsis">
+      离散信号的差分与求和
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#信号的运算的综合运" class="md-nav__link">
+    <span class="md-ellipsis">
+      信号的运算的综合运⽤
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>信号基本概念</h1>
+
+<h2 id="能量功率-信号">能量/功率 信号<a class="headerlink" href="#能量功率-信号" title="Permanent link">&para;</a></h2>
+<p><img alt="能量功率信号.png" src="../../../assets/ie/signals-and-systems/signals-concepts/%E8%83%BD%E9%87%8F%E5%8A%9F%E7%8E%87%E4%BF%A1%E5%8F%B7.png" /></p>
+<h3 id="能量信号">能量信号<a class="headerlink" href="#能量信号" title="Permanent link">&para;</a></h3>
+<p>能量为一有界值，即 0 &lt; <em>E</em> &lt; + ∞，此时 <em>P</em> = 0</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>有时求 P 不好求，但是 E 好求，可以证明 E 为有界的，从而得到 <em>P</em> = 0</p>
+</div>
+<h3 id="功率信号">功率信号<a class="headerlink" href="#功率信号" title="Permanent link">&para;</a></h3>
+<p>功率为一有界值，即 0 &lt; <em>P</em> &lt; + ∞ ，此时 <em>E</em> = ∞</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>有时求 E 不好求，但是 P 好求，可以证明 P 为有界的，从而得到 <em>E</em> = ∞</p>
+</div>
+<h2 id="信号的分解">信号的分解<a class="headerlink" href="#信号的分解" title="Permanent link">&para;</a></h2>
+<h3 id="偶部与奇部">偶部与奇部<a class="headerlink" href="#偶部与奇部" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+f(t)=f_e(t)+f_o(t)
+\]</div>
+<p>偶部：</p>
+<div class="arithmatex">\[
+f_e(t)=\frac{1}{2}[f(t)+f(-t)]
+\]</div>
+<p>奇部：</p>
+<div class="arithmatex">\[
+f_o(t)=\frac{1}{2}[f(t)-f(-t)]
+\]</div>
+<h3 id="实部与虚部">实部与虚部<a class="headerlink" href="#实部与虚部" title="Permanent link">&para;</a></h3>
+<p>针对复函数而言</p>
+<div class="arithmatex">\[
+f(t)=Re\{f(t)\}+Im\{f(t)\}
+\]</div>
+<p>实部：</p>
+<div class="arithmatex">\[
+Re\{f(t)\}
+\]</div>
+<p>虚部：</p>
+<div class="arithmatex">\[
+Im\{f(t)\}
+\]</div>
+<h2 id="连续离散-时间-信号">连续/离散 (时间) 信号<a class="headerlink" href="#连续离散-时间-信号" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>区分 模拟/数字 信号，模拟/数字 信号的划分是依据“值域”是否连续，而 连续/离散 时间信号的划分是依据定义域是否连续</p>
+</div>
+<p>连续时间信号 <strong>包含</strong> 模拟信号 和 数字(量化)信号</p>
+<h3 id="周期信号定义">周期信号定义<a class="headerlink" href="#周期信号定义" title="Permanent link">&para;</a></h3>
+<ul>
+<li>连续周期信号 : <span class="arithmatex">\(f(t+mT)=f(t)\)</span> , <em>T</em> 为周期 <em>m</em> = 0,±1,±2,±3...</li>
+<li>离散周期信号 : <span class="arithmatex">\(f(k+mN) = f(k)\)</span> , <em>N</em> 为周期 <em>m</em> = 0,±1,±2,±3...</li>
+</ul>
+<p>当<em>T</em>或<em>N</em>趋于⽆无穷时，周期信号变为⾮非周期信号。</p>
+<h3 id="连续时间信号">连续时间信号<a class="headerlink" href="#连续时间信号" title="Permanent link">&para;</a></h3>
+<p>定义域连续</p>
+<p>在一定时间范围内，除若⼲不连续点之外，对任意时刻函数都有确定的函数值。 “连续”的含义指定义域连续，⽽连续信号中可以含有不连续点。</p>
+<h4 id="普通连续信号">普通连续信号<a class="headerlink" href="#普通连续信号" title="Permanent link">&para;</a></h4>
+<p>普通连续信号是指函数的定义域和值域<strong>没有</strong>不连续点(即跳变点)的信号。</p>
+<h5 id="实指数信号">(实)指数信号<a class="headerlink" href="#实指数信号" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+f (t) = Ke^{αt}
+\]</div>
+<p>指数函数求导、积分后仍为指数函数。</p>
+<h5 id="正弦信号">正弦信号<a class="headerlink" href="#正弦信号" title="Permanent link">&para;</a></h5>
+<p>利用正弦函数与余弦函数表示的信号<strong>统称为正弦信号</strong>，可表示为</p>
+<div class="arithmatex">\[
+f(t)=A\cos(\omega t-\theta)
+\]</div>
+<p>正弦信号求导、积分后仍然为正弦信号。</p>
+<p>指数信号可以转化为正弦信号:</p>
+<div class="arithmatex">\[
+e^{j\omega t}=\cos\ \omega t+j\ \sin\ \omega t \\
+e^{-j\omega t}=\cos\ \omega t-j\ \sin\ \omega t
+\]</div>
+<p>指数信号可以转化为正弦信号:</p>
+<div class="arithmatex">\[
+\sin\ \omega t = \frac{1}{2j}( e^{j\omega t} - e^{-j\omega t})\\
+\cos\ \omega t = \frac{1}{2}( e^{j\omega t} + e^{-j\omega t})
+\]</div>
+<h5 id="复指数信号">复指数信号<a class="headerlink" href="#复指数信号" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+f (t) = Ke^{st} = Ke^{(σ+j\omega)t} = Ke^{σt}(\cos\ ωt + j\ \sin\ ωt)，
+\]</div>
+<p>其中 <span class="arithmatex">\(s=σ+j\omega_0\)</span> 为复数</p>
+<p>复指数信号中，<span class="arithmatex">\(\sigma\)</span> 决定增长衰减，<span class="arithmatex">\(\omega_0\)</span> 决定震荡快慢;</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(\sigma\)</span> 的大小</th>
+<th><span class="arithmatex">\(\omega_0\)</span> 的大小</th>
+<th>最终结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\sigma=1\)</span></td>
+<td><span class="arithmatex">\(\omega_0\neq0\)</span></td>
+<td>实部虚部等幅震荡</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma&gt;1\)</span></td>
+<td><span class="arithmatex">\(\omega_0\neq0\)</span></td>
+<td>实部虚部增⻓震荡</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma&lt;1\)</span></td>
+<td><span class="arithmatex">\(\omega_0\neq0\)</span></td>
+<td>实部虚部衰减震荡</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma≠0\)</span></td>
+<td><span class="arithmatex">\(\omega_0=0\)</span></td>
+<td>实部虚部为指数信号</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma=0\)</span></td>
+<td><span class="arithmatex">\(\omega_0=0\)</span></td>
+<td>为直流信号</td>
+</tr>
+</tbody>
+</table>
+<h6 id="连续复指数信号的周期性">连续复指数信号的周期性<a class="headerlink" href="#连续复指数信号的周期性" title="Permanent link">&para;</a></h6>
+<p>复指数信号是周期信号当且仅当 <span class="arithmatex">\(\sigma\)</span> = 1 且 <span class="arithmatex">\(\omega_0\neq 0\)</span></p>
+<p>基波周期：<span class="arithmatex">\(T=|\frac{2\pi}{\omega_0}|\)</span></p>
+<p>基波频率：<span class="arithmatex">\(\omega_0\)</span></p>
+<h6 id="成谐波关系的连续复指数信号集">成谐波关系的连续复指数信号集<a class="headerlink" href="#成谐波关系的连续复指数信号集" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\{\varphi_k(t) \}=\{ e^{jk\omega_0 t} \}\\
+k=0,\pm1,\pm2......
+\]</div>
+<p>一般假设 <span class="arithmatex">\(\omega_0 \gt 0\)</span> ，该集合中的每个信号都是周期的，它们的基波频率分别为 <span class="arithmatex">\(k\omega_0\)</span> ，都是 <span class="arithmatex">\(\omega_0\)</span> 的整数倍，因而称它们是成<strong>谐波关系</strong>的。</p>
+<p>各次谐波的基波周期分别为 <span class="arithmatex">\(T_k =\frac{2\pi}{|k\omega_0|}\)</span> ，它们的公共周期是 <span class="arithmatex">\(T_0=\frac{2\pi}{\omega_0}\)</span>。</p>
+<ul>
+<li><span class="arithmatex">\(k=0\)</span> 称为直流分量</li>
+<li><span class="arithmatex">\(k=\pm1\)</span> 称为基波分量</li>
+<li><span class="arithmatex">\(k=\pm2\)</span> 称为二次谐波分量</li>
+<li>...等等...</li>
+</ul>
+<h6 id="一般连续复指数信号">一般连续复指数信号<a class="headerlink" href="#一般连续复指数信号" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+f (t) = Ke^{st} = |K|e^{j\theta}e^{(σ+j\omega_0)t} = Ke^{σt}e^{j(\omega_0+\theta)}，
+\]</div>
+<p>其中 <span class="arithmatex">\(s=σ+j\omega_0\)</span>， <span class="arithmatex">\(K=|K|e^{j\theta}\)</span> 为复数</p>
+<p>该信号可看成是振幅按实指数信号规律变化的周期性复指数信号。它的实部与虚部都是振幅呈实指数规律变化的正弦振荡。</p>
+<h5 id="抽样信号">抽样信号<a class="headerlink" href="#抽样信号" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+Sa(t)=\frac{\sin\ t}{t} \\
+\lim_{t\to \infty}Sa(t)=0 \ \ ;\ \ \lim_{t\to 0}Sa(t)=1 \\
+\int_{0}^{+\infty}Sa(t)\ d\ t=\frac{\pi}{2}\ \ ;\ \ \int_{-\infty}^{+\infty}Sa(t)\ d\ t=\pi
+\]</div>
+<h5 id="高斯函数钟形信号">高斯函数“钟形信号”<a class="headerlink" href="#高斯函数钟形信号" title="Permanent link">&para;</a></h5>
+<p>即正态分布 PDF</p>
+<div class="arithmatex">\[
+\varphi(t) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(t-\mu)^2}{2\sigma^2}}
+\]</div>
+<h4 id="奇异信号">奇异信号<a class="headerlink" href="#奇异信号" title="Permanent link">&para;</a></h4>
+<p>奇异信号是指函数本身或其导数与积分<strong>有</strong>不连续点(即跳变点)的信号。</p>
+<h5 id="单位斜坡信号-ramp">单位斜坡信号 (ramp)<a class="headerlink" href="#单位斜坡信号-ramp" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+\begin{aligned}
+r(t) =
+\begin{cases}
+    t &amp;  t \geq 0  \\
+    0 &amp;  t \lt 0
+\end{cases}
+\end{aligned}
+\]</div>
+<h5 id="符号函数-signal">符号函数 (signal)<a class="headerlink" href="#符号函数-signal" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+\begin{aligned}
+sig(t) =
+\begin{cases}
+    1 &amp;  t \gt 0 \\
+    0 &amp;  t = 0 \\
+    -1 &amp; t \lt 0
+\end{cases}
+\end{aligned}
+\]</div>
+<h5 id="单位阶跃信号">单位阶跃信号<a class="headerlink" href="#单位阶跃信号" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+\begin{aligned}
+u(t)=\varepsilon(t) =
+\begin{cases}
+    1 &amp;  t \gt 0 \\
+    \text{undifined} &amp;  t = 0 \\
+    0 &amp;  t \lt 0
+\end{cases}
+\end{aligned}
+\]</div>
+<p><em>t</em> = 0 处函数无定义(部分教材规定 <em>t</em> = 0 时取 <span class="arithmatex">\(\frac{1}{2}\)</span>)</p>
+<p>有的教材用 <span class="arithmatex">\(u(t)\)</span> 也有的教材用 <span class="arithmatex">\(\varepsilon(t)\)</span></p>
+<h6 id="单位延迟阶跃信号">单位延迟阶跃信号<a class="headerlink" href="#单位延迟阶跃信号" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\begin{aligned}
+\varepsilon(t-t_0) =
+\begin{cases}
+    1 &amp;  t \gt t_0 \\
+    \text{undifined} &amp;  t = t_0 \\
+    0 &amp;  t \lt t_0
+\end{cases}
+\end{aligned}
+\]</div>
+<h6 id="物理意义">物理意义<a class="headerlink" href="#物理意义" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>ε</em>(<em>t</em>) 表示信号 <em>f</em> (<em>t</em>) = 1 在 <em>t</em> = 0 时刻接⼊系统。</li>
+<li><em>f</em> (<em>t</em>) <em>ε</em>(<em>t</em>) 表示信号 <em>f</em> (<em>t</em>) 在 <em>t</em> = 0 时刻接入系统。</li>
+<li><em>f</em> (<em>t</em>) <em>ε</em>(<em>t</em> - <em>t<sub>0</sub></em> )表示信号 <em>f</em> (<em>t</em>) 在 <em>t</em> = <em>t<sub>0</sub></em> 时刻接⼊系统。</li>
+</ul>
+<h6 id="与斜坡信号的关系">与斜坡信号的关系<a class="headerlink" href="#与斜坡信号的关系" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+r(t)=t\ \varepsilon(t)\\
+\frac{d\ r(t)}{d\ t}=\varepsilon(t) \\
+\int_{-\infty}^{t}\varepsilon(\tau)\ d\ \tau=r(t)
+\]</div>
+<h5 id="单位冲激信号">(单位)冲激信号<a class="headerlink" href="#单位冲激信号" title="Permanent link">&para;</a></h5>
+<h6 id="物理定义">物理定义<a class="headerlink" href="#物理定义" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\delta(t)=\lim_{\tau\to 0}\frac{1}{\tau}[\varepsilon(t+\frac{\tau}{2})-\varepsilon(t-\frac{\tau}{2})] \\
+\delta(t-t_0)=\lim_{\tau\to t_0}\frac{1}{\tau}[\varepsilon(t+\frac{\tau}{2}-t_0)-\varepsilon(t-\frac{\tau}{2}-t_0)]
+\]</div>
+<h6 id="狄拉克定义">狄拉克定义<a class="headerlink" href="#狄拉克定义" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\delta (t)=
+\begin{cases}
+\int_{-\infty}^{+\infty}\delta (t)\ d\ t=1 \\
+\delta (t)=0,t\neq 0
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\delta (t-t_0)=
+\begin{cases}
+\int_{-\infty}^{+\infty}\delta (t-t_0)\ d\ t=1 \\
+\delta (t)=0,t\neq t_0
+\end{cases}
+\]</div>
+<h6 id="广义函数定义">广义函数定义<a class="headerlink" href="#广义函数定义" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}\delta (t)\ \varphi(t)\ d\ t =\varphi (0) \\
+\int_{-\infty}^{+\infty}\delta (t-t_0)\ \varphi(t)\ d\ t =\varphi (t_0)
+\]</div>
+<h6 id="取样性">取样性<a class="headerlink" href="#取样性" title="Permanent link">&para;</a></h6>
+<p>即广义函数定义，注意在<strong>有限区间</strong>同样有取样性</p>
+<h6 id="尺度变化特性">尺度变化特性<a class="headerlink" href="#尺度变化特性" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\delta (a\ t)=\frac{1}{|a|}\delta (t) \\
+\delta (a\ t-t_0)=\frac{1}{|a|}\delta (t-\frac{t_0}{a}) \\
+\int_{-\infty}^{+\infty}f(t)\  \delta (a\ t-t_0)=\frac{1}{|a|}f(\frac{t_0}{a}) \\
+a\neq 0
+\]</div>
+<h6 id="与普通函数相乘">与普通函数相乘<a class="headerlink" href="#与普通函数相乘" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+f(t)\ \delta(t)=f(0)\ \delta(t) \\
+f(t)\ \delta(t-t_0)=f(t_0)\ \delta(t-t_0)
+\]</div>
+<h6 id="与阶跃信号的关系">与阶跃信号的关系<a class="headerlink" href="#与阶跃信号的关系" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\frac{d}{d\ t}\varepsilon(t)=\delta(t)
+\]</div>
+<p>若信号的函数值有跳变，则信号在跳变点处的导数为冲激信号，其中冲击强度为信号在跳变点的跳跃值</p>
+<h5 id="单位冲激偶信号">(单位)冲激偶信号<a class="headerlink" href="#单位冲激偶信号" title="Permanent link">&para;</a></h5>
+<h6 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h6>
+<p>单位冲激信号的“奇函数版本”，且是单位冲激信号的导函数</p>
+<div class="arithmatex">\[
+\delta '(t)=\frac{d}{d\ t}\delta (t)
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>单位冲激信号是<strong>偶函数</strong>；单位冲激偶信号是<strong>奇函数</strong>！！</p>
+</div>
+<p>二者通过积分和求导可相互转化</p>
+<h6 id="与普通函数相乘_1">与普通函数相乘<a class="headerlink" href="#与普通函数相乘_1" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+f(t)\delta'(t)=f(0)\delta'(t)-f'(0)\delta(t) \\
+f(t)\delta'(t-t_0)=f(0)\delta'(t-t_0)-f'(0)\delta(t-t_0)
+\]</div>
+<h6 id="筛选特性">筛选特性<a class="headerlink" href="#筛选特性" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}f(t)\delta'(t)d\ t=-f'(0) \\
+\int_{-\infty}^{+\infty}f(t)\delta'(t-t_0)d\ t=-f'(t_0)
+\]</div>
+<h6 id="尺度变化特性_1">尺度变化特性<a class="headerlink" href="#尺度变化特性_1" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\delta'(a\ t)=\frac{1}{a|a|}\delta'(t) \\
+a\neq 0
+\]</div>
+<h3 id="离散时间信号">离散时间信号<a class="headerlink" href="#离散时间信号" title="Permanent link">&para;</a></h3>
+<p>定义域离散</p>
+<p>仅在一些离散时刻才有意义，⽽而在其他时刻⽆无定义。离散时间⼀一般为均匀间隔，“离散”是指信号的定义域是离散的。</p>
+<h4 id="基本离散信号">基本离散信号<a class="headerlink" href="#基本离散信号" title="Permanent link">&para;</a></h4>
+<h5 id="单位序列">单位序列<a class="headerlink" href="#单位序列" title="Permanent link">&para;</a></h5>
+<p>单位序列列 <em>δ</em>(<em>k</em>) 亦称单位样值序列列，类似于连续时间信号中的 <em>δ</em>(<em>t</em>)</p>
+<div class="arithmatex">\[
+\delta (k)=
+\begin{cases}
+1 &amp; k=0 \\
+0 &amp; k\neq 0
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\delta (k-i)=
+\begin{cases}
+1 &amp; k=i \\
+0 &amp; k\neq i
+\end{cases}
+\]</div>
+<h5 id="单位阶跃序列">单位阶跃序列<a class="headerlink" href="#单位阶跃序列" title="Permanent link">&para;</a></h5>
+<p>单位阶跃序列 <em>ε</em>(<em>k</em>) 类似于连续时间信号中的单位阶跃函数 <em>ε</em>(<em>t</em>)</p>
+<div class="arithmatex">\[
+\varepsilon (k)=
+\begin{cases}
+1 &amp; k \geq 0 \\
+0 &amp; k \lt 0
+\end{cases}
+\]</div>
+<div class="arithmatex">\[
+\varepsilon (k-i)=
+\begin{cases}
+1 &amp; k \geq i \\
+0 &amp; k \lt i
+\end{cases}
+\]</div>
+<h6 id="单位序列-δk-转化为单位阶跃序列-εk">单位序列 <em>δ</em>(<em>k</em>) 转化为单位阶跃序列 <em>ε</em>(<em>k</em>)<a class="headerlink" href="#单位序列-δk-转化为单位阶跃序列-εk" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\varepsilon (k)=\sum_{j=0}^{+\infty}\delta(k-j)
+\]</div>
+<h6 id="单位阶跃序列-εk转化为单位序列-δk">单位阶跃序列 <em>ε</em>(<em>k</em>)转化为单位序列 <em>δ</em>(<em>k</em>)<a class="headerlink" href="#单位阶跃序列-εk转化为单位序列-δk" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\delta(k)=\varepsilon(k)-\varepsilon(k-1)
+\]</div>
+<h5 id="单边指数序列">单边指数序列<a class="headerlink" href="#单边指数序列" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+f (k) = \alpha^{k}\varepsilon(k)\ ,\ \ k \in z
+\]</div>
+<p>当|<em>α</em>| &gt; 1 时，序列列发散，|<em>α</em>| &lt; 1 时，序列列收敛;</p>
+<p>当<em>α</em> &gt; 0 时，序列列恒正， <em>α</em> &lt; 0 时，序列列正负交错。</p>
+<h5 id="正弦序列">正弦序列<a class="headerlink" href="#正弦序列" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+f (k) = \cos\ \omega_0\ k\ ,\ \ k \in z
+\]</div>
+<p><span class="arithmatex">\(\omega_0\)</span> 为数字角频率，其与连续正弦信号的⻆频率不同，详见数字信号处理</p>
+<p>不是所有的正弦序列都是周期序列，因为<strong>正弦序列为连续正弦信号的抽样</strong></p>
+<h6 id="离散正弦序列的周期性">离散正弦序列的周期性<a class="headerlink" href="#离散正弦序列的周期性" title="Permanent link">&para;</a></h6>
+<p>正弦序列是周期序列当且仅当</p>
+<div class="arithmatex">\[
+\exists k\in z\ \ ,\ \  \omega_0 | 2k\pi
+\]</div>
+<h5 id="复指数序列">复指数序列<a class="headerlink" href="#复指数序列" title="Permanent link">&para;</a></h5>
+<div class="arithmatex">\[
+f (k) = e^{(\alpha +j\omega_0)k} = e^{\alpha k}e^{j\omega_0 k}=e^{\alpha k}(\cos\ \omega_0k +j\ \sin\ \omega_0k)\\
+k \in z
+\]</div>
+<table>
+<thead>
+<tr>
+<th><em>α</em> 的大小</th>
+<th><em>ω<sub>0</sub></em> 的大小</th>
+<th>最终结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>α</em> = 0</td>
+<td><span class="arithmatex">\(\omega_0\neq 0\)</span></td>
+<td>实部虚部均等幅正弦序列</td>
+</tr>
+<tr>
+<td><em>α</em> &gt; 0</td>
+<td><span class="arithmatex">\(\omega_0\neq 0\)</span></td>
+<td>实部虚部均增幅正弦序列</td>
+</tr>
+<tr>
+<td><em>α</em> &lt; 0</td>
+<td><span class="arithmatex">\(\omega_0\neq 0\)</span></td>
+<td>实部虚部均减幅正弦序列</td>
+</tr>
+<tr>
+<td><em>α</em> ≠ 0</td>
+<td><span class="arithmatex">\(\omega_0 = 0\)</span></td>
+<td>为指数序列</td>
+</tr>
+<tr>
+<td><em>α</em> = 0</td>
+<td><span class="arithmatex">\(\omega_0 = 0\)</span></td>
+<td>为常数序列</td>
+</tr>
+</tbody>
+</table>
+<h6 id="离散复指数序列的周期性">离散复指数序列的周期性<a class="headerlink" href="#离散复指数序列的周期性" title="Permanent link">&para;</a></h6>
+<p><span class="arithmatex">\(\alpha=0\)</span>，<span class="arithmatex">\(\omega_0\neq0\)</span> 时实部虚部均等幅正弦序列，对应连续复指数信号是周期信号，离散复指数序列才有可能是周期序列，因为<strong>离散复指数序列为连续复指数信号的抽样</strong></p>
+<p>复指数序列是周期序列当且仅当</p>
+<div class="arithmatex">\[
+\exists N,m\in z\\
+\frac{2\pi}{\omega_0}=\frac{N}{m} \\
+\Leftrightarrow e^{j\omega_0N} = 1\\
+\Leftrightarrow e^{j\omega_0n} = e^{j\omega_0n}\cdot e^{j\omega_0N} = e^{j\omega_0(n+N)}  \\
+\Leftrightarrow x[k]=x[k+N]
+\]</div>
+<p>也就是当且仅当 <span class="arithmatex">\(\omega_0=q\pi\)</span> 其中 <span class="arithmatex">\(q\)</span> 为有理数时复指数序列为周期序列。</p>
+<p>当 <span class="arithmatex">\(N\)</span> 与 <span class="arithmatex">\(m\)</span> 互质（无公因子）时：</p>
+<p>基波周期：<span class="arithmatex">\(N=\frac{2π}{\omega_0}m\)</span>；</p>
+<p>基波频率为：<span class="arithmatex">\(\omega=\frac{2π}{N}=\frac{\omega_0}{m}\)</span>；</p>
+<h6 id="成谐波关系的离散复指数信号集">成谐波关系的离散复指数信号集<a class="headerlink" href="#成谐波关系的离散复指数信号集" title="Permanent link">&para;</a></h6>
+<div class="arithmatex">\[
+\{\varPhi_k[n] \}=\{ e^{j\frac{2\pi}{N}kn} \}\\
+k=0,\pm1,\pm2......
+\]</div>
+<p>该信号集中的每一个信号都是以 <span class="arithmatex">\(N\)</span> 为公共周期的, 频率是 2π 的整数倍。</p>
+<p>与连续时间情况不同，该信号集中的信号并不都是彼此独立的。显然有：</p>
+<div class="arithmatex">\[
+\varPhi_{k+N}[n] = \varPhi_k[n]
+\]</div>
+<p>该信号集中<strong>只有 N 个信号是独立</strong>的。即当 k 取相连的 <span class="arithmatex">\(N\)</span> 个整数时所对应的各个谐波才是彼此独立的。</p>
+<p>根据集合定义，那么实际上这个信号集的元素个数是 <span class="arithmatex">\(N\)</span> 个。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>这里 “相互独立” 的意思是互不相等</p>
+</div>
+<h2 id="信号的基本运算">信号的基本运算<a class="headerlink" href="#信号的基本运算" title="Permanent link">&para;</a></h2>
+<h3 id="平移与反转">平移与反转<a class="headerlink" href="#平移与反转" title="Permanent link">&para;</a></h3>
+<p>连续信号和离散信号的运算一致</p>
+<ul>
+<li>沿横轴向左平移：<span class="arithmatex">\(f(t) \to f(t+t_0)\)</span></li>
+<li>沿横轴向右平移：<span class="arithmatex">\(f(t) \to f(t-t_0)\)</span></li>
+<li>沿纵轴镜像翻转：<span class="arithmatex">\(f(t) \to f(-t)\)</span></li>
+</ul>
+<h3 id="尺度变换">尺度变换<a class="headerlink" href="#尺度变换" title="Permanent link">&para;</a></h3>
+<p>对于离散信号，⼀般不做尺度变换，因为可能丢失序列信息，只对连续信号尺度变换</p>
+<div class="arithmatex">\[
+f(t) \to f(a\ t)
+\]</div>
+<p>横轴变为原来的 <span class="arithmatex">\(\frac{1}{a}\)</span> 倍</p>
+<h3 id="连续信号的求导与积分">连续信号的求导与积分<a class="headerlink" href="#连续信号的求导与积分" title="Permanent link">&para;</a></h3>
+<h3 id="离散信号的差分与求和">离散信号的差分与求和<a class="headerlink" href="#离散信号的差分与求和" title="Permanent link">&para;</a></h3>
+<p>好离散信号的<strong>前</strong>向(一阶)差分</p>
+<div class="arithmatex">\[
+\Delta f(k)=f(k+1)-f(k)
+\]</div>
+<p>好离散信号的<strong>后</strong>向(一阶)差分</p>
+<div class="arithmatex">\[
+\nabla f(k)=f(k)-f(k-1)
+\]</div>
+<h3 id="信号的运算的综合运">信号的运算的综合运⽤<a class="headerlink" href="#信号的运算的综合运" title="Permanent link">&para;</a></h3>
+<p>平移、反折、压缩等各种运算均对独⽴、单一的变量<em>t</em>计算，⽽不是对 <em>at</em> 或 <em>at</em> + <em>b</em> 整体计算</p>
+<p>对于<em>f</em> (<em>t</em>) → <em>f</em>(<em>at</em> + <em>b</em>) 先平移，后尺度(含反折)，即<em>f</em> (<em>t</em>) → <em>f</em>(<em>t</em> + <em>b</em>) → <em>f</em>(<em>at</em> + <em>b</em>)</p>
+<p>对于<em>f</em> (<em>at</em> + <em>b</em>) → <em>f</em>(<em>t</em>) 先尺度(含反折)，后平移，即<em>f</em> (<em>at</em> + <em>b</em>) → <em>f</em>(<em>t</em> + <em>b</em>) → <em>f</em>(<em>t</em>)</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../lti/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 卷积と线性时不变系统">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                卷积と线性时不变系统
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../systems-concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: 系统基本概念">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                系统基本概念
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

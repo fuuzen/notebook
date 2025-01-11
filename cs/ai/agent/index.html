@@ -1,0 +1,2241 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/ai/agent/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../concepts/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Agent - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#智能体" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Agent
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Agent
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#智能体" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#驻留性" class="md-nav__link">
+    <span class="md-ellipsis">
+      驻留性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自主性" class="md-nav__link">
+    <span class="md-ellipsis">
+      自主性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#灵活性" class="md-nav__link">
+    <span class="md-ellipsis">
+      灵活性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="灵活性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#反应性" class="md-nav__link">
+    <span class="md-ellipsis">
+      反应性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自发性" class="md-nav__link">
+    <span class="md-ellipsis">
+      自发性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#社会性" class="md-nav__link">
+    <span class="md-ellipsis">
+      社会性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其他特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bdi-模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      BDI 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#知识型体系结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识型体系结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="知识型体系结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concurrent-metatem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrent MetateM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反应型体系结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      反应型体系结构
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多智能体系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      多智能体系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多智能体系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特点_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#独立性" class="md-nav__link">
+    <span class="md-ellipsis">
+      独立性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#协同性" class="md-nav__link">
+    <span class="md-ellipsis">
+      协同性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无全局视角" class="md-nav__link">
+    <span class="md-ellipsis">
+      无全局视角
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不可预测和不确定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      不可预测和不确定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-研究分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 研究分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent 研究分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#知识表示与推理规划" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识表示与推理/规划
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#非合作博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      非合作博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="非合作博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#拍卖理论" class="md-nav__link">
+    <span class="md-ellipsis">
+      拍卖理论
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#收益等价定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      收益等价定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#合作博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      合作博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合作博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人-agent-交互" class="md-nav__link">
+    <span class="md-ellipsis">
+      人-Agent 交互
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    人工智能绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    强化学习基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    搜索技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncentain-knowledge-presentation-and-resolution/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不确定性知识表示与推理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#智能体" class="md-nav__link">
+    <span class="md-ellipsis">
+      智能体
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="智能体">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特点" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#驻留性" class="md-nav__link">
+    <span class="md-ellipsis">
+      驻留性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自主性" class="md-nav__link">
+    <span class="md-ellipsis">
+      自主性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#灵活性" class="md-nav__link">
+    <span class="md-ellipsis">
+      灵活性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="灵活性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#反应性" class="md-nav__link">
+    <span class="md-ellipsis">
+      反应性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#自发性" class="md-nav__link">
+    <span class="md-ellipsis">
+      自发性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#社会性" class="md-nav__link">
+    <span class="md-ellipsis">
+      社会性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#其他特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bdi-模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      BDI 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#知识型体系结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识型体系结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="知识型体系结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concurrent-metatem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrent MetateM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#反应型体系结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      反应型体系结构
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多智能体系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      多智能体系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多智能体系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特点_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="特点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#独立性" class="md-nav__link">
+    <span class="md-ellipsis">
+      独立性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#协同性" class="md-nav__link">
+    <span class="md-ellipsis">
+      协同性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无全局视角" class="md-nav__link">
+    <span class="md-ellipsis">
+      无全局视角
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#不可预测和不确定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      不可预测和不确定性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-研究分类" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent 研究分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent 研究分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#知识表示与推理规划" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识表示与推理/规划
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#非合作博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      非合作博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="非合作博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#拍卖理论" class="md-nav__link">
+    <span class="md-ellipsis">
+      拍卖理论
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#收益等价定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      收益等价定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#合作博弈" class="md-nav__link">
+    <span class="md-ellipsis">
+      合作博弈
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="合作博弈">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本过程" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本过程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#人-agent-交互" class="md-nav__link">
+    <span class="md-ellipsis">
+      人-Agent 交互
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Agent</h1>
+
+<h2 id="智能体">智能体<a class="headerlink" href="#智能体" title="Permanent link">&para;</a></h2>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<p>Agent 是指驻留在某一环境下能够<strong>自主</strong>（Autonomous）、<strong>灵活</strong>（Flexible）地执行动作以满足设计目标的行为实体。</p>
+<p>上述定义具有如下二个特点。</p>
+<ul>
+<li>(1) 定义方式 : Agent 概念定义是基于 Agent 的外部可观察行为特征，而不是其内部的结构</li>
+<li>(2) 抽象层次 : Agent 概念更加贴近于人们对现实世界（而不是计算机世界）中行为实体的理解</li>
+</ul>
+<h3 id="特点">特点<a class="headerlink" href="#特点" title="Permanent link">&para;</a></h3>
+<h4 id="驻留性">驻留性<a class="headerlink" href="#驻留性" title="Permanent link">&para;</a></h4>
+<h4 id="自主性">自主性<a class="headerlink" href="#自主性" title="Permanent link">&para;</a></h4>
+<p>智能体能在没有人类或其他智能体的干涉和指导的情况下运行，并能根据其内部状态和感知到的环境信息来决定该实施什么样的动作，进而控制自身的行为</p>
+<h4 id="灵活性">灵活性<a class="headerlink" href="#灵活性" title="Permanent link">&para;</a></h4>
+<p>智能体行为的灵活性主要体现为以下三方面：</p>
+<h5 id="反应性">反应性<a class="headerlink" href="#反应性" title="Permanent link">&para;</a></h5>
+<p>（Reactive）</p>
+<p>反应性是指智能体能够感知所处的环境，并能对环境中发生的相关事件（比如智能体间的交互、用户的指令等）作出适时反应，以满足系统设计目标</p>
+<h5 id="自发性">自发性<a class="headerlink" href="#自发性" title="Permanent link">&para;</a></h5>
+<p>（Pro-active）</p>
+<p>自发性是指智能体不仅具有目标并根据目标行事，而且能够主动地产生目标，进而实施自发的行为</p>
+<h5 id="社会性">社会性<a class="headerlink" href="#社会性" title="Permanent link">&para;</a></h5>
+<p>（Social）</p>
+<p>社会性是指智能体所驻留的环境可能存在其他智能体，它拥有这些智能体的有关信息和知识（比如这些智能体的物理位置、所拥有的资源和能力等），并能与它们进行交互和通信，实现灵活多样和复杂的合作、协商和竞争，以满足系统的设计目标</p>
+<h4 id="其他特性">其他特性<a class="headerlink" href="#其他特性" title="Permanent link">&para;</a></h4>
+<p>Agent 与<strong>分布式人工智能系统</strong>一样具有协作性、适应性等特性</p>
+<ul>
+<li>(1) 行为自主性</li>
+<li>(2) 作用交互性（也称反应性）</li>
+<li>(3) 环境协调性</li>
+<li>(4) 面向目标性</li>
+<li>(5) 存在社会性</li>
+<li>(6) 工作协作性</li>
+<li>(7) 运行持续性</li>
+<li>(8) 系统适应性</li>
+<li>(9) 结构分布性</li>
+<li>(10) 功能智能性</li>
+</ul>
+<h3 id="bdi-模型">BDI 模型<a class="headerlink" href="#bdi-模型" title="Permanent link">&para;</a></h3>
+<p>Agent 必须利用知识修改其内部状态(心理状态)，以适应环境变化和协作求解的需要。</p>
+<p>人类心理状态的要素可分为以下三种</p>
+<ul>
+<li>认知 (信念、知识、学习等)</li>
+<li>情感 (愿望、兴趣、爱好等)</li>
+<li>意向 (意图、目标和承诺等)</li>
+</ul>
+<p>受人类心理启发，传统 Agent 理论模型研究的主要方向为：</p>
+<ul>
+<li>信念 (Belief)</li>
+<li>愿望 (Desire)</li>
+<li>意图 (Intention)</li>
+</ul>
+<p>的关系及其形式化描述，力图建立 Agent 的<strong>BDI 模型</strong></p>
+<h3 id="结构">结构<a class="headerlink" href="#结构" title="Permanent link">&para;</a></h3>
+<p>计算机系统为 Agent 的开发和运行提供软件和硬件环境支持，使各个 Agent 依据全局状态协调地完成各项任务。具体地说：</p>
+<p>(1)在计算机系统中，Agent 相当于一个独立的功能模块、独立的计算机应用系统，它含有独立的外部设备、输入输出驱动装备、操作系统、数据结构和相应的输出。</p>
+<p>(2) Agent 程序的核心部分叫做<strong>决策生成器</strong>或<strong>问题求解器</strong>，起到主控作用。</p>
+<p>(3) Agent 的运行是一个或多个进程，并接受总体调度。</p>
+<p>(4) 各个 Agent 在多个计算机 CPU 上并行运行，其运行环境由体系结构支持。</p>
+<h4 id="知识型体系结构">知识型体系结构<a class="headerlink" href="#知识型体系结构" title="Permanent link">&para;</a></h4>
+<p>将智能体视为一个定理证明器，智能体的行为决策是一个基于知识库的定理证明过程</p>
+<p>智能体的内部状态对应于智能体所拥有的知识</p>
+<p>各个知识条目用逻辑语言（比如经典的一阶谓词逻辑或者 Hoare 逻辑）来表示</p>
+<p><img alt="知识型体系结构" src="../../../assets/cs/ai/agent/%E7%9F%A5%E8%AF%86%E5%9E%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" /></p>
+<p>基于知识型体系结构的智能体开发方法、技术和工具，代表性工作包括：</p>
+<ul>
+<li>Lesperance 等人基于格局演算（Situation Calculus）理论的 ConGolog ，它是 Golog（Goal-Oriented Language）的扩展</li>
+<li>Fisher 基于可执行时序逻辑（Temporal Logic）的多智能体系统编程语言<a href="https://en.wikipedia.org/wiki/Concurrent_MetateM">Concurrent MetateM</a></li>
+</ul>
+<p>知识型体系结构的不足：</p>
+<ul>
+<li>表达能力问题</li>
+<li>计算复杂性问题</li>
+<li>易用性问题</li>
+</ul>
+<h5 id="concurrent-metatem">Concurrent MetateM<a class="headerlink" href="#concurrent-metatem" title="Permanent link">&para;</a></h5>
+<p>一个由 Concurrent MetateM 实现的系统包含一组可并发、异步执行的智能体：</p>
+<ul>
+<li>每个智能体由一组可直接执行的时序逻辑公式加以描述</li>
+<li>多个智能体间通过广播消息进行通信</li>
+</ul>
+<p>对智能体进行编程的本质实际上就是用逻辑符号来定义智能体规约。一个智能体规约对应于一组时序逻辑公式，它描述了智能体行为。</p>
+<p>由 Concurrent MetateM 所定义的智能体实际上是一个迭代地建立关于智能体规约逻辑模型的过程。因此，Concurrent MetateM 中的智能体类似于一个定理证明器</p>
+<p>Concurrent MetateM 中的每一个智能体包含以下二个主要的部件：</p>
+<ul>
+<li>一个描述智能体行为的规约，每一个智能体规约均包含有一个接口（Interface）定义，用来描述智能体是如何与其所驻留的环境（即其他智能体）进行通信的；</li>
+<li>一个计算引擎，它负责执行智能体规约。</li>
+</ul>
+<h4 id="反应型体系结构">反应型体系结构<a class="headerlink" href="#反应型体系结构" title="Permanent link">&para;</a></h4>
+<p>智能体对环境事件的响应是通过一组简单的反应式规则来实现的，这些规则描述了智能体的感知输入与响应动作之间的映射关系。</p>
+<p>基于这些反应式规则，智能体无需通过复杂的推理和证明就可针对环境事件作出简单、快速地响应。</p>
+<p><img alt="反应型体系结构" src="../../../assets/cs/ai/agent/%E5%8F%8D%E5%BA%94%E5%9E%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png" /></p>
+<h2 id="多智能体系统">多智能体系统<a class="headerlink" href="#多智能体系统" title="Permanent link">&para;</a></h2>
+<p>多智能体系统是指由多个相对独立同时又相互作用的智能体所构成的系统</p>
+<h3 id="特点_1">特点<a class="headerlink" href="#特点_1" title="Permanent link">&para;</a></h3>
+<h4 id="独立性">独立性<a class="headerlink" href="#独立性" title="Permanent link">&para;</a></h4>
+<p>每个智能体都是自主的行为实体，封装了行为以及行为控制机制，可以在无需外部指导的情况下实施行为；</p>
+<h4 id="协同性">协同性<a class="headerlink" href="#协同性" title="Permanent link">&para;</a></h4>
+<p>这些智能体并不是孤立的，它们之间存在各种关系，需要相互交互和协同进而达成问题的求解</p>
+<h4 id="无全局视角">无全局视角<a class="headerlink" href="#无全局视角" title="Permanent link">&para;</a></h4>
+<p>对于绝大多数多智能体系统而言，系统中的智能体要获得关于系统以及环境的完整、准确和及时的信息是非常困难的。这是由于智能体所驻留的<strong>环境</strong>可能会比较复杂，具有以下特点：</p>
+<ul>
+<li>开放性</li>
+<li>不确定性</li>
+<li>动态性</li>
+<li>......</li>
+</ul>
+<h4 id="不可预测和不确定性">不可预测和不确定性<a class="headerlink" href="#不可预测和不确定性" title="Permanent link">&para;</a></h4>
+<p>在多智能体系统中，由于智能体行为的自主性、智能体行为对环境影响的有限性、系统中无全局控制智能体、智能体间交互行为的动态性，多智能体系统的运行具有不可预测性和不确定性的特点。</p>
+<h2 id="agent-研究分类">Agent 研究分类<a class="headerlink" href="#agent-研究分类" title="Permanent link">&para;</a></h2>
+<h3 id="知识表示与推理规划">知识表示与推理/规划<a class="headerlink" href="#知识表示与推理规划" title="Permanent link">&para;</a></h3>
+<p>核心假设：人工智能可以通过符号推理形式化刻画。</p>
+<p>研究目的：将知识表达为计算机可处理（computer-tractable）的形式，以供智能体使用。</p>
+<h3 id="非合作博弈">非合作博弈<a class="headerlink" href="#非合作博弈" title="Permanent link">&para;</a></h3>
+<p>Non-cooperative Game Theory</p>
+<ul>
+<li>Actions are taken by individual agents</li>
+<li>No binding agreements</li>
+</ul>
+<h4 id="拍卖理论">拍卖理论<a class="headerlink" href="#拍卖理论" title="Permanent link">&para;</a></h4>
+<p>四种类型拍卖：</p>
+<ul>
+<li>(1) 英式拍卖(English Auction)：又叫升价拍卖，竞价者在一起公开竞标，往上拾价，出价最高者获得拍品。这是我们最常见到的拍卖。</li>
+<li>(2) 荷式拍卖(Dutch Auction)：又叫降价拍卖，价格由高往低降，第一个接受价格的人获得拍品。</li>
+<li>(3) 第一价格拍卖(Fist-price Auction)：每个竞买人对拍品进行单独密封报价，但相互不知道其他竞买人的出价，标的装在信封里交上去，然后拍卖人拆开信封，拍卖人按各个标价的大小排序，最后在规定的时间、地点宜布标价，出价最高的竞买人获胜。</li>
+<li>(4) 第二价格拍卖(Second-price Auction)：二级价格拍卖与一级价格拍卖类似，不同的是最后出价最高的竞买人获得拍品，但只需要按照排位第二高的价格进行支付，即第二价格，因此这种拍卖方式被称为二级密封价格拍卖或“维克里拍卖”。</li>
+</ul>
+<p>四种拍卖形式奠定了拍卖的基本类型，其他无论什么形式的拍卖都只是这四种形式的变型与组合：</p>
+<p><img alt="拍卖" src="../../../assets/cs/ai/agent/%E6%8B%8D%E5%8D%96.png" /></p>
+<h4 id="收益等价定理">收益等价定理<a class="headerlink" href="#收益等价定理" title="Permanent link">&para;</a></h4>
+<p>在一些合理的约束条件保证下，四种拍卖形式最终的收益是相等的。</p>
+<p>给定买方人数，假定所有买方都是风险中性的，各买方的价值独立且具有相同的连续分布，而且分布函数严格递增。</p>
+<p>那么，任何满足下列两个条件的拍卖机制对于卖方都会产生相同的期望收益（对于买方则产生相同的期望支出）：</p>
+<ul>
+<li>条件 1：标的物总是为最高信号的买方获得；</li>
+<li>条件 2：如果买方的信号位于信号区间的下限，那么他的期望剩余为零。</li>
+</ul>
+<p>“收益等价定理”是整个拍卖理论研究的起点。它表明：对于委托人来说，只要拍卖品不变，购买对象不变，无论采用什么拍卖方式，最终收益都是一样的。</p>
+<p>当然“收益等价定理”说的是<strong>理想状态</strong>，这里我们千万不要忘记<strong>约束条件</strong>。在现实中，虽然拍卖品是共同的，但由于参与竞标的人不同、不同的拍卖流程和规则，结果产生拍卖结果的巨大差异。甚至同样一种拍卖办法，放到不同的国家，结果也会有天壤之别，原因在于现实的约束条件不同。</p>
+<h3 id="合作博弈">合作博弈<a class="headerlink" href="#合作博弈" title="Permanent link">&para;</a></h3>
+<p>Cooperative / Colitional Game Theory</p>
+<ul>
+<li>Actions are taken by groups of agents</li>
+<li>Binding agreements are possible</li>
+</ul>
+<p>合作博弈是一种侧重于<strong>玩家群体行为</strong>的模型。与非合作博弈不同，合作博弈中的战略互动没有被明确建模。</p>
+<h4 id="基本过程">基本过程<a class="headerlink" href="#基本过程" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Agent 们组成多个联盟（coalitions）</li>
+<li>每个联盟隐性地选择动作</li>
+<li>可转让效用（TU）博弈：联盟行动的选择（由所有联盟决定） 决定了每个联盟的回报——联盟中的 Agents 随后需要决定如何分配这个总回报</li>
+</ul>
+<h3 id="人-agent-交互">人-Agent 交互<a class="headerlink" href="#人-agent-交互" title="Permanent link">&para;</a></h3>
+<p>仅仅拥有自主性（Autonomy）的 Agent 并不足以作为人-Agent 交互的研究对象</p>
+<p>当人们塑造他们与物体或技术的互动，好像它们有目的、动机或意图时，我们就有了人-Agent 交互</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>通常，技术被设计成鼓励人们赋予它们 Agent 的性质，尽管这并非 Agent 的必要条件。人们会将 Agent 的性质赋予许多日常生活中的事物和技术，这是一个常见的研究领域</p>
+</div>
+<p>人机互补——人类和 agent 各自互补缺点，利用优点</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 人工智能">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                人工智能
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: 人工智能绪论">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                人工智能绪论
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

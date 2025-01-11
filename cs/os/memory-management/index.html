@@ -1,0 +1,3038 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/os/memory-management/">
+      
+      
+        <link rel="prev" href="../linux-customized-syscall/">
+      
+      
+        <link rel="next" href="../process/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>内存管理 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#虚拟内存物理实现" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              内存管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Os
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    操作系统绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deadlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    死锁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-customized-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    给Linux内核增加自定义系统调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    内存管理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    内存管理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟内存物理实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存物理实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存物理实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分区连续分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      分区(连续分配)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分区(连续分配)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单一连续分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      单一连续分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#固定分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      固定分区
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动态分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态分区
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态分区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#首次适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      首次适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#邻近适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      邻近适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最佳适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      最佳适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最坏适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      最坏适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#快速适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伙伴系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      伙伴系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="伙伴系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#哈希算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分段" class="md-nav__link">
+    <span class="md-ellipsis">
+      分段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分页" class="md-nav__link">
+    <span class="md-ellipsis">
+      分页
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      页表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共享页" class="md-nav__link">
+    <span class="md-ellipsis">
+      共享页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多级层页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      多级/层页表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#散列页表哈希表" class="md-nav__link">
+    <span class="md-ellipsis">
+      散列页表/哈希表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="散列页表/哈希表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#聚簇页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚簇页表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#倒排页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      倒排页表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#现代-os-举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代 OS 举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="现代 OS 举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oracle-sparc-solaris" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oracle SPARC Solaris
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ia-3264" class="md-nav__link">
+    <span class="md-ellipsis">
+      IA-32/64
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arm" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟内存软件实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存软件实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存软件实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#请求分页" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求分页
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="请求分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#处理缺页" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理缺页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#启动进程时内存中没有页面" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动进程时内存中没有页面
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多页错误" class="md-nav__link">
+    <span class="md-ellipsis">
+      多页错误
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#硬件支持" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件支持
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令重启" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令重启
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#写时复制" class="md-nav__link">
+    <span class="md-ellipsis">
+      写时复制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统抖动" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统抖动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统抖动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#工作集" class="md-nav__link">
+    <span class="md-ellipsis">
+      工作集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#帧分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      帧分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面回收" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面回收
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性能指标" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能指标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性能优化" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能优化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面置换算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面置换算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="页面置换算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#空闲帧列表" class="md-nav__link">
+    <span class="md-ellipsis">
+      空闲帧列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      OPT 算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lru-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      LRU 算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#额外引用位算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      额外引用位算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二次机会时钟算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二次机会/时钟算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增强型第二次机会算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      增强型第二次机会算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面缓冲算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面缓冲算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheduling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    经典进程同步问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thread/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ysosv2/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ysosv2
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟内存物理实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存物理实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存物理实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分区连续分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      分区(连续分配)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分区(连续分配)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单一连续分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      单一连续分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#固定分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      固定分区
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#动态分区" class="md-nav__link">
+    <span class="md-ellipsis">
+      动态分区
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态分区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#首次适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      首次适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#邻近适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      邻近适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最佳适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      最佳适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最坏适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      最坏适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#快速适应" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速适应
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#伙伴系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      伙伴系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="伙伴系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#哈希算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈希算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分段" class="md-nav__link">
+    <span class="md-ellipsis">
+      分段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#分页" class="md-nav__link">
+    <span class="md-ellipsis">
+      分页
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      页表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共享页" class="md-nav__link">
+    <span class="md-ellipsis">
+      共享页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多级层页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      多级/层页表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#散列页表哈希表" class="md-nav__link">
+    <span class="md-ellipsis">
+      散列页表/哈希表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="散列页表/哈希表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#聚簇页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚簇页表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#倒排页表" class="md-nav__link">
+    <span class="md-ellipsis">
+      倒排页表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#现代-os-举例" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代 OS 举例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="现代 OS 举例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oracle-sparc-solaris" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oracle SPARC Solaris
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ia-3264" class="md-nav__link">
+    <span class="md-ellipsis">
+      IA-32/64
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arm" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#虚拟内存软件实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟内存软件实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="虚拟内存软件实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#请求分页" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求分页
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="请求分页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#处理缺页" class="md-nav__link">
+    <span class="md-ellipsis">
+      处理缺页
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#启动进程时内存中没有页面" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动进程时内存中没有页面
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多页错误" class="md-nav__link">
+    <span class="md-ellipsis">
+      多页错误
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#硬件支持" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件支持
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令重启" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令重启
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#写时复制" class="md-nav__link">
+    <span class="md-ellipsis">
+      写时复制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统抖动" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统抖动
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统抖动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#工作集" class="md-nav__link">
+    <span class="md-ellipsis">
+      工作集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#帧分配" class="md-nav__link">
+    <span class="md-ellipsis">
+      帧分配
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面回收" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面回收
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性能指标" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能指标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性能优化" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能优化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面置换算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面置换算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="页面置换算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#空闲帧列表" class="md-nav__link">
+    <span class="md-ellipsis">
+      空闲帧列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面置换" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面置换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      FIFO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opt-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      OPT 算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lru-算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      LRU 算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#额外引用位算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      额外引用位算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二次机会时钟算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二次机会/时钟算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#增强型第二次机会算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      增强型第二次机会算法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#页面缓冲算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      页面缓冲算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>内存管理</h1>
+
+<blockquote>
+<p>冯·诺伊曼计算机体系决定了操作系统需要内存管理</p>
+</blockquote>
+<h2 id="虚拟内存物理实现">虚拟内存物理实现<a class="headerlink" href="#虚拟内存物理实现" title="Permanent link">&para;</a></h2>
+<ul>
+<li>连续分配</li>
+<li>单一连续分配</li>
+<li>分区<ul>
+<li>固定分区分配</li>
+<li>动态分区分配</li>
+</ul>
+</li>
+<li>非连续分配</li>
+<li>段式</li>
+<li>页式</li>
+<li>段页式</li>
+</ul>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />内部碎片和外部碎片</p>
+<ul>
+<li>内部碎片</li>
+<li>是已经被分配给某个进程的，该进程没有利用的</li>
+<li>固定分区分配产生这种碎片</li>
+<li>外部碎片</li>
+<li>是无法被分配给任何进程的，不属于任何进程的</li>
+<li>动态分区分配产生这种碎片</li>
+<li>可以通过<strong>紧凑</strong>技术克服，需要<strong>动态重定位寄存器</strong>硬件支持</li>
+</ul>
+<h3 id="分区连续分配">分区(连续分配)<a class="headerlink" href="#分区连续分配" title="Permanent link">&para;</a></h3>
+<h4 id="单一连续分配">单一连续分配<a class="headerlink" href="#单一连续分配" title="Permanent link">&para;</a></h4>
+<p>将内存分为两部分：</p>
+<ul>
+<li>系统区</li>
+<li>用户区</li>
+<li>唯一一个用户程序独占整个用户区</li>
+</ul>
+<p>内存中只有一个用户程序，只能用于单用户、单任务的操作系统。</p>
+<p>有内部碎片，无外部碎片。</p>
+<h4 id="固定分区">固定分区<a class="headerlink" href="#固定分区" title="Permanent link">&para;</a></h4>
+<p>使用<strong>空闲分区链/表</strong>。</p>
+<p>有内部碎片，无外部碎片。</p>
+<h4 id="动态分区">动态分区<a class="headerlink" href="#动态分区" title="Permanent link">&para;</a></h4>
+<p>使用<strong>空闲分区链/表</strong>。</p>
+<p>无内部碎片，有外部碎片。</p>
+<h5 id="首次适应">首次适应<a class="headerlink" href="#首次适应" title="Permanent link">&para;</a></h5>
+<p>空闲分区按<strong>地址递增</strong>顺序排列。</p>
+<p>每次分配时从头开始顺序查找到第一个满足大小的空闲分区。</p>
+<p>性能最好。</p>
+<h5 id="邻近适应">邻近适应<a class="headerlink" href="#邻近适应" title="Permanent link">&para;</a></h5>
+<p>空闲分区按<strong>地址递增</strong>顺序排列。和首次适应一样。</p>
+<p>每次分配时从上次查找结束位置开始查找到第一个满足大小的空闲分区。</p>
+<h5 id="最佳适应">最佳适应<a class="headerlink" href="#最佳适应" title="Permanent link">&para;</a></h5>
+<p>空闲分区按<strong>容量递增</strong>顺序排列。</p>
+<p>产生<strong>最多外部碎片</strong>。</p>
+<h5 id="最坏适应">最坏适应<a class="headerlink" href="#最坏适应" title="Permanent link">&para;</a></h5>
+<p>空闲分区按<strong>容量递减</strong>顺序排列。</p>
+<p>::: primary
+前面三种都基于<strong>顺序搜索</strong>，后面三种则都基于<strong>索引搜索</strong>。</p>
+<h5 id="快速适应">快速适应<a class="headerlink" href="#快速适应" title="Permanent link">&para;</a></h5>
+<p>基于<strong>索引分配</strong>，对空闲分区按大小相同的分为一类，每一类单独设置一个空闲分区链。建立一张<strong>索引表</strong>管理所有空闲分区链，索引表项包含对应大小的空闲分区链的<strong>头指针</strong>。</p>
+<p>根据进程需要的大小，在索引表中找到能容纳它的最小的空闲分区链表，直接从链表取出第一块进行分配。</p>
+<p>优劣：</p>
+<ul>
+<li>优点</li>
+<li>查找效率高</li>
+<li>不产生内部碎片（当然啊这不是动态分区吗）</li>
+<li>缺点</li>
+<li>回收分区复杂，导致算法复杂、系统开销大</li>
+</ul>
+<h5 id="伙伴系统">伙伴系统<a class="headerlink" href="#伙伴系统" title="Permanent link">&para;</a></h5>
+<blockquote>
+<p>我感觉应该算固定分区分配才对？</p>
+</blockquote>
+<p>规定所有分区大小为 <span class="arithmatex">\(2\)</span> 的 <span class="arithmatex">\(k\)</span> 次幂。</p>
+<p>每次分配大小为 <span class="arithmatex">\(n\)</span> (<span class="arithmatex">\(2^{i-1}&lt;n\leq 2^i\)</span>) 的分区时，在</p>
+<p>导致过多内部碎片<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<p>Slab 分配器——一般只有内核内存使用</p>
+<h6 id="哈希算法">哈希算法<a class="headerlink" href="#哈希算法" title="Permanent link">&para;</a></h6>
+<p>根据空闲分区链表的分布规律建立哈希函数，构建一张以哈希表：</p>
+<ul>
+<li>关键字 <code>key</code> 为空闲分区大小</li>
+<li>表项 <code>value</code> 为对应空闲分区链的头指针</li>
+</ul>
+<h3 id="分段">分段<a class="headerlink" href="#分段" title="Permanent link">&para;</a></h3>
+<p>程序员或者编译器会把程序和数据指定到不同的分段，需要知道段的最大长度限制</p>
+<p>将程序产生的二维地址即 <span class="arithmatex">\(&lt;段号,偏移&gt;\)</span> 映射到一维物理地址， 这个地址是通过段表实现;</p>
+<p>段表中每个条目由段基址和段界限构成</p>
+<p>CPU 去哪里找段表？—— GDTR 寄存器，GDTR 寄存器的结构如下：</p>
+<ul>
+<li>低 2 字节（16 位）存储了 limit ，全局描述符表的大小（以字节为单位），减去 1 的结果。</li>
+<li>高 4 字节（32 位）存储了 base ，全局描述符表的基地址。</li>
+</ul>
+<h3 id="分页">分页<a class="headerlink" href="#分页" title="Permanent link">&para;</a></h3>
+<p><strong>页放到页帧/框里</strong>，区分：<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<ul>
+<li>页（Page）</li>
+<li>页帧（Page frame）或者页框，是空的，没有数据</li>
+</ul>
+<p>页框 <span class="arithmatex">\(\geq\)</span> 页，现代操作系统大多二者是相等的，方便管理</p>
+<h4 id="页表">页表<a class="headerlink" href="#页表" title="Permanent link">&para;</a></h4>
+<p>系统中有一个唯一的<strong>页表寄存器</strong>（PTR），包含页表首地址（PTBR），只能由特权指令访问。</p>
+<blockquote>
+<p>页表长度寄存器（PTLR），可以直接用于判断是否越界（好像不一定有）</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>x86_64 , i386 中的 PTR 寄存器叫做 CR3 寄存器</p>
+</div>
+<p>页表从属于进程，每创建一个新进程就需要创建一个<strong>独立</strong>的新页表给它。</p>
+<h4 id="tlb">TLB<a class="headerlink" href="#tlb" title="Permanent link">&para;</a></h4>
+<p>转换表缓冲区/快表/... 详细参考计组</p>
+<h4 id="共享页">共享页<a class="headerlink" href="#共享页" title="Permanent link">&para;</a></h4>
+<p>共享代码</p>
+<ul>
+<li>进程(即文本编辑器、编译器、窗口系统)之间共享的只读 (可重入) 代码的一个副本;</li>
+<li>类似于共享同一进程空间的多个线程;</li>
+<li>如果允许共享读写页面，则还可用于进程间通信;</li>
+</ul>
+<h4 id="多级层页表">多级/层页表<a class="headerlink" href="#多级层页表" title="Permanent link">&para;</a></h4>
+<p>经典：在现代计算机上考虑 32 位逻辑地址空间，页面大小为 4KB (<span class="arithmatex">\(2^{12}\)</span>)，页面表将有 4M 个条目 (<span class="arithmatex">\(2^{32}/2^{12}=2^{20}\)</span>) ，如果每个条目为 4B ，每个进程需要为页表分配 16MB 的物理地址空间，这片连续的物理空间太大了！</p>
+<p>相同条件下考虑 64 位，即使采用 2 级分页，外层页表也需要 16384GB 大小的连续物理空间！所以 x86_64 采用 4 级页表</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>现代 OS 大多采用 3 到 4 级页表</p>
+</div>
+<p>64 位下的 2 级页表 和 3 级页表：</p>
+<p><img alt="64-2-3" src="../../../assets/cs/os/memory-management/64-2-3.png" /></p>
+<h4 id="散列页表哈希表">散列页表/哈希表<a class="headerlink" href="#散列页表哈希表" title="Permanent link">&para;</a></h4>
+<h5 id="聚簇页表">聚簇页表<a class="headerlink" href="#聚簇页表" title="Permanent link">&para;</a></h5>
+<p>64 位地址的变体，哈希值对应的不是一个页，而是一簇页（一个页族）</p>
+<p>特别适用于稀疏地址空间 (内存引用不连续且分散)</p>
+<h4 id="倒排页表">倒排页表<a class="headerlink" href="#倒排页表" title="Permanent link">&para;</a></h4>
+<p>不再为每个进程设置一个页表并跟踪所有可能的逻辑页，而是跟踪所有物理页，此时整个架构自 CPU 开始到 OS 都有较大变化</p>
+<p>内存的每一物理页有一个条目，条目包含：</p>
+<ul>
+<li>存储在该实际内存位置的页的虚拟地址</li>
+<li>有关拥有该页的进程的信息组成</li>
+</ul>
+<p>CPU 产生的逻辑地址：</p>
+<p><img alt="倒排页表" src="../../../assets/cs/os/memory-management/%E5%80%92%E6%8E%92%E9%A1%B5%E8%A1%A8.png" /></p>
+<p>优点：</p>
+<ul>
+<li>减少存储每个页表所需的内存</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>发生页引用时增加搜索表所需的时间</li>
+<li>共享内存不太容易实现：虚拟地址到共享物理地址的一种映射</li>
+</ul>
+<h3 id="现代-os-举例">现代 OS 举例<a class="headerlink" href="#现代-os-举例" title="Permanent link">&para;</a></h3>
+<h4 id="oracle-sparc-solaris">Oracle SPARC Solaris<a class="headerlink" href="#oracle-sparc-solaris" title="Permanent link">&para;</a></h4>
+<p>考虑现代 64 位操作系统目标是效率，低开销</p>
+<p>基于哈希，但更复杂</p>
+<p>两个哈希表</p>
+<ul>
+<li>一个内核</li>
+<li>一个用于所有用户进程</li>
+</ul>
+<p>每个都将内存地址从虚拟内存映射到物理内存</p>
+<p>每个条目表示映射虚拟内存的连续区域</p>
+<p>比为每个页面提供单独的哈希表条目更高效</p>
+<p>每个条目都有基址和跨距(表示条目所代表的页数)</p>
+<h4 id="ia-3264">IA-32/64<a class="headerlink" href="#ia-3264" title="Permanent link">&para;</a></h4>
+<p>英特尔 IA-32 和 IA-64 均支持分段、分页管理</p>
+<p>记录段号的基地址的描述符表，按私有、公有分为：</p>
+<ul>
+<li>LDT 局部描述符表</li>
+<li>GDT 全局描述符表</li>
+</ul>
+<p>早期 IA-32 利用 PAE 实现页地址扩展</p>
+<h4 id="arm">ARM<a class="headerlink" href="#arm" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Apple</p>
+</blockquote>
+<p>段页混合式管理，较大连续内存走分段，较小连续内存走分页：</p>
+<p><img alt="arm" src="../../../assets/cs/os/memory-management/arm.png" /></p>
+<h2 id="虚拟内存软件实现">虚拟内存软件实现<a class="headerlink" href="#虚拟内存软件实现" title="Permanent link">&para;</a></h2>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />虚拟内存的实现建立在离散分配的内存管理方式基础上</p>
+<p>三个特征：</p>
+<ul>
+<li>多次性</li>
+<li>对换性</li>
+<li>虚拟性</li>
+</ul>
+<p>虚拟内存可以通过以下方式实现:</p>
+<ul>
+<li>请求分页</li>
+<li>请求分段（按需分段）</li>
+<li>请求段页式存储管理</li>
+</ul>
+<h3 id="请求分页">请求分页<a class="headerlink" href="#请求分页" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>按需分页</p>
+</blockquote>
+<ul>
+<li>固定分配局部置换</li>
+<li>可变分配全局置换</li>
+<li>可变分配局部置换</li>
+</ul>
+<p>请求分页系统的<strong>外存</strong>：</p>
+<ul>
+<li>文件区</li>
+<li>存放文件，采用离散分配方式</li>
+<li>对换区（交换区）</li>
+<li>存放对换页面，采用连续分配方式，I/O 速度更快</li>
+</ul>
+<p>可以在加载时将整个进程放入内存或者只在需要时才将页面放入内存</p>
+<p>所需的 I/O 更少，没有不必要的 I/O</p>
+<ul>
+<li>所需内存更少</li>
+<li>更快的响应</li>
+<li>更支持多用户</li>
+</ul>
+<p>类似于带交换的分页系统 (需要硬件支持)</p>
+<ul>
+<li>页面是必需的——引用它</li>
+<li>无效引用——终止</li>
+<li>不在内存中——调入内存</li>
+</ul>
+<p>惰性交换程序：除非需要页，否则永远不要将页交换到内存中</p>
+<p>处理页面的交换程序是“调页程序”</p>
+<h4 id="处理缺页">处理缺页<a class="headerlink" href="#处理缺页" title="Permanent link">&para;</a></h4>
+<ol>
+<li>检查进程的内部表，通常与 PCB 一起保存，以确定内存引用是否有效;</li>
+<li>如果：（页面错误(缺页) ）</li>
+<li>无效，那么终止进程</li>
+<li>引用有效但是未调入页面， 那么发生缺页中断;</li>
+<li>找到空闲帧;（或 victim 帧）</li>
+<li>通过磁盘调度操作将页面交换到刚分配的帧中;</li>
+<li>当磁盘操作读取完成后，重置内部表和页表，以指示当前页面在内存中;</li>
+<li>重新启动导致缺页的指令，该进程能够访问所需的页;（<strong>指令重启</strong>）</li>
+</ol>
+<h4 id="问题">问题<a class="headerlink" href="#问题" title="Permanent link">&para;</a></h4>
+<h5 id="启动进程时内存中没有页面">启动进程时内存中没有页面<a class="headerlink" href="#启动进程时内存中没有页面" title="Permanent link">&para;</a></h5>
+<p>操作系统将指令指针设置为进程的第一条指令，非内存驻留-&gt;页面错误</p>
+<ul>
+<li>进程其他页面的访问也是一样;</li>
+<li>纯请求分页;</li>
+</ul>
+<h5 id="多页错误">多页错误<a class="headerlink" href="#多页错误" title="Permanent link">&para;</a></h5>
+<ul>
+<li>考虑从内存中将 2 个数加和并将结果存储回内存的指令的读取和解码,可能产生多个缺页错误;</li>
+<li>产生性能痛点，幸运的是因为局部引用的存在，使得请求分页 具有较为合理的性能;</li>
+</ul>
+<h5 id="硬件支持">硬件支持<a class="headerlink" href="#硬件支持" title="Permanent link">&para;</a></h5>
+<p>具有有效/无效位的页表
+辅助内存(带交换空间的交换设备)</p>
+<p>指令重启，在缺页错误后能够重启任何指令;</p>
+<h4 id="指令重启">指令重启<a class="headerlink" href="#指令重启" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>微代码</strong>计算试图访问源块和目的块的两端，如果出现缺页错误，那么在这一步出现，完成缺页逻辑后，执行移动操作;</li>
+<li>使用<strong>临时寄存器</strong>来保存覆盖位置的值，如果有缺页错误，则在陷阱发生之前，所有旧值都将写回到内存中。该动作是将内存恢复到指令启动之前的状态，这样能够重复执行该指令;</li>
+</ul>
+<h4 id="写时复制">写时复制<a class="headerlink" href="#写时复制" title="Permanent link">&para;</a></h4>
+<p>写时复制 (CoW) 允许父进程和子进程最初共享内存中的相同页面</p>
+<p>如果任一进程修改了共享页面，则该页面被复制</p>
+<p>CoW 允许更高效的进程创建 (fork) ，因为只复制修改过的页面</p>
+<h4 id="系统抖动">系统抖动<a class="headerlink" href="#系统抖动" title="Permanent link">&para;</a></h4>
+<p>频繁发生缺页，系统忙于进行页面的换入和换出，而没有进行有效的计算。</p>
+<p><img alt="系统抖动" src="../../../assets/cs/os/memory-management/%E7%B3%BB%E7%BB%9F%E6%8A%96%E5%8A%A8.png" /></p>
+<p>导致 CPU 利用率低，并发度低。</p>
+<p>系统还会自动检测 CPU 利用率，系统抖动时检测到 CPU 利用率降低，会创建更多精进程来提高 CPU 利用率，但这会反而加剧系统抖动。</p>
+<p>局部性原理告诉我们，访问磁盘总是在一个局部到另一个局部变化。而系统抖动从这个角度来说，就是局部性访问的大小超过了内存大小，所以导致了系统抖动。</p>
+<p>本地或优先级替换算法来缓解系统抖动。</p>
+<h5 id="工作集">工作集<a class="headerlink" href="#工作集" title="Permanent link">&para;</a></h5>
+<p><span class="arithmatex">\(WSS_i\)</span> (Working Set of Process <span class="arithmatex">\(P_i\)</span> )：进程在某一个固定的时间窗口 <span class="arithmatex">\(\Delta\)</span>（可以按时间算、指令数算）内，访问的所有页面</p>
+<ul>
+<li>if <span class="arithmatex">\(\Delta\)</span> too small will not encompass entire locality</li>
+<li>if <span class="arithmatex">\(\Delta\)</span> too large will encompass several localities</li>
+<li>if <span class="arithmatex">\(\Delta=\infty\)</span> will encompass entire program</li>
+</ul>
+<p>最理想的情况就是 WSS 能够被全部放在 TLB 中</p>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /> <span class="arithmatex">\(t\)</span> 时刻的工作集为该时刻及其以前 <span class="arithmatex">\(\Delta\)</span> 时间窗口范围内的访问的页面。</p>
+<p>解决方案 1</p>
+<p>建立“可接受的” PFF (page-fault frequency) 并使用本地替换策略</p>
+<p>内核的内存管理就比较简单，因为它在内存里一定是连续的，可以完全利用线性地址偏移解决。</p>
+<p>预调页</p>
+<p>访问到某一内存页，很有可能下次就要访问它的邻居内存页，所以利用空间局部性</p>
+<p>在程序启动的时候可以减少大量的缺页</p>
+<p>当然也是有可能造成 I/O 和内存的浪费的</p>
+<h4 id="帧分配">帧分配<a class="headerlink" href="#帧分配" title="Permanent link">&para;</a></h4>
+<p>在进程之间如何分配固定数量的可用内存?</p>
+<ul>
+<li>固定分配</li>
+<li>
+<p>优先级分配</p>
+</li>
+<li>
+<p>全局置换——进程从所有帧集中选择替换帧，一个进程可以从另一个进程获取帧</p>
+</li>
+<li>高优先级进程可以置换低优先级进程</li>
+<li>缺点:进程不能控制他自己的缺页错误率</li>
+<li>局部置换——每个进程仅从其自己的一组分配帧中进行选择</li>
+<li>每个进程的性能更加一致</li>
+<li>但可能是未充分利用的内存</li>
+</ul>
+<h4 id="页面回收">页面回收<a class="headerlink" href="#页面回收" title="Permanent link">&para;</a></h4>
+<h4 id="性能指标">性能指标<a class="headerlink" href="#性能指标" title="Permanent link">&para;</a></h4>
+<p>Three major activities</p>
+<ul>
+<li>Service the interrupt – careful coding means just several hundred instructions needed</li>
+<li>Read the page – lots of time</li>
+<li>Restart the process – again just a small amount of time</li>
+</ul>
+<p><strong>Effective Access Time (EAT)</strong></p>
+<div class="arithmatex">\[
+EAT=(1–p)\times MA+p\times(PFO+SPO-SPI)
+\]</div>
+<ul>
+<li>Page Fault Rate <span class="arithmatex">\(0\leq p\leq1\)</span>：</li>
+<li>if <span class="arithmatex">\(p=0\)</span>, no page faults</li>
+<li>if <span class="arithmatex">\(p=1\)</span>, every reference is a fault</li>
+<li><span class="arithmatex">\(MA\)</span> : memory access</li>
+<li><span class="arithmatex">\(PFO\)</span> : page fault overhead</li>
+<li><span class="arithmatex">\(SPO\)</span> : swap page out ( if dirty )</li>
+<li><span class="arithmatex">\(SPI\)</span> : swap page in</li>
+</ul>
+<h4 id="性能优化">性能优化<a class="headerlink" href="#性能优化" title="Permanent link">&para;</a></h4>
+<p>交换空间 I/O 比文件系统 I/O 快，即使在同一设备上也是如此</p>
+<p>交换分配在更大的块中，比文件系统所需的管理更少;</p>
+<p>在进程加载时将整个进程映像复制到交换空间</p>
+<p>然后在交换空间内执行调页;
+在旧的 BSD Unix 中使用;</p>
+<p>从磁盘上的程序二进制文件请求分页，但在释放帧时将页面直 接放弃(被覆盖)，而不是分页调出;</p>
+<p>在 Solaris 和当前 BSD 中使用 § 仍然需要写入以交换空间</p>
+<p>与文件不关联的页面(如栈和堆)-匿名内存</p>
+<p>在内存中修改但尚未写回文件系统的页面; v 移动系统</p>
+<p>通常不支持交换
+相反，从文件系统请求页面并回收只读页面(如代码)</p>
+<h3 id="页面置换算法">页面置换算法<a class="headerlink" href="#页面置换算法" title="Permanent link">&para;</a></h3>
+<h4 id="空闲帧列表">空闲帧列表<a class="headerlink" href="#空闲帧列表" title="Permanent link">&para;</a></h4>
+<p>当出现页面错误时，操作系统必须将所需页面从辅助存储器带入主存。</p>
+<p>大多数操作系统都维护一个空闲帧列表——一个用于满足此类请求的空闲帧池。</p>
+<p>操作系统通常使用一种称为按需零填充 (zero-fill-on-demand) 的技术来分配空闲帧，即在分配前将帧的内容清零。</p>
+<p>当系统启动时，所有可用内存都会放在空闲帧列表中。</p>
+<h4 id="页面置换">页面置换<a class="headerlink" href="#页面置换" title="Permanent link">&para;</a></h4>
+<p>一定发生在缺页故障处理中，空闲帧列表基础上的补充，<strong>防止内存过度分配</strong>。</p>
+<ul>
+<li>不一定要在空闲帧列表为空的时候才进行页面置换，也可能在空闲帧数量低于某一阈值的时候就开始</li>
+<li>往往不是一个页面一个页面置换，因为这样效率比较低，而是批处理多个页面进行置换</li>
+</ul>
+<p>使用修改 (dirty) 位来减少⻚面（内存到磁盘）传输的开销——只有修改过的 victim ⻚面才会写入磁盘;</p>
+<p>⻚面替换完成了逻辑内存和物理内存之间的分离——可以 在较小的物理内存上提供较大的虚拟内存;</p>
+<h4 id="fifo">FIFO<a class="headerlink" href="#fifo" title="Permanent link">&para;</a></h4>
+<p><img alt="页面错误与帧数关系图" src="../../../assets/cs/os/memory-management/%E9%A1%B5%E9%9D%A2%E9%94%99%E8%AF%AF%E4%B8%8E%E5%B8%A7%E6%95%B0%E5%85%B3%E7%B3%BB%E5%9B%BE.png" /></p>
+<p><strong>Belady 异常</strong>，出现帧数增加后缺页异常数量也增加的现象，只会在 FIFO 调度中出现</p>
+<p><img alt="页面错误与帧数关系图belady" src="../../../assets/cs/os/memory-management/%E9%A1%B5%E9%9D%A2%E9%94%99%E8%AF%AF%E4%B8%8E%E5%B8%A7%E6%95%B0%E5%85%B3%E7%B3%BB%E5%9B%BEbelady.png" /></p>
+<h4 id="opt-算法">OPT 算法<a class="headerlink" href="#opt-算法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>最优页面置换算法</p>
+</blockquote>
+<p>替换在最长时间内不使用的页面，实际上不能预测，所以是不可行的，但可以用于理论上测量其他算法性能，作为比较的基线</p>
+<h4 id="lru-算法">LRU 算法<a class="headerlink" href="#lru-算法" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>最少最近使用(LRU)算法</p>
+</blockquote>
+<p>使用过去的知识而不是未来的知识，替换在最长时间内未使用的页面，将最后一次使用的时间与每页关联</p>
+<p>一般来说，算法很好，经常使用</p>
+<ul>
+<li>计数器实现，为每一个页面（页表项）设置计数位，每次页面被引用，将当前时钟的时间戳复制到计数位</li>
+<li>使用堆栈记录最近的页面引用，栈顶为最近一次引用的页面，使用双向链表排序</li>
+</ul>
+<h4 id="额外引用位算法">额外引用位算法<a class="headerlink" href="#额外引用位算法" title="Permanent link">&para;</a></h4>
+<p>通过定期记录引用位，可以获得额外的排序信息;</p>
+<p>为每个页面的页表项设置一个 8 位的字节;</p>
+<p>将每个页面的引用位移到 8 位字节的高位，右移一位，并丢 弃最低位，保存 8 个时间周期的页面使用情况;</p>
+<blockquote>
+<p>具有 <code>11000100</code> 的历史寄存器值的页面比具有值为 <code>01110111</code> 的 页面更为“最近使用”;</p>
+</blockquote>
+<p>替换最小编号;</p>
+<h4 id="第二次机会时钟算法">第二次机会/时钟算法<a class="headerlink" href="#第二次机会时钟算法" title="Permanent link">&para;</a></h4>
+<p>通常为 FIFO，加上硬件提供的引用位。为每个页面设置一个访问位，再将内存中的页面都通过链接指针链接成一个循环队列</p>
+<p>一般默认初始情况没有调入任何页面，依次调入页面后，各个页面的访问位为 <code>1</code>，替换指针指向第一个页帧。</p>
+<p>::: warning
+替换指针总是指向上一次被调入页面的下一个页帧！若为最后一个页帧则回到第一个页帧！
+替换规则：</p>
+<ul>
+<li>引用位=<code>0</code>，替换它，然后替换指针指向下一个页帧。</li>
+<li>引用位=<code>1</code>，则:</li>
+<li>设置引用位 <code>0</code>，将页面保留在内存中</li>
+<li>替换指针指向下一个页帧，继续找按该规则 victim</li>
+</ul>
+<p>第二轮扫描中一定会有访问位为 <code>0</code> 的页面，因此简单的 CLOCK 算法选择一个淘汰页面最多会经过两轮扫描</p>
+<h4 id="增强型第二次机会算法">增强型第二次机会算法<a class="headerlink" href="#增强型第二次机会算法" title="Permanent link">&para;</a></h4>
+<p>在第二次机会/时钟置换算法的基础上，除了考虑一个页面最近有没有被访问过之外，操作系统还应考虑页面有没有被修改过。在其他条件都相同时，应优先淘汰没有修改过的页面。</p>
+<p>为每个页面页表项增加修改位（dirty）：</p>
+<ul>
+<li>修改位=<code>0</code>，表示页面没有被修改过；</li>
+<li>修改位=<code>1</code>，表示页面被修改过。</li>
+</ul>
+<p>方便讨论，用 <code>(访问位,修改位)</code> 的形式表示各页面状态：</p>
+<ul>
+<li><code>(0,0)</code> 最近未使用未修改——要替换的最佳页面</li>
+<li><code>(0,1)</code> 最近未使用但已修改——不太好，必须在置换之前将页面写出;</li>
+<li><code>(1,0)</code> 最近使用但没有修改——可能很快会再次使用</li>
+<li><code>(1,1)</code> 最近使用和修改的——可能很快会再次使用，需要在更换前将页面写出;</li>
+</ul>
+<p>将所有可能被置换的页面排成一个循环队列，和原本的时钟置换相比，每一轮的操作都有不同。</p>
+<ul>
+<li>第一轮：从当前位置开始扫描到第一个 <code>(0,0)</code> 的帧用于替换。本轮扫描不修改任何标志位</li>
+<li>第二轮：若第一轮扫描失败，则重新扫描，查找第一个 <code>(0,1)</code> 的帧用于替换。本轮将所有扫描过的帧访问位设为 <code>0</code></li>
+<li>第三轮：若第二轮扫描失败，则重新扫描，查找第一个 <code>(0,0)</code> 的帧用于替换。本轮扫描不修改任何标志位</li>
+<li>第四轮：若第三轮扫描失败，则重新扫描，查找第一个 <code>(0,1)</code> 的帧用于替换。</li>
+</ul>
+<p>这里的第 2、3 轮相当于原来的时钟置换算法的(可能的)， 2 轮。</p>
+<p>由于第二轮已将所有帧的访问位设为 <code>0</code> ，因此经过第三轮、第四轮扫描一定会有一个帧被选中，因此改进型时钟置换算法选择一个淘汰页面最多会进行四轮扫描</p>
+<h4 id="页面缓冲算法">页面缓冲算法<a class="headerlink" href="#页面缓冲算法" title="Permanent link">&para;</a></h4>
+<p>始终保持一个空闲帧池</p>
+<ul>
+<li>
+<p>当出现缺页错误时，会像以前一样选择一个牺牲帧;</p>
+</li>
+<li>
+<p>将页面读入空闲帧，选择要退出的牺牲帧并添加到空闲 池;</p>
+</li>
+<li>
+<p>方便时，驱逐牺牲帧，无需等待写出牺牲帧; v 可能的话，保留修改过的页面列表</p>
+</li>
+</ul>
+<p>当备份存储为空闲时，在那里写入页面并设置为非脏; 增加了无需写出的页面的概率;</p>
+<p>可能的话，保持空闲帧池，并且记住哪些页面在哪些帧内;</p>
+<p>如果在重用之前再次引用，则无需再次从磁盘加载内容</p>
+<p>如果选择了错误的受害者帧，通常有助于减少惩罚</p>
+<p>双缓冲</p>
+<ul>
+<li>操作系统将页面副本作为 I/O 缓冲区保存在内存中</li>
+<li>应用程序将页保留在内存中以供自己工作;</li>
+</ul>
+<p>可能带来好处，也可能带来坏处</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../linux-customized-syscall/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 给Linux内核增加自定义系统调用">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                给Linux内核增加自定义系统调用
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../process/" class="md-footer__link md-footer__link--next" aria-label="Next: 进程">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                进程
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

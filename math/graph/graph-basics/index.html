@@ -1,0 +1,2886 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/graph-basics/">
+      
+      
+        <link rel="prev" href="../euler_hamilton/">
+      
+      
+        <link rel="next" href="../match/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>图的基本概念 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#图的基础知识" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              图的基本概念
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coloring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#图的基础知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的基础知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#图的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的同构" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的同构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#完全图" class="md-nav__link">
+    <span class="md-ellipsis">
+      完全图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#补图" class="md-nav__link">
+    <span class="md-ellipsis">
+      补图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="补图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#自补图性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      自补图性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正则图" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#握手定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      握手定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="握手定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#推论-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可图数组" class="md-nav__link">
+    <span class="md-ellipsis">
+      可图数组
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可图数组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#必要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图序列相关定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      图序列相关定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图序列相关定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#havel-hakimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Havel-Hakimi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Havel-Hakimi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中证明充分性" class="md-nav__link">
+    <span class="md-ellipsis">
+      中证明充分性：
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="中证明充分性：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#情形-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      情形 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情形-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      情形 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#厄多斯定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      厄多斯定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理-简单图度数不可能互不相同" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理-简单图度数不可能互不相同
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      频序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#拓扑不变量" class="md-nav__link">
+    <span class="md-ellipsis">
+      拓扑不变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#图的运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#子图和真子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      子图和真子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成子图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#计数性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      计数性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#导出子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      导出子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#删点运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      删点运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#删边运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      删边运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#并运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      并运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      交运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#差运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      差运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称差环和差" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称差/环和差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#联运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      联运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#笛卡尔积运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      (笛卡尔)积运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#合成运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      合成运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方体" class="md-nav__link">
+    <span class="md-ellipsis">
+      方体
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#路与图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      路与图的连通性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="路与图的连通性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#途径迹路" class="md-nav__link">
+    <span class="md-ellipsis">
+      途径、迹、路
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="途径、迹、路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#圈的充分条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      圈的充分条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#偶图的充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶图的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两顶点的距离" class="md-nav__link">
+    <span class="md-ellipsis">
+      两顶点的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两顶点的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      两顶点的连通性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的连通性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的连通性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连通图的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#补图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      补图的连通性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通图充分条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图充分条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通图充分条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图充分条件 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的直径
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的直径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直径相关性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      直径相关性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#图的基础知识" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的基础知识
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#图的定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的同构" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的同构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#完全图" class="md-nav__link">
+    <span class="md-ellipsis">
+      完全图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#补图" class="md-nav__link">
+    <span class="md-ellipsis">
+      补图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="补图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#自补图性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      自补图性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正则图" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#握手定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      握手定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="握手定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#推论-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#可图数组" class="md-nav__link">
+    <span class="md-ellipsis">
+      可图数组
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可图数组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#必要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      必要条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图序列相关定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      图序列相关定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图序列相关定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#havel-hakimi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Havel-Hakimi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Havel-Hakimi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#中证明充分性" class="md-nav__link">
+    <span class="md-ellipsis">
+      中证明充分性：
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="中证明充分性：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#情形-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      情形 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情形-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      情形 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#厄多斯定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      厄多斯定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定理-简单图度数不可能互不相同" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理-简单图度数不可能互不相同
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#频序列" class="md-nav__link">
+    <span class="md-ellipsis">
+      频序列
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="频序列">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#拓扑不变量" class="md-nav__link">
+    <span class="md-ellipsis">
+      拓扑不变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#图的运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#子图和真子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      子图和真子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生成子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成子图
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="生成子图">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#计数性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      计数性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#导出子图" class="md-nav__link">
+    <span class="md-ellipsis">
+      导出子图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#删点运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      删点运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#删边运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      删边运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#并运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      并运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#交运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      交运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#差运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      差运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#对称差环和差" class="md-nav__link">
+    <span class="md-ellipsis">
+      对称差/环和差
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#联运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      联运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#笛卡尔积运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      (笛卡尔)积运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#合成运算" class="md-nav__link">
+    <span class="md-ellipsis">
+      合成运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方体" class="md-nav__link">
+    <span class="md-ellipsis">
+      方体
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#路与图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      路与图的连通性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="路与图的连通性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#途径迹路" class="md-nav__link">
+    <span class="md-ellipsis">
+      途径、迹、路
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="途径、迹、路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#圈的充分条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      圈的充分条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#偶图的充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶图的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两顶点的距离" class="md-nav__link">
+    <span class="md-ellipsis">
+      两顶点的距离
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#两顶点的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      两顶点的连通性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的连通性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的连通性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#连通图的性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图的性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#补图的连通性" class="md-nav__link">
+    <span class="md-ellipsis">
+      补图的连通性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通图充分条件-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图充分条件 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通图充分条件-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通图充分条件 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#图的直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的直径
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的直径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直径相关性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      直径相关性质
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>图的基本概念</h1>
+
+<h2 id="图的基础知识">图的基础知识<a class="headerlink" href="#图的基础知识" title="Permanent link">&para;</a></h2>
+<h3 id="图的定义">图的定义<a class="headerlink" href="#图的定义" title="Permanent link">&para;</a></h3>
+<p>一 个 图 <span class="arithmatex">\(G\)</span> 定 义 为 一 个 有 序 对 ( V , E )， 记 为 G = ( V , E )， 其 中：</p>
+<ol>
+<li>V 是一个非空集合，称为顶点集或边集，其元素称为项点或点</li>
+<li>E 是由 V 中的点组成的无序点对构成的集合，称为边集，其元素称为边，且同一 点对在 E 中可出现多次。</li>
+</ol>
+<p>图 <span class="arithmatex">\(G\)</span> 的<strong>顶点集</strong>也记为<strong>V(G)</strong>，<strong>边集</strong>也记为<strong>E(G)</strong>。</p>
+<p>顶点集和边集都有限的图称为<strong>有限图</strong>。</p>
+<p>只有一个项点而无边的图称为<strong>平凡图</strong>。其他所有的图都称为<strong>非平凡图</strong>。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>做题往往需要先排除平凡图</p>
+</div>
+<p>边集为空的图称为<strong>空图</strong>。</p>
+<p>图 <span class="arithmatex">\(G\)</span> 的<strong>顶点数</strong> (或<strong>阶数</strong>) 和<strong>边数</strong>可分别用符号 <strong>n(G)</strong> 和 <strong>m(G)</strong> 表示。</p>
+<p>连接两个相同顶点 的边的条数，叫做<strong>边的重数</strong>。重数大于 1 的边称为<strong>重边</strong>。</p>
+<p>端点重合为一点的边称为<strong>环</strong>。</p>
+<p>既没有环也没有重边的图称为<strong>简单图</strong>。其他所有的图都称为<strong>复合图</strong>。</p>
+<p>边记为 uv，也可记 uv 为 e ，即 e = uv。此时称 u 和 v 是 e 的<strong>端点</strong>，并称 u 和 v <strong>相邻</strong>，u (或 v) 与 e 相<strong>关联</strong>。</p>
+<p>若两条边有一个共同的端点，则称这两条边<strong>相邻</strong>。</p>
+<p>若用小圆点代表点， 连线代表边，则可将一个图用“图形” 来表示。</p>
+<h3 id="图的同构">图的同构<a class="headerlink" href="#图的同构" title="Permanent link">&para;</a></h3>
+<p>设 有 两 个 图 G<sub>1</sub> = (V<sub>1</sub> , E<sub>1</sub> )和 G<sub>2</sub> = (V<sub>2</sub> , E<sub>2</sub> )， 若 在 其 项 点 集 合 之 间 存 在 双 射 ， 即 存
+在一一对应的关系，使得边之间有如下的关系:</p>
+<div class="arithmatex">\[
+设 u_1 \Leftrightarrow u_2 , v_1 \Leftrightarrow v_2 ,\ \ \  u_1 ,v_1\in V_1 ,\ \ \  u_2 , v_2 \in V_2 \\
+u_1 v_1 \in E_1 \Leftrightarrow u_2 v_2 \in E_2
+\]</div>
+<div class="arithmatex">\[
+ u_1 v_1 重数 = u_2 v_2 重数
+\]</div>
+<p>则称两图 G<sub>1</sub> , G<sub>2</sub> <strong>同构</strong> ， 记为：</p>
+<div class="arithmatex">\[
+G_1 \cong G_2
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>同构关系就是一种等价关系，形成等价类</p>
+</div>
+<h3 id="完全图">完全图<a class="headerlink" href="#完全图" title="Permanent link">&para;</a></h3>
+<p>每两个不同的顶点之问都有一条边相连的简单图称为<strong>完全图</strong>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>完全图是简单图的上限，空图则是下限</p>
+</div>
+<p>在同构意义下，n 个顶点的完全图只有一个，记为 K<sub>n</sub> ，也叫 n 阶完全图。</p>
+<p>所谓具有二分类 (X, Y) 的<strong>偶图</strong>(或<strong>二部图</strong>)是指：一个图，它的点集可以分解为两个(非空)子集 X 和 Y ，使得每条边的一个端点在 X 中，另一个端点在 Y 中。</p>
+<p><strong>完全偶图</strong>是指具有二分类 (X , Y) 的简单偶图 ， 其中 X 的每个项点与 Y 的每个项点相连，若 |X|=m ，|Y|=n ，则这样的偶图记为 K<sub>m,n</sub>。</p>
+<h3 id="补图">补图<a class="headerlink" href="#补图" title="Permanent link">&para;</a></h3>
+<p>对于一个简单图 G= (V, E)，令集合</p>
+<div class="arithmatex">\[
+E_1=\{uv|u\neq v ,\ \ u,v\in V\}
+\]</div>
+<p>则图 <span class="arithmatex">\(H=(VE/E_1)\)</span> 称为 <span class="arithmatex">\(G\)</span> 的<strong>补图</strong> ，记为：</p>
+<div class="arithmatex">\[
+H=\overline G=(V,E/E_1)
+\]</div>
+<p>如果一个图和自己的补图是同构的，则称这个图是<strong>自补</strong>的，并记为：</p>
+<div class="arithmatex">\[
+G\cong \overline G
+\]</div>
+<h4 id="自补图性质">自补图性质<a class="headerlink" href="#自补图性质" title="Permanent link">&para;</a></h4>
+<p>若 n 阶 图 <span class="arithmatex">\(G\)</span> 是 自补 的 ( 即 <span class="arithmatex">\(G\cong \overline G\)</span> )， 则 <span class="arithmatex">\(n=0,1(\mathrm{mod} 4)\)</span>。</p>
+<h3 id="正则图">正则图<a class="headerlink" href="#正则图" title="Permanent link">&para;</a></h3>
+<p>G 的<strong>顶点的度</strong> d (v) 是指 <span class="arithmatex">\(G\)</span> 中与 v 关联的边的数目，每个环计算两次。</p>
+<p>用 <span class="arithmatex">\(\delta(G)\)</span> 和 <span class="arithmatex">\(\Delta(G)\)</span> 分别表示 G 的项点的<strong>最小度</strong>和<strong>最大度</strong>。</p>
+<p>为方便，奇数度的顶点称为<strong>奇点</strong>，偶数度的顶点称<strong>偶点</strong>。</p>
+<p>设 G = (V，E) 为简单图，如果对所有 <span class="arithmatex">\(v\in V\)</span> ，有 d(v) = k ，称图 <span class="arithmatex">\(G\)</span> 为<strong>k-正则图</strong>。</p>
+<p>完全图 K<sub>n</sub> 和完全偶图 K<sub>n,m</sub> 均是正则图。</p>
+<h3 id="握手定理">握手定理<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#握手定理" title="Permanent link">&para;</a></h3>
+<p>图 G = (V , E ) 中 所 有 项 点 的 度 的 和 等 于 边 数 m 的 2 倍 ， 即</p>
+<div class="arithmatex">\[
+\sum_{v\in V}d(v)=2m
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>也叫：握手定理，图论第一定理</p>
+</div>
+<h4 id="推论-1">推论 1<a class="headerlink" href="#推论-1" title="Permanent link">&para;</a></h4>
+<p>在任何图中，奇点个数为偶数。</p>
+<h4 id="推论-2">推论 2<a class="headerlink" href="#推论-2" title="Permanent link">&para;</a></h4>
+<p>正则图的阶数和度数不同时为奇数。</p>
+<h4 id="推论-3">推论 3<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#推论-3" title="Permanent link">&para;</a></h4>
+<p>由握手定理有：</p>
+<div class="arithmatex">\[
+n\delta\lt\sum_{v\in V(G)}d(v)=2m\leq n\Delta\\
+\delta\leq\frac{2m}{n}\leq\Delta
+\]</div>
+<h3 id="可图数组">可图数组<a class="headerlink" href="#可图数组" title="Permanent link">&para;</a></h3>
+<p>一个图 <span class="arithmatex">\(G\)</span> 的各个点的度 <span class="arithmatex">\(d_1,d_2,\cdots,d_n\)</span> 构 成 的 非 负 整 数 组 <span class="arithmatex">\((d_1,d_2,\cdots,d_n)\)</span> 称为 <span class="arithmatex">\(G\)</span> 的 <strong>度序列</strong>。</p>
+<blockquote>
+<p>度序列通常以度数非递增的顺序列出？</p>
+</blockquote>
+<p>若对一个非负整数组 <span class="arithmatex">\((d_1,d_2,\cdots,d_n)\)</span> 满足 <span class="arithmatex">\(\exists m \in \mathbb Z,\sum_{i=1}^{n}d_i=2m\)</span> (数组和为偶数)，存在一个简单图 <span class="arithmatex">\(G\)</span> 以该数组为度序列，则称这个数组是<strong>可图</strong>的，也叫这个数组为<strong>图数组/图序列</strong>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>关于图序列我们研究三个问题：</p>
+</div>
+<ul>
+<li>存在问题——什么样的数组是图序列</li>
+<li>计数问题——一个图序列对应多少个不同构的图</li>
+<li>唯一性问题——怎样的图序列对应唯一一个同构的图</li>
+</ul>
+<h4 id="必要条件">必要条件<a class="headerlink" href="#必要条件" title="Permanent link">&para;</a></h4>
+<p>非负整数组 <span class="arithmatex">\((d_1,d_2,\cdots,d_n)\)</span> 是图序列的一个必要条件是：</p>
+<div class="arithmatex">\[
+\sum_{i=1}^{n}d_i \text{是偶数，或者：} 2|\sum_{i=1}^{n}d_i
+\]</div>
+<p>另一个必要条件是：（可简单图化）</p>
+<div class="arithmatex">\[
+d_i\leq n-1
+\]</div>
+<h3 id="图序列相关定理">图序列相关定理<a class="headerlink" href="#图序列相关定理" title="Permanent link">&para;</a></h3>
+<h4 id="havel-hakimi">Havel-Hakimi <img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /><a class="headerlink" href="#havel-hakimi" title="Permanent link">&para;</a></h4>
+<p>设有非负整数组 <span class="arithmatex">\(\Pi =(d_1 , d_2 , \cdots , d_n)\)</span> ，且 <span class="arithmatex">\(\sum_{i=1}^{n}d_i\)</span> 是一个偶数，<span class="arithmatex">\(n-1\geq d_1\geq d_2 \geq \cdots\geq d_n\)</span> ，<span class="arithmatex">\(\Pi\)</span> 是可图（可简单图化）的充要条件为：</p>
+<div class="arithmatex">\[
+\Pi'=(d_2-1,d_3-1,\cdots,d_{d_1+1}-1,d_{d_1+2},\cdots,d_n)
+\]</div>
+<p>是可图的（是图序列）。</p>
+<hr />
+<p>对任意一个序列，判断是否可图的步骤如下：（当然先确保满足可图的必要条件）</p>
+<ol>
+<li>按递减排序</li>
+<li>去掉第一个元素 <span class="arithmatex">\(d_1\)</span> ，后面 <span class="arithmatex">\(d_1\)</span> 个元素依次减 1️⃣（<span class="arithmatex">\(-1\)</span>）</li>
+<li>重复前面两个步骤 ，直到：</li>
+<li>只剩一个点，则该序列是<strong>可图</strong>的，即是图序列</li>
+<li>减 1️⃣ 后出现负数，则该序列是<strong>不可图</strong>的，即不是图序列</li>
+</ol>
+<h5 id="中证明充分性">中证明充分性：<a class="headerlink" href="#中证明充分性" title="Permanent link">&para;</a></h5>
+<h6 id="情形-1">情形 1<a class="headerlink" href="#情形-1" title="Permanent link">&para;</a></h6>
+<p>点 <span class="arithmatex">\(v_1\)</span> 与点 <span class="arithmatex">\(v_2,v_3,\cdots,v_{d+1}\)</span> 邻接</p>
+<p>则 <span class="arithmatex">\(G-v_1\)</span> 的度序列正好 <span class="arithmatex">\(\Pi_1\)</span></p>
+<h6 id="情形-2">情形 2<a class="headerlink" href="#情形-2" title="Permanent link">&para;</a></h6>
+<p>点 <span class="arithmatex">\(v_1\)</span> 与点 <span class="arithmatex">\(v_2,v_3,\cdots,v_{d+1}\)</span> 的某些顶点邻接</p>
+<p>作如下假设：</p>
+<ul>
+<li>设 <span class="arithmatex">\(v_1\)</span> 与 <span class="arithmatex">\(v_{j_0}\)</span> 邻接，但当 <span class="arithmatex">\(k\gt j_0\)</span> 时，<span class="arithmatex">\(v_1\)</span> 与 <span class="arithmatex">\(v_k\)</span> 不邻接；</li>
+<li>设 <span class="arithmatex">\(v_1\)</span> 与 <span class="arithmatex">\(v_{i_0}\)</span> 不邻接，但当 <span class="arithmatex">\(k\lt i_0\)</span> 时，<span class="arithmatex">\(v_1\)</span> 与 <span class="arithmatex">\(v_k\)</span> 邻接；</li>
+</ul>
+<p>进行这样的操作：</p>
+<ul>
+<li>去掉边 <span class="arithmatex">\(v_1 v_{j_0}\)</span> 和 <span class="arithmatex">\(v_{i_0}v_m\)</span></li>
+<li>加上边 <span class="arithmatex">\(v_{j_0}v_m\)</span> 和 <span class="arithmatex">\(v_1v_{i_0}\)</span></li>
+</ul>
+<p>显然新图与原来的度序列相同，但是，但 <span class="arithmatex">\(j_0\)</span> 减小了， <span class="arithmatex">\(i_0\)</span> 增大了！</p>
+<p>如此循环下去，<span class="arithmatex">\(j_0=i_0\)</span> 时 情形 2 就可以变成情形 1</p>
+<h4 id="厄多斯定理">厄多斯定理<a class="headerlink" href="#厄多斯定理" title="Permanent link">&para;</a></h4>
+<p>非负整数组：</p>
+<div class="arithmatex">\[
+\pi = (d_1,d_2,\cdots,d_n),d_1\geq d_2 \geq d_n,\sum_{i=1}^{n}d_i=2m
+\]</div>
+<p>是图序列的充分必要条件是：</p>
+<div class="arithmatex">\[
+\sum_{i=1}^{r}d_i\leq r(r-1)+\sum_{i=r+1}^{n}\text{min}\{r,d_i\},\ \ \ 1\leq r\leq n-1
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>证明非常困难捏</p>
+</div>
+<h4 id="定理">定理？<a class="headerlink" href="#定理" title="Permanent link">&para;</a></h4>
+<p>一个满足 <span class="arithmatex">\(d_2=d_{n-1}\)</span> 的<strong>图序列</strong> <span class="arithmatex">\(\pi=(d_1,d_2,\cdots,d_n)\)</span> 是<strong>唯一</strong>图序列的<strong>充分必要</strong>条件时下列条件之一满足：</p>
+<ul>
+<li><span class="arithmatex">\(d_1=d_n,\ \ d_n\in \{ 1,n-1,n-2 \}\)</span> ；</li>
+<li><span class="arithmatex">\(d_1=d_n=2,\ \ n=5\)</span> ；</li>
+<li><span class="arithmatex">\(d_1\gt d_2=d_n=1\)</span> ；</li>
+<li><span class="arithmatex">\(d_1\gt d_2=d_n=2,\ \ d_1\in\{n-1,n-2\}\)</span> ；</li>
+<li><span class="arithmatex">\(n-2=d_1=d_{n-1}\gt d_n\)</span> ；</li>
+<li><span class="arithmatex">\(n-3=d_1=d_{n-1}\gt d_n=1\)</span> ；</li>
+<li><span class="arithmatex">\(n-1=d_1\gt d_2=d_{n}=3,\ \ n=6\)</span> ；</li>
+</ul>
+<h3 id="定理-简单图度数不可能互不相同">定理-简单图度数不可能互不相同<a class="headerlink" href="#定理-简单图度数不可能互不相同" title="Permanent link">&para;</a></h3>
+<p>一个简单图 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(n\)</span> 个点的度不能互不相同</p>
+<p>证明： 因为图 G 为简单图，所以：<span class="arithmatex">\(\Delta(G)\leq n - 1\)</span> 。</p>
+<hr />
+<p>情形 1：若 <span class="arithmatex">\(G\)</span> 没有孤立点，则 <span class="arithmatex">\(1 ≤ d(v)≤ n - 1,\ \ \ ∀v \in  V(G)\)</span> , 由鸽笼原理：必有两顶点度数相同；</p>
+<hr />
+<p>情形 2：若 <span class="arithmatex">\(G\)</span> 只有一个孤立点，设 <span class="arithmatex">\(G_1\)</span> 表示 G 去掉孤立点后的部分，则：</p>
+<div class="arithmatex">\[
+1 ≤ d(v)≤ n - 2,\ \ \ ∀v \in  V(G_1)
+\]</div>
+<p>由鸽笼原理：在 <span class="arithmatex">\(G_1\)</span> 里必有两顶点度数相同；</p>
+<hr />
+<p>情形 3：若 <span class="arithmatex">\(G\)</span> 只有两个以上的孤立点，则定理显然成立。</p>
+<hr />
+<h3 id="频序列">频序列<a class="headerlink" href="#频序列" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(n\)</span> 阶图 <span class="arithmatex">\(G\)</span> 的各点的度取了 <span class="arithmatex">\(s\)</span> 个不同的非负整数 <span class="arithmatex">\(d_1,d_2,\cdots,d_s\)</span> 。 又 设 度 为 <span class="arithmatex">\(d_i\)</span> 的 点 有 <span class="arithmatex">\(b_i\)</span> 个 (<span class="arithmatex">\(i=1,2,\cdots,s)\)</span> , 则有 <span class="arithmatex">\(\sum_{i=1}^{s}b_i =n\)</span> 。故非负整数组 (<span class="arithmatex">\(d_1,d_2,\cdots,d_s\)</span>) 是 <span class="arithmatex">\(n\)</span> 的一个划分，称为 <span class="arithmatex">\(G\)</span> 的<strong>频序列</strong></p>
+<h4 id="性质">性质<a class="headerlink" href="#性质" title="Permanent link">&para;</a></h4>
+<p>一个 <span class="arithmatex">\(n\)</span> 阶图 <span class="arithmatex">\(G\)</span> 和它的补图有相同的频序列</p>
+<h3 id="拓扑不变量">拓扑不变量<a class="headerlink" href="#拓扑不变量" title="Permanent link">&para;</a></h3>
+<p>图 <span class="arithmatex">\(G\)</span> 的<strong>拓扑不变量</strong>是指与图 <span class="arithmatex">\(G\)</span> 有关的一个数或数组(向量)。它对于与图 <span class="arithmatex">\(G\)</span> 同构的所有图来说，不会发生改变。</p>
+<p>一个图 <span class="arithmatex">\(G\)</span> 可以对应很多拓扑不变量。如果某组不变量可完全决定一个图，称它为不变量的<strong>完全集</strong>。</p>
+<h2 id="图的运算">图的运算<a class="headerlink" href="#图的运算" title="Permanent link">&para;</a></h2>
+<h3 id="子图和真子图">子图和真子图<a class="headerlink" href="#子图和真子图" title="Permanent link">&para;</a></h3>
+<p>如果 <span class="arithmatex">\(V(H) \subseteq V(G),E(H)\subseteq E(G)\)</span> ，且 <span class="arithmatex">\(H\)</span> 中边的重数不超过 <span class="arithmatex">\(G\)</span> 中对应边的重数 ， 则称 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(G\)</span> 的<strong>子图</strong>，记为 <span class="arithmatex">\(H \subseteq G\)</span> 。有时又称 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(H\)</span> 的<strong>母图</strong> 。</p>
+<p>当 <span class="arithmatex">\(H\subseteq G\)</span> ，但 <span class="arithmatex">\(H\neq G\)</span> 时，则记为 <span class="arithmatex">\(H\subset G\)</span> ，且称 <span class="arithmatex">\(H\)</span> 为 <span class="arithmatex">\(G\)</span> 的<strong>真子图</strong>。</p>
+<h3 id="生成子图">生成子图<a class="headerlink" href="#生成子图" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G\)</span> 的<strong>生成子图</strong>是指满足 <span class="arithmatex">\(V (H) = V (G )\)</span> 的子图 <span class="arithmatex">\(H\)</span>。也就是包含所有顶点但不包含所有边的子图。</p>
+<h4 id="计数性质">计数性质<a class="headerlink" href="#计数性质" title="Permanent link">&para;</a></h4>
+<p>简单图 <span class="arithmatex">\(G=(n,m)\)</span> 的所有不同的生成子图个数是 <span class="arithmatex">\(2^m\)</span> （包括 <span class="arithmatex">\(G\)</span> 本身和空图）。</p>
+<h3 id="导出子图">导出子图<a class="headerlink" href="#导出子图" title="Permanent link">&para;</a></h3>
+<p>假设 <span class="arithmatex">\(V'\)</span> 是 <span class="arithmatex">\(V\)</span> 的一个非空子集。以 <span class="arithmatex">\(V'\)</span> 为顶点集，以两端点均在 <span class="arithmatex">\(V'\)</span> 中的边的全体为边集所组成的子图，称为 <span class="arithmatex">\(G\)</span> 的由 <span class="arithmatex">\(V'\)</span> 导出的子图，记为 <span class="arithmatex">\(G[V']\)</span>，简称为 <span class="arithmatex">\(G\)</span> 的 <strong>(点) 导出子图</strong>。</p>
+<p>假设 <span class="arithmatex">\(E'\)</span> 是 <span class="arithmatex">\(E\)</span> 的非空子集。以 <span class="arithmatex">\(E'\)</span> 为边集，以 <span class="arithmatex">\(E'\)</span> 中边的端点全体为顶点集所组成的子图称为 <span class="arithmatex">\(G\)</span> 的由 <span class="arithmatex">\(E'\)</span> 导出的子图，记为 <span class="arithmatex">\(G[E']\)</span>，简称为 <span class="arithmatex">\(G\)</span> 的<strong>边导出子图</strong> 。</p>
+<h3 id="删点运算">删点运算<a class="headerlink" href="#删点运算" title="Permanent link">&para;</a></h3>
+<p>(点) 导出子图 <span class="arithmatex">\(G[V\backslash V']\)</span> 记为 <span class="arithmatex">\(G-V'\)</span>。它是 <span class="arithmatex">\(G\)</span> 中删除 <span class="arithmatex">\(V'\)</span> 中的项点以及与这些项点相关联的边所得到的子图。若 <span class="arithmatex">\(V'=\{v\}\)</span> ，则把 <span class="arithmatex">\(G-\{v\}\)</span> 简记为 <span class="arithmatex">\(G-v\)</span>。</p>
+<h3 id="删边运算">删边运算<a class="headerlink" href="#删边运算" title="Permanent link">&para;</a></h3>
+<p>边集为 <span class="arithmatex">\(E\backslash E'\)</span> 的 <span class="arithmatex">\(G\)</span> 的边导出子图简记为 <span class="arithmatex">\(G-E'\)</span> 。若 <span class="arithmatex">\(E'=\{e\}\)</span> ，则把 <span class="arithmatex">\(G-{e}\)</span> 简记为 <span class="arithmatex">\(G-e\)</span>。</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />删边运算会删掉那些度数变为 0 的顶点<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>设 <span class="arithmatex">\(G_1\)</span> ，<span class="arithmatex">\(G_2\)</span> 是 <span class="arithmatex">\(G\)</span> 的子图。若 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 无公共顶点，则称它们是<strong>不相交</strong>的</p>
+</div>
+<p>若 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 无公共边，则称它们是<strong>边不重</strong>的</p>
+<h3 id="并运算">并运算<a class="headerlink" href="#并运算" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>并图</strong> <span class="arithmatex">\(G_1UG_2\)</span> 是指 <span class="arithmatex">\(G\)</span> 的一个子图：</p>
+<ul>
+<li>其顶点集为 <span class="arithmatex">\(V(G_1)\cup V(G_2)\)</span>；</li>
+<li>其边集为 <span class="arithmatex">\(E(G_1)\cup E(G_2)\)</span>；</li>
+</ul>
+<p>如果 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 是不相交的，有时就记其并图为 <span class="arithmatex">\(G_1+G_2\)</span>。</p>
+<h3 id="交运算">交运算<a class="headerlink" href="#交运算" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>交图</strong> <span class="arithmatex">\(G_1\cap G_2\)</span> ，是指 <span class="arithmatex">\(G\)</span> 的一个子图：</p>
+<ul>
+<li>其顶点集为 <span class="arithmatex">\(V(G_1)\cap V(G_2)\)</span>；</li>
+<li>其边集为 <span class="arithmatex">\(E(G_1)\cap E(G_2)\)</span>；</li>
+</ul>
+<p>此时 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 至少要有一个公共顶点！</p>
+<h3 id="差运算">差运算<a class="headerlink" href="#差运算" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>差</strong> <span class="arithmatex">\(G_1-G_2\)</span> 是由 <span class="arithmatex">\(G_1\)</span> 中去掉 <span class="arithmatex">\(G_2\)</span> 中的边组成的图 。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>没有去掉那些边的<strong>端点</strong>！即使剩下 0 度数端点仍要保留！</p>
+</div>
+<h3 id="对称差环和差">对称差/环和差<a class="headerlink" href="#对称差环和差" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>对称差</strong> <span class="arithmatex">\(G_1 \Delta G_2\)</span> 是 <span class="arithmatex">\(G_1 \cup G_2\)</span> 去掉 <span class="arithmatex">\(G_1 \cap G_2\)</span> 所得到的图，即 :</p>
+<div class="arithmatex">\[
+G_1 \Delta G_2 = (G_1 \cup G_2)-(G_1 \cap G_2) = (G_1 - G_2) \cup (G_2-G_1)
+\]</div>
+<h3 id="联运算">联运算<a class="headerlink" href="#联运算" title="Permanent link">&para;</a></h3>
+<p>在不相交的 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的并图 <span class="arithmatex">\(G_1 \cup G_2\)</span> 中，把 <span class="arithmatex">\(G_1\)</span> 的每个项点和 <span class="arithmatex">\(G_2\)</span> 的每个项点连接起来所得到的 图称为 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>联图</strong>，记为 <span class="arithmatex">\(G_1 \lor G_2\)</span>。</p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p><span class="arithmatex">\(u_i\ \mathrm{adj}\ v_i\)</span> 表示 <span class="arithmatex">\(u_i\)</span> 和 <span class="arithmatex">\(v_i\)</span> <strong>邻接</strong></p>
+</div>
+<h3 id="笛卡尔积运算">(笛卡尔)积运算<a class="headerlink" href="#笛卡尔积运算" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G_1 =(V_1 , E_1),G_2 =(V_2 ,E_2)\)</span>，<strong>对点集</strong> <span class="arithmatex">\(V=V_1 \times V_2\)</span> （笛卡尔集）中任意两个点 <span class="arithmatex">\(u=(u_1,u_2)\)</span> 和 <span class="arithmatex">\(v=(v_1,v_2)\)</span> ，当以下式子成立时：</p>
+<div class="arithmatex">\[
+(u_1 =v_1\land u_2\ \mathrm{adj}\ v_2)\lor(u_2=v_2\land u_1\ \mathrm{adj}\ v_1)
+\]</div>
+<p>就把 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 连接起来所得到的图 <span class="arithmatex">\(G\)</span> 称为 <span class="arithmatex">\(G_1\)</span> 和 <span class="arithmatex">\(G_2\)</span> 的<strong>积图</strong>，记为 <span class="arithmatex">\(G=G_1 \times G_2\)</span></p>
+<h3 id="合成运算">合成运算<a class="headerlink" href="#合成运算" title="Permanent link">&para;</a></h3>
+<p>設 <span class="arithmatex">\(G_i=(V_1,E_1)\)</span> ，<span class="arithmatex">\(G_2=(V_2,E_2)\)</span> , 对点集 <span class="arithmatex">\(V=V_1 \times V_2\)</span> （笛卡尔集）中任意两个点 <span class="arithmatex">\(u=(u_1,u_2)\)</span> 和 <span class="arithmatex">\(v=(v_1,v_2)\)</span> ，当以下式子成立时：</p>
+<div class="arithmatex">\[
+(u_1\ \mathrm{adj}\ v_1)\lor(u_1=v_1\land u_2\ \mathrm{adj}\ v_2)
+\]</div>
+<p>就把 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 连接起来所得到的图 <span class="arithmatex">\(G\)</span> 称为 <span class="arithmatex">\(G_1\)</span> 与 <span class="arithmatex">\(G_2\)</span> 的<strong>合成图</strong>，记为 <span class="arithmatex">\(G=G_1[G_2]\)</span></p>
+<p><span class="arithmatex">\(G_1[G_2]\)</span> 和 <span class="arithmatex">\(G_2[G_1]\)</span> 可能是同构的，也可能是不同构的</p>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>积运算和合成运算中，得到的点集 <span class="arithmatex">\(V\)</span> 的定义都是相同的，都是笛卡尔集 <span class="arithmatex">\(V=V_1 \times V_2\)</span> ；但是边集的定义有所不同</p>
+</div>
+<hr />
+<table>
+<thead>
+<tr>
+<th>运算</th>
+<th>点的数目</th>
+<th>边的数目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>并 <span class="arithmatex">\(G_1\cup G_2\)</span></td>
+<td><span class="arithmatex">\(n_1 + n_2\)</span></td>
+<td><span class="arithmatex">\(m_1 + m_2\)</span></td>
+</tr>
+<tr>
+<td>联 <span class="arithmatex">\(G_1\lor G_2\)</span></td>
+<td><span class="arithmatex">\(n_1 + n_2\)</span></td>
+<td><span class="arithmatex">\(m_1 + m_2 +n_1 n_2\)</span></td>
+</tr>
+<tr>
+<td>积 <span class="arithmatex">\(G_1\times G_2\)</span></td>
+<td><span class="arithmatex">\(n_1 n_2\)</span></td>
+<td><span class="arithmatex">\(n_1m_2 + n_2m_1\)</span></td>
+</tr>
+<tr>
+<td>合成 <span class="arithmatex">\(G_1[G_2]\)</span></td>
+<td><span class="arithmatex">\(n_1 n_2\)</span></td>
+<td><span class="arithmatex">\(n_1m_2 + {n_2}^2m_1\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="方体">方体<a class="headerlink" href="#方体" title="Permanent link">&para;</a></h3>
+<p>一族特别重要的图称为方体，它用积来定义最为自然。</p>
+<p><strong><span class="arithmatex">\(n\)</span> 方体 <span class="arithmatex">\(Q_n\)</span></strong> 递推地定义为：</p>
+<ul>
+<li><span class="arithmatex">\(Q_1=K_2\)</span>；</li>
+<li><span class="arithmatex">\(Q_n=K_2\times Q_{n-1}\)</span>；</li>
+</ul>
+<p><span class="arithmatex">\(Q_n\)</span> 有 <span class="arithmatex">\(2^n\)</span> 个点，它的点可以用二进制串 <span class="arithmatex">\(a_1 a_2 \cdots a_n\)</span> 来标定，其中 <span class="arithmatex">\(a_i\in\{0,1\}\)</span>。</p>
+<p>若 <span class="arithmatex">\(Q_n\)</span> 两个点的二进制表示式中只有一位不同，则它们邻接</p>
+<p><img alt="2方体" src="../../assets/math/discrete-math/graph/graph-basics/2方体.png" /></p>
+<p><img alt="3方体" src="../../assets/math/discrete-math/graph/graph-basics/3方体.png" /></p>
+<h2 id="路与图的连通性">路与图的连通性<a class="headerlink" href="#路与图的连通性" title="Permanent link">&para;</a></h2>
+<h3 id="途径迹路">途径、迹、路<a class="headerlink" href="#途径迹路" title="Permanent link">&para;</a></h3>
+<p>一个有限非空序列:</p>
+<div class="arithmatex">\[
+w=v_0\ e_1\ v_1\ e_2\ v_2\cdots e_k\ v_k
+\]</div>
+<p>它的项交替地为顶点和边，使得对 <span class="arithmatex">\(1\leq i\leq k\)</span> ，<span class="arithmatex">\(e_i\)</span> ，的端点是 <span class="arithmatex">\(v_{i-1}\)</span> 和 <span class="arithmatex">\(v_i\)</span>、 称 <span class="arithmatex">\(w\)</span> 是从 <span class="arithmatex">\(v_0\)</span> 到 <span class="arithmatex">\(v_k\)</span> 的一条<strong>途径</strong>，或一条 <strong><span class="arithmatex">\((v_0,v_k)\)</span> 途径</strong></p>
+<p>途径中边数称为途径的<strong>长度</strong></p>
+<p><span class="arithmatex">\(v_0\)</span>，<span class="arithmatex">\(v_k\)</span> 分别称为途径的<strong>起点</strong>与<strong>终点</strong>，其余顶点称为途径的<strong>内部点</strong></p>
+<p>一条途径的起点与终点重合时叫做<strong>闭途径</strong></p>
+<p><strong>边不重复</strong>的途径称为图的一条<strong>迹</strong>，起点与终点重合时叫做<strong>闭迹</strong>，也称为<strong>回路</strong></p>
+<p><strong>顶点不重复</strong>的途径称为图的一条<strong>路</strong>，起点与终点重合时叫做<strong>圈</strong>。显然顶点不重复时边也不重复，所以迹是包含路的。</p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>起点与终点重合的途径、迹、路分别称为图的闭途径、闭迹与圈。闭迹也称为<strong>回路</strong></p>
+</div>
+<p>长度为 <span class="arithmatex">\(k\)</span> 的圈称为 <span class="arithmatex">\(k\)</span> 圈，<span class="arithmatex">\(k\)</span> 为奇数时称为<strong>奇圈</strong>，<span class="arithmatex">\(k\)</span> 为偶数时称为<strong>偶圈</strong></p>
+<h4 id="圈的充分条件">圈的充分条件<a class="headerlink" href="#圈的充分条件" title="Permanent link">&para;</a></h4>
+<p>若 <span class="arithmatex">\(\delta ≥2\)</span>，则 <span class="arithmatex">\(G\)</span> 中必然含有圈。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>只就连通图证明即可！</p>
+</div>
+<p>设 <span class="arithmatex">\(W=v_1 v_2\cdots v_{k-1}v_k\)</span> 是 <span class="arithmatex">\(G\)</span> 中的一条最长路。由于 <span class="arithmatex">\(\delta≥2\)</span>，所以 <span class="arithmatex">\(v_k\)</span> 必然有相异于 <span class="arithmatex">\(v_{k-1}\)</span> 的邻接顶点。</p>
+<p>又 <span class="arithmatex">\(W\)</span> 是连通图 <span class="arithmatex">\(G\)</span> 中最长路，所以，这样的邻接点必然是 <span class="arithmatex">\(v_1 v_2\cdots v_{k-2}\)</span> 中之一。设该点为 <span class="arithmatex">\(v_m\)</span> ，则 <span class="arithmatex">\(v_m v_{m+1}\cdots v_k v_m\)</span> 为 <span class="arithmatex">\(G\)</span> 中圈。</p>
+<h4 id="偶图的充要条件">偶图的充要条件<a class="headerlink" href="#偶图的充要条件" title="Permanent link">&para;</a></h4>
+<p>一个图是二部图 (偶图) 当且当它不包含奇圈</p>
+<hr />
+<p>证明必要性:</p>
+<p>设 <span class="arithmatex">\(G\)</span> 是具有二分类 <span class="arithmatex">\((X,Y)\)</span> 的偶图，并且 <span class="arithmatex">\(C=v_0 v_1\cdots v_k v_0\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个圈</p>
+<p>不失一般性，可假定 <span class="arithmatex">\(v_0\in X\)</span>；</p>
+<p>一般说来，<span class="arithmatex">\(v_{2i}\in X,v_{2i+1}\in Y\)</span>；</p>
+<p>又因为<span class="arithmatex">\(v_0\in X\)</span> ，所以 <span class="arithmatex">\(v_k\in Y\)</span>，由此即得 <span class="arithmatex">\(C\)</span> 是偶圈</p>
+<hr />
+<p>证明充分性:</p>
+<p>在 <span class="arithmatex">\(G\)</span> 中任意选取点 <span class="arithmatex">\(u\)</span>，定义 <span class="arithmatex">\(V\)</span> 的分类如下:</p>
+<ul>
+<li><span class="arithmatex">\(X=\{x|d(u,x)\text{是偶数},x\in V(G)\}\)</span>；</li>
+<li><span class="arithmatex">\(Y=\{y|d(u,y)\text{是奇数},y\in V(G)\}\)</span>；</li>
+</ul>
+<p>（接下来证明 <span class="arithmatex">\(X\)</span> 中任意两点 <span class="arithmatex">\(v,w\)</span> 不邻接）</p>
+<p>设 <span class="arithmatex">\(v,w\)</span> 是 <span class="arithmatex">\(X\)</span> 中任意两个顶点，<span class="arithmatex">\(P\)</span> 是一条最短 <span class="arithmatex">\((u,v)\)</span> 路，而 <span class="arithmatex">\(Q\)</span> 是一条最短 <span class="arithmatex">\((u,w)\)</span> 路，设 <span class="arithmatex">\(u_1\)</span> 是 <span class="arithmatex">\(P\)</span> 和 <span class="arithmatex">\(Q\)</span> 的最后一个交点：</p>
+<p><img alt="偶图充分必要条件充分性证明" src="../../assets/math/discrete-math/graph/graph-basics/偶图充分必要条件充分性证明.png" /></p>
+<p>由于 <span class="arithmatex">\(P,Q\)</span> 是最短路，所以，<span class="arithmatex">\(P,Q\)</span> 中 <span class="arithmatex">\(u\)</span> 到 <span class="arithmatex">\(u_1\)</span> 段长度相同，因此奇偶性相同</p>
+<p>又 <span class="arithmatex">\(P,Q\)</span> 的长均是偶数，所以，<span class="arithmatex">\(P,Q\)</span> 中 <span class="arithmatex">\(u_1 v\)</span> 段和 <span class="arithmatex">\(u_1 w\)</span> 段奇偶性相同</p>
+<p>如果 <span class="arithmatex">\(v,w\)</span> 邻接则可得到奇圈，矛盾！</p>
+<h3 id="两顶点的距离">两顶点的距离<a class="headerlink" href="#两顶点的距离" title="Permanent link">&para;</a></h3>
+<p>图中顶点 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 的距离: <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 间最短路的长度称为 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 间距离。记为：</p>
+<div class="arithmatex">\[
+d(u,v)
+\]</div>
+<p>如果 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 间不存在路，定义：</p>
+<div class="arithmatex">\[
+d(u,v)=0
+\]</div>
+<h3 id="两顶点的连通性">两顶点的连通性<a class="headerlink" href="#两顶点的连通性" title="Permanent link">&para;</a></h3>
+<p>图 <span class="arithmatex">\(G\)</span> 中点 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 说是<strong>连通</strong>的，如果 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 间<strong>存在通路</strong>。否则称 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> <strong>不连通</strong>。</p>
+<p>点的连通关系是<strong>等价关系</strong></p>
+<p>非连通图中每一个极大连通部分，称为 <span class="arithmatex">\(G\)</span> 的<strong>连通分支</strong></p>
+<p><span class="arithmatex">\(G\)</span> 的连通分支的个数，称为 <span class="arithmatex">\(G\)</span> 的<strong>分支数</strong>，记为：</p>
+<div class="arithmatex">\[
+\omega(G)
+\]</div>
+<h3 id="图的连通性">图的连通性<a class="headerlink" href="#图的连通性" title="Permanent link">&para;</a></h3>
+<p>如果图 <span class="arithmatex">\(G\)</span> 中任意两点是连通的，称 <span class="arithmatex">\(G\)</span> 是<strong>连通图</strong>，否则，称 <span class="arithmatex">\(G\)</span> 是<strong>非连通图</strong></p>
+<h4 id="连通图的性质">连通图的性质<a class="headerlink" href="#连通图的性质" title="Permanent link">&para;</a></h4>
+<p>在 <span class="arithmatex">\(n\)</span> 阶连通图中：</p>
+<ol>
+<li><strong>至少有 <span class="arithmatex">\(n-1\)</span> 条边</strong></li>
+<li>如果边数<strong>大于</strong> <span class="arithmatex">\(n-1\)</span>，则至少有一条<strong>闭迹</strong></li>
+<li>如果<strong>恰有</strong> <span class="arithmatex">\(n-1\)</span> 条边，则至少有一个<strong>奇度点</strong></li>
+</ol>
+<hr />
+<p>（2）证明:</p>
+<p>若 <span class="arithmatex">\(G\)</span> 中没有 <span class="arithmatex">\(1\)</span> 度顶点，由握手定理:</p>
+<div class="arithmatex">\[
+2m=\sum_{v\in V(G)}d(v)\geq 2n \Rightarrow m\geq n \Rightarrow m \gt n-1
+\]</div>
+<hr />
+<p>（3）证明：</p>
+<p>若不然，<span class="arithmatex">\(G\)</span> 中顶点度数至少为 <span class="arithmatex">\(2\)</span>，于是由握手定理：</p>
+<div class="arithmatex">\[
+2m=\sum_{v\in(G)}d(v) \geq 2n \Rightarrow m ≥n \Rightarrow m &gt; n-1
+\]</div>
+<p>这与 <span class="arithmatex">\(G\)</span> 中恰有 <span class="arithmatex">\(n-1\)</span> 条边矛盾！</p>
+<h4 id="补图的连通性">补图的连通性<a class="headerlink" href="#补图的连通性" title="Permanent link">&para;</a></h4>
+<p>若图 <span class="arithmatex">\(G\)</span> 是不连通的，则它的补图 <span class="arithmatex">\(\overline G\)</span> 是连通图.</p>
+<hr />
+<p>证明：设 <span class="arithmatex">\(u,v\)</span> 是 <span class="arithmatex">\(G\)</span> 的任意两个顶点:</p>
+<ul>
+<li>若 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 在 <span class="arithmatex">\(G\)</span> 中不邻接，则在 <span class="arithmatex">\(\overline G\)</span> 中它们邻接，从而 <span class="arithmatex">\(\overline G\)</span> 是连通的</li>
+<li>若 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 在 <span class="arithmatex">\(G\)</span> 中邻接，它们属于 <span class="arithmatex">\(G\)</span> 的同一分支；在另一个分支中有一点 <span class="arithmatex">\(w\)</span>，在 <span class="arithmatex">\(\overline G\)</span> 中 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 均与 w 邻接，即 <span class="arithmatex">\(uwv\)</span> 是一条通道，从而 <span class="arithmatex">\(\overline G\)</span> 是连通的</li>
+</ul>
+<hr />
+<h4 id="连通图充分条件-1">连通图充分条件 1<a class="headerlink" href="#连通图充分条件-1" title="Permanent link">&para;</a></h4>
+<p>设图 <span class="arithmatex">\(G\)</span> 为 <span class="arithmatex">\(n\)</span> 阶图，若 <span class="arithmatex">\(G\)</span> 中任意两个不相邻的点 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span>，有：</p>
+<div class="arithmatex">\[
+d(u)+d(v)\geq n-1
+\]</div>
+<p>则 <span class="arithmatex">\(G\)</span> 是连通的，且 <span class="arithmatex">\(d(G)\leq 2\)</span></p>
+<hr />
+<p>证明：对 <span class="arithmatex">\(G\)</span> 中任意两点 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(y\)</span>，一定存在一条长度至多为 <span class="arithmatex">\(2\)</span> 的连接 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(y\)</span> 的路</p>
+<p>当 <span class="arithmatex">\(xy\in E(G)\)</span> 时上述论断显然成立；</p>
+<p>当 <span class="arithmatex">\(xy\notin E(G)\)</span> 时：</p>
+<p>可以证明，存在点 <span class="arithmatex">\(w\)</span>，它与 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(y\)</span> 同时邻接。反证法：</p>
+<p>若不然，在 <span class="arithmatex">\(G\)</span> 的剩下 <span class="arithmatex">\(n-2\)</span> 个顶点中，假设：</p>
+<ul>
+<li>有 <span class="arithmatex">\(k\)</span> 个与 <span class="arithmatex">\(x\)</span> 邻接，但与 <span class="arithmatex">\(y\)</span> 不邻接；</li>
+<li>有 <span class="arithmatex">\(l\)</span> 个与 <span class="arithmatex">\(y\)</span> 邻接，但与 <span class="arithmatex">\(x\)</span> 不邻接；</li>
+<li>有 <span class="arithmatex">\(m\)</span> 个顶点和 <span class="arithmatex">\(x,y\)</span> 均不邻接。</li>
+</ul>
+<p>则：<span class="arithmatex">\(d(x)=k\)</span>，<span class="arithmatex">\(d(y)=l\)</span></p>
+<p>由于 <span class="arithmatex">\(k+l+m=n-2\)</span></p>
+<p>所以 <span class="arithmatex">\(d(x)+d(y)=n-m-2\leq n-2\)</span> ，矛盾！</p>
+<hr />
+<h4 id="连通图充分条件-2">连通图充分条件 2<a class="headerlink" href="#连通图充分条件-2" title="Permanent link">&para;</a></h4>
+<p>图 <span class="arithmatex">\(G\)</span> 为 <span class="arithmatex">\(n\)</span> 阶图，若 <span class="arithmatex">\(\delta≥\frac{n-1}{2}\)</span> ，则 <span class="arithmatex">\(G\)</span> 连通</p>
+<hr />
+<p>证明:</p>
+<p>对 G 中任意两个不相邻顶点 u 与 v，有:</p>
+<div class="arithmatex">\[
+d(u)+d(v)\geq\frac{n-1}{2}+\frac{n-1}{2}=n-1
+\]</div>
+<p>所以，G 是连通的。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>该定理的界是紧的 (Sharpness)。即不能再修改!</p>
+</div>
+<p>例如: 设 G 由两个分支作成的图，两个分支均为 <span class="arithmatex">\(K_m\)</span> ，则 G 中不相邻顶点度数之和恰为 n-2 . ( n=2m )</p>
+<h3 id="图的直径">图的直径<a class="headerlink" href="#图的直径" title="Permanent link">&para;</a></h3>
+<p><strong>连通</strong>图 G 的<strong>直径</strong>定义为</p>
+<div class="arithmatex">\[
+d(G) = \text{max}\{d(u,v)|u,v \in V(G)\}
+\]</div>
+<p>如果 G <strong>不连通</strong>，图 G 的直径定义为 <span class="arithmatex">\(d(G) = \infty\)</span></p>
+<h4 id="直径相关性质">直径相关性质<a class="headerlink" href="#直径相关性质" title="Permanent link">&para;</a></h4>
+<p>设 G 是具有 m 条边的 n 阶单图，若 G 的直径为 2 且 <span class="arithmatex">\(\delta=n-2\)</span> ，则 <span class="arithmatex">\(m≥2n-4\)</span></p>
+<hr />
+<p>证明：</p>
+<p>设 <span class="arithmatex">\(d(v)=\Delta=n-2\)</span> ，设 v 的邻接点为 <span class="arithmatex">\(v_1,v_2,\cdots,v_{n-2}\)</span> ，u 是剩下的一个项点。</p>
+<p>由于 <span class="arithmatex">\(d(G)=2\)</span> 且 u 不能和 v 邻接，所以 u 至少和 <span class="arithmatex">\(v_1,v_2,\cdots,v_{n-2}\)</span> 中的一个顶点邻接。否则有 <span class="arithmatex">\(d(G)&gt;2\)</span> ; 不妨假设 u 和 <span class="arithmatex">\(v_1,v_2,\cdots,v_{k}\)</span> 邻接。</p>
+<p>为了保证 u 到各点距离不超过 2 , <span class="arithmatex">\(v_{k+1},\cdots,v_{n-2}\)</span> 这些頂点的每一个必须和前面 <span class="arithmatex">\(v_1,v_2,\cdots,v_{k}\)</span> 中某点邻接，这样，图中至少又有 n-2 条边。总共至少有 2n-4 条边。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../euler_hamilton/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 欧拉图与哈密顿图">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                欧拉图与哈密顿图
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../match/" class="md-footer__link md-footer__link--next" aria-label="Next: 匹配">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                匹配
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

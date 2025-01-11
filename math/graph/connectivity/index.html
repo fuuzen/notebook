@@ -1,0 +1,2367 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/connectivity/">
+      
+      
+        <link rel="prev" href="../coloring/">
+      
+      
+        <link rel="next" href="../euler_hamilton/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>图的连通性 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#割边" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              图的连通性
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algebra-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coloring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#割边" class="md-nav__link">
+    <span class="md-ellipsis">
+      割边
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割边">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#严格定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      严格定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      充要条件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#推论-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#割边集" class="md-nav__link">
+    <span class="md-ellipsis">
+      割边集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割边集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#秩" class="md-nav__link">
+    <span class="md-ellipsis">
+      秩
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#边割集" class="md-nav__link">
+    <span class="md-ellipsis">
+      边割(集)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#关联集" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集与关联集的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集与关联集的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本边割集" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本(边)割集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#割点" class="md-nav__link">
+    <span class="md-ellipsis">
+      割点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#严格定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      严格定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充要条件_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      充要条件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无环非平凡图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环非平凡图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树" class="md-nav__link">
+    <span class="md-ellipsis">
+      树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无环连通图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环连通图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#块" class="md-nav__link">
+    <span class="md-ellipsis">
+      块
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="块">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#块图定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      块(图)定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#块割点树" class="md-nav__link">
+    <span class="md-ellipsis">
+      块割点树
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连通度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#点连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      点连通度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#边连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      边连通度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-连通" class="md-nav__link">
+    <span class="md-ellipsis">
+      k-连通
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#惠特尼连通度定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      惠特尼连通度定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-连通充分条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      k-连通充分条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈拉里图" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈拉里图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#坚韧性" class="md-nav__link">
+    <span class="md-ellipsis">
+      坚韧性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#敏格尔定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      敏格尔定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="敏格尔定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分离集" class="md-nav__link">
+    <span class="md-ellipsis">
+      分离集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#惠特尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      惠特尼定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#图的宽直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的宽直径
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的宽直径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#路族容器" class="md-nav__link">
+    <span class="md-ellipsis">
+      路族/容器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w-宽距离和最优路族" class="md-nav__link">
+    <span class="md-ellipsis">
+      w 宽距离和最优路族
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#宽直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽直径
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#割边" class="md-nav__link">
+    <span class="md-ellipsis">
+      割边
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割边">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#严格定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      严格定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      充要条件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#推论-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#推论-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      推论 3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#割边集" class="md-nav__link">
+    <span class="md-ellipsis">
+      割边集
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割边集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#秩" class="md-nav__link">
+    <span class="md-ellipsis">
+      秩
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#边割集" class="md-nav__link">
+    <span class="md-ellipsis">
+      边割(集)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#关联集" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集与关联集的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集与关联集的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本边割集" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本(边)割集
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#割点" class="md-nav__link">
+    <span class="md-ellipsis">
+      割点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="割点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#严格定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      严格定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#充要条件_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      充要条件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="充要条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#无环非平凡图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环非平凡图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#树" class="md-nav__link">
+    <span class="md-ellipsis">
+      树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#无环连通图" class="md-nav__link">
+    <span class="md-ellipsis">
+      无环连通图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#块" class="md-nav__link">
+    <span class="md-ellipsis">
+      块
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="块">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#块图定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      块(图)定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#块割点树" class="md-nav__link">
+    <span class="md-ellipsis">
+      块割点树
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="连通度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#点连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      点连通度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#边连通度" class="md-nav__link">
+    <span class="md-ellipsis">
+      边连通度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-连通" class="md-nav__link">
+    <span class="md-ellipsis">
+      k-连通
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#惠特尼连通度定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      惠特尼连通度定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-连通充分条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      k-连通充分条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#哈拉里图" class="md-nav__link">
+    <span class="md-ellipsis">
+      哈拉里图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#坚韧性" class="md-nav__link">
+    <span class="md-ellipsis">
+      坚韧性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#敏格尔定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      敏格尔定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="敏格尔定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#分离集" class="md-nav__link">
+    <span class="md-ellipsis">
+      分离集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#惠特尼定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      惠特尼定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#图的宽直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      图的宽直径
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="图的宽直径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#路族容器" class="md-nav__link">
+    <span class="md-ellipsis">
+      路族/容器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w-宽距离和最优路族" class="md-nav__link">
+    <span class="md-ellipsis">
+      w 宽距离和最优路族
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#宽直径" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽直径
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>图的连通性</h1>
+
+<h2 id="割边">割边<a class="headerlink" href="#割边" title="Permanent link">&para;</a></h2>
+<h3 id="严格定义">严格定义<a class="headerlink" href="#严格定义" title="Permanent link">&para;</a></h3>
+<p>如果 <span class="arithmatex">\(\omega(G-e)\gt\omega(G)\)</span> ，则 <span class="arithmatex">\(e\)</span> 为 <span class="arithmatex">\(G\)</span> 的一条<strong>割边</strong>或<strong>桥</strong>。</p>
+<h3 id="充要条件">充要条件<a class="headerlink" href="#充要条件" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(e\)</span> 是 <span class="arithmatex">\(G\)</span> 的割边当且仅当 <span class="arithmatex">\(e\)</span> 不在 <span class="arithmatex">\(G\)</span> 的任何圈中。</p>
+<hr />
+<p>必要性：</p>
+<p>假设 <span class="arithmatex">\(e\)</span> 是 <span class="arithmatex">\(G\)</span> 的割边且 <span class="arithmatex">\(e\)</span> 在 <span class="arithmatex">\(G\)</span> 的某圈中</p>
+<hr />
+<p>充分性：</p>
+<p>假设 <span class="arithmatex">\(e\)</span> 不在 <span class="arithmatex">\(G\)</span> 的任何圈中且 <span class="arithmatex">\(e\)</span> 不是 <span class="arithmatex">\(G\)</span> 的割边，则 <span class="arithmatex">\(G-e\)</span> 连通。</p>
+<p>于是 <span class="arithmatex">\(G-e\)</span> 中存在一条 <span class="arithmatex">\((u,v)\)</span> 路 <span class="arithmatex">\(l\)</span> ，显然 <span class="arithmatex">\(l\cup e\)</span> 就是 <span class="arithmatex">\(G\)</span> 的一个圈，与 <span class="arithmatex">\(e\)</span> 不在 <span class="arithmatex">\(G\)</span> 的任何圈中矛盾！</p>
+<h4 id="推论-1">推论 1<a class="headerlink" href="#推论-1" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(e\)</span> 为 <span class="arithmatex">\(G\)</span> 的一条边，若 <span class="arithmatex">\(e\)</span> 包含于 <span class="arithmatex">\(G\)</span> 的某圈中，则 <span class="arithmatex">\(G-e\)</span> 连通。</p>
+<hr />
+<p>证明：若 <span class="arithmatex">\(G-e\)</span> 不连通，则 <span class="arithmatex">\(e\)</span> 就是割边，这就与割边的充要条件矛盾。</p>
+<h4 id="推论-2">推论 2<a class="headerlink" href="#推论-2" title="Permanent link">&para;</a></h4>
+<p>若 <span class="arithmatex">\(G\)</span> 的每个顶点的度数均为偶数，则 <span class="arithmatex">\(G\)</span> 没有割边;</p>
+<hr />
+<p>若不然，设 <span class="arithmatex">\(e=u\)</span> 为 <span class="arithmatex">\(G\)</span> 的割边。则 <span class="arithmatex">\(G-e\)</span> 的含有顶点 <span class="arithmatex">\(u\)</span> (或<span class="arithmatex">\(v\)</span>) 的那个分支中点 <span class="arithmatex">\(u\)</span> (或<span class="arithmatex">\(v\)</span>) 的度数为奇数，而其余点的度数为偶数，与握手定理推论相矛盾!</p>
+<h4 id="推论-3">推论 3<a class="headerlink" href="#推论-3" title="Permanent link">&para;</a></h4>
+<p>若 <span class="arithmatex">\(G\)</span> 为 <span class="arithmatex">\(k\)</span> 正则二部图 <span class="arithmatex">\((k≥2)\)</span> ，则 <span class="arithmatex">\(G\)</span> 无割边。</p>
+<hr />
+<p>若不然，设 <span class="arithmatex">\(e=u\)</span> 为 <span class="arithmatex">\(G\)</span> 的割边。取 <span class="arithmatex">\(G-e\)</span> 的其中一个分支 <span class="arithmatex">\(G_1\)</span> ，显然 <span class="arithmatex">\(G_1\)</span> 中只有一个顶点的度数是 <span class="arithmatex">\(k-1\)</span> ，其余点的度数为 <span class="arithmatex">\(k\)</span> 。并且 <span class="arithmatex">\(G_1\)</span> 仍然为偶图
+假若 <span class="arithmatex">\(G\)</span> 的两个顶点子集包含的顶点数分别为 <span class="arithmatex">\(m\)</span> 与 <span class="arithmatex">\(n\)</span> ，并且包含 <span class="arithmatex">\(m\)</span> 个顶点的顶点子集包含度为 <span class="arithmatex">\(k-1\)</span> 的那个点，那么有 <span class="arithmatex">\(km-1= kn\)</span> 。但是因 <span class="arithmatex">\(k≥2\)</span> ，所以等式不能成立！矛盾！</p>
+<h2 id="割边集">割边集<a class="headerlink" href="#割边集" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>边割集跟回路、树等概念一样，是图论中重要概念。在应用上，它是电路网络图论的基本概念之一。</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>破坏连通性的极小边子集</p>
+</div>
+<h3 id="秩">秩<a class="headerlink" href="#秩" title="Permanent link">&para;</a></h3>
+<p>一个具有 <span class="arithmatex">\(n\)</span> 个顶点的连通图 <span class="arithmatex">\(G\)</span> ，定义 <span class="arithmatex">\(n-1\)</span> 为该连通图的秩；</p>
+<p>具有 <span class="arithmatex">\(p\)</span> 个分支的图的秩定义为 <span class="arithmatex">\(n-p\)</span> ，记为 <span class="arithmatex">\(R(G)\)</span>。</p>
+<h3 id="边割集">边割(集)<a class="headerlink" href="#边割集" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(S\)</span> 是连通图 <span class="arithmatex">\(G\)</span> 的一个边子集，如果:</p>
+<ul>
+<li><span class="arithmatex">\(R(G-S)=n-2\)</span>；</li>
+<li>对 <span class="arithmatex">\(S\)</span> 的任一真子集 <span class="arithmatex">\(S\)</span> ，有 <span class="arithmatex">\(R(G-S)=n-1\)</span>；</li>
+</ul>
+<p>称 <span class="arithmatex">\(S\)</span> 为 <span class="arithmatex">\(G\)</span> 的一个<strong>边割集</strong>，简称 <span class="arithmatex">\(G\)</span> 的一个<strong>边割</strong>。</p>
+<h3 id="关联集">关联集<a class="headerlink" href="#关联集" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 中，与顶点 <span class="arithmatex">\(v\)</span> 关联的边的集合，称为 <span class="arithmatex">\(v\)</span> 的<strong>关联集</strong>，记为：</p>
+<div class="arithmatex">\[
+S(v)
+\]</div>
+<h3 id="断集">断集<a class="headerlink" href="#断集" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 中，如果 <span class="arithmatex">\(V=V_1∪V_2,V_1\cap V_2=\varnothing\)</span> , <span class="arithmatex">\(E_1\)</span> 是 <span class="arithmatex">\(G\)</span> 中端点分属于 <span class="arithmatex">\(V_1\)</span> 与 <span class="arithmatex">\(V_2\)</span> 的 <span class="arithmatex">\(G\)</span> 的边子集，称 <span class="arithmatex">\(E_1\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个断集。</p>
+<h3 id="断集与关联集的关系">断集与关联集的关系<a class="headerlink" href="#断集与关联集的关系" title="Permanent link">&para;</a></h3>
+<p>任意一个断集均是若干关联集的<strong>环和(对称差)</strong></p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>$$</p>
+</div>
+<p>E_1\oplus E_2=(E_1-E_2)\cup(E_2-E_1)
+$$</p>
+<h3 id="断集空间">断集空间<a class="headerlink" href="#断集空间" title="Permanent link">&para;</a></h3>
+<p>连通图 <span class="arithmatex">\(G\)</span> 的断集的集合作成子图空间的一个子空间，其维数为 <span class="arithmatex">\(n-1\)</span> ，该空间称为图的断集空间。(其基为 <span class="arithmatex">\(n-1\)</span> 个线性无关的关联集)</p>
+<p><span class="arithmatex">\(K_4\)</span> 为例：</p>
+<p><img alt="K4" src="../../assets/math/discrete-math/graph/connectivity/K4.png" /></p>
+<p>其断集空间的基为 3 个线性无关的关联集：</p>
+<p><img alt="K4的3个线性无关的关联集" src="../../assets/math/discrete-math/graph/connectivity/K4的3个线性无关的关联集.png" /></p>
+<p>形成的断集空间为：</p>
+<div class="arithmatex">\[
+\{\varnothing,S(1), S(2), S(3),\{a, c, d, e\},\{a, b, e, f\},\{b, c, d, f\},\{b, d, e\}\}
+\]</div>
+<h3 id="基本边割集">基本(边)割集<a class="headerlink" href="#基本边割集" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是连通图，<span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(G\)</span> 的一棵生成树。如果 <span class="arithmatex">\(G\)</span> 的一个割集 <span class="arithmatex">\(S\)</span> 恰好包含 <span class="arithmatex">\(T\)</span> 的一条树枝，称 <span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(G\)</span> 的对于 <span class="arithmatex">\(T\)</span> 的一个<strong>基本(边)割集</strong>。</p>
+<p>连通图 <span class="arithmatex">\(G\)</span> 的断集均可表为 <span class="arithmatex">\(G\)</span> 的对应于某生成树 <span class="arithmatex">\(T\)</span> 的基本割集的<strong>环和(对称差)</strong>。</p>
+<p>连通图 <span class="arithmatex">\(G\)</span> 对应于某生成树 <span class="arithmatex">\(T\)</span> 的基本割集的个数为 <span class="arithmatex">\(n-1\)</span> ，它们作成断集空间的一组基。</p>
+<h2 id="割点">割点<a class="headerlink" href="#割点" title="Permanent link">&para;</a></h2>
+<h3 id="严格定义_1">严格定义<a class="headerlink" href="#严格定义_1" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 中，如果 <span class="arithmatex">\(E(G)\)</span> 可以划分为两个非空子集 <span class="arithmatex">\(E_1\)</span> 与 <span class="arithmatex">\(E_2\)</span>，使 <span class="arithmatex">\(G[E_1]\)</span> 和 <span class="arithmatex">\(G[E_2]\)</span> 以点 <span class="arithmatex">\(v\)</span> 为公共顶点，称 <span class="arithmatex">\(v\)</span> 为 <span class="arithmatex">\(G\)</span> 的一个<strong>割点</strong>。</p>
+<h3 id="充要条件_1">充要条件<a class="headerlink" href="#充要条件_1" title="Permanent link">&para;</a></h3>
+<h4 id="无环非平凡图">无环非平凡图<a class="headerlink" href="#无环非平凡图" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>无环且非平凡情形下，割点与割边的定义一致</p>
+</blockquote>
+<p><span class="arithmatex">\(G\)</span> 无环且非平凡，则 <span class="arithmatex">\(v\)</span> 是 <span class="arithmatex">\(G\)</span> 的割点，当且仅当 <span class="arithmatex">\(\omega(G-v)\gt\omega(G)\)</span>。</p>
+<hr />
+<p>必要性</p>
+<p>设 <span class="arithmatex">\(v\)</span> 是 <span class="arithmatex">\(G\)</span> 的割点。则 <span class="arithmatex">\(E(G)\)</span> 可划分为两个非空边子集 <span class="arithmatex">\(E_1\)</span> 与 <span class="arithmatex">\(E_2\)</span> ，使 <span class="arithmatex">\(G(E_1) , G(E_2)\)</span> 恰好以 <span class="arithmatex">\(v\)</span> 为公共点。由于 <span class="arithmatex">\(G\)</span> 没有环，所以 <span class="arithmatex">\(G(E_1) , G(E_2)\)</span> 分别至少包含异于 <span class="arithmatex">\(v\)</span> 的 <span class="arithmatex">\(G\)</span> 的点，这样，<span class="arithmatex">\(G-v\)</span> 的分支数比 <span class="arithmatex">\(G\)</span> 的分支数至少多 1，所以：<span class="arithmatex">\(\omega(G-v)&gt;\omega(G)\)</span></p>
+<hr />
+<p>充分性</p>
+<h4 id="树">树<a class="headerlink" href="#树" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(v\)</span> 是树 <span class="arithmatex">\(T\)</span> 的顶点，则 <span class="arithmatex">\(v\)</span> 是割点，当且仅当 <span class="arithmatex">\(v\)</span> 是树的分支点（即不是叶子）</p>
+<h4 id="无环连通图">无环连通图<a class="headerlink" href="#无环连通图" title="Permanent link">&para;</a></h4>
+<p>设 <span class="arithmatex">\(v\)</span> 是无环连通图 <span class="arithmatex">\(G\)</span> 的一个顶点，则 <span class="arithmatex">\(v\)</span> 是 <span class="arithmatex">\(G\)</span> 的割点，当且仅当 <span class="arithmatex">\(V(G-v)\)</span> 可以划分为两个非空子集 <span class="arithmatex">\(V_1\)</span> 与 <span class="arithmatex">\(V_2\)</span> ，使得对任意 <span class="arithmatex">\(x\in V_1, v\in V_2\)</span> ， 点 <span class="arithmatex">\(v\)</span> 在每一条 <span class="arithmatex">\(xy\)</span> 路上</p>
+<p>无环非平凡连通图至少有两个非割点。</p>
+<p>证明：由于 <span class="arithmatex">\(G\)</span> 是无环非平凡连通图，所以存在非平凡生成树，而非平凡生成树至少两片树叶，它不能为割点，所以，它也不能为 <span class="arithmatex">\(G\)</span> 的割点。</p>
+<p>恰有两个非割点的连通简单图是一条路。</p>
+<p>证明：设 <span class="arithmatex">\(T\)</span> 是 <span class="arithmatex">\(G\)</span> 的一棵生成树。由于 <span class="arithmatex">\(G\)</span> 有 <span class="arithmatex">\(n-2\)</span> 个割点，所以，<span class="arithmatex">\(T\)</span> 有 <span class="arithmatex">\(n-2\)</span> 个割点，即 T 只有两片树叶，所以 <span class="arithmatex">\(T\)</span> 是一条路。这说明，<span class="arithmatex">\(G\)</span> 的任意生成树为路。</p>
+<p>一个单图的任意生成树为路，则该图为圈或路，若为圈，则 <span class="arithmatex">\(G\)</span> 没有割点，矛盾，所以，<span class="arithmatex">\(G\)</span> 为路。</p>
+<p>v 是单图 G 的割点，则它不是 G 的补图的割点。</p>
+<p>证明：<span class="arithmatex">\(v\)</span> 是单图 <span class="arithmatex">\(G\)</span> 的割点，则 <span class="arithmatex">\(G-v\)</span> 至少两个连通分支。现任取 <span class="arithmatex">\(x,y\in V(\overline{G}-v)\)</span> ， 如果 <span class="arithmatex">\(x,y\)</span> 在 <span class="arithmatex">\(G-v\)</span> 的同一分支中，令 <span class="arithmatex">\(u\)</span> 是与 <span class="arithmatex">\(x,y\)</span> 处于不同分支的点，那么，通过 <span class="arithmatex">\(u\)</span> ，可说明，<span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 在 <span class="arithmatex">\(G-v\)</span> 的补图中连通。若 <span class="arithmatex">\(x,y\)</span> 在 <span class="arithmatex">\(G-v\)</span> 的不同分支中，则它们在 <span class="arithmatex">\(G-v\)</span> 的补图中邻接。所以，若 <span class="arithmatex">\(v\)</span> 是 <span class="arithmatex">\(G\)</span> 的割点，则 <span class="arithmatex">\(v\)</span> 不是其补图的割点。</p>
+<h2 id="块">块<a class="headerlink" href="#块" title="Permanent link">&para;</a></h2>
+<h3 id="块图定义">块(图)定义<a class="headerlink" href="#块图定义" title="Permanent link">&para;</a></h3>
+<p>没有割点的连通图称为是一个<strong>块图，简称块</strong>；<span class="arithmatex">\(G\)</span> 的一个子图 <span class="arithmatex">\(𝐵\)</span> 如果：</p>
+<ul>
+<li>它本身是块</li>
+<li>若没有真包含 <span class="arithmatex">\(𝐵\)</span> 的 <span class="arithmatex">\(G\)</span> 的块存在（极大性 ）</li>
+</ul>
+<p>称 <span class="arithmatex">\(B\)</span> 是 <span class="arithmatex">\(G\)</span> 的一个块</p>
+<p>若 <span class="arithmatex">\(|V(G)|\geq3\)</span> 则 <span class="arithmatex">\(G\)</span> 是块，当且仅当 <span class="arithmatex">\(G\)</span> 无环且任意两顶点位于同一圈上。</p>
+<p>点 <span class="arithmatex">\(v\)</span> 是图 <span class="arithmatex">\(G\)</span> 的割点当且仅当 <span class="arithmatex">\(v\)</span> 至少属于 <span class="arithmatex">\(G\)</span> 的两个不同的块</p>
+<h3 id="块割点树">块割点树<a class="headerlink" href="#块割点树" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是非平凡连通图。<span class="arithmatex">\(𝐵_1,𝐵_2,\cdots,𝐵_k\)</span> 是 <span class="arithmatex">\(G\)</span> 的全部块，而 <span class="arithmatex">\(v_1,v_2,\cdots,v_t\)</span> 是 <span class="arithmatex">\(G\)</span> 的全部割点。构作 <span class="arithmatex">\(G\)</span> 的块割点树 <span class="arithmatex">\(bc(G)\)</span> : 它的顶点是 <span class="arithmatex">\(G\)</span> 的块和割点，连线只在块割点之间进行，一个块和一个割点连线，当且仅当该割点是该块的一个顶点。</p>
+<h2 id="连通度">连通度<a class="headerlink" href="#连通度" title="Permanent link">&para;</a></h2>
+<h3 id="点连通度">点连通度<a class="headerlink" href="#点连通度" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 中：</p>
+<ul>
+<li>
+<p>若 <span class="arithmatex">\(G\)</span> 连通：</p>
+</li>
+<li>
+<p>若存在顶点割，称 <span class="arithmatex">\(G\)</span> 的最小顶点割的顶点数称为 <span class="arithmatex">\(G\)</span> 的点连通度；</p>
+</li>
+<li>
+<p>否则称 n-1 为其点连通度. G 的点连通度记为 <span class="arithmatex">\(\kappa(G)\)</span>，简记为 <span class="arithmatex">\(\kappa\)</span> ；</p>
+</li>
+<li>
+<p>若 <span class="arithmatex">\(G\)</span> 不连通，<span class="arithmatex">\(\kappa(G)=0\)</span>。</p>
+</li>
+</ul>
+<h3 id="边连通度">边连通度<a class="headerlink" href="#边连通度" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 中，最小边割集所含边数称为 <span class="arithmatex">\(G\)</span> 的边连通度。边连通度记为 <span class="arithmatex">\(\lambda(G)\)</span> ；</p>
+<p>若 <span class="arithmatex">\(G\)</span> 不连通或 <span class="arithmatex">\(G\)</span> 是平凡图，则定义 <span class="arithmatex">\(\lambda(G)=0\)</span>。</p>
+<h3 id="k-连通">k-连通<a class="headerlink" href="#k-连通" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="arithmatex">\(\kappa(G)\geq k\)</span> 则 <span class="arithmatex">\(G\)</span> 是 <strong>k-连通</strong>的。</li>
+<li><span class="arithmatex">\(\lambda(G)\geq k\)</span> 则 <span class="arithmatex">\(G\)</span> 是 <strong>k-边连通</strong>的。</li>
+</ul>
+<h3 id="惠特尼连通度定理">惠特尼连通度定理<a class="headerlink" href="#惠特尼连通度定理" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\kappa(G)\leq\lambda(G)\leq(G)
+\]</div>
+<div class="arithmatex">\[
+\forall a\leq b\leq c\ \ ,\ \ \exists G:\\
+\kappa(G)=a,\ \ \lambda(G)=b,\ \ (G)=c
+\]</div>
+<div class="arithmatex">\[
+\kappa(G)\leq\lfloor\frac{2m}{n}\rfloor
+\]</div>
+<p>设 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\((n,m)\)</span> 单图，若 <span class="arithmatex">\(\delta(G)≥\lfloor\frac{n}{2}\rfloor\)</span> ，则 <span class="arithmatex">\(G\)</span> 连通</p>
+<h3 id="k-连通充分条件">k-连通充分条件<a class="headerlink" href="#k-连通充分条件" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(n\)</span> 阶简单图，若对任意正整数 <span class="arithmatex">\(k＜n\)</span> ，有：</p>
+<div class="arithmatex">\[
+\delta(G)\geq\frac{n+k-2}{2}
+\]</div>
+<p>则 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k\)</span> 连通的。</p>
+<h3 id="哈拉里图">哈拉里图<a class="headerlink" href="#哈拉里图" title="Permanent link">&para;</a></h3>
+<h2 id="坚韧性">坚韧性<a class="headerlink" href="#坚韧性" title="Permanent link">&para;</a></h2>
+<p>用 <span class="arithmatex">\(C(G)\)</span> 表示图 <span class="arithmatex">\(G\)</span> 的全体点割集构成的集合，非平凡非完全图的<strong>坚韧度</strong>，记作 <span class="arithmatex">\(\tau(G)\)</span> ，定义为：</p>
+<div class="arithmatex">\[
+\tau(G)=\min\{
+\frac{|S|}{\omega(G-S)}\big|S\in C(G)
+\}
+\]</div>
+<p>设 <span class="arithmatex">\(G\)</span> 是一个非完全 <span class="arithmatex">\(n(n≥3)\)</span> 阶连通图，<span class="arithmatex">\(S\in C(G)\)</span> ，若 <span class="arithmatex">\(S^*\)</span> 满足：</p>
+<div class="arithmatex">\[
+\tau(G)=\frac{|S^*|}{\omega(G-S^*)}
+\]</div>
+<p>称 <span class="arithmatex">\(S^*\)</span> 是 <span class="arithmatex">\(G\)</span> 的<strong>坚韧集</strong></p>
+<h2 id="敏格尔定理">敏格尔定理<a class="headerlink" href="#敏格尔定理" title="Permanent link">&para;</a></h2>
+<h3 id="分离集">分离集<a class="headerlink" href="#分离集" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 是图 <span class="arithmatex">\(G\)</span> 的两个不同顶点，<span class="arithmatex">\(S\)</span> 表示 <span class="arithmatex">\(G\)</span> 的一个顶点子集或边子集，如果 <span class="arithmatex">\(u\)</span> 与 <span class="arithmatex">\(v\)</span> 不在 <span class="arithmatex">\(G-S\)</span> 的同一分支上，称 <span class="arithmatex">\(S\)</span> <strong>分离</strong> <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> ，<span class="arithmatex">\(S\)</span> 是 <span class="arithmatex">\(u\)</span> 和 <span class="arithmatex">\(v\)</span> 的<strong>分离(点/边)集</strong></p>
+<h3 id="menger">Menger<a class="headerlink" href="#menger" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>n-弧定理</p>
+</blockquote>
+<p>设 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 是图 <span class="arithmatex">\(G\)</span> 中的两个不相邻点，则<span class="arithmatex">\(G\)</span> 中分离点 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 的：</p>
+<ul>
+<li><strong>最少点数</strong>等于 <span class="arithmatex">\(G\)</span> 中独立（内点不交）的 <span class="arithmatex">\((x,y)\)</span> 路的最大数目；</li>
+<li><strong>最少边数</strong>等于 <span class="arithmatex">\(G\)</span> 中边不重的 <span class="arithmatex">\((x,y)\)</span> 路的最大数目；</li>
+</ul>
+<h3 id="惠特尼定理">惠特尼定理<a class="headerlink" href="#惠特尼定理" title="Permanent link">&para;</a></h3>
+<p>一个非平凡的图 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k\)</span> 连通 <span class="arithmatex">\(k\geq2\)</span> 的，当且仅当 <span class="arithmatex">\(G\)</span> 的任意两个顶点间至少存在 <span class="arithmatex">\(k\)</span> 条：（以下两种条件之一）</p>
+<ul>
+<li>独立（内点不交）的 <span class="arithmatex">\((u,v)\)</span> 路；</li>
+<li>边不重的 <span class="arithmatex">\((u,v)\)</span> 路；</li>
+</ul>
+<p>设 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k\)</span> 连通图，<span class="arithmatex">\(S\)</span> 是由 <span class="arithmatex">\(G\)</span> 中任意 <span class="arithmatex">\(k\)</span> 个顶点构成的集合。若图 <span class="arithmatex">\(H\)</span> 是由 <span class="arithmatex">\(G\)</span> 通过添加一个新点 <span class="arithmatex">\(w\)</span> 以及连接 <span class="arithmatex">\(w\)</span> 到 <span class="arithmatex">\(S\)</span> 中所有顶点得到的新图，求证：<span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(k\)</span>-连通的。</p>
+<hr />
+<p>证明：</p>
+<p>首先， <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k\)</span> 连通图，所以分离 <span class="arithmatex">\(G\)</span> 中两个不相邻顶点至少要 <span class="arithmatex">\(k\)</span> 个点；</p>
+<p>其次，分离 <span class="arithmatex">\(w\)</span> 与 <span class="arithmatex">\(G\)</span> 中不在 <span class="arithmatex">\(S\)</span> 中顶点需要 <span class="arithmatex">\(k\)</span> 个顶点；</p>
+<p>因此 <span class="arithmatex">\(H\)</span> 是 <span class="arithmatex">\(k\)</span> 连通的。</p>
+<p>设 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(k\)</span>-连通图，<span class="arithmatex">\(u,v_1,v_2,\cdots,v_k\)</span> 为 <span class="arithmatex">\(G\)</span> 中 <span class="arithmatex">\(k+1\)</span> 个不同顶点。求证：<span class="arithmatex">\(G\)</span> 中有 <span class="arithmatex">\(k\)</span> 条内点不交路 <span class="arithmatex">\((u,v_i)\ (1≤i≤k)\)</span>。</p>
+<p>对于一个阶至少为 3 的无环图 <span class="arithmatex">\(G\)</span> ，下面三个命题等价。</p>
+<ul>
+<li>(1) <span class="arithmatex">\(G\)</span> 是 2-连通的；</li>
+<li>(2) <span class="arithmatex">\(G\)</span> 中任意两点位于同一个圈上；</li>
+<li>(3) <span class="arithmatex">\(G\)</span> 无孤立点，且任意两条边在同一个圈上；</li>
+</ul>
+<h2 id="图的宽直径">图的宽直径<a class="headerlink" href="#图的宽直径" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>所有距离（distance）中最大的就是直径（diameter），这里都记为 <span class="arithmatex">\(d(G)\)</span>。</p>
+</div>
+<p><span class="arithmatex">\(G\)</span> 是强连通有向图，若其阶 <span class="arithmatex">\(n\geq3\)</span> 且最大度 <span class="arithmatex">\(\Delta\geq2\)</span> ，则：</p>
+<div class="arithmatex">\[
+d(G)\geq\begin{cases}
+\lfloor\frac{n}{2}\rfloor, &amp; \Delta=2\\
+\lceil\log_{(\Delta-1)}\frac{n(\Delta-2)+2}{\Delta}\rceil, &amp; \Delta\geq3\\
+\end{cases}
+\]</div>
+<h3 id="路族容器">路族/容器<a class="headerlink" href="#路族容器" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(x,y\in V(G)\)</span> , <span class="arithmatex">\(C_w(x,y)\)</span> 表示 <span class="arithmatex">\(G\)</span> 中 <span class="arithmatex">\(w\)</span> 条内点不交路的路族，<span class="arithmatex">\(w\)</span> 称为路族的宽度，<span class="arithmatex">\(C_w(x,y)\)</span> 中最长路的路长成为该路族的长度，记为：<span class="arithmatex">\(l (C_w(x,y))\)</span>。</p>
+<h3 id="w-宽距离和最优路族">w 宽距离和最优路族<a class="headerlink" href="#w-宽距离和最优路族" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(x,y\in V(G)\)</span> , 定义 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 间所有宽度为 <span class="arithmatex">\(w\)</span> 的路族长度的最小值 <span class="arithmatex">\(d_w(x,y)\)</span> 为 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 间 <span class="arithmatex">\(w\)</span> 宽距离，<span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 间长度等于 <span class="arithmatex">\(w\)</span> 宽距离的路族称为 <span class="arithmatex">\(x\)</span> 与 <span class="arithmatex">\(y\)</span> 间最优路族。</p>
+<p>所以，求 <span class="arithmatex">\(w\)</span> 宽距离，就是要找到最优路族。</p>
+<h3 id="宽直径">宽直径<a class="headerlink" href="#宽直径" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\(w\)</span> 连通的，<span class="arithmatex">\(G\)</span> 的所有点对间的 <span class="arithmatex">\(w\)</span> 宽距离的最大值，称为 <span class="arithmatex">\(G\)</span> 的 <span class="arithmatex">\(w\)</span> 宽直径，记为 <span class="arithmatex">\(d_w(G )\)</span>。</p>
+<p>例如：<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /></p>
+<ul>
+<li><span class="arithmatex">\(n\)</span> 点圈 <span class="arithmatex">\(C_n\)</span>：（连通度 = 2）</li>
+<li><span class="arithmatex">\(d_1(C_n)=\lfloor\frac{n}{2}\rfloor\)</span>；</li>
+<li><span class="arithmatex">\(d_2(C_n)=n-1\)</span>；</li>
+<li><span class="arithmatex">\(k\)</span> 阶完全图 <span class="arithmatex">\(K_n\)</span>：（连通度 = <span class="arithmatex">\(n-1\)</span>）</li>
+<li><span class="arithmatex">\(d_1(K_n)=1\)</span>；</li>
+<li><span class="arithmatex">\(d_w(K_n)=2\)</span>；（<span class="arithmatex">\(2\leq w\leq n-1\)</span>）</li>
+</ul>
+<p>容错直径（了解）</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../coloring/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 着色问题">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                着色问题
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../euler_hamilton/" class="md-footer__link md-footer__link--next" aria-label="Next: 欧拉图与哈密顿图">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                欧拉图与哈密顿图
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2469 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/os/thread/">
+      
+      
+        <link rel="prev" href="../sync/">
+      
+      
+        <link rel="next" href="../ysosv2/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>线程 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#线程的基本概念" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              线程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Os
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    操作系统绪论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deadlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    死锁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I/O
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-customized-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    给Linux内核增加自定义系统调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内存管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheduling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    经典进程同步问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    线程
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    线程
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#线程的基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#为什么需要线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么需要线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线程进程对比" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程进程对比
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线程的组成" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的组成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      单线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多核并行" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核并行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多核并行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#两类并行" class="md-nav__link">
+    <span class="md-ellipsis">
+      两类并行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amdahl-定律" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amdahl 定律
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#线程的实现方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的实现方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程的实现方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用户级线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户级线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#内核级线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核级线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多线程模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多线程模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#多对一模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多对一模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一对一模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一对一模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多对多模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多对多模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一对多模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一对多模型？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#现代多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代多线程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="现代多线程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线程库" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程库
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#隐式多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      隐式多线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多线程引入的问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程引入的问题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ysosv2/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ysosv2
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../principles-of-computer-composition/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#线程的基本概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的基本概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#为什么需要线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么需要线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线程进程对比" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程进程对比
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线程的组成" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的组成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      单线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多核并行" class="md-nav__link">
+    <span class="md-ellipsis">
+      多核并行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多核并行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#两类并行" class="md-nav__link">
+    <span class="md-ellipsis">
+      两类并行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amdahl-定律" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amdahl 定律
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#线程的实现方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程的实现方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程的实现方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用户级线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户级线程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#内核级线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核级线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多线程模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多线程模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#多对一模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多对一模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一对一模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一对一模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#多对多模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      多对多模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一对多模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      一对多模型？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#现代多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代多线程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="现代多线程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线程库" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程库
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="线程库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux 线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#隐式多线程" class="md-nav__link">
+    <span class="md-ellipsis">
+      隐式多线程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多线程引入的问题" class="md-nav__link">
+    <span class="md-ellipsis">
+      多线程引入的问题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>线程</h1>
+
+<h2 id="线程的基本概念">线程的基本概念<a class="headerlink" href="#线程的基本概念" title="Permanent link">&para;</a></h2>
+<h3 id="为什么需要线程">为什么需要线程<a class="headerlink" href="#为什么需要线程" title="Permanent link">&para;</a></h3>
+<p>有的进程可能需要“同时”做很多事，而传统的进程只能串行地执行一系列程序。为此，引入了“线程”，来增加并发度。</p>
+<p>大多数现代应用程序都是多线程的，线程在应用程序中运行，应用程序的多个任务可以由单独的线程实现</p>
+<p>如 Web 浏览器：</p>
+<ul>
+<li>更新显示</li>
+<li>获取数据</li>
+<li>拼写检查</li>
+<li>响应网络请求</li>
+</ul>
+<p>进程创建很<strong>重载</strong>，而线程创建很<strong>轻量</strong>;</p>
+<p>可以简化代码，提高效率;</p>
+<p>内核(作为内核程序进程) 通常是多线程的，多个线程在内核中运行，每个线程执行一个特定的任务;</p>
+<p>现代服务器——多线程服务器，可以同时处理多个并发请求</p>
+<h3 id="线程进程对比">线程进程对比<a class="headerlink" href="#线程进程对比" title="Permanent link">&para;</a></h3>
+<p>系统资源分配与处理器调度</p>
+<p>引入线程后，<strong>进程</strong>只作为<strong>除 CPU 之外的系统资源 的 基本分配单元</strong>(最小单位)（如打印机、内存地址空间等都是分配给进程的）；<strong>CPU 的 分配单元</strong> 则是<strong>线程</strong></p>
+<hr />
+<p>并发性</p>
+<p>引入线程之后，不仅是进程之间可以并发，进程内的各线程之间也可以并发，从而进一步提升了系统的并发度，使得一个进程内也可以并发处理各种任务。</p>
+<hr />
+<p>系统开销</p>
+<ul>
+<li>传统的进程间并发，需要切换进程的运行环境，系统开销很大</li>
+<li>线程间并发，如果是同一进程内的线程切换，则不需要切换进程环境，系统开销小</li>
+</ul>
+<hr />
+<p>独立性</p>
+<p>某个进程中的线程对其他进程是不可见的</p>
+<p>每个进程都拥有独立的地址空间和资源，除了共享全局变量不允许其他进程访问</p>
+<hr />
+<p>支持多处理器系统</p>
+<ul>
+<li>传统单线程进程不管系统有多少 CPU ，进程只能运行在一个 CPU 上</li>
+<li>对于多线程进程，进程多个线程可以分配到多个 CPU 上执行</li>
+</ul>
+<h3 id="线程的组成">线程的组成<a class="headerlink" href="#线程的组成" title="Permanent link">&para;</a></h3>
+<p>线程也有叫做轻量级进程（LWP），线程只包含运行时的状态</p>
+<ul>
+<li>（用户空间）静态部分由进程提供，与其他线程共享：</li>
+<li>代码段 text</li>
+<li>数据段 data</li>
+<li>堆 heap</li>
+<li>其他操作系统资源</li>
+<li>（内核空间）TCB——包括了执行所需的最小状态(主要是寄存器和栈);</li>
+<li>TID</li>
+<li>程序计数器 PC</li>
+<li>寄存器</li>
+<li>栈 stack（的指针）（每个线程拥有自己的栈，内核中也有为线程准备的内核栈）</li>
+<li>指向父进程/线程的指针</li>
+<li>指向子进程/线程的指针</li>
+</ul>
+<p>一个进程可以包含多个线程</p>
+<ul>
+<li>每个线程共享同一地址空间(方便数据共享和交互);</li>
+<li>允许进程内并行;</li>
+</ul>
+<h3 id="单线程">单线程<a class="headerlink" href="#单线程" title="Permanent link">&para;</a></h3>
+<p>早期操作系统多为单线程进程的结构，实际上也没有形成线程的概念。例如 MS-DOS</p>
+<p><img alt="单线程进程" src="../../../assets/cs/os/thread/%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B.png" /></p>
+<h3 id="多线程">多线程<a class="headerlink" href="#多线程" title="Permanent link">&para;</a></h3>
+<p>多线程是指操作系统在单个进程内支持多个并发执行路径的能力。</p>
+<p><img alt="多线程进程" src="../../../assets/cs/os/thread/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B.png" /></p>
+<p>多线程的优点：</p>
+<ul>
+<li>响应性——如果部分线程被阻塞，仍可以继续执行，这对于 用户界面设计尤其重要，快速响应;</li>
+<li>资源共享——线程共享进程资源，比进程共享内存或消息传 递更容易，允许一个应用程序在同一地址空间内有多个不 同的活跃线程;</li>
+<li>经济——比进程创建更便宜，线程切换比上下文切换开销更 低。进程创建是线程创建的几十倍，进程切换比线程切换 慢 5 倍;</li>
+<li>可扩展性(可伸缩性)——线程可以利用多核体系结构;</li>
+</ul>
+<h2 id="多核并行">多核并行<a class="headerlink" href="#多核并行" title="Permanent link">&para;</a></h2>
+<p>单核下只能并发执行的任务，现在可以通过多核（多线程）并行执行</p>
+<h3 id="两类并行">两类并行<a class="headerlink" href="#两类并行" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>数据</strong>并行性——将相同数据的子集分布在多个核上，每个核上的操作相同;</li>
+</ul>
+<p><img alt="数据并行" src="../../../assets/cs/os/thread/%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C.png" /></p>
+<ul>
+<li><strong>任务</strong>并行性——将任务而不是数据分配到多个计算核心， 每个线程执行唯一的操作，不同线程可以操作相同的数据，也可以操作不同的数据;</li>
+</ul>
+<p><img alt="任务并行" src="../../../assets/cs/os/thread/%E4%BB%BB%E5%8A%A1%E5%B9%B6%E8%A1%8C.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>OpenAI 采用的就是数据并行、任务并行混合使用</p>
+</div>
+<h3 id="amdahl-定律">Amdahl 定律<a class="headerlink" href="#amdahl-定律" title="Permanent link">&para;</a></h3>
+<p>N 条并行，串行占比 S :</p>
+<div class="arithmatex">\[
+speedup\leq\frac{1}{S+\frac{(1-S)}{N}+\cdots}
+\]</div>
+<p>定律是否考虑了当代多核系统?——分母部分会增加“通信项”，代表核间通信的开销</p>
+<h2 id="tcb">TCB<a class="headerlink" href="#tcb" title="Permanent link">&para;</a></h2>
+<p>Linux 中进程与线程使用的是同一种数据结构 <code>task_struct</code> ，大多数操作系统也都是线程进程共享这样的数据结构</p>
+<h2 id="线程的实现方式">线程的实现方式<a class="headerlink" href="#线程的实现方式" title="Permanent link">&para;</a></h2>
+<p>“用户级线程” 就是 “从用户视角看能看到的线程”，早期操作系统只有用户级线程</p>
+<p>“内核级线程” 就是 “从操作系统内核视角看能看到的线程” ，现代操作系统支持内核级线程</p>
+<h3 id="用户级线程">用户级线程<a class="headerlink" href="#用户级线程" title="Permanent link">&para;</a></h3>
+<p>User-Level Thread，ULT</p>
+<p><img alt="用户级线程" src="../../../assets/cs/os/thread/%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B.png" /></p>
+<ol>
+<li>用户级线程由应用程序通过<strong>线程库</strong>（例如 pthreads ）实现，所有的线程管理工作都由应用程序负责（包括线程切换）</li>
+<li>用户级线程中，<strong>线程切换</strong>可以在<strong>用户态</strong>下即可完成，无需操作系统干预。</li>
+<li>在用户看来，是有多个线程。但是从内核、操作系统的角度来看，并意识不到线程的存在。</li>
+</ol>
+<p>线程<strong>不存在挂起态</strong>，因为线程不拥有资源！进程才拥有资源，才有“挂起态”。</p>
+<p>三状态线程模型：</p>
+<p><img alt="三状态线程模型" src="../../../assets/cs/os/thread/%E4%B8%89%E7%8A%B6%E6%80%81%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" /></p>
+<p>优缺点</p>
+<ul>
+<li>
+<p>优点：</p>
+</li>
+<li>
+<p>用户级线程的切换在用户空间即可完成，不需要切换到核心态，线程管理的系统<strong>开销小</strong>，<strong>效率高</strong></p>
+</li>
+<li>可以由用户程序自己的调度算法来调度线程</li>
+<li>
+<p><strong>跨平台</strong>，在任何操作系统都可以运行，可迁移性强</p>
+</li>
+<li>
+<p>缺点：</p>
+</li>
+<li>
+<p>当一个用户级线程被阻塞后，整个进程都会被阻塞，<strong>并发度不高</strong>。多个线程不可在多核处理机上并行运行。</p>
+<ul>
+<li>没有内核线程在阻塞时提供并行能力</li>
+<li>解决方案：</li>
+<li>套管（Jacketing）把一个产生阻塞的系统调用转化为一个非阻塞的系统调用；</li>
+<li>把应用程序写成一个多进程程序而非多线程程序，每次切换都变成进程间的切换而非线程间切换，例如 Python</li>
+</ul>
+</li>
+<li>
+<p>在纯 ULT 策略中，多线程应用程序不能利用多处理技术。内核一次只把一个进程分配给一个处理器，因此一个进程中只有一个线程可以执行。</p>
+</li>
+</ul>
+<h3 id="内核级线程">内核级线程<a class="headerlink" href="#内核级线程" title="Permanent link">&para;</a></h3>
+<p>Kernel-Level Thread, KLT，又称“内核支持的线程”</p>
+<ol>
+<li>内核级<strong>线程管理</strong>工作由<strong>操作系统内核</strong>完成。</li>
+<li>线程调度、切换等工作都由内核负责，因此内核级线程的切换必然需要在核心态下才能完成。</li>
+<li>操作系统会为每个内核级线程建立相应的 TCB (Thread Control Block, 线程控制块），通过 TCB 对线程进行管理。</li>
+<li>应用级没有线程管理代码，只有一个内核线程设施的应用编程接口（API），例如 Windows</li>
+</ol>
+<p>优缺点</p>
+<ul>
+<li>
+<p>优点：</p>
+</li>
+<li>
+<p>内核可以同时把同一个进程中的多个线程调度到多个处理器；</p>
+</li>
+<li>当一个线程被阻塞后，别的线程还可以继续执行，<strong>并发能力强</strong>。多线程可在多核处理机上并行执行。</li>
+<li>
+<p>内核线程自身也可以是多线程</p>
+</li>
+<li>
+<p>缺点：</p>
+</li>
+<li>一个用户进程会占用多个内核级线程，线程切换由操作系统内核完成，需要切换到核心态，因此线程管理能<strong>成本高</strong>，<strong>开销大</strong>。</li>
+</ul>
+<h2 id="多线程模型">多线程模型<a class="headerlink" href="#多线程模型" title="Permanent link">&para;</a></h2>
+<p>在支持内核级线程的系统中，根据用户级线程和内核级线程的映射关系，可以划分为几种多线程模型</p>
+<h3 id="多对一模型">多对一模型<a class="headerlink" href="#多对一模型" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>个人理解就是只支持用户级线程，而不支持内核级线程的情况，早期操作系统的类型</p>
+</div>
+<p>多个用户级线程映射到一个内核级线程。且一个进程只被分配一个内核级线程。</p>
+<p>例如 UNIX</p>
+<p><img alt="多对一模型" src="../../../assets/cs/os/thread/%E5%A4%9A%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B.png" /></p>
+<ul>
+<li>优点：</li>
+<li>用户级线程的切换在用户空间即可完成，不需要切换到核心态，线程管理的系统开销小，效率高</li>
+<li>缺点：</li>
+<li>当一个用户级线程被阻塞后，整个进程都会被阻塞</li>
+<li>并发度不高。多个线程不可在多核处理机上并行运行</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>操作系统只“看得见”内核级线程，因此只有内核级线程才是处理机分配的单位。</p>
+</div>
+<h3 id="一对一模型">一对一模型<a class="headerlink" href="#一对一模型" title="Permanent link">&para;</a></h3>
+<p>一个用户级线程映射到一个内核级线程。每个用户进程有与用户级线程同数量的内核级线程。</p>
+<p>例如 Linux 、Windows</p>
+<p><img alt="一对一模型" src="../../../assets/cs/os/thread/%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B.png" /></p>
+<ul>
+<li>优点：</li>
+<li>当一个线程被阻塞后，别的线程还可以继续执行</li>
+<li>并发能力强。多线程可在多核处理机上并行执行</li>
+<li>缺点：</li>
+<li>一个用户进程会占用多个内核级线程， 线程切换由操作系统内核完成，需要切换到核心态，开销大</li>
+<li>由于内核存储空间的限制，无法创建太多的线程</li>
+<li>每创建一个用户线程就要创建一个内核线程，一个用户进程可能占用很多内核线程，开销大</li>
+</ul>
+<h3 id="多对多模型">多对多模型<a class="headerlink" href="#多对多模型" title="Permanent link">&para;</a></h3>
+<p>ULT 和 KLT 混合的模式，例如 Solaris 。实际上非常复杂，目前没有操作系统能够很好地实现这种模型</p>
+<p>多对多模型：n 用户及线程映射到 m 个内核级线程（<span class="arithmatex">\(n\geq m\)</span>）。每个用户进程对应 m 个内核级线程。</p>
+<p><img alt="多对多模型" src="../../../assets/cs/os/thread/%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B.png" /></p>
+<ul>
+<li>克服了多对一模型并发度不高的缺点（一个阻塞全体阻塞）</li>
+<li>克服了一对一模型中一个用户进程占用太多内核级线程，开销太大的缺点</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>可以这么理解：</p>
+</div>
+<ul>
+<li>用户级线程是“代码逻辑”的载体</li>
+<li>内核级线程是“运行机会”的载体</li>
+</ul>
+<p>内核级线程中可以运行任意一个有映射关系的用户级线程代码，<strong>一个进程只有所有与其有映射关系的内核级线程中正在运行的代码逻辑都阻塞时，这个进程才会阻塞</strong>！</p>
+<ul>
+<li>优点：</li>
+<li>可以创建很多线程</li>
+<li>并发度高</li>
+<li>缺点：</li>
+<li>复杂、难以管理、难实现</li>
+</ul>
+<h3 id="一对多模型">一对多模型？<a class="headerlink" href="#一对多模型" title="Permanent link">&para;</a></h3>
+<p>一个线程对应多个进程</p>
+<p>执行过程中发生状态的迁移，就需要将线程从一个进程迁移到另一个进程</p>
+<p>例如银行系统，一个请求会多个有一模一样的进程处理，如果其中一个出现了错误，就会将其他正确的进程迁移过去</p>
+<h2 id="现代多线程">现代多线程<a class="headerlink" href="#现代多线程" title="Permanent link">&para;</a></h2>
+<ul>
+<li>异步线程 Asynchronous threading</li>
+</ul>
+<p>父线程创建子线程后继续运行，父子线程并发、独立运行。</p>
+<ul>
+<li>同步线程 Synchronous threading</li>
+</ul>
+<p>父线程创建子线程后等待子线程结束后再继续运行，采用 Fork-join strategy ，类似于 Linux 进程中的 fork+wait+exit 。</p>
+<h3 id="线程库">线程库<a class="headerlink" href="#线程库" title="Permanent link">&para;</a></h3>
+<p>线程库程序员提供了创建和管理线程的 API；</p>
+<p>两种主要的实施方式：</p>
+<ul>
+<li>第一种方式：在用户空间中提供一个没有内核支持的库；</li>
+<li>第二种方法：实现操作系统支持的内核级库；</li>
+</ul>
+<p>三种主要的线程库：</p>
+<ul>
+<li>
+<p>POSIX Pthreads（用户层次或者内核层次）；</p>
+</li>
+<li>
+<p><code>#include&lt;pthread&gt;</code></p>
+</li>
+<li>
+<p>Windows API（内核层次）；</p>
+</li>
+<li>
+<p>特色：<code>WaitForSingleObject(...)</code> / <code>WaitForMultipleObject(...)</code></p>
+</li>
+<li>
+<p>支持线程池</p>
+</li>
+<li>
+<p>Java（利用 Windows API 或者 pthreads 来实现）；</p>
+</li>
+<li>
+<p>由 JVM 管理，通常使用底层操作系统提供的线程模型实现</p>
+</li>
+<li>
+<p>Java 线程可以通过以下方式创建：</p>
+<ul>
+<li>扩展线程类</li>
+<li>实现可运行接口</li>
+<li>标准实践是实现可运行接口</li>
+</ul>
+</li>
+<li>
+<p>允许围绕 Executor 接口创建线程，典型的线程池</p>
+<ul>
+<li><code>static ExecutorService newSingleThreadExecutor()</code></li>
+<li><code>static ExecutorService newFixedThreadPool (int size)</code></li>
+<li><code>static ExecutorService newCachedThreadPool()</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="linux-线程">Linux 线程<a class="headerlink" href="#linux-线程" title="Permanent link">&para;</a></h4>
+<p>Linux 将它们称为任务（task）而不是线程</p>
+<p>线程创建是通过 <code>clone()</code> 系统调用完成的（Linux 上用 pthread 库的创建线程也是使用这个系统调用）</p>
+<p><code>clone()</code> 允许子任务共享父任务(进程)的地址空间</p>
+<p>标记控件行为...</p>
+<p>结构 <code>task_struct</code> 指向流程数据结构 (共享或唯一)</p>
+<h3 id="隐式多线程">隐式多线程<a class="headerlink" href="#隐式多线程" title="Permanent link">&para;</a></h3>
+<p>随着线程数量的增加，程序员来控制多线程程序变得越来越困难，于是诞生了由编译器和运行时库而不是程序员创建和管理线程的<strong>隐式多线程</strong></p>
+<p>探索了五种方法</p>
+<ul>
+<li>线程池</li>
+<li>
+<p>Fork-Join</p>
+</li>
+<li>
+<p>适用于超算、高性能计算场景，利用嵌套创建子线程可以短时间创建数百万子线程</p>
+</li>
+<li>
+<p>OpenMP</p>
+</li>
+<li>
+<p>让编译器实现程序的多线程并行化</p>
+</li>
+<li>
+<p>指令指定代码编译为多线程并行程序</p>
+<ul>
+<li><code>#pragma omp parallel {...}</code></li>
+<li><code>#pragma omp for ...</code></li>
+</ul>
+</li>
+<li>
+<p>中央大调度 (GCD) (eg: Apple...)</p>
+</li>
+<li>
+<p>目标是自动识别程序的并行部分并实现并行化</p>
+</li>
+<li>
+<p>C、C++ 和 Obj-C 语言、API 和运行库的扩展</p>
+</li>
+<li>
+<p>英特尔线程构件(TBB)</p>
+</li>
+<li>设计并行 C++ 程序的模板库</li>
+<li><code>parallel_for</code> ： <code>for</code> 的并行化版本</li>
+</ul>
+<h2 id="多线程引入的问题">多线程引入的问题<a class="headerlink" href="#多线程引入的问题" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>fork()</code> 和 <code>exec()</code> 系统调用的语义</li>
+<li><code>fork()</code> 是只复制调用线程，还是复制该进程的所有线程？<ul>
+<li>有些 UNIX 有 2 种 <code>fork</code> 版本</li>
+</ul>
+</li>
+<li><code>exec()</code> 通常正常工作，<strong>替换</strong>正在运行的进程，包括所有线程</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>UNIX 中的信号——用于通知进程某个特定事件已发生。</p>
+</div>
+<p>信号处理器用于处理信号</p>
+<ol>
+<li>
+<p>信号由特定事件产生</p>
+</li>
+<li>
+<p>信号被传送到进程</p>
+</li>
+<li>
+<p>信号由两个信号处理程序之一处理:</p>
+</li>
+<li>
+<p>缺省的信号处理程序</p>
+</li>
+<li>用户定义</li>
+</ol>
+<p>每个信号都有内核在处理信号时运行的默认处理程序</p>
+<ul>
+<li>用户定义的信号处理程序可以覆盖默认值</li>
+<li>
+<p>对于单线程，信号传输到进程</p>
+</li>
+<li>
+<p>信号处理</p>
+</li>
+<li>同步 / 异步</li>
+<li>多线程的信号应该在哪里传递?<ul>
+<li>将信号传递到应用该信号的线程（一对一）</li>
+<li>将信号传递给进程中的每个线程（一对多）</li>
+<li>将信号传递给进程中的某些线程（一对一）</li>
+<li>指定一个特定线程来接收进程的所有信号（多对一）</li>
+</ul>
+</li>
+<li>线程取消（要终止的线程一般叫做目标线程）</li>
+<li>异步——立即终止目标线程</li>
+<li>延迟——允许目标线程定期——也就是执行到代码中的“取消点”的时候——检查是否应该取消，缺省情况下都是这种情况</li>
+<li>Linux 由信号处理，而且应该是一对一的</li>
+<li>Java 用 <code>interrupt</code> 方法</li>
+<li>
+<p>线程本地存储</p>
+</li>
+<li>
+<p>线程本地存储 (TLS) 允许每个线程拥有自己的数据副本，有这些好处：</p>
+<ul>
+<li>当无法控制线程创建过程时 (即，当使用线程池时)，此功能非常有用</li>
+<li>可以避免不同线程之间访问同一互斥变量带来的性能损失</li>
+</ul>
+</li>
+<li>
+<p>与局部变量不同</p>
+<ul>
+<li>局部变量仅在单个函数调用期间可见</li>
+<li>TLS 在函数调用中可见</li>
+</ul>
+</li>
+<li>
+<p>类似于静态数据</p>
+<ul>
+<li>TLS 对于每个线程都是唯一的</li>
+</ul>
+</li>
+<li>
+<p>调度程序激活</p>
+</li>
+<li>
+<p>多对多模型和一对一模型都需要通信来维护分配给应用程序的适当数量的内核线程</p>
+</li>
+<li>
+<p>通常在用户线程和内核线程之间使用中间数据结构——轻量级进程(LWP, Light Weight Process)</p>
+<ul>
+<li>似乎是一个虚拟处理器，进程可以 在该处理器上调度用户线程运行</li>
+<li>每个 LWP 都连接到内核线程</li>
+<li>要创建多少 LWP?</li>
+</ul>
+</li>
+<li>
+<p>调度器激活提供了 upcall ——一种从内核到线程库中 upcall 处理程序的通信机制</p>
+</li>
+<li>这种通信允许应用程序保持正确的内核线程数</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../sync/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 经典进程同步问题">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                经典进程同步问题
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ysosv2/" class="md-footer__link md-footer__link--next" aria-label="Next: YSOSv2实验报告">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                YSOSv2实验报告
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

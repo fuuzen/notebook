@@ -1,0 +1,2611 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/cs/principles-of-computer-composition/instruction-system/">
+      
+      
+        <link rel="prev" href="../exception-and-interruption/">
+      
+      
+        <link rel="next" href="../memory/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>指令系统 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#思维导图" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              指令系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Cs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../ai/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ai
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../data-structure-and-algorithm/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Data structure and algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../fronet-end/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Fronet end
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../languages/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../os/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Os
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../parallel-programing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Parallel programing
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Principles of computer composition
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Principles of computer composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-indicators-of-computer-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机性能的基本指标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据通路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dram-refresh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DRAM刷新
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exception-and-interruption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常和中断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    指令系统
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    指令系统
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#思维导图" class="md-nav__link">
+    <span class="md-ellipsis">
+      思维导图
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#两大类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      两大类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="两大类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CISC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      RISC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#设计原则" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计原则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设计原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#完备性" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有效性" class="md-nav__link">
+    <span class="md-ellipsis">
+      有效性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#规整性" class="md-nav__link">
+    <span class="md-ellipsis">
+      规整性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#兼容性" class="md-nav__link">
+    <span class="md-ellipsis">
+      兼容性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#指令系统的结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令系统的结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令系统的结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#堆栈结构零地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆栈结构：零地址指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#累加器结构一地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      累加器结构：一地址指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#通用寄存器结构二三地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      通用寄存器结构：二、三地址指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#指令-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令 Command
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令 Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mips-三种指令类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      MIPS 三种指令类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一条指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      一条指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址码结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址码结构
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一个较完善的指令系统应该包括" class="md-nav__link">
+    <span class="md-ellipsis">
+      一个较完善的指令系统应该包括
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一个较完善的指令系统应该包括">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据传送指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据传送指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输入输出指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入输出指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算术运算指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      算术运算指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#逻辑运算指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑运算指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统控制指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统控制指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序控制指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序控制指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="寻址">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#寻址方式出现的目的" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址方式出现的目的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令系统中的两类寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令系统中的两类寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#寻址方式的确定" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址方式的确定
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本寻址方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本寻址方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本寻址方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一立即数寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、立即数寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二存储器直接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、存储器直接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三寄存器直接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、寄存器直接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四存储器间接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、存储器间接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五寄存器间接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、寄存器间接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#六偏移寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、偏移寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#七堆栈寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、堆栈寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#混合寻址方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      混合寻址方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    运算
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtual-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟存储器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../von-neumann-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    冯·诺伊曼体系结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../yatcpu/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Yatcpu
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#思维导图" class="md-nav__link">
+    <span class="md-ellipsis">
+      思维导图
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#两大类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      两大类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="两大类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CISC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      RISC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#设计原则" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计原则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设计原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#完备性" class="md-nav__link">
+    <span class="md-ellipsis">
+      完备性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有效性" class="md-nav__link">
+    <span class="md-ellipsis">
+      有效性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#规整性" class="md-nav__link">
+    <span class="md-ellipsis">
+      规整性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#兼容性" class="md-nav__link">
+    <span class="md-ellipsis">
+      兼容性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#指令系统的结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令系统的结构
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令系统的结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#堆栈结构零地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆栈结构：零地址指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#累加器结构一地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      累加器结构：一地址指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#通用寄存器结构二三地址指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      通用寄存器结构：二、三地址指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#指令-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令 Command
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="指令 Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mips-三种指令类型" class="md-nav__link">
+    <span class="md-ellipsis">
+      MIPS 三种指令类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一条指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      一条指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#地址码结构" class="md-nav__link">
+    <span class="md-ellipsis">
+      地址码结构
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一个较完善的指令系统应该包括" class="md-nav__link">
+    <span class="md-ellipsis">
+      一个较完善的指令系统应该包括
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一个较完善的指令系统应该包括">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#数据传送指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据传送指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#输入输出指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入输出指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#算术运算指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      算术运算指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#逻辑运算指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑运算指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#系统控制指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统控制指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#程序控制指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      程序控制指令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="寻址">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#寻址方式出现的目的" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址方式出现的目的
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#指令系统中的两类寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      指令系统中的两类寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#寻址方式的确定" class="md-nav__link">
+    <span class="md-ellipsis">
+      寻址方式的确定
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#基本寻址方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本寻址方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基本寻址方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一立即数寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、立即数寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二存储器直接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、存储器直接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三寄存器直接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、寄存器直接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四存储器间接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、存储器间接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五寄存器间接寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、寄存器间接寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#六偏移寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、偏移寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#七堆栈寻址" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、堆栈寻址
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#混合寻址方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      混合寻址方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>指令系统</h1>
+
+<h2 id="思维导图">思维导图<a class="headerlink" href="#思维导图" title="Permanent link">&para;</a></h2>
+<p><img alt="指令系统" src="../../../assets/cs/principles-of-computer-composition/%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F.png" /></p>
+<h2 id="两大类型">两大类型<a class="headerlink" href="#两大类型" title="Permanent link">&para;</a></h2>
+<h3 id="cisc">CISC<a class="headerlink" href="#cisc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>(1) 指令系统复杂</li>
+<li>(2) 指令周期长</li>
+<li>(3) 各种指令都能访问存储器</li>
+<li>(4) 有专用寄存器（寻址快）</li>
+<li>(5) 采用微程序控制</li>
+<li>(6) 难以进行编译优化生成高效目标代码</li>
+<li>(7) 指令长度不等长，
+  变长指令字(Expanding Opcodes)</li>
+</ul>
+<h3 id="risc">RISC<a class="headerlink" href="#risc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>(1) 简化的指令系统</li>
+<li>(2) 指令周期短</li>
+<li>(3) 有专门的访存指令如 load、store，
+  以寄存器-寄存器方式工作(三地址指令是 RISC 风格)</li>
+<li>(4) 采用大量通用寄存器，以减少访存次数</li>
+<li>(5) 采用组合逻辑电路控制，不用或少用微程序控制</li>
+<li>(6) 采用优化的编译系统，力求有效地支持高级语言程序</li>
+<li>(7) 指令长度几乎全部相等，
+  定长指令字(Fixed Length Opcodes)</li>
+</ul>
+<h2 id="设计原则">设计原则<a class="headerlink" href="#设计原则" title="Permanent link">&para;</a></h2>
+<h3 id="完备性">完备性<a class="headerlink" href="#完备性" title="Permanent link">&para;</a></h3>
+<h3 id="有效性">有效性<a class="headerlink" href="#有效性" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每条指令的操作码只能是一个</li>
+</ul>
+<h3 id="规整性">规整性<a class="headerlink" href="#规整性" title="Permanent link">&para;</a></h3>
+<h3 id="兼容性">兼容性<a class="headerlink" href="#兼容性" title="Permanent link">&para;</a></h3>
+<ul>
+<li>向上兼容</li>
+<li>向下兼容</li>
+</ul>
+<h2 id="指令系统的结构">指令系统的结构<a class="headerlink" href="#指令系统的结构" title="Permanent link">&para;</a></h2>
+<h3 id="堆栈结构零地址指令">堆栈结构：零地址指令<a class="headerlink" href="#堆栈结构零地址指令" title="Permanent link">&para;</a></h3>
+<h3 id="累加器结构一地址指令">累加器结构：一地址指令<a class="headerlink" href="#累加器结构一地址指令" title="Permanent link">&para;</a></h3>
+<h3 id="通用寄存器结构二三地址指令">通用寄存器结构：二、三地址指令<a class="headerlink" href="#通用寄存器结构二三地址指令" title="Permanent link">&para;</a></h3>
+<h2 id="指令-command">指令 Command<a class="headerlink" href="#指令-command" title="Permanent link">&para;</a></h2>
+<p>指令是指挥计算机实现某个基本操作的命令</p>
+<h3 id="mips-三种指令类型">MIPS 三种指令类型<a class="headerlink" href="#mips-三种指令类型" title="Permanent link">&para;</a></h3>
+<ul>
+<li>R-Type(用于寄存器 Register)
+  两个操作数都是寄存器的运算指令。如：sub rd, rs, rt</li>
+<li>
+<p>I-Type</p>
+</li>
+<li>
+<p>运算指令：一个寄存器、一个立即数。如：
+    ori rt, rs, imm16</p>
+</li>
+<li>Load 和 Store 指令。如：
+    lw rt, rs, imm16</li>
+<li>
+<p>条件分支指令。如：
+    beq rs, rt, imm16</p>
+</li>
+<li>
+<p>J-Type
+  无条件跳转指令。如：j target</p>
+</li>
+</ul>
+<p>注意：J 指令是绝对寻址(伪直接寻址)，不是相对寻址！</p>
+<h3 id="一条指令">一条指令<a class="headerlink" href="#一条指令" title="Permanent link">&para;</a></h3>
+<ul>
+<li>操作码</li>
+<li>
+<p>地址码</p>
+</li>
+<li>
+<p>寻址方式码</p>
+</li>
+<li>操作数</li>
+</ul>
+<h3 id="地址码结构">地址码结构<a class="headerlink" href="#地址码结构" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>零地址指令</p>
+</li>
+<li>
+<p>(1) 无需操作数。如：空操作／停机等</p>
+</li>
+<li>
+<p>(2) 所需操作数为默认的。如：堆栈等</p>
+</li>
+<li>
+<p>一地址指令
+  其地址既是源操作数地址，也是存放结果地址</p>
+</li>
+<li>
+<p>(1) 单目运算：如：取反／取负等</p>
+</li>
+<li>
+<p>(2) 双目运算：另一操作数为默认的　如：累加器等</p>
+</li>
+<li>
+<p>二地址指令(最常用)
+  分别存放双目运算中两个源操作数地址，并将其中一个地址作为存放结果地址</p>
+</li>
+<li>三地址指令(RISC 风格)
+  三个地址分别为双目运算中两个源操作数地址和一个结果地址</li>
+<li>多地址指令
+  用于成批数据处理的指令，如：向量指令 等</li>
+</ul>
+<h2 id="一个较完善的指令系统应该包括">一个较完善的指令系统应该包括<a class="headerlink" href="#一个较完善的指令系统应该包括" title="Permanent link">&para;</a></h2>
+<h3 id="数据传送指令">数据传送指令<a class="headerlink" href="#数据传送指令" title="Permanent link">&para;</a></h3>
+<h3 id="输入输出指令">输入输出指令<a class="headerlink" href="#输入输出指令" title="Permanent link">&para;</a></h3>
+<h3 id="算术运算指令">算术运算指令<a class="headerlink" href="#算术运算指令" title="Permanent link">&para;</a></h3>
+<ul>
+<li>单目运算</li>
+<li>双面运算</li>
+</ul>
+<h3 id="逻辑运算指令">逻辑运算指令<a class="headerlink" href="#逻辑运算指令" title="Permanent link">&para;</a></h3>
+<ul>
+<li>单目运算</li>
+<li>双面运算</li>
+</ul>
+<h3 id="系统控制指令">系统控制指令<a class="headerlink" href="#系统控制指令" title="Permanent link">&para;</a></h3>
+<h3 id="程序控制指令">程序控制指令<a class="headerlink" href="#程序控制指令" title="Permanent link">&para;</a></h3>
+<h2 id="寻址">寻址<a class="headerlink" href="#寻址" title="Permanent link">&para;</a></h2>
+<h3 id="寻址方式出现的目的">寻址方式出现的目的<a class="headerlink" href="#寻址方式出现的目的" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>扩大访存范围</p>
+</li>
+<li>
+<p>提高访问数据的灵活性和有效性</p>
+</li>
+<li>支持软件技术的发展：多道程序设计</li>
+</ul>
+<h3 id="指令系统中的两类寻址">指令系统中的两类寻址<a class="headerlink" href="#指令系统中的两类寻址" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>寻找操作数
+  较复杂</p>
+</li>
+<li>
+<p>操作数的来源：</p>
+<ul>
+<li>寄存器</li>
+<li>外设端口</li>
+<li>主(虚)存</li>
+<li>堆栈</li>
+</ul>
+</li>
+<li>
+<p>操作数的数据结构：</p>
+<ul>
+<li>位</li>
+<li>字节</li>
+<li>半字</li>
+<li>字</li>
+<li>双字</li>
+<li>一维表</li>
+</ul>
+</li>
+<li>
+<p>寻找(下一条)指令
+  较简单</p>
+</li>
+<li>
+<p>顺序寻址
+    PC 增值</p>
+</li>
+<li>
+<p>跳跃寻址
+    跳转 ：操作数就是目标语句块第一条指令的地址
+    相对寻址</p>
+<ul>
+<li>jump</li>
+<li>branch</li>
+<li>call</li>
+<li>return</li>
+</ul>
+</li>
+</ul>
+<h3 id="寻址方式的确定">寻址方式的确定<a class="headerlink" href="#寻址方式的确定" title="Permanent link">&para;</a></h3>
+<ul>
+<li>在操作码中隐含寻址方式</li>
+<li>专门的寻址方式位显式给出</li>
+</ul>
+<h2 id="基本寻址方式">基本寻址方式<a class="headerlink" href="#基本寻址方式" title="Permanent link">&para;</a></h2>
+<h3 id="一立即数寻址">一、立即数寻址<a class="headerlink" href="#一立即数寻址" title="Permanent link">&para;</a></h3>
+<p>“不寻址”，源操作数直接在指令中</p>
+<ul>
+<li>1.指令执行时间很短，无需访存</li>
+<li>2.操作数的大小受地址字段长度的限制</li>
+<li>3.广泛使用</li>
+</ul>
+<h3 id="二存储器直接寻址">二、存储器直接寻址<a class="headerlink" href="#二存储器直接寻址" title="Permanent link">&para;</a></h3>
+<p>操作数在存储器中，指令地址字段直接给出操作数在存储器中的地址
+无括号包围</p>
+<ul>
+<li>1.处理简单、直接</li>
+<li>2.寻址空间受到指令的地址字段长度限制</li>
+<li>3.较少使用，8 位计算机和一些 16 位计算机</li>
+</ul>
+<h3 id="三寄存器直接寻址">三、寄存器直接寻址<a class="headerlink" href="#三寄存器直接寻址" title="Permanent link">&para;</a></h3>
+<p>操作数在寄存器中，指令地址字段直接给出存放操作数的寄存器编号
+汇编语言：一个括号包围一个寄存器(编号)</p>
+<ul>
+<li>1.只需要很短的地址字段</li>
+<li>2.无需访存，指令执行速度快</li>
+<li>3.地址范围有限，可以编程使用的通用寄存器不多</li>
+<li>4.使用最多，是提高性能的常用手段</li>
+</ul>
+<h3 id="四存储器间接寻址">四、存储器间接寻址<a class="headerlink" href="#四存储器间接寻址" title="Permanent link">&para;</a></h3>
+<p>操作数和操作数地址都在存储器中指令地址字段直接给出操作数地址在存储器中的地址
+汇编语言：双重括号包围一个主存地址</p>
+<ul>
+<li>1.寻址空间大，灵活，便于编程</li>
+<li>2.至少需要两次访存才能取到操作数</li>
+<li>3.执行速度慢</li>
+<li>4.用的非常少</li>
+</ul>
+<h3 id="五寄存器间接寻址">五、寄存器间接寻址<a class="headerlink" href="#五寄存器间接寻址" title="Permanent link">&para;</a></h3>
+<p>汇编语言：双重括号包围一个寄存器(编号)</p>
+<ul>
+<li>操作数在存储器中</li>
+<li>操作数地址在寄存器中</li>
+<li>指令地址字段给出的寄存器的内容是操作数在存储器中的地址</li>
+<li>1.比存储器间接寻址少访问存储器一次</li>
+<li>2.寻址空间大，使用比较普遍</li>
+</ul>
+<h3 id="六偏移寻址">六、偏移寻址<a class="headerlink" href="#六偏移寻址" title="Permanent link">&para;</a></h3>
+<p>EA = (R) + A
+A 由立即数的形式在指令中给出
+EA(Effective Address)：操作数实际地址</p>
+<ul>
+<li>相对寻址：EA = (PC) + A
+  相对于当前指令处位移量为 A 的单元</li>
+<li>
+<p>基址寻址：EA = (B) + A
+  相对于基址(B)处位移量为 A 的单元</p>
+</li>
+<li>
+<p>对于一道程序，基址是不变的，程序中的所有地址都是相对于基址变化的</p>
+</li>
+<li>在基址寻址中，偏移量位数较短</li>
+<li>基址寻址立足于面向系统，主要是解决程序逻辑空间与存储器物理空间的无关性</li>
+<li>
+<p>例如：实现程序重定位</p>
+</li>
+<li>
+<p>变址寻址：EA = A + (I)
+  相对于形式地址 A 处位移量为(I)的单元</p>
+</li>
+<li>
+<p>对于变址寻址，形式地址给出的是一个存储器地址基准，变址寄存器存放的是相对于该基准地址的偏移量</p>
+</li>
+<li>而在变址寻址中，偏移量位数足以表示整个存储空间</li>
+<li>而变址寻址立足于用户，主要是为编写高效访问一片存储空间的程序</li>
+<li>例如：实现线性表元素(数组)的存取</li>
+</ul>
+<h3 id="七堆栈寻址">七、堆栈寻址<a class="headerlink" href="#七堆栈寻址" title="Permanent link">&para;</a></h3>
+<p>EA = 栈顶</p>
+<ul>
+<li>
+<p>堆栈的结构：</p>
+</li>
+<li>
+<p>一段连续的内存区域</p>
+</li>
+<li>栈底</li>
+<li>
+<p>栈顶</p>
+</li>
+<li>
+<p>堆栈指针(SP)：一个特殊寄存器，指向栈顶</p>
+</li>
+<li>
+<p>堆栈操作</p>
+</li>
+<li>
+<p>PUSH ( 从寄存器到堆栈)</p>
+</li>
+<li>POP (从堆栈到寄存器)</li>
+</ul>
+<h3 id="混合寻址方式">混合寻址方式<a class="headerlink" href="#混合寻址方式" title="Permanent link">&para;</a></h3>
+<p>也会出现多个括号包围</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../exception-and-interruption/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 异常和中断">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                异常和中断
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../memory/" class="md-footer__link md-footer__link--next" aria-label="Next: 存储器">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                存储器
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
