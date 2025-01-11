@@ -61,25 +61,25 @@ $$
 
 ---
 
-$1\rArr 2$：
+$1\Rightarrow 2$：
 
 因为 $N\unlhd G$ ，所以对任意的 $a\in G$ ，有 $Na=aN$ ，从而 $aNa^{-1}=(Na)a^{-1}=N(aa^{-1})=N$。
 
 ---
 
-$2\rArr 3$：
+$2\Rightarrow 3$：
 
 显然 $aNa^{-1}=N$ 蕴含 $aNa^{-1}\subseteq N$。
 
 ---
 
-$3\rArr 4$：
+$3\Rightarrow 4$：
 
 显然 $aNa^{-1}=N$ 蕴含 $\forall a\in G,\forall n\in N,\ \ \ ana^{-1}\in N$。
 
 ---
 
-$4\rArr 1$：
+$4\Rightarrow 1$：
 
 若对任意 $a\in G,n\in N$ 有 $ana^{-1}\in N$ 从而可得：
 
@@ -193,8 +193,8 @@ $\forall a\in G$ ，若 $a\in H$ ，则显然因为 $e\in H$ ，所以 $ae=ea=a\
 $$
 \forall h_1,h_2\in H,\ \ \ ah_1a^{-1},ah_2a^{-1}\in aHa^{-1}\\
 ah_1a^{-1}(ah_2a^{-1})^{-1}=a(h_1h_2^{-1})a^{-1}\\
-H\leq G\rArr h_1h_2^{-1}\in H\\
-\rArr ah_1a^{-1}(ah_2a^{-1})^{-1}=a(h_1h_2^{-1})a^{-1}\in aHa^{-1}
+H\leq G\Rightarrow h_1h_2^{-1}\in H\\
+\Rightarrow ah_1a^{-1}(ah_2a^{-1})^{-1}=a(h_1h_2^{-1})a^{-1}\in aHa^{-1}
 $$
 
 可知 $aHa^{-1}$ 也是 $G$ 的子群。定义映射：
@@ -214,7 +214,7 @@ $$
 证明：
 
 $$
-\forall g\in G,\ \ g^{m}\in H\lrArr \forall g\in G,\exist h\in H,\ \ g^{m}=h
+\forall g\in G,\ \ g^{m}\in H\Leftrightarrow \forall g\in G,\exists h\in H,\ \ g^{m}=h
 $$
 
 而
@@ -296,7 +296,7 @@ $$
 
 由于 $G$ 是交换群，因此只要证明：
 
-所有阶数有限的元素构成的集合 $H=\{a|\exist k\in \mathbb{Z}^+,\ a^k = e\}$ ，这里 $e$ 是 $G$ 的单位元，只要证明 $H$ 是 $G$ 的子群即可。
+所有阶数有限的元素构成的集合 $H=\{a|\exists k\in \mathbb{Z}^+,\ a^k = e\}$ ，这里 $e$ 是 $G$ 的单位元，只要证明 $H$ 是 $G$ 的子群即可。
 
 对任意 $a,b\in H$ ，存在 $i,j\in \mathbb{Z}^+$ ，使得 $a^i=e,\ b^j=e$ ，从而
 
@@ -345,7 +345,7 @@ $G$ 是 $n$ 阶**有限交换**群，则对 $n$ 的任意**素**因子 $p$ ，$G
 （1）如果 $p$ 是 $|a|$ 的因子，则：
 
 $$
-\exist s\in\mathbb{Z}^+,\ \ |a|=sp\\
+\exists s\in\mathbb{Z}^+,\ \ |a|=sp\\
 |a^s|=\frac{|a|}{\gcd(|a|,s)}=\frac{|a|}{s}=p
 $$
 
@@ -361,7 +361,7 @@ $$
 
 $p$ 是 $k+1=\frac{k+1}{|a|}|a|$ 的素因子，且 $p$ 不是 $|a|$ 的因子，由数论知识得到 $p$ 就是 $\frac{k+1}{|a|}$ 的因子；
 
-所以由归纳假设， $\exist bH\in G/H,\ \ |bH|=p$ ；所以 $(bH)^p=b^pH=H$ ，所以 $b^p\in H$ ；且 $|H|=|a|$ ，所以 $(b^{p})^{|a|}=(b^{|a|})^p=e$ ；
+所以由归纳假设， $\exists bH\in G/H,\ \ |bH|=p$ ；所以 $(bH)^p=b^pH=H$ ，所以 $b^p\in H$ ；且 $|H|=|a|$ ，所以 $(b^{p})^{|a|}=(b^{|a|})^p=e$ ；
 
 另一方面，由于 $p$ 不是 $|a|$ 的因子，所以由 $|bH|=p$ 可得 $b^{|a|}H=(bH)^{|a|}\neq H$；所以 $b^{|a|}\notin H$ ，所以 $b^{|a|}\neq e$ ；
 

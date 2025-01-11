@@ -40,19 +40,19 @@ tags:
 #### 子集关系
 
 $$
-A \subseteq B \lrArr \forall x(x\in A \to x\in B)
+A \subseteq B \Leftrightarrow \forall x(x\in A \to x\in B)
 $$
 
 #### 集合相等
 
 $$
-A = B \lrArr \forall x(x\in A \lrarr x\in B)
+A = B \Leftrightarrow \forall x(x\in A \Leftrightarrow x\in B)
 $$
 
 或者
 
 $$
-A=B \lrArr A\subseteq B \land B \subseteq A
+A=B \Leftrightarrow A\subseteq B \land B \subseteq A
 $$
 
 ##### 空集
@@ -97,7 +97,7 @@ $$
 含义是:
 
 $$
-\forall x(x\in A \lrarr P(x))
+\forall x(x\in A \Leftrightarrow P(x))
 $$
 
 !!! warning
@@ -195,5 +195,5 @@ $$
 ### 有序 n 元组性质定理
 
 $$
-<a_1,a_2,...a_n>=<b_1,b_2,...b_n> \lrArr a_i=b_i \ ,\ i=1,2,3,...,n
+<a_1,a_2,...a_n>=<b_1,b_2,...b_n> \Leftrightarrow a_i=b_i \ ,\ i=1,2,3,...,n
 $$

@@ -181,7 +181,7 @@ tags:
 
 称公式集 $\Gamma$ **逻辑蕴涵**公式 B，记为 $\Gamma \to B$ ，如果弄真 $\Gamma$ 中所有公式的指派亦必弄真公式 B
 
-称公式 $A$ **逻辑等价**公式 B，记为 $A\lrarr B$ ，如果 $A\to B$ 且 $B\to A$
+称公式 $A$ **逻辑等价**公式 B，记为 $A\Leftrightarrow B$ ，如果 $A\to B$ 且 $B\to A$
 
 - 逻辑蕴涵关系具有
   - 自反性
@@ -198,11 +198,11 @@ tags:
 
 ### 替换
 
-设命题公式 $A$ 含有子公式 C (C 为 A 中的符号串，且 C 为命题公式)，如果 $C\lrarr D$，那么将 $A$ 中子公式 C 的某些出现(未必全部)用 D 替换后所得公式 B 满足 $A\lrarr B$。
+设命题公式 $A$ 含有子公式 C (C 为 A 中的符号串，且 C 为命题公式)，如果 $C\Leftrightarrow D$，那么将 $A$ 中子公式 C 的某些出现(未必全部)用 D 替换后所得公式 B 满足 $A\Leftrightarrow B$。
 
 ### 合/析 取范式
 
-命题公式 B 称为命题公式 $A$ 的**合取**（或**析取**）**范式**，如果 $B\lrarr A$，且 B 呈如下形式：
+命题公式 B 称为命题公式 $A$ 的**合取**（或**析取**）**范式**，如果 $B\Leftrightarrow A$，且 B 呈如下形式：
 
 $$
 C_1\land C_2\land ...\land C_m(或 C_1\lor C_2\lor ...\lor C_m)\ \ ,\ \ C_i (i=1, 2,...,m)
@@ -317,7 +317,7 @@ $$
 对 PC 中任意公式集 $\Gamma$ 和公式 $A,B$ ：
 
 $$
-\Gamma\cup\{A\}\vdash_{PC}B\lrArr\Gamma\vdash_{PC}(A\to B)
+\Gamma\cup\{A\}\vdash_{PC}B\Leftrightarrow\Gamma\vdash_{PC}(A\to B)
 $$
 
 ### 可靠性定理
@@ -363,7 +363,7 @@ $$
 - 谓词符号: 通常用**大写**英文字母或(首字母)大写英文字母串表示
   - 一元谓词、二元谓词、...... n 元谓词
 - 联结词: ......
-- 量词 :全称量词 $\forall$、存在量詞 $\exist$， $\forall x$ 表示 “対个体域中所有 $x$”、$\exist x$ 表示“在个 体域中存在个体 $x$ ”。$\forall$ 和 $\exist$ 后面跟的 $x$ 叫作量词的**指导变元**
+- 量词 :全称量词 $\forall$、存在量詞 $\exists$， $\forall x$ 表示 “対个体域中所有 $x$”、$\exists x$ 表示“在个 体域中存在个体 $x$ ”。$\forall$ 和 $\exists$ 后面跟的 $x$ 叫作量词的**指导变元**
 
 !!! info 
     一般一元谓词表达了个体的性质，而多元谓词表达了个体之间的关系
@@ -443,9 +443,9 @@ DEMO：$S=\{P(a,x,f(g(y))),P(z,h(z,u),f(u))\}$：
 
 2. 问题化为子句集
 
-   1. $R_1:\cdots \rArr S_1=\dots$，
+   1. $R_1:\cdots \Rightarrow S_1=\dots$，
 
-      $R_1:\cdots \rArr S_1=\cdots$，
+      $R_1:\cdots \Rightarrow S_1=\cdots$，
 
       ......
 
@@ -556,7 +556,7 @@ $$
 &R_1:(\forall x)(\forall y)(B(x,y)\to\sim F(x))\\
 &R_2:(\forall x)(\forall y)(S(x,y)\to F(x))\\
 &Fact:(S(Marry,Bill))\\
-&\rArr\\
+&\Rightarrow\\
 &G:\sim B(Marry,Tom)
 \end{aligned}
 $$

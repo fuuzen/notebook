@@ -139,10 +139,10 @@ $$
 
 $$
 \begin{cases}
-x(t)\lrarr X(j\omega)\\
-\tilde{x}(t)\lrarr a_k
+x(t)\Leftrightarrow X(j\omega)\\
+\tilde{x}(t)\Leftrightarrow a_k
 \end{cases}
-\rArr a_k=\frac{1}{T}X(jk\omega_0)
+\Rightarrow a_k=\frac{1}{T}X(jk\omega_0)
 $$
 
 ### 收敛性

@@ -205,8 +205,6 @@ CPU 给出的虚拟地址
 
   - Cache 不扩大时 Cache Block 的总数变少了，冲突变大
 
--
-
 - Cache 映射方式
 
   - Cache 容量小时， Cache 映射方式对 Miss Rate 有影响
@@ -214,8 +212,6 @@ CPU 给出的虚拟地址
   - Cache 容量大时，Cache 映射方式对 Miss Rate 影响不大
 
     - 映射到同一组的概率降低
-
--
 
 ### Cache 失效类型
 

@@ -49,8 +49,8 @@ tags:
 在一一对应的关系，使得边之间有如下的关系:
 
 $$
-设 u_1 \lrarr u_2 , v_1 \lrarr v_2 ,\ \ \  u_1 ,v_1\in V_1 ,\ \ \  u_2 , v_2 \in V_2 \\
-u_1 v_1 \in E_1 \lrArr u_2 v_2 \in E_2
+设 u_1 \Leftrightarrow u_2 , v_1 \Leftrightarrow v_2 ,\ \ \  u_1 ,v_1\in V_1 ,\ \ \  u_2 , v_2 \in V_2 \\
+u_1 v_1 \in E_1 \Leftrightarrow u_2 v_2 \in E_2
 $$
 
 $$
@@ -149,7 +149,7 @@ $$
 
 > 度序列通常以度数非递增的顺序列出？
 
-若对一个非负整数组 $(d_1,d_2,\cdots,d_n)$ 满足 $\exist m \in \mathbb Z,\sum_{i=1}^{n}d_i=2m$ (数组和为偶数)，存在一个简单图 $G$ 以该数组为度序列，则称这个数组是**可图**的，也叫这个数组为**图数组/图序列**。
+若对一个非负整数组 $(d_1,d_2,\cdots,d_n)$ 满足 $\exists m \in \mathbb Z,\sum_{i=1}^{n}d_i=2m$ (数组和为偶数)，存在一个简单图 $G$ 以该数组为度序列，则称这个数组是**可图**的，也叫这个数组为**图数组/图序列**。
 
 !!! abstract
     关于图序列我们研究三个问题：
@@ -547,7 +547,7 @@ $$
 若 $G$ 中没有 $1$ 度顶点，由握手定理:
 
 $$
-2m=\sum_{v\in V(G)}d(v)\geq 2n \rArr m\geq n \rArr m \gt n-1
+2m=\sum_{v\in V(G)}d(v)\geq 2n \Rightarrow m\geq n \Rightarrow m \gt n-1
 $$
 
 ---
@@ -557,7 +557,7 @@ $$
 若不然，$G$ 中顶点度数至少为 $2$，于是由握手定理：
 
 $$
-2m=\sum_{v\in(G)}d(v) \geq 2n \rArr m ≥n \rArr m > n-1
+2m=\sum_{v\in(G)}d(v) \geq 2n \Rightarrow m ≥n \Rightarrow m > n-1
 $$
 
 这与 $G$ 中恰有 $n-1$ 条边矛盾！

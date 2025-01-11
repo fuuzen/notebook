@@ -150,7 +150,7 @@ $$
 
 只是必要条件而不是充分条件，经典例子——**彼得森图**
 
-用于判断非 $H$ 图：$\exist S\subset V,\ \ \omega(G-S)\gt|S|$ ，则 $G$ 不是 $H$ 图。
+用于判断非 $H$ 图：$\exists S\subset V,\ \ \omega(G-S)\gt|S|$ ，则 $G$ 不是 $H$ 图。
 
 ### 充分条件
 

@@ -465,11 +465,11 @@ $$
 ### 最优策略的数学表达
 
 $$
-\forall s\in \mathcal{S}:\pi_1\geq\pi_2\lrArr v_{\pi_1}(s)\geq v_{\pi_2}(s)
+\forall s\in \mathcal{S}:\pi_1\geq\pi_2\Leftrightarrow v_{\pi_1}(s)\geq v_{\pi_2}(s)
 $$
 
 $$
-\forall s\in \mathcal{S},\forall a\in\mathcal{A}:\pi_1\geq\pi_2\lrArr q_{\pi_1}(s,a)\geq q_{\pi_2}(s,a)
+\forall s\in \mathcal{S},\forall a\in\mathcal{A}:\pi_1\geq\pi_2\Leftrightarrow q_{\pi_1}(s,a)\geq q_{\pi_2}(s,a)
 $$
 
 从而有：

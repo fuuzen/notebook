@@ -223,7 +223,7 @@ $$
 $$
 
 $$
-\forall a\leq b\leq c\ \ ,\ \ \exist G:\\
+\forall a\leq b\leq c\ \ ,\ \ \exists G:\\
 \kappa(G)=a,\ \ \lambda(G)=b,\ \ (G)=c
 $$
 

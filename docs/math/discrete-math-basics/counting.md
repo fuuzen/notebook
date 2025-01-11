@@ -3,104 +3,79 @@ title: 离散数学基础:排列组合计数问题
 date: 2024/01/09
 math: true
 categories:
- - [数学, 离散数学, 离散数学基础]
+  - [数学, 离散数学, 离散数学基础]
 tags:
- - 离散数学
- - 组合数学
+  - 离散数学
+  - 组合数学
 ---
 
-:::primary
-
-[离散数学基础-整理:](/math/discrete-math/discrete-math-basics/discrete-math/discrete-math-basics/) --- [排列与组合](/math/discrete-math/discrete-math-basics/dmbs/permutaion-and-combination/) --- [组合计数基本原理](/math/discrete-math/discrete-math-basics/dmbs/principles-of-counting/) --- [排列组合计数问题](/math/discrete-math/discrete-math-basics/dmbs/counting/) --- [递推关系式](/math/discrete-math/discrete-math-basics/dmbs/difference-equations/) --- [关系](/math/discrete-math/discrete-math-basics/dmbs/relations/) --- [集合与关系的运算](/math/discrete-math/discrete-math-basics/dmbs/operations-of-sets-and-relations/) --- [函数](/math/discrete-math/discrete-math-basics/dmbs/functions/) --- [代数系统](/math/discrete-math/discrete-math-basics/dmbs/algebra-system/)
 ## 思维导图
 
-![排列组合计数问题](../../assets/math/discrete-math/discrete-math-basics/排列组合计数问题.png)
+![排列组合计数问题](../../../assets/math/discrete-math-basics/排列组合计数问题.png)
 
-## 
+##
 
 $$
 P(n,r)=\frac{n!}{(n-r)!}
 $$
 
-- 
-
 $$
 n个不同物体不允许重复地选r个物体的排列数
 $$
-
-- 
 
 $$
 n元素的字符集上长度为r且不含重复字符的字符串数
 $$
 
-## 
+##
 
 $$
 n^r
 $$
 
-- 
-
 $$
 n类不同物体不允许重复地选r个物体的排列数
 $$
-
-- 
 
 $$
 n元素的字符集上长度为r且可含重复字符的字符串数
 $$
 
-## 
+##
 
 $$
 C(n,r)=\frac{n!}{r!(n-r)!}
 $$
 
-- 
-
 $$
 n个不同物体不允许重复地选r个物体的组合数
 $$
-
-- 
 
 $$
 将r个无区别的物体放到n个无区别的容器里
 $$
 
-- 
-
 $$
 长度为n且有r个1(或0)的二进制串数
 $$
-
-- 
 
 $$
 n元素集合的r元素子集的个数
 $$
 
-## 
+##
 
 $$
 C(n-1+r,r)=\frac{(n-1+r)!}{r!(n-1)!}
 $$
 
-- 
-
 $$
 n类不同物体允许重复地选r个物体的组合数
 $$
 
-- 
-
 $$
 将r个无区别的物体放到n个可区别的容器里
 $$
-
-- 
 
 $$
 \begin{aligned} &不定方程x_1 +x_2 +...+x_n =r\\
@@ -108,7 +83,7 @@ $$
 \end{aligned}
 $$
 
-## 
+##
 
 $$
 \begin{aligned} &\prod_{i=1}^{n}
@@ -123,21 +98,15 @@ $$
 \end{aligned}
 $$
 
-- 
-
 $$
 \begin{aligned} &分别有m_1,m_2,...,m_n个的n类不同物体的\\
 &m_1+m_2+...+m_n=r排列数
 \end{aligned}
 $$
 
-- 
-
 $$
 将r个无区别的物体放到n个可区别的容器里
 $$
-
-- 
 
 $$
 \begin{aligned} &m_1+m_2+...+m_n=r个可区别的物体\\
@@ -146,7 +115,7 @@ $$
 \end{aligned}
 $$
 
-## 
+##
 
 $$
 \begin{aligned} &不定方程x_1 +x_2 +...+x_n =r的满足x_i\geq min_i的非负整数解个数等于\\
@@ -160,7 +129,7 @@ $$
 \end{aligned}
 $$
 
-## 
+##
 
 $$
 \begin{aligned} &不定方程x_1 +x_2 +...+x_n =r的满足max_i\geq x_i\geq min_i的非负整数解个数:\\

@@ -243,8 +243,6 @@ $f(\mathbf{X},\mathbf{Y})$ 指代涉及变量集合 $\mathbf{X}\cup\mathbf{Y}$ �
   h(\mathbf{Y})=\sum_{x\in Dom(X)}f(x,\mathbf{Y})
   $$
 
--
-
 #### 算法流程
 
 - 对于任意因子 $f\in\mathbf F$ ，如果该因子涉及 $E$ 中的一个或多个变量，则将其替换为限制后的因子 $f_{\mathbf E=e}$

@@ -28,7 +28,7 @@ $$
 - $BA$ 简记为 $Bg = \{bg|b\in B\}$；
 
 !!! warning
-    注意，即使有 $AB=BA$，也不意味着 $\forall a\in A, b\in B,\ \ \ ab =ba$，正确的结论应该是：$\forall a\in A, b\in B,\ \ \ \exist a'\in A, b'\in B,\ \ \ ab = b'a'$
+    注意，即使有 $AB=BA$，也不意味着 $\forall a\in A, b\in B,\ \ \ ab =ba$，正确的结论应该是：$\forall a\in A, b\in B,\ \ \ \exists a'\in A, b'\in B,\ \ \ ab = b'a'$
 
 ### 交换群的交换律
 
@@ -43,11 +43,7 @@ $$
 若 $gA=gB$ 或 $Ag=Bg$，则 $A=B$。
 
 !!! warning
-    但对普遍的
-
-$$
-AC=BC\not\rArr A=B
-$$
+    但对普遍的 $AC=BC\not\Rightarrow A=B$
 
 ---
 
@@ -58,12 +54,12 @@ $\forall a\in A$，有 $ga\in gA$ ；
 因为 $gA=gB$ ，所以 $ga\in gB$ ，所以：
 
 $$
-\exist b\in B,\ \ \ ga=gb
+\exists b\in B,\ \ \ ga=gb
 $$
 
 由群满足消去律可得：$b=a$ ；
 
-所以 $a=b\in B$ ，所以有 $A\sube B$ ；同理可证 $B\sube A$，从而可得 $A=B$。
+所以 $a=b\in B$ ，所以有 $A\subseteq B$ ；同理可证 $B\subseteq A$，从而可得 $A=B$。
 
 ### 幂运算
 
@@ -75,21 +71,21 @@ $$
 
 ---
 
-必要性: $AB\leq G\rArr AB=BA$：
+必要性: $AB\leq G\Rightarrow AB=BA$：
 
 对于 $\forall a,b,\ \ ab\in AB$，只需证 $ab\in BA$；
 
-由于 $AB\leq G$ ，所以 $\exist a'b'\in AB,\ \ \ (ab)^{-1}=a'b'$
+由于 $AB\leq G$ ，所以 $\exists a'b'\in AB,\ \ \ (ab)^{-1}=a'b'$
 
 $$
 ab=((ab)^{-1})^{-1}=(a'b')^{-1}=b'^{-1}a'^{-1}\in BA
 $$
 
-从而可得 $AB\sube BA$ ；同理可证 $BA\sube AB$，从而可得 $AB=BA$。
+从而可得 $AB\subseteq BA$ ；同理可证 $BA\subseteq AB$，从而可得 $AB=BA$。
 
 ---
 
-充分性: $AB=BA\rArr AB\leq G$：
+充分性: $AB=BA\Rightarrow AB\leq G$：
 
 对于 $\forall a_1,b_1,a_2,b_2,\ \ \ a_1b_1,a_2b_2\in AB$，有：$a_1b_1(a_2b_2)^{-1}\in AB$；
 
@@ -431,7 +427,7 @@ $H,K$ 都是 $G$ 的有限子群，证明：
 即证 $h_1K$ ，$h_2K$ 要么相等，要么不相交
 
 $$
-h_1K=h_2K\lrArr h_1^{-1}h_2\in K\\
+h_1K=h_2K\Leftrightarrow h_1^{-1}h_2\in K\\
 h_1K\cap h_2K=\varnothing
 $$
 

@@ -446,7 +446,7 @@ $\omega_0$ 为数字角频率，其与连续正弦信号的⻆频率不同，详
 正弦序列是周期序列当且仅当
 
 $$
-\exist k\in z\ \ ,\ \  \omega_0 | 2k\pi
+\exists k\in z\ \ ,\ \  \omega_0 | 2k\pi
 $$
 
 ##### 复指数序列
@@ -471,11 +471,11 @@ $\alpha=0$，$\omega_0\neq0$ 时实部虚部均等幅正弦序列，对应连续
 复指数序列是周期序列当且仅当
 
 $$
-\exist N,m\in z\\
+\exists N,m\in z\\
 \frac{2\pi}{\omega_0}=\frac{N}{m} \\
-\lrArr e^{j\omega_0N} = 1\\
-\lrArr e^{j\omega_0n} = e^{j\omega_0n}\cdot e^{j\omega_0N} = e^{j\omega_0(n+N)}  \\
-\lrArr x[k]=x[k+N]
+\Leftrightarrow e^{j\omega_0N} = 1\\
+\Leftrightarrow e^{j\omega_0n} = e^{j\omega_0n}\cdot e^{j\omega_0N} = e^{j\omega_0(n+N)}  \\
+\Leftrightarrow x[k]=x[k+N]
 $$
 
 也就是当且仅当 $\omega_0=q\pi$ 其中 $q$ 为有理数时复指数序列为周期序列。

@@ -68,7 +68,7 @@ $\mathbb Z_m$ 及 模 m 乘 $⊗_m$ 不构成群，但令$U(m)=\{a∣a\in Z_m \t
 
 - 1 是单位元
 - 对每个整数 $z\in U(m)$，它的逆元是同余方程 $xz≡1(\text{mod} m)$的解
-  - 利用贝祖定理（即 $∀a,b\in \mathbb Z^+，\exist s, t\in \mathbb Z,gcd⁡(a,b)=as+bt$）可证明 U(m) 对 $⊗_m$ 封闭，以及上述同余方程解的存在性，也即逆元的存在性
+  - 利用贝祖定理（即 $∀a,b\in \mathbb Z^+，\exists s, t\in \mathbb Z,gcd⁡(a,b)=as+bt$）可证明 U(m) 对 $⊗_m$ 封闭，以及上述同余方程解的存在性，也即逆元的存在性
 
 当 p 是素数，则 U(p) 群也记为 $\mathbb Z_p^*$
 
@@ -191,7 +191,7 @@ $$
 证明：
 
 $$
-\forall a\in G,\ \ \exist a'\in G,\ \ a'a=e\\
+\forall a\in G,\ \ \exists a'\in G,\ \ a'a=e\\
 aa'a=a\\
 a(a'a)=a\\
 ae=a
@@ -200,8 +200,8 @@ $$
 所以 e 也是右单位元；
 
 $$
-\forall a\in G,\ \ \exist a'\in G,\ \ a'a=e\\
-\exist a''\in G,\ \ a''a'=e \\
+\forall a\in G,\ \ \exists a'\in G,\ \ a'a=e\\
+\exists a''\in G,\ \ a''a'=e \\
 aa'=eaa'=a''a'aa'=a''(a'a)a'=a''ea'=a''a'=e
 $$
 

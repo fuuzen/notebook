@@ -192,7 +192,7 @@ $$
 x(t)=\sum_k a_k x_k (t)\\
 x_k(t)\to y_k(t)
 \end{cases}
-\rArr y(t)=\sum_k a_k y_k (t)
+\Rightarrow y(t)=\sum_k a_k y_k (t)
 $$
 
 这一思想是**信号与系统分析理论和方法的基础**。

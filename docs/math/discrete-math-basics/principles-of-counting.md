@@ -3,20 +3,16 @@ title: 离散数学基础:组合计数基本原理
 date: 2024/01/09
 math: true
 categories:
- - [数学, 离散数学, 离散数学基础]
+  - [数学, 离散数学, 离散数学基础]
 tags:
- - 离散数学
- - 组合数学
- - 数论
+  - 离散数学
+  - 组合数学
+  - 数论
 ---
-
-:::primary
-
-[离散数学基础-整理:](/math/discrete-math/discrete-math-basics/discrete-math/discrete-math-basics/) --- [排列与组合](/math/discrete-math/discrete-math-basics/dmbs/permutaion-and-combination/) --- [组合计数基本原理](/math/discrete-math/discrete-math-basics/dmbs/principles-of-counting/) --- [排列组合计数问题](/math/discrete-math/discrete-math-basics/dmbs/counting/) --- [递推关系式](/math/discrete-math/discrete-math-basics/dmbs/difference-equations/) --- [关系](/math/discrete-math/discrete-math-basics/dmbs/relations/) --- [集合与关系的运算](/math/discrete-math/discrete-math-basics/dmbs/operations-of-sets-and-relations/) --- [函数](/math/discrete-math/discrete-math-basics/dmbs/functions/) --- [代数系统](/math/discrete-math/discrete-math-basics/dmbs/algebra-system/)
 
 ## 思维导图
 
-![组合计数基本原理](../../assets/math/discrete-math/discrete-math-basics/组合计数基本原理.png)
+![组合计数基本原理](../../../assets/math/discrete-math-basics/组合计数基本原理.png)
 
 ## 常用引理
 
@@ -24,13 +20,9 @@ tags:
 
 #### 公式
 
-- 
-
 $$
 | A\overline{B} |=| A-B | = |A| -| A B|
 $$
-
-- 
 
 $$
 A\overline{B} = A - B = A - A  B
@@ -42,11 +34,11 @@ $$
 
 ## 容斥原理
 
-### 2维
+### 2 维
 
 - 公式
 
-  - 
+  -
 
 $$
 | A \cup B | = |A|+|B|- |A \cap B|
@@ -54,7 +46,7 @@ $$
 
 - 变形
 
-  - 
+  -
 
 $$
 | \overline{A} \cap \overline{B} | = |U|-|A\cup B| = |U|- |A| - |B| + |A \cap B|
@@ -70,7 +62,7 @@ $$
 &= |A|+|B|- |A \cap B|\end{align}
 $$
 
-### n维
+### n 维
 
 - 公式
 
@@ -86,32 +78,27 @@ $$
 
 #### 公式
 
-  - k+1或更多只鸽子放在k个鸽笼里，则至少有1个鸽笼里有两只或更多只鸽子
+- k+1 或更多只鸽子放在 k 个鸽笼里，则至少有 1 个鸽笼里有两只或更多只鸽子
 
 #### 证明
 
-  - 反证法
+- 反证法
 
 #### 推论
 
 $$
 若集合A、B都是有穷集合，\forall f\in A^B有：
 
-$$
 
-- 
+$$
 
 $$
 |A|\gt|B|，则f不是单函数
 $$
 
-- 
-
 $$
 |A|\lt|B|\text{，则}f\text{不是满函数}
 $$
-
-- 
 
 $$
 |A|=|B|\text{，则}f\text{是双函数}
@@ -143,43 +130,31 @@ $$
 
 #### 推论
 
-##### N个物体放到k个盒子，至少有一个盒子有至少几个物体
-
-- 
+##### N 个物体放到 k 个盒子，至少有一个盒子有至少几个物体
 
 $$
 \text{最小容量}=\left\lceil \frac{\text{物体总数}}{\text{盒子数}} \right\rceil
 $$
 
-- 
-
 $$
 n=\left\lceil \frac{N}{k} \right\rceil
 $$
 
-##### 至少需要几个物体放到k个盒子里能保证至少有一个盒子有至少n个物体
-	
-- 
+##### 至少需要几个物体放到 k 个盒子里能保证至少有一个盒子有至少 n 个物体
 
 $$
 \text{物体总数}\ge (\text{最小容量}-1)\times\text{盒子数}+1
 $$
 
-- 
-
 $$
 N\ge (n-1)\times k+1
 $$
 
-##### N个物体放到至多几个盒子能保证至少有一个盒子有至少n个物体
-	
-- 
+##### N 个物体放到至多几个盒子能保证至少有一个盒子有至少 n 个物体
 
 $$
 盒子数\le \left\lfloor \frac{\text{物体总数}-1}{\text{最小容量}-1} \right\rfloor
 $$
-
-- 
 
 $$
 k\le\left\lfloor \frac{N-1}{n-1} \right\rfloor
@@ -200,17 +175,14 @@ R(3,3)
 #### 公式
 
 ##### 解释
+
 $$
 \text{任意}6\text{个人中，必定有}
 $$
 
-- 
-
 $$
 \text{要么}3\text{个人互相认识}
 $$
-
-- 
 
 $$
 \text{要么}3\text{个人互相不认识}
@@ -222,13 +194,9 @@ $$
 \text{对一个}6\text{阶完全图，用红、黑两种颜色任意对它的边上色，必定存在}
 $$
 
-- 
-
 $$
 \text{要么一个红色三角形（}3\text{阶完全图）}
 $$
-
-- 
 
 $$
 \text{要么一个黑色三角形（}3\text{阶完全图）}
@@ -279,13 +247,9 @@ $$
 R(m,n)\text{个人中，必定有}
 $$
 
-- 
-
 $$
 \text{要么m个人互相认识或n个人互相不认识}
 $$
-
-- 
 
 $$
 \text{要么n个人互相认识或m个人互相不认识}
@@ -297,15 +261,10 @@ $$
 \text{对一个}R(m,n)\text{阶完全图，用两种颜色任意对它的边上色，必定存在}
 $$
 
-- 
-
 $$
 \text{要么一个同色m阶完全子图}
 $$
 
-- 
-
 $$
 \text{要么一个同色n阶完全子图}
 $$
-
