@@ -1,0 +1,39 @@
+## MP
+
+正向传播
+
+反向传播
+
+https://www.cnblogs.com/charlotte77/p/5629865.html
+
+感知机训练
+
+BP 算法
+
+## CNN
+
+最大池化
+
+max pooling
+
+可以是取最大值、平均值。保留区域的特征，降维降低计算复杂度
+
+## RNN
+
+在 CNN 的基础上，增加了记忆功能
+
+### LSTM
+
+长短期记忆网络(Long Short-term Memory)
+
+### BPTT
+
+(Backpropagation through time)
+
+## Transformer
+
+通过最小化交叉熵 (minimize cross entropy) 训练
+
+### Encoder
+
+### Decoder

@@ -1,0 +1,1867 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/math/graph/algebra-graph/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../coloring/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>图的代数表示 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#邻接矩阵" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              图的代数表示
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ie/" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../ie/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Ie
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Math
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../algebra/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algebra
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../cryptography/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cryptography
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../discrete-math-basics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Discrete math basics
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Graph
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Graph
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    图的代数表示
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    图的代数表示
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#邻接矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      邻接矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="邻接矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代数性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      代数性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通的充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质(定理)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#关联矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="关联矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通的充要条件_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本关联矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本关联矩阵
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#度矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      度矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="度矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#拉普拉斯矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯矩阵
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#子图空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      子图空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子图空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回路空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      回路空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集空间
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coloring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    着色问题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的连通性
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../euler_hamilton/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧拉图与哈密顿图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图的基本概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../match/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    匹配
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planar-graph/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    平面图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortest-path-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    最短路径算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spectral-clustering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spectral Clustering(谱聚类)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tree/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    树
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../logic/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Logic
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#邻接矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      邻接矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="邻接矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代数性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      代数性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通的充要条件" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质(定理)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#关联矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      关联矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="关联矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#连通的充要条件_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      连通的充要条件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#基本关联矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本关联矩阵
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#定义-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#度矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      度矩阵
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="度矩阵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#拉普拉斯矩阵" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯矩阵
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#子图空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      子图空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="子图空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#回路空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      回路空间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#断集空间" class="md-nav__link">
+    <span class="md-ellipsis">
+      断集空间
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>图的代数表示</h1>
+
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>用邻接矩阵或关联矩阵表示图，称为图的代数表示。用矩阵表示图,主要有两个优点:</p>
+</div>
+<ul>
+<li>(1) 能够把图输入到计算机中</li>
+<li>(2) 可以用代数方法研究图论</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/Spectral_graph_theory">Spectral Graph Theory</a> 是研究图和代数的一个领域</p>
+<h2 id="邻接矩阵">邻接矩阵<a class="headerlink" href="#邻接矩阵" title="Permanent link">&para;</a></h2>
+<p>Adjaceny matrix is <span class="arithmatex">\(n\times n\)</span> symmetric matrix</p>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<p>设 <span class="arithmatex">\(G\)</span> 为 <span class="arithmatex">\(n\)</span> 阶图，<span class="arithmatex">\(V=\{v_1,z_2,\cdots,v_n\}\)</span> ，邻接矩阵 <span class="arithmatex">\(A(G)= (a_{ij})\)</span> ，其中：</p>
+<div class="arithmatex">\[
+a_{ij}=\begin{cases}
+l,\ \ \ v_i\text{与}v_j\text{间边数}\\
+0,\ \ \ v_i\text{与}v_j\text{不邻接}\\
+a_i\text{上的环数},\ \ \ i=j
+\end{cases}
+\]</div>
+<h3 id="代数性质">代数性质<a class="headerlink" href="#代数性质" title="Permanent link">&para;</a></h3>
+<p>非负性——由邻接矩阵定义知 <span class="arithmatex">\(a_{ij}\)</span> 是非负整数，即邻接矩阵是非负整数矩阵</p>
+<p>(无向图) 对称性——显然 <span class="arithmatex">\(a_{ij}=a_{ji}\)</span> ，所以邻接矩阵是对称矩阵。</p>
+<p>同一图的不同形式的邻接矩阵是<strong>相似矩阵</strong>。这是因为，同图的两种不同形式矩阵可以通过交换行和相应的列变成致。</p>
+<p>如果 G 为简单图，则 <span class="arithmatex">\(A(G)\)</span> 为<strong>布尔矩阵</strong>；行和(列和)等于对应顶点的度数；矩阵元素总和为图的总度数，也就是 <span class="arithmatex">\(G\)</span> 的边数的 2 倍</p>
+<h3 id="连通的充要条件">连通的充要条件<a class="headerlink" href="#连通的充要条件" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(G\)</span> 连通的充要条件是：<span class="arithmatex">\(A(G)\)</span> 不能与如下矩阵相似：</p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+A_{11} &amp; 0\\
+0 &amp; A_{22}
+\end{pmatrix}
+\quad
+\]</div>
+<h3 id="性质定理">性质(定理)<a class="headerlink" href="#性质定理" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(A^{k}(G)=(a_{ij}^{(k)})\)</span> ，则 <span class="arithmatex">\(a_{ij}^{(k)}\)</span> 表示顶点 <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的途径长度为 <span class="arithmatex">\(k\)</span> 的途径数目；</p>
+<hr />
+<p>证明：对 <span class="arithmatex">\(k\)</span> 作数学归纳法证明</p>
+<p>当 <span class="arithmatex">\(k=1\)</span> 时，由邻接矩阵定义；</p>
+<p>设结论对 <span class="arithmatex">\(k-1\)</span> 时成立，考虑 <span class="arithmatex">\(k\)</span> 的情况：</p>
+<div class="arithmatex">\[
+A^k=A^{k-1}A=(a_{i1}^{(k-1)}a_{j1}+a_{i2}^{(k-1)}a_{j2}+\cdots+a_{in}^{(k-1)}a_{jn})_{n\times n}=(a_{ij}^{(k)})
+\]</div>
+<p>同时，考虑顶点 <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的途径长度为 <span class="arithmatex">\(k\)</span> 的途径，设 <span class="arithmatex">\(v_m\)</span> 设 <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的途径中点，且该点与 <span class="arithmatex">\(v_j\)</span> 邻接。则 <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的经过 <span class="arithmatex">\(v_m\)</span> 且途径长度为 <span class="arithmatex">\(k\)</span> 的途径数目为：</p>
+<div class="arithmatex">\[
+a_{im}^{(k-1)}a_{mj}
+\]</div>
+<p>所以 <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的途径长度为 <span class="arithmatex">\(k\)</span> 的途径数目为：</p>
+<div class="arithmatex">\[
+a_{i1}^{(k-1)}a_{j1}+a_{i2}^{(k-1)}a_{j2}+\cdots+a_{in}^{(k-1)}a_{jn}=a_{ij}^{(k)}
+\]</div>
+<hr />
+<p>推论：</p>
+<p>若 <span class="arithmatex">\(G\)</span> 是连通的，则对于 <span class="arithmatex">\(i\neq j\)</span> ， <span class="arithmatex">\(v_i\)</span> 到 <span class="arithmatex">\(v_j\)</span> 的距离是使 <span class="arithmatex">\(A^{n}\)</span> 的 <span class="arithmatex">\(a_{ij}^{(k)}\neq0\)</span> 的最小整数</p>
+<p>这是显然的</p>
+<h2 id="关联矩阵">关联矩阵<a class="headerlink" href="#关联矩阵" title="Permanent link">&para;</a></h2>
+<p>Incidence matrix is <span class="arithmatex">\(n\times m\)</span> matrix of a <span class="arithmatex">\((n,m)\)</span> graph</p>
+<h3 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h3>
+<p>若 <span class="arithmatex">\(G\)</span> 是 <span class="arithmatex">\((n,m)\)</span> 图。定义 <span class="arithmatex">\(G\)</span> 的关联矩阵: <span class="arithmatex">\(M(G)=(a_{ij})_{n\times m}\)</span> ，其中：<span class="arithmatex">\(a_{ij}\)</span> 是 <span class="arithmatex">\(v_i\)</span> 与 <span class="arithmatex">\(e_j\)</span> 关联的次数 (取值为 0,1,或 2(环)).</p>
+<ul>
+<li>关联矩阵的元素为 0，1 或 2 ；</li>
+<li>关联矩阵的每列和为 2 ; 每行的和为对应顶点度数；</li>
+</ul>
+<h3 id="连通的充要条件_1">连通的充要条件<a class="headerlink" href="#连通的充要条件_1" title="Permanent link">&para;</a></h3>
+<p>无环图 <span class="arithmatex">\(G\)</span> <strong>连通的充分必要条件</strong>是 <span class="arithmatex">\(𝑅(𝑀)=n-1\)</span>；</p>
+<hr />
+<p>证明充分性：</p>
+<p>若 <span class="arithmatex">\(G\)</span> 不连通，假设 <span class="arithmatex">\(G\)</span> 有两个连通分支 <span class="arithmatex">\(G_1\)</span> 与 <span class="arithmatex">\(G_2\)</span> , 又设 <span class="arithmatex">\(G_1\)</span> 与 <span class="arithmatex">\(G_2\)</span> 的关联矩阵分别为 <span class="arithmatex">\(𝑀_1\)</span> 与 <span class="arithmatex">\(𝑀_2\)</span> , 则 <span class="arithmatex">\(G\)</span> 的关联矩阵可以写为:</p>
+<div class="arithmatex">\[
+M(G)=
+\begin{pmatrix}
+M_1 &amp; \\
+&amp; M_2
+\end{pmatrix}
+\]</div>
+<p>于是 <span class="arithmatex">\(𝑅(𝑀)=V(G_1)-1+V(G_2)-1=n-2\)</span> ，矛盾！所以 <span class="arithmatex">\(G\)</span> 一定连通。</p>
+<hr />
+<p>证明必要性：</p>
+<p>令：</p>
+<div class="arithmatex">\[
+M=
+\begin{pmatrix}
+m_1\\
+m_2\\
+\vdots\\
+m_n
+\end{pmatrix}
+\]</div>
+<p>由于 <span class="arithmatex">\(𝑀\)</span> 中每列恰有两个 “1” 元素，所有行向量的和为 0 (模 2 加法运算，即为偶数)，所以有 <span class="arithmatex">\(R(M)\leq n-1\)</span>。</p>
+<p>另一方面，在 <span class="arithmatex">\(M\)</span> 中任意去掉一行 <span class="arithmatex">\(m_k\)</span> ，由于 <span class="arithmatex">\(G\)</span> 是<strong>连通</strong>的，因此，<span class="arithmatex">\(m_k\)</span> 中存在元素 “1” ，这样，<span class="arithmatex">\(M\)</span> 中去掉行 <span class="arithmatex">\(m_k\)</span> ，后的行按模 2 相加不等于零，即它们是线性无关的。所以有 <span class="arithmatex">\(R(M)\geq n-1\)</span>。</p>
+<p>因此，<span class="arithmatex">\(R(M)=n-1\)</span>。</p>
+<h3 id="基本关联矩阵">基本关联矩阵<a class="headerlink" href="#基本关联矩阵" title="Permanent link">&para;</a></h3>
+<p>在 <span class="arithmatex">\(G\)</span> 的关联矩阵中删掉任意一行后得到的矩阵可以完全决定 <span class="arithmatex">\(G\)</span> ，该矩阵称为 <span class="arithmatex">\(G\)</span> 的<strong>基本关联矩阵</strong>。删掉的行对应的顶点称为该基本关联矩阵的<strong>参考点</strong>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>图的关联矩阵及其性质是网络图论的基础，在电路分析中有重要应用</p>
+</div>
+<p>图的关联矩阵比邻接矩阵大得多，不便于计算机存储。但二者都有各自的应用特点</p>
+<h3 id="定义-2">定义 2<a class="headerlink" href="#定义-2" title="Permanent link">&para;</a></h3>
+<p>Incidence matrix <span class="arithmatex">\(C\)</span> is <span class="arithmatex">\(m\times n\)</span> matrix of a <span class="arithmatex">\((n,m)\)</span> graph</p>
+<p>用来定义拉普拉斯矩阵 <span class="arithmatex">\(L=C^{T}C\)</span> 。</p>
+<ul>
+<li>每行代表一条边，每列代表一个顶点</li>
+<li>每行和为 0 ，有一个 1 和 -1 ，分别表示边的起点和终点</li>
+<li>其余元素全部为 0</li>
+</ul>
+<div class="arithmatex">\[
+C=
+\begin{pmatrix}
+e_1^{T}\\
+e_2^{T}\\
+\vdots\\
+e_m^{T}
+\end{pmatrix}
+\]</div>
+<h2 id="度矩阵">度矩阵<a class="headerlink" href="#度矩阵" title="Permanent link">&para;</a></h2>
+<p>Degree matrix is <span class="arithmatex">\(n\times n\)</span> diagonal matrix</p>
+<h3 id="定义_2">定义<a class="headerlink" href="#定义_2" title="Permanent link">&para;</a></h3>
+<p>度矩阵是<strong>对角阵</strong>，对角上的元素为各个顶点的度。</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />有向图中，可能会有不同的定义。一般度数为各个顶点入度与出度之和，例如拉普拉斯矩阵引入的度矩阵。</p>
+<h2 id="拉普拉斯矩阵">拉普拉斯矩阵<a class="headerlink" href="#拉普拉斯矩阵" title="Permanent link">&para;</a></h2>
+<p>Laplacian matrix (<span class="arithmatex">\(L\)</span>) is <span class="arithmatex">\(n\times n\)</span> symmetric matrix</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>拉普拉斯矩阵是对称矩阵，保留了图的“无向”的属性，丢失了“有向”的属性</p>
+</div>
+<p>设 <span class="arithmatex">\(G\)</span> 是顶点集合为 <span class="arithmatex">\(V(G)=\{v_1,v_2,\cdots,v_n\}\)</span> 的图， <span class="arithmatex">\(D\)</span> 为图的<strong>度矩阵</strong>，<span class="arithmatex">\(A=a_{ij}\)</span> 是 <span class="arithmatex">\(G\)</span> 的<strong>邻接矩阵</strong>，<span class="arithmatex">\(C\)</span> 为图的<strong>关联矩阵</strong>。</p>
+<p>定义：</p>
+<div class="arithmatex">\[
+L=D-A=C^{T}C
+\]</div>
+<p>拉普拉斯矩阵 <span class="arithmatex">\(L=(l_{ij})\)</span> 是 <span class="arithmatex">\(n\)</span> 阶方阵，其中：</p>
+<div class="arithmatex">\[
+l_{ij}=\begin{cases}
+d(v_i), &amp; i=j\\
+-a_{ij}, &amp; i\neq j
+\end{cases}
+\]</div>
+<ul>
+<li>所有特征值为非负实数: <span class="arithmatex">\(0\leq\lambda_0\leq\lambda_1\leq\cdots\leq\lambda_{n-1}\)</span>；</li>
+<li>特征向量为实(正交)向量</li>
+<li>每一行、列之和都等于 0</li>
+<li><span class="arithmatex">\(x^{T}Lx\geq0\)</span> 是半正定二次型，或者说拉普拉斯矩阵 <span class="arithmatex">\(L\)</span> 是半正定矩阵</li>
+</ul>
+<p>[Fiedler, 1973] <span class="arithmatex">\(G\)</span> 有 <span class="arithmatex">\(k\)</span> 个连通分支当且仅当：</p>
+<div class="arithmatex">\[
+\lambda_0=\lambda_1=\cdots=\lambda_{k-1}=0
+\]</div>
+<p><span class="arithmatex">\(G\)</span> 显然至少有一个连通分支，所以 <span class="arithmatex">\(\lambda_0=0\)</span>。</p>
+<p><span class="arithmatex">\(G\)</span> 的割边(cut edges)数量等于：</p>
+<div class="arithmatex">\[
+\frac{1}{4}x^{T}Lx=\frac{1}{4}\sum_{(i,j)\in E}(x_i-x_j)^2
+\]</div>
+<p>(等式右侧推导在下面)</p>
+<p>对任意对称矩阵 <span class="arithmatex">\(M\)</span> 定义 <span class="arithmatex">\(\lambda_2\)</span>：</p>
+<div class="arithmatex">\[
+\lambda_2=\min_{x}\frac{x^{T}Mx}{x^{T}x}
+\]</div>
+<p>考虑拉普拉斯矩阵 <span class="arithmatex">\(L\)</span> 对应的二次型 <span class="arithmatex">\(x^{T}Lx\)</span>：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x^{T}Lx
+&amp;=\sum_{i,j=1}^{n}L_{ij}x_ix_j\\
+&amp;=\sum_{i,j=1}^{n}(D_{ij}-A_{ij})x_ix_j\\
+&amp;=\sum_{i=1}^{n}D_{ii}x_i^2-\sum_{(i,j)\in E}2x_ix_j\\
+&amp;=\sum_{(i,j)\in E}(x_i^2+x_j^2-2x_ix_j)\\
+&amp;=\sum_{(i,j)\in E}(x_i-x_j)^2
+\end{aligned}
+\]</div>
+<p>此时：</p>
+<div class="arithmatex">\[
+\lambda_2=\min_{\text{All labelings of so that }\sum x_i=0}\frac{\sum_{(i,j)\in E}(x_i-x_j)^2}{\sum_ix_i^2}
+\]</div>
+<h2 id="子图空间">子图空间<a class="headerlink" href="#子图空间" title="Permanent link">&para;</a></h2>
+<h3 id="回路空间">回路空间<a class="headerlink" href="#回路空间" title="Permanent link">&para;</a></h3>
+<p>https://lfool.github.io/LFool-Notes/other/%E5%9B%BE%E8%AE%BA.html#%E5%9B%9E%E8%B7%AF%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B</p>
+<h3 id="断集空间">断集空间<a class="headerlink" href="#断集空间" title="Permanent link">&para;</a></h3>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 图论">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                图论
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../coloring/" class="md-footer__link md-footer__link--next" aria-label="Next: 着色问题">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                着色问题
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

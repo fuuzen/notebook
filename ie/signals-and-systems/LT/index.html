@@ -1,0 +1,2406 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fuuzen.github.io/notebook/ie/signals-and-systems/LT/">
+      
+      
+        <link rel="prev" href="../FS/">
+      
+      
+        <link rel="next" href="../communication/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>拉普拉斯变换 - 風船の笔记本</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <meta name="google-site-verification" content="7QiG8wJPa5_9Ca0Y8hlhT0rJtNqEekDbao8u-zvq7zA"/>
+  <meta name="msvalidate.01" content="9A952D9AAB23A5CE98B20FC76E335FA6"/>
+  <meta name="yandex-verification" content="cb2a7fddf83f1d59"/>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#公式表" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="風船の笔记本" class="md-header__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            風船の笔记本
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              拉普拉斯变换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cs/" class="md-tabs__link">
+          
+  
+    
+  
+  Cs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Ie
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/" class="md-tabs__link">
+          
+  
+    
+  
+  Math
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../si-zheng/" class="md-tabs__link">
+          
+  
+    
+  
+  Si zheng
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="風船の笔记本" class="md-nav__button md-logo" aria-label="風船の笔记本" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    風船の笔记本
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../cs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cs
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ie
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ie
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../de/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    De
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Signals and systems
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signals and systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    连续时间信号的傅里叶变换
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DTFT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散时间信号的傅里叶变换
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    周期信号的傅里叶级数表示
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    拉普拉斯变换
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#公式表" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本变换对" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本变换对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质表" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双边拉普拉斯变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      双边拉普拉斯变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双边拉普拉斯变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lt-与-ctft-的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 与 CTFT 的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#零极点图" class="md-nav__link">
+    <span class="md-ellipsis">
+      零极点图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#拉普拉斯反变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯反变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拉普拉斯反变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#部分分式展开法" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分分式展开法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-的几何求值" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 的几何求值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 的几何求值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单零点" class="md-nav__link">
+    <span class="md-ellipsis">
+      单零点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单极点" class="md-nav__link">
+    <span class="md-ellipsis">
+      单极点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般情况" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般情况
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全通系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      全通系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-域平移" class="md-nav__link">
+    <span class="md-ellipsis">
+      s 域平移
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-域微分" class="md-nav__link">
+    <span class="md-ellipsis">
+      s 域微分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域积分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#初值与终值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      初值与终值定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初值与终值定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#初值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      初值定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#终值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      终值定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-分析-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 分析 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 分析 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特征函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#因果性" class="md-nav__link">
+    <span class="md-ellipsis">
+      因果性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#稳定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#单边拉普拉斯变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      单边拉普拉斯变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单边拉普拉斯变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域尺度变换_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通信系统
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../duality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    离散/连续时间傅里叶系数/变换的对偶关系
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lti/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    卷积と线性时不变系统
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信号基本概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems-concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    系统基本概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z变换
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../math/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Math
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../si-zheng/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Si zheng
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#公式表" class="md-nav__link">
+    <span class="md-ellipsis">
+      公式表
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本变换对" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本变换对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#性质表" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#双边拉普拉斯变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      双边拉普拉斯变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="双边拉普拉斯变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lt-与-ctft-的关系" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 与 CTFT 的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#零极点图" class="md-nav__link">
+    <span class="md-ellipsis">
+      零极点图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#拉普拉斯反变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      拉普拉斯反变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拉普拉斯反变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#定义_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#部分分式展开法" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分分式展开法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-的几何求值" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 的几何求值
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 的几何求值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#单零点" class="md-nav__link">
+    <span class="md-ellipsis">
+      单零点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#单极点" class="md-nav__link">
+    <span class="md-ellipsis">
+      单极点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一般情况" class="md-nav__link">
+    <span class="md-ellipsis">
+      一般情况
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#全通系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      全通系统
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#线性" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时移特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      时移特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-域平移" class="md-nav__link">
+    <span class="md-ellipsis">
+      s 域平移
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域尺度变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#卷积性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      卷积性质
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-域微分" class="md-nav__link">
+    <span class="md-ellipsis">
+      s 域微分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域积分" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域积分
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#初值与终值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      初值与终值定理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="初值与终值定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#初值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      初值定理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#终值定理" class="md-nav__link">
+    <span class="md-ellipsis">
+      终值定理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lt-分析-lti-系统" class="md-nav__link">
+    <span class="md-ellipsis">
+      LT 分析 LTI 系统
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LT 分析 LTI 系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特征函数" class="md-nav__link">
+    <span class="md-ellipsis">
+      特征函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#因果性" class="md-nav__link">
+    <span class="md-ellipsis">
+      因果性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#稳定性" class="md-nav__link">
+    <span class="md-ellipsis">
+      稳定性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#单边拉普拉斯变换" class="md-nav__link">
+    <span class="md-ellipsis">
+      单边拉普拉斯变换
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="单边拉普拉斯变换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#性质" class="md-nav__link">
+    <span class="md-ellipsis">
+      性质
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#共轭对称性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      共轭对称性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域尺度变换_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域尺度变换
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#时域微分_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      时域微分
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#线性常微分方程_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      线性常微分方程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>拉普拉斯变换</h1>
+
+<h2 id="公式表">公式表<a class="headerlink" href="#公式表" title="Permanent link">&para;</a></h2>
+<h3 id="基本变换对">基本变换对<a class="headerlink" href="#基本变换对" title="Permanent link">&para;</a></h3>
+<p><img alt="基本变换对" src="../../../assets/ie/signals-and-systems/LT/%E5%9F%BA%E6%9C%AC%E5%8F%98%E6%8D%A2%E5%AF%B9.png" /></p>
+<h3 id="性质表">性质表<a class="headerlink" href="#性质表" title="Permanent link">&para;</a></h3>
+<p><img alt="性质表" src="../../../assets/ie/signals-and-systems/LT/%E6%80%A7%E8%B4%A8%E8%A1%A8.png" /></p>
+<h2 id="双边拉普拉斯变换">双边拉普拉斯变换<a class="headerlink" href="#双边拉普拉斯变换" title="Permanent link">&para;</a></h2>
+<h3 id="定义">定义<a class="headerlink" href="#定义" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+X(s)=\int_{-\infty}^{+\infty}x(t)e^{-st}dt
+\]</div>
+<p>称为 <span class="arithmatex">\(x(t)\)</span> 的拉普拉斯变换，后面简记为<strong>LT</strong>，其中 <strong><span class="arithmatex">\(s=\sigma+j\omega\)</span></strong> 为复数。</p>
+<p>若 <span class="arithmatex">\(\sigma=0\)</span> ，<span class="arithmatex">\(s=j\omega\)</span> 为纯虚数则为傅里叶变换，也就是说连续时间傅里叶变换是双边拉普拉斯变换在 <span class="arithmatex">\(𝜎=0\)</span> 或是在 <span class="arithmatex">\(j\omega\)</span> 轴上的<strong>特例</strong>，即 <span class="arithmatex">\(X(s)|_{s=j\omega}=X(j\omega)\)</span>。</p>
+<h3 id="lt-与-ctft-的关系">LT 与 CTFT 的关系<a class="headerlink" href="#lt-与-ctft-的关系" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\begin{aligned}
+X(s)&amp;=\int_{-\infty}^{+\infty}x(t)e^{-\sigma t}e^{-j\omega t}dt\\
+&amp;=\int_{-\infty}^{+\infty}[x(t)e^{-\sigma t}]e^{-j\omega t}dt\\
+&amp;=\mathscr{F}\{x(t)e^{-\sigma t}\}
+\end{aligned}
+\]</div>
+<p>所以 <span class="arithmatex">\(x(t)\)</span>的 LT 就是 <span class="arithmatex">\(x(t)e^{-\sigma t}\)</span> 的 CTFT 。</p>
+<p><img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" /> 当拉普拉斯变换的收敛域包含 <span class="arithmatex">\(j\omega\)</span> 时，拉普拉斯变换和傅里叶变换都存在，并且：</p>
+<div class="arithmatex">\[
+X(j\omega)=X(s)|_{s=j\omega}
+\]</div>
+<h3 id="零极点图">零极点图<a class="headerlink" href="#零极点图" title="Permanent link">&para;</a></h3>
+<p>若 <span class="arithmatex">\(X(s)\)</span> 是有理函数：</p>
+<div class="arithmatex">\[
+X(s)=\frac{N(s)}{D(s)}=M\frac{\prod_i(s-\beta_i)}{\prod_i(s-\alpha_i)}
+\]</div>
+<ul>
+<li><strong>分子</strong>多项式的根称为<strong>零点</strong>，画为圆圈 ⭕️</li>
+<li><strong>分母</strong>多项式的根称为<strong>极点</strong>，画为交叉 ❌</li>
+</ul>
+<p>将 <span class="arithmatex">\(X(s)\)</span> 的全部<strong>零点</strong>和<strong>极点</strong>表示在 <span class="arithmatex">\(s\)</span> 平面上，就构成了<strong>零极点图</strong>。</p>
+<p>零极点图及其收敛域可以表示一个 <span class="arithmatex">\(X(s)\)</span> ，最多与真实的 <span class="arithmatex">\(X(s)\)</span> 相差一个常数因子 <span class="arithmatex">\(𝑀\)</span>。</p>
+<h3 id="roc">ROC<a class="headerlink" href="#roc" title="Permanent link">&para;</a></h3>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />不同的信号可能会有完全相同的拉普拉斯变换表达式，只是它们的<strong>收敛域</strong>不同。拉普拉斯变换的表达式只有连同相应的收敛域，才能和信号建立一一对应的关系。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>常见的 <span class="arithmatex">\(x(t)=e^{kt}u(at+b)\)</span> 收敛域：</p>
+</div>
+<div class="arithmatex">\[
+X(s)=\int_{-\frac{b}{a}}^{+\infty}e^{(k-s)t}dt,\ \ \ a&gt;0\\
+X(s)=\int^{-\frac{b}{a}}_{-\infty}e^{(k-s)t}dt,\ \ \ a&lt;0
+\]</div>
+<p><span class="arithmatex">\(t\)</span> 积分到 <span class="arithmatex">\(+\infty\)</span> 时，<span class="arithmatex">\(t\)</span> 前的系数的实部需要小于零，该积分收敛域为 <span class="arithmatex">\(\text{Re}\{k-s\}&lt;0\)</span>；</p>
+<p><span class="arithmatex">\(t\)</span> 积分到 <span class="arithmatex">\(-\infty\)</span> 时，<span class="arithmatex">\(t\)</span> 前的系数的实部需要大于零，该积分收敛域为 <span class="arithmatex">\(\text{Re}\{k-s\}&gt;0\)</span>；</p>
+<p>并非 <span class="arithmatex">\(s\)</span> 平面上的任何复数都能使拉普拉斯变换 <span class="arithmatex">\(X(s)\)</span> 收敛，也不是任何信号的拉普拉斯变换 <span class="arithmatex">\(X(s)\)</span> 都存在。</p>
+<p>使拉普拉斯变换 <span class="arithmatex">\(X(s)\)</span> 收敛的复数 <span class="arithmatex">\(s\)</span> 的集合，称为拉普拉斯变换 (LT) 的<strong>收敛域</strong>（<strong>ROC</strong>，Region of Convergence）</p>
+<p>若 <span class="arithmatex">\(x(t)\)</span> 可以写为若干部分的线性组合，各个部分分别进行 LT 有各自的收敛域，则 <span class="arithmatex">\(X(s)\)</span> 的收敛域是各个收敛域的<strong>交集</strong>。</p>
+<ul>
+<li>ROC 总是以平行于 <span class="arithmatex">\(j\omega\)</span> 轴的直线作为边界的</li>
+<li>ROC 的边界总是与 <span class="arithmatex">\(X(s)\)</span> 的分母的根 (极点) 相对应</li>
+<li>（因为）有理拉普拉斯变换在其 ROC 内无任何极点</li>
+<li>绝对可积的时限信号其 ROC 是整个 <span class="arithmatex">\(s\)</span> 平面</li>
+</ul>
+<p>按照 ROC 在 <span class="arithmatex">\(s\)</span> 平面上的分布可以分为：</p>
+<ul>
+<li><strong>右边信号</strong>的 ROC 位于 <span class="arithmatex">\(s\)</span> 平面内一条平行于 <span class="arithmatex">\(j\omega\)</span> 轴的直线的右边</li>
+<li><strong>左边信号</strong>的 ROC 位于 <span class="arithmatex">\(s\)</span> 平面内一条平行于 <span class="arithmatex">\(j\omega\)</span> 轴的直线的左边</li>
+<li><strong>双边信号</strong>的 ROC 如果存在，一定是 <span class="arithmatex">\(s\)</span> 平面内平行于 <span class="arithmatex">\(j\omega\)</span> 轴的带形区域</li>
+</ul>
+<h2 id="拉普拉斯反变换">拉普拉斯反变换<a class="headerlink" href="#拉普拉斯反变换" title="Permanent link">&para;</a></h2>
+<h3 id="定义_1">定义<a class="headerlink" href="#定义_1" title="Permanent link">&para;</a></h3>
+<p>利用 LT 和 CTFT 的关系、CTFT 的反变换可以得到 LT 的反变换。</p>
+<p>（LT 和 CTFT 的关系：）</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(s)&amp;=\int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
+X(\sigma+j\omega)&amp;=\int_{-\infty}^{+\infty}x(t)e^{-\sigma t}e^{-j\omega t}dt\\
+&amp;=\mathscr{F}\{x(t)e^{-\sigma t}\}
+\end{aligned}
+\]</div>
+<p>进而由 CTFT 的反变换有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)e^{-\sigma t}&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty}X(\sigma+j\omega)e^{j\omega t}d\omega\\
+x(t)&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty}X(\sigma+j\omega)e^{\sigma t}e^{j\omega t}d\omega\\
+x(t)&amp;=\frac{1}{2\pi}\int_{-\infty}^{+\infty}X(s)e^{st}d\omega
+\end{aligned}
+\]</div>
+<p>对 <span class="arithmatex">\(s=\sigma+j\omega\)</span> 两侧同时微分得到：<span class="arithmatex">\(ds=jd\omega\)</span> ；同时，当 <span class="arithmatex">\(\omega\)</span> 从 <span class="arithmatex">\(-\infty\to+\infty\)</span> 时，<span class="arithmatex">\(s\)</span> 从 <span class="arithmatex">\(\sigma-j\infty\to\sigma+j\infty\)</span> ，所以可得到拉普拉斯<strong>反变换为</strong>：</p>
+<div class="arithmatex">\[
+x(t)=\frac{1}{2\pi j}\int_{\sigma-j\infty}^{\sigma+j\infty}X(s)e^{st}ds
+\]</div>
+<h3 id="部分分式展开法">部分分式展开法<a class="headerlink" href="#部分分式展开法" title="Permanent link">&para;</a></h3>
+<ol>
+<li>将 <span class="arithmatex">\(X(s)\)</span> 展开为部分分式</li>
+<li>根据 <span class="arithmatex">\(X(s)\)</span> 的 ROC ，确定每一项的 ROC</li>
+<li>利用常用信号变换对与拉普拉斯变换性质，对每一项进行反变换</li>
+</ol>
+<h2 id="lt-的几何求值">LT 的几何求值<a class="headerlink" href="#lt-的几何求值" title="Permanent link">&para;</a></h2>
+<h3 id="单零点">单零点<a class="headerlink" href="#单零点" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+X(s)=s-a
+\]</div>
+<p>有唯一一个零点：<span class="arithmatex">\(s=a\)</span>。</p>
+<p><img alt="单零点" src="../../../assets/ie/signals-and-systems/LT/%E5%8D%95%E9%9B%B6%E7%82%B9.png" /></p>
+<p>称 <span class="arithmatex">\(\vec{s_1}-\vec{a}\)</span> 为<strong>零点矢量</strong>：</p>
+<ul>
+<li>长度 <span class="arithmatex">\(|\vec{s_1}-\vec{a}|\)</span> 表示 <span class="arithmatex">\(|X(s_1)|\)</span>；</li>
+<li>幅角 <span class="arithmatex">\(\angle\vec{s_1}-\vec{a}\)</span> 表示 <span class="arithmatex">\(\angle X(s_1)\)</span>；</li>
+</ul>
+<h3 id="单极点">单极点<a class="headerlink" href="#单极点" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+X(s)=\frac{1}{s-a}
+\]</div>
+<p>有唯一一个极点：<span class="arithmatex">\(s=a\)</span>。</p>
+<p><img alt="单极点" src="../../../assets/ie/signals-and-systems/LT/%E5%8D%95%E6%9E%81%E7%82%B9.png" /></p>
+<p>称 <span class="arithmatex">\(\vec{s_1}-\vec{a}\)</span> 为<strong>极点矢量</strong>：</p>
+<ul>
+<li>长度 <span class="arithmatex">\(|\vec{s_1}-\vec{a}|\)</span> 表示 <span class="arithmatex">\(\frac{1}{|X(s_1)|}\)</span>；</li>
+<li>幅角 <span class="arithmatex">\(\angle\vec{s_1}-\vec{a}\)</span> 表示 <span class="arithmatex">\(-\angle X(s_1)\)</span>；</li>
+</ul>
+<h3 id="一般情况">一般情况<a class="headerlink" href="#一般情况" title="Permanent link">&para;</a></h3>
+<p>对有理函数形式的 <span class="arithmatex">\(X(s)\)</span>：</p>
+<div class="arithmatex">\[
+X(s)=\frac{N(s)}{D(s)}=M\frac{\prod_i(s-\beta_i)}{\prod_i(s-\alpha_i)}
+\]</div>
+<p>可得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+|X(s)|&amp;=|M|\frac{\prod_i|\vec{s}-\vec{\beta_i}|}{\prod_i|\vec{s}-\vec{\alpha_i}|}\\
+\angle X(s)&amp;=\sum_i\angle(\vec{s}-\vec{\beta_i})-\sum_i\angle(\vec{s}-\vec{\alpha_i})
+\end{aligned}
+\]</div>
+<p>从所有零点向 <span class="arithmatex">\(s\)</span> 点作零点矢量，从所有极点向 <span class="arithmatex">\(s\)</span> 点作极点矢量：</p>
+<ul>
+<li>所有零点矢量的长度之积 (不存在则为 1 ) 除以所有极点矢量的长度之积即为 <span class="arithmatex">\(|X(s)|\)</span>；</li>
+<li>所有零点矢量的幅角之和 (不存在则为 0 ) 减去所有极点矢量的幅角之和即为 <span class="arithmatex">\(\angle X(s)\)</span>；</li>
+</ul>
+<p>当 <span class="arithmatex">\(s\)</span> 取为 <span class="arithmatex">\(j\omega\)</span> 轴上的点时，即为傅里叶变换的几何求值。考查 <span class="arithmatex">\(s\)</span> 在 <span class="arithmatex">\(j\omega\)</span> 轴上移动时所有零、极点矢量的长度和幅角的变化，即可得出 <span class="arithmatex">\(X(j\omega)\)</span> 的幅频特性和相频特性</p>
+<h3 id="全通系统">全通系统<a class="headerlink" href="#全通系统" title="Permanent link">&para;</a></h3>
+<p>全通系统被广泛用于对系统进行相位均衡，它满足：</p>
+<ul>
+<li>零点和极点分布关于 <span class="arithmatex">\(j\omega\)</span> 轴对称、成对分布；</li>
+<li><span class="arithmatex">\(|H(j\omega)|\)</span> 在任何时候都等于 <span class="arithmatex">\(1\)</span>；</li>
+</ul>
+<p>一般还称具有 <span class="arithmatex">\(n\)</span> 对零点和极点的全通系统为 <span class="arithmatex">\(n\)</span> 阶全通系统。</p>
+<h2 id="lt-性质">LT 性质<a class="headerlink" href="#lt-性质" title="Permanent link">&para;</a></h2>
+<p>LT 具有很多与 FT 相似的重要性质，主要不同是这里需要考虑 ROC</p>
+<h3 id="线性">线性<a class="headerlink" href="#线性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x_1(t)\stackrel{LT}{\longleftrightarrow}X_1(s),\ \ \text{ROC}:R_1\\
+x_2(t)\stackrel{LT}{\longleftrightarrow}X_2(s),\ \ \text{ROC}:R_2
+\Rightarrow
+ax_1(t)+bx_2(t)\stackrel{LT}{\longleftrightarrow}aX_1(s)+bX_2(s)
+\]</div>
+<p>后者的 ROC <strong>至少</strong>是 <span class="arithmatex">\(R_1\cap R_2\)</span> ，否则若 <span class="arithmatex">\(R_1\cap R_2=\varnothing\)</span> ，则 <span class="arithmatex">\(ax_1(t)+bx_2(t)\)</span> 的 LT 不存在。</p>
+<p>ROC 也有可能扩大：<span class="arithmatex">\(X_1(s)\)</span> 与 <span class="arithmatex">\(X_2(s)\)</span> 线性组合时，若发生了零极点相抵消的现象，且当被抵消的极点恰好在 ROC 的边界上时，就会使 ROC 扩大。</p>
+<h3 id="时移特性">时移特性<a class="headerlink" href="#时移特性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+x(t-t_0)\stackrel{LT}{\longleftrightarrow}X(s)e^{-st_0},\ \ \text{ROC}:R
+\]</div>
+<h3 id="s-域平移">s 域平移<a class="headerlink" href="#s-域平移" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(t),\ \ \text{ROC}:R
+\Rightarrow
+x(t)e^{s_o t}\stackrel{LT}{\longleftrightarrow}X(s-s_0),\ \ \text{ROC}:R+\text{Re}[s_0]
+\]</div>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />这里 <span class="arithmatex">\(R+\text{Re}[s_0]\)</span> 的意思是将 <span class="arithmatex">\(R\)</span> 平移了一个 <span class="arithmatex">\(\text{Re}[s_0]\)</span><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />，与时域平移不同，<span class="arithmatex">\(s\)</span> 域平移的时候收敛域 ROC 也发生了平移。</p>
+<ul>
+<li>加法 ➕ 是 ROC 向右平移</li>
+<li>剑法 ➖ 是 ROC 向左平移</li>
+</ul>
+<h3 id="时域尺度变换">时域尺度变换<a class="headerlink" href="#时域尺度变换" title="Permanent link">&para;</a></h3>
+<p>若信号在时域尺度变换，其 LT 的 ROC 在 <span class="arithmatex">\(s\)</span> 平面上作相反的尺度变换。</p>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+x(at)\stackrel{LT}{\longleftrightarrow}\frac{1}{|a|}X(\frac{s}{a}),\ \ \text{ROC}:aR
+\]</div>
+<p>ROC 的推导比较简单：<span class="arithmatex">\(s\in R\)</span> 时 <span class="arithmatex">\(X(s)\)</span> 收敛，所以 <span class="arithmatex">\(s/a\in R\)</span> 时 <span class="arithmatex">\(X(\frac{s}{a})\)</span> 收敛。</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />这里 <span class="arithmatex">\(aR\)</span> 的意思是将 <span class="arithmatex">\(R\)</span> 线性伸缩了 <span class="arithmatex">\(a\)</span> 倍<img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /></p>
+<h3 id="共轭对称性">共轭对称性<a class="headerlink" href="#共轭对称性" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+x^*(t)\stackrel{LT}{\longleftrightarrow}X^*(s^*),\ \ \text{ROC}:R
+\]</div>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这里可以结合 <span class="arithmatex">\(|X(s)|=|X(s^*)|\)</span> 理解，模相同意味着二者总是零点极点相同......</p>
+</div>
+<p>特别地，当 <span class="arithmatex">\(x(t)\)</span> 为<strong>实信号</strong>时，有：</p>
+<div class="arithmatex">\[
+x^*(t)=x(t)\stackrel{LT}{\longleftrightarrow}
+X^*(s^*)=X(s)=X^*(s)=X(s^*)
+\]</div>
+<blockquote>
+<p>这里 <span class="arithmatex">\(X^*(s^*)=X(s)\)</span> 等价于 <span class="arithmatex">\(X^*(s)=X(s^*)\)</span>。</p>
+</blockquote>
+<p>因此，如果 <span class="arithmatex">\(x(t)\)</span> 是实信号，且 <span class="arithmatex">\(X(s)\)</span> 在 <span class="arithmatex">\(s_0\)</span> 有极点(或零点)，则 <span class="arithmatex">\(X(s)\)</span> 一定在 <span class="arithmatex">\(s_0^*\)</span> 也有极点(或零点)。即实信号的拉普拉斯变换其<strong>零、极点必共轭成对出现</strong>。</p>
+<h3 id="卷积性质">卷积性质<a class="headerlink" href="#卷积性质" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x_1(t)\stackrel{LT}{\longleftrightarrow}X_1(s),\ \ \text{ROC}:R_1\\
+x_2(t)\stackrel{LT}{\longleftrightarrow}X_2(s),\ \ \text{ROC}:R_2
+\Rightarrow
+x_1(t)*x_2(t)\stackrel{LT}{\longleftrightarrow}X_1(s)X_2(s)
+\]</div>
+<p>类似线性性质中，后者的 ROC <strong>包括</strong> <span class="arithmatex">\(R_1\cap R_2\)</span> ，否则若 <span class="arithmatex">\(R_1\cap R_2=\varnothing\)</span> ，则 <span class="arithmatex">\(x_1(t)*x_2(t)\)</span> 的 LT 不存在。</p>
+<p>ROC 也有可能扩大：<span class="arithmatex">\(X_1(s)\)</span> 与 <span class="arithmatex">\(X_2(s)\)</span> 相乘时，若发生了零极点相抵消的现象，且当被抵消的极点恰好在 ROC 的边界上时，就会使 ROC 扩大。</p>
+<h3 id="时域微分">时域微分<a class="headerlink" href="#时域微分" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+\frac{d}{dt}x(t)\stackrel{LT}{\longleftrightarrow}sX(s)
+\]</div>
+<p>后者的 ROC <strong>包括</strong> <span class="arithmatex">\(R_1\cap R_2\)</span> ，有可能扩大。</p>
+<p>证明可由 LT 逆变换两侧同时对 <span class="arithmatex">\(t\)</span> 微分得到。</p>
+<h3 id="s-域微分">s 域微分<a class="headerlink" href="#s-域微分" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+-tx(t)\stackrel{LT}{\longleftrightarrow}\frac{d}{ds}X(s),\ \ \text{ROC}:R\\
+\]</div>
+<h3 id="时域积分">时域积分<a class="headerlink" href="#时域积分" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+x(t)\stackrel{LT}{\longleftrightarrow}X(s),\ \ \text{ROC}:R
+\Rightarrow
+\int_{-\infty}^{t}x(\tau)d\tau\stackrel{LT}{\longleftrightarrow}\frac{1}{s}X(s)
+\]</div>
+<p>后者的 ROC <strong>包括</strong> <span class="arithmatex">\(R\cap\{s|\text{Re}[s]&gt;0\}\)</span> ，也就是包括 <span class="arithmatex">\(R\)</span> 在 <span class="arithmatex">\(s\)</span> 的 <span class="arithmatex">\(j\omega\)</span> 轴右侧的部分 (<span class="arithmatex">\(s\)</span> 平面的右半部分)。这是因为：</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{t}x(\tau)d\tau=x(t)*u(t)
+\]</div>
+<h3 id="初值与终值定理">初值与终值定理<a class="headerlink" href="#初值与终值定理" title="Permanent link">&para;</a></h3>
+<h4 id="初值定理">初值定理<a class="headerlink" href="#初值定理" title="Permanent link">&para;</a></h4>
+<p>如果 <span class="arithmatex">\(x(t)\)</span> 是因果信号，且在 <span class="arithmatex">\(t=0\)</span> 不包含奇异函数，则有<strong>初值定理</strong>：</p>
+<div class="arithmatex">\[
+x(0^+)=\lim_{s\to\infty}sX(s)
+\]</div>
+<hr />
+<p>证明</p>
+<p><span class="arithmatex">\(t&lt;0\)</span> 时 <span class="arithmatex">\(x(t)=0\)</span> 且 <span class="arithmatex">\(x=0\)</span> 时不为奇异函数，则有： <span class="arithmatex">\(x(t)=x(t)u(t)\)</span></p>
+<div class="arithmatex">\[
+\begin{aligned}
+x(t)&amp;=[x(0^+)+x'(0^+)t+x''(0^+)\frac{t^2}{2}+\cdots+x^{(n)}(0^+)\frac{t^n}{n!}]u(t)
+\end{aligned}
+\]</div>
+<p>作 LT 可得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(s)&amp;=[\frac{1}{s}x(0^+)+\frac{1}{s^2}x'(0^+)+\frac{1}{s^3}x''(0^+)+\cdots+\frac{1}{s^{n+1}}x^{(n)}(0^+)]u(t)\\
+&amp;=\sum_{n=0}^{+\infty}\frac{1}{s^{n+1}}\cdot x^{(n)}(0^+)
+\end{aligned}
+\]</div>
+<p>那么：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+sX(s)&amp;=s\sum_{n=0}^{+\infty}\frac{1}{s^{n+1}}\cdot x^{(n)}(0^+)\\
+&amp;=x(0^+)+\sum_{n=1}^{+\infty}\frac{1}{s^{n}}\cdot x^{(n)}(0^+)\\
+\lim_{s\to\infty}sX(s)&amp;=x(0^+)
+\end{aligned}
+\]</div>
+<h4 id="终值定理">终值定理<a class="headerlink" href="#终值定理" title="Permanent link">&para;</a></h4>
+<p>如果 <span class="arithmatex">\(x(t)\)</span> 是因果信号，且在 <span class="arithmatex">\(t=0\)</span> 不包含奇异函数，<span class="arithmatex">\(X(s)\)</span> 除了在 <span class="arithmatex">\(s=0\)</span> 可以有单阶极点外，其余极点均在 <span class="arithmatex">\(s\)</span> 平面的左半边 (<span class="arithmatex">\(\text{Re}[s]&lt;0\)</span>​)</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>上述条件的目的在于保证<strong>终值存在</strong>。</p>
+</div>
+<p>则有<strong>终值定理</strong>：</p>
+<div class="arithmatex">\[
+\lim_{t\to\infty}x(t)=\lim_{s\to0}sX(s)
+\]</div>
+<hr />
+<p>证明</p>
+<p><span class="arithmatex">\(x(t)\)</span> 是因果信号，且在 <span class="arithmatex">\(t=0\)</span> 不包含奇异函数，则有：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{0^+}^{\infty}e^{-st}\frac{d}{dt}x(t)dt
+&amp;=x(t)e^{-st}\big|_{0^+}^{\infty}+s\int_{0^+}^{\infty}e^{-st}x(t)dt\\
+&amp;=x(t)e^{-st}\big|_{0^+}^{\infty}+sX(s)
+\end{aligned}
+\]</div>
+<p><span class="arithmatex">\(X(s)\)</span> 除了在 <span class="arithmatex">\(s=0\)</span> 可以有单阶极点外，其余极点均在 <span class="arithmatex">\(s\)</span> 平面的左半边 (<span class="arithmatex">\(\text{Re}[s]&lt;0\)</span>) ，所以 <span class="arithmatex">\(sX(s)\)</span> 的 ROC 中必包含正实数轴。</p>
+<div class="arithmatex">\[
+x(t)e^{-st}\big|_{0^+}^{\infty}=-x(0^+)
+\]</div>
+<p>于是：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{0^+}^{\infty}e^{-st}\frac{d}{dt}x(t)dt
+&amp;=-x(0^+)+sX(s)
+\end{aligned}
+\]</div>
+<p>两侧同时令 <span class="arithmatex">\(s\to0^+\)</span> ，可得：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\lim_{s\to0^+}\int_{0^+}^{\infty}e^{-st}\frac{d}{dt}x(t)dt
+&amp;=-x(0^+)+\lim_{s\to0^+}sX(s)\\
+\int_{0^+}^{\infty}\frac{d}{dt}x(t)dt
+&amp;=-x(0^+)+\lim_{s\to0^+}sX(s)\\
+\int_{0^+}^{\infty}dx(t)
+&amp;=-x(0^+)+\lim_{s\to0^+}sX(s)\\
+\lim_{t\to\infty}x(t)-x(0^+)
+&amp;=-x(0^+)+\lim_{s\to0^+}sX(s)\\
+\lim_{t\to\infty}x(t)
+&amp;=\lim_{s\to0^+}sX(s)\\
+\end{aligned}
+\]</div>
+<h2 id="lt-分析-lti-系统">LT 分析 LTI 系统<a class="headerlink" href="#lt-分析-lti-系统" title="Permanent link">&para;</a></h2>
+<p>以卷积特性为基础，可建立 LTI 系统的拉普拉斯变换分析方法，即：</p>
+<div class="arithmatex">\[
+Y(s)=X(s)\cdot H(s)
+\]</div>
+<p>其中 <span class="arithmatex">\(H(s)\)</span> 是 <span class="arithmatex">\(h(t)\)</span> 的拉普拉斯变换，称为<strong>系统函数</strong>或<strong>转移函数</strong>、<strong>传递函数</strong>。</p>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>这些方法成立的本质原因在于复指数函数 <span class="arithmatex">\(e^{st}\)</span> 是一切 LTI 系统的特征函数。</p>
+</div>
+<h3 id="特征函数">特征函数<a class="headerlink" href="#特征函数" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(x(t)=e^{s_0t}\)</span> 时，响应为：</p>
+<div class="arithmatex">\[
+y(t)=H(s_0)e^{s_0t}
+\]</div>
+<h3 id="因果性">因果性<a class="headerlink" href="#因果性" title="Permanent link">&para;</a></h3>
+<ul>
+<li>如果 <span class="arithmatex">\(t&lt;0\)</span> 时 <span class="arithmatex">\(h(t)=0\)</span>，则系统是因果的；</li>
+<li>如果 <span class="arithmatex">\(t&gt;0\)</span> 时 <span class="arithmatex">\(h(t)=0\)</span>，则系统是反因果的；</li>
+</ul>
+<p>因果系统的 <span class="arithmatex">\(h(t)\)</span> 是右边信号，其 <span class="arithmatex">\(H(s)\)</span> 的 ROC 必是最右边极点的右边；当 <span class="arithmatex">\(H(s)\)</span> 是有理函数时，逆命题成立。</p>
+<ul>
+<li><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" />但是当 <span class="arithmatex">\(H(s)\)</span> 不是有理函数时， <span class="arithmatex">\(H(s)\)</span> 的 ROC 是最右边极点的右边不能推出 <span class="arithmatex">\(h(t)\)</span> 不是因果的</li>
+</ul>
+<p>反因果系统的 <span class="arithmatex">\(h(t)\)</span> 是左边信号，<span class="arithmatex">\(H(s)\)</span> 的 ROC 必是最左边极点的左边；当 <span class="arithmatex">\(H(s)\)</span> 是有理函数时，逆命题成立。</p>
+<h3 id="稳定性">稳定性<a class="headerlink" href="#稳定性" title="Permanent link">&para;</a></h3>
+<p>LTI 系统稳定的充要条件是其 <span class="arithmatex">\(H(s)\)</span> 收敛域包括 <span class="arithmatex">\(j\omega\)</span> 轴。</p>
+<p><strong>因果稳定</strong>系统的 <span class="arithmatex">\(H(s)\)</span> 收敛域为包括 <span class="arithmatex">\(j\omega\)</span> 轴的 <span class="arithmatex">\(s\)</span> 右半平面。</p>
+<h3 id="线性常微分方程">线性常微分方程<a class="headerlink" href="#线性常微分方程" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>*线性常系数微分方程</p>
+</blockquote>
+<p>如果由线性常系数微分方程描述的系统满足初始松弛条件，则系统是<strong>因果 LTI</strong> 的，其 <span class="arithmatex">\(H(s)\)</span> 的 ROC 必是最右边极点的右边。</p>
+<p>对于由线性常系数微分方程描述的 LTI 系统：</p>
+<div class="arithmatex">\[
+\sum_{k=0}^{N}a_k\frac{d^ky(t)}{dt^k}=\sum_{k=0}^{M}b_k\frac{d^kx(t)}{dt^k}
+\]</div>
+<p>两边进行拉普拉斯变换，可得：</p>
+<div class="arithmatex">\[
+H(s)={Y(s)\over X(s)}={\sum_{k=0}^{M}b_{k}s^{k}\over\sum_{k=0}^{N}a_{k}s^{k}}
+\]</div>
+<p>可得到 <span class="arithmatex">\(H(s)\)</span> 是一个<strong>有理函数</strong>。系统的单位冲激响应 <span class="arithmatex">\(h(t)\)</span> 可由 <span class="arithmatex">\(H(s)\)</span> 反变换获得。</p>
+<h2 id="单边拉普拉斯变换">单边拉普拉斯变换<a class="headerlink" href="#单边拉普拉斯变换" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Unilateral Laplace Transform</p>
+</blockquote>
+<p>单边拉普拉斯变换是仅考虑 <span class="arithmatex">\(0^-\)</span> 之后部分信号的双边拉普拉斯变换：</p>
+<div class="arithmatex">\[
+\chi(s)=\int_{0^-}^{+\infty}x(t)e^{-st}dt
+\]</div>
+<p>单边拉普拉斯变换的反变换与同 ROC 的双边拉普拉斯变换的反变换相同：</p>
+<div class="arithmatex">\[
+x(t)=\frac{1}{2\pi j}\int_{\sigma-j\infty}^{\sigma+j\infty}\chi(s)e^{st}ds
+\]</div>
+<p><span class="arithmatex">\(X(s)\)</span> 与 <span class="arithmatex">\(\chi(s)\)</span> 不同，是因为 <span class="arithmatex">\(x(t)\)</span> 在 <span class="arithmatex">\(t&lt;0\)</span> 的部分对 <span class="arithmatex">\(X(s)\)</span> 有作用，而对 <span class="arithmatex">\(\chi(s)\)</span> 没有任何作用所致。</p>
+<p>由于单边拉普拉斯变换不存在类似双边拉普拉斯变换中与 ROC 相关的多义性，一般不再强调其 ROC ，任何单边拉普拉斯变换的收敛域总是某一右半平面。</p>
+<p>单边拉普拉斯变换的 ROC 位于最右边极点右边。</p>
+<p><strong>因果信号</strong>的双边拉普拉斯变换和单边拉普拉斯变换完全相同。<img alt="⭐" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2b50.svg" title=":star:" />从而可以利用双边 LT 的基本变换对。</p>
+<h3 id="性质">性质<a class="headerlink" href="#性质" title="Permanent link">&para;</a></h3>
+<p>由于单边拉普拉斯变换是特殊的双边拉普拉斯变换，因此其大部分性质与双边拉普拉斯变换相同，但也有一些区别：</p>
+<h4 id="共轭对称性_1">共轭对称性<a class="headerlink" href="#共轭对称性_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)\stackrel{ULT}{\longleftrightarrow}\chi(s)
+\Rightarrow
+x^*(t)\stackrel{ULT}{\longleftrightarrow}\chi^*(s)
+\]</div>
+<h4 id="时域尺度变换_1">时域尺度变换<a class="headerlink" href="#时域尺度变换_1" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(x(at)\)</span> 中的 <span class="arithmatex">\(a\)</span> 需要满足 <span class="arithmatex">\(a\gt0\)</span>。</p>
+<div class="arithmatex">\[
+x(t)\stackrel{ULT}{\longleftrightarrow}\chi(s)
+\Rightarrow
+x(at)\stackrel{ULT}{\longleftrightarrow}\frac{1}{a}\chi(\frac{s}{a})
+\]</div>
+<h4 id="时域微分_1">时域微分<a class="headerlink" href="#时域微分_1" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+x(t)\stackrel{ULT}{\longleftrightarrow}\chi(s)
+\Rightarrow
+\frac{d}{dt}x(t)\stackrel{ULT}{\longleftrightarrow}s\chi(s)-x(0^-)\\
+\frac{d^2}{dt^2}x(t)\stackrel{ULT}{\longleftrightarrow}s^2\chi(s)-sx(0^-)-\frac{d}{dt}x(0^-)\\
+\frac{d^3}{dt^3}x(t)\stackrel{ULT}{\longleftrightarrow}s^3\chi(s)-s^2x(0^-)-s\frac{d}{dt}x(0^-)-\frac{d^2}{dt^2}x(0^-)\\
+......\\
+x^{(n)}(t)\stackrel{ULT}{\longleftrightarrow}s^{n}\chi(s)-s^{n-1}x(0^-)-s^{n-2}x'(0^-)-s^{n-3}x''(0^-)-\cdots-x^{(n-1)}(0^-)
+\]</div>
+<h3 id="线性常微分方程_1">线性常微分方程<a class="headerlink" href="#线性常微分方程_1" title="Permanent link">&para;</a></h3>
+<p>单边拉普拉斯变换特别适合于求解具有非零初始条件的线性常系数微分方程（增量线性系统）。</p>
+<p>往往假定系统为<strong>因果</strong>系统。该条件下得到的结果在进行单边拉普拉斯反变换的时候可以确定为<strong>右边信号</strong>。</p>
+<p>以二阶为例（最高二阶微分），将初始条件带入后，整理得到如下形式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+A\gamma(s)&amp;=By(0^-)+Cy'(0^-)+D\chi(s)\\
+\gamma(s)&amp;=\frac{B}{A}y(0^-)+\frac{C}{A}y'(0^-)+\frac{D}{A}\chi(s)
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(\frac{D}{A}\chi(s)\)</span> 为<strong>零状态响应</strong>；<span class="arithmatex">\(\frac{B}{A}y(0^-)+\frac{C}{A}y'(0^-)\)</span> 为<strong>零输入响应</strong>；</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\gamma(s)=k_0\frac{1}{s}+k_1\frac{1}{s+1}+k_2\frac{1}{s+2}+\cdots
+\end{aligned}
+\]</div>
+<p>其中 <span class="arithmatex">\(k_0\frac{1}{s}\)</span> 为<strong>强迫响应</strong>，<span class="arithmatex">\(k_0\)</span> 为常数，也就是对应的单边拉普拉斯反变换为 <span class="arithmatex">\(k_0u(t)\)</span> 形式的才是强迫响应；；<span class="arithmatex">\(k_1\frac{1}{s+1}+k_2\frac{1}{s+2}+\cdots\)</span> 为<strong>自然响应</strong>；</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../FS/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 周期信号的傅里叶级数表示">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                周期信号的傅里叶级数表示
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../communication/" class="md-footer__link md-footer__link--next" aria-label="Next: 通信系统">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                通信系统
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.path", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.prune", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "content.code.copy", "content.code.select", "content.tabs.link", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
