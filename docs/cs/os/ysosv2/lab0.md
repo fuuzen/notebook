@@ -354,14 +354,14 @@ target/x86_64-unknown-uefi/$(MODE)/ysos_boot.efi: pkg/boot
 
 `make run` 等价于终端执行：
 
-```shell shell
+```shell
 make build
 make launch
 ```
 
 `make build` 等价于终端执行：
 
-```shell shelll
+```shelll
 cd pkg/boot/ ## 进入UEFI引导程序的Rust源代码项目
 cargo build --release ## 编译
 cd ../.. ## 回到原来目录
@@ -371,14 +371,14 @@ cp target/x86_64-unknown-uefi/release/ysos_boot.efi esp/EFI/BOOT/BOOTX64.EFI ## 
 
 当然这是默认的 `make` 的指令，如果 `make MODE=debug` 指定了 `MODE` 的值，那么`make build` 等价于执行：
 
-```shell shelll
+```shelll
 ...... ## 前面部分一样
 cp target/x86_64-unknown-uefi/debug/ysos_boot.efi esp/EFI/BOOT/BOOTX64.EFI
 ```
 
 `make launch` 等价于终端执行：
 
-```shell shell
+```shell
 qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive format=raw,file=fat:rw:esp
 ```
 
@@ -392,7 +392,7 @@ qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive forma
 
 `make debug` 等价于 `make launch` 的基础上加上 `-no-reboot -d int,cpu_reset` 参数，等价于终端执行：
 
-```shell shell
+```shell
 qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive format=raw,file=fat:rw:esp -no-reboot -d int,cpu_reset
 ```
 
@@ -403,7 +403,7 @@ qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive forma
 
 `make intdbg` 等价于 `make launch` 的基础上加上 `-s -S` 参数，等价于终端执行：
 
-```shell shell
+```shell
 qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive format=raw,file=fat:rw:esp
 ```
 
@@ -414,7 +414,7 @@ qemu-system-x86_64 -bios assets/OVMF.fd -net none -m 64M -nographic -drive forma
 
 `make clean` 等价于终端执行：
 
-```shell shell
+```shell
 cargo clean
 ```
 
@@ -424,7 +424,7 @@ cargo clean
 
 实际上正是执行了：
 
-```shell shell
+```shell
 cd pkg/boot/
 cargo build --release
 cd ../..

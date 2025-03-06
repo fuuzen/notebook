@@ -100,13 +100,13 @@ add_custom_command (
 
 根据 CMakeLists 文件生成目标平台下的原生工程
 
-```bash bash
+```bash
 cmake -S . -B build
 ```
 
 使用了第三方库时，若使用 vcpkg 管理第三方库，则需要：
 
-```bash bash
+```bash
 cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=<vcpkg安装路径:.../vcpkg>/scripts/buildsystems/vcpkg.cmake
 ```
 
@@ -124,7 +124,7 @@ cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=<vcpkg安装路径:.../vcpkg>/scripts
 
 构建生成可执行文件
 
-```bash bash
+```bash
 cmake --build build
 ```
 

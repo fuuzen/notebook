@@ -20,7 +20,7 @@ wrong_pass_message: Oh, wrong answer. Check and try again, please~
 
 在 `pkg/kernel` 目录下运行 `cargo build` ，所用到的配置文件 `pkg/kernel/.cargo/config.toml` 内容 ：
 
-```toml toml
+```toml
 [build]
 target = "config/x86_64-unknown-none.json"
 ## 指定 pkg/kernel/config/x86_64-unknown-none.json 作为配置文件
@@ -682,7 +682,7 @@ pub fn map_physical_memory(
 
 在项目根目录 `Cargo.toml` 文件中有：
 
-```toml toml
+```toml
 [profile.release-with-debug]
 inherits = "release"
 debug = true

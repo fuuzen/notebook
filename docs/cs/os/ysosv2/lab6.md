@@ -1662,7 +1662,7 @@ mount udev /mnt/dev -t devtmpfs -o mode=0755,nosuid
 
 而之所以 `kernel` 中进行单元测试是一个相对困难的事情，可以从 `kernel` 和 `storage` 包的 `Cargo.toml` 中 `[dependencies]` 的区别看出，如下为 `storage` 的 `Cargo.toml` ：
 
-```toml toml
+```toml
 [dependencies]
 log = "0.4"
 spin = "0.9"
@@ -1675,7 +1675,7 @@ chrono = { version = "0.4", default-features = false, features = ["alloc"] }
 
 而如下为 `kernel` 的 `Cargo.toml` ：
 
-```toml toml
+```toml
 [dependencies]
 elf = {package = "ysos_elf", path = "../elf", default-features = false }
 boot = { package = "ysos_boot", path = "../boot", default-features = false }

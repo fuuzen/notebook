@@ -18,19 +18,19 @@ tag:
 
 更新 Rust
 
-```bash bash
+```bash
 rustup update
 ```
 
 卸载 Rust
 
-```bash bash
+```bash
 rustup self uninstall
 ```
 
 查看版本
 
-```bash bash
+```bash
 rustc --version
 
 ### 显示格式
@@ -39,7 +39,7 @@ rustc.x.y.z([commit hash] [commit date])
 
 安装 Rust 同时还会安装文档，查看本地文档
 
-```bash bash
+```bash
 rustup doc
 ```
 
@@ -88,7 +88,7 @@ cargo check
 
 构建项目
 
-```shell shell
+```shell
 cargo build           ## 默认为调试模式即 --debug
 cargo build --debug   ## 同上
 cargo build --release ## 发布模式，编译出的程序性能更高
@@ -96,7 +96,7 @@ cargo build --release ## 发布模式，编译出的程序性能更高
 
 运行项目
 
-```shell shell
+```shell
 cargo run           ## 默认为调试模式即 --debug
 cargo run --debug   ## 同上
 cargo run --release ## 发布模式，编译出的程序性能更高
@@ -114,7 +114,7 @@ cargo run --release ## 发布模式，编译出的程序性能更高
 
 在 `$HOME/.cargo/config.toml` 文件 (没有则创建一个) 添加如下内容：
 
-```toml toml
+```toml
 ## 华科镜像源
 [registries]
 ustc = { index = "https://mirrors.ustc.edu.cn/crates.io-index/" }
@@ -126,14 +126,14 @@ index = "https://mirrors.ustc.edu.cn/crates.io-index/"
 
 或者稀疏索引的方式，要求 cargo >= 1.68 ：
 
-```toml toml
+```toml
 [source.ustc-sparse]
 registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
 ```
 
 同时需要在项目 `cargo.toml` 使用注册方式引入依赖库：
 
-```toml toml
+```toml
 [dependencies]
 <要引入的包> = { registry = "ustc" }
 <要引入的包> = { registry = "rsproxy" }
@@ -143,7 +143,7 @@ registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
 
 不需要对项目 `cargo.toml` 添加配置，只需要 `$HOME/.cargo/config.toml` 文件 (没有则创建一个) 添加如下内容：
 
-```toml toml
+```toml
 [source.crates-io]
 replace-with = 'rsproxy' ## 字节跳动镜像源
 
@@ -153,7 +153,7 @@ registry = "https://rsproxy.cn/crates.io-index" ## 镜像源 url
 
 稀疏索引，要求 cargo >= 1.68 ：
 
-```toml toml
+```toml
 [source.rsproxy-sparse]
 registry = "sparse+https://rsproxy.cn/index/"
 
@@ -181,7 +181,7 @@ git-fetch-with-cli = true
 
 eg:
 
-```toml toml
+```toml
 [package]
 name = "my-project"
 version = "0.1.0"
@@ -212,7 +212,7 @@ edition = "2024"
 
 eg :
 
-```toml toml
+```toml
 [dependencies]
 rand = "0.3"
 hammer = { version = "0.5.0"}
@@ -435,7 +435,7 @@ Rust 鼓励显式的类型转换，并提供了一些安全的类型转换方法
 
 `as` 运算符转换示例：
 
-```rust rust
+```rust
 let x: i32 = 5;
 let y: u32 = x as u32;
 ```
@@ -733,7 +733,7 @@ let number = if condition { 5 } else { "6" }
 
 `match` 匹配**必须穷举所有的可能**，否则会产生报错：
 
-```bash bash
+```bash
 error [E0004]: non-exhaustive patterns:...
 ```
 
@@ -923,9 +923,9 @@ let s2 = s1;
 
 !!! info 
     - 浅拷贝（shallow copy）
-  - 只拷贝 stack 上的数据，有可能产生二次释放(double free) bug
-- 深拷贝（deep copy）
-  - 同时拷贝 stack 和 heap 上的数据
+        - 只拷贝 stack 上的数据，有可能产生二次释放(double free) bug
+    - 深拷贝（deep copy）
+        - 同时拷贝 stack 和 heap 上的数据
 
 Rust 中采用的是第三种“拷贝”，也就是 **移动 `Move` **，在浅拷贝的基础上让原来的 stack 数据失效。
 
@@ -970,13 +970,13 @@ Rust 支持**可变引用** ，用 `&mut` 符号代替 `&` 即为可变引用。
 
 第一个限制的好处是可在编译时防止数据竞争。违反将出现如下报错：
 
-```bash bash
+```bash
 error[E0499]: cannot borrow 'xxx' as mutable more than once at a time
 ```
 
 第二个限制避免了可变引用对不可变引用的影响。违反将出现如下报错：
 
-```bash bash
+```bash
 error[E0502]: cannot borrow 'xxx' as mutable because it is also borrowed as immutable
 ```
 
@@ -1006,7 +1006,7 @@ fn main () {
 
 也叫悬垂引用，在 Rust 里，编译器可保证引用永远都不是悬空引用。如果你引用了某些数据，编译器将保证在引用离开作用域之前数据不会离开作用域。对于任何出现的悬空引用， Rust 在编译阶段就会报错：
 
-```bash bash
+```bash
 error[E0106]: missing lifetime specifier
 ```
 
@@ -1110,7 +1110,7 @@ String 比那些基础标量数据类型更复杂，在 heap 上分配。能够�
 
 存放字符串内容的部分在 heap 上
 
-![string"hello"](../../assets/cs/rust/string"hello".png)
+![string-hello](../../assets/cs/rust/string-hello.png)
 
 #### 创建 `String` 类型的值
 
@@ -1739,7 +1739,7 @@ Rust 没有类似异常的机制。
 
 想让二进制文件更小，把设置从“展开”改为“中止”，只需在 `Cargo.toml` 文件下增加：
 
-```toml toml
+```toml
 [profile.release]
 panic = 'abort'
 ```
@@ -1891,7 +1891,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 `panic!` 的主要应用场景之一，自定义结构体方法（以下 demo 是 `new` ）来处理数据是否有效
 
-```rust rust
+```rust
 pub struct Guess {
   value: i32,
 }
